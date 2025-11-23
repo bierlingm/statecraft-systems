@@ -1,0 +1,50 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const { title, description } = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title} — Statecraft Systems</title>
+    <meta name="description" content={description || 'Statecraft Systems designs and operates systems of cooperation and sovereignty.'} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  </head>
+  <body>
+    <header>
+      <nav>
+        <div class="logo">
+          <a href="/">Statecraft Systems</a>
+        </div>
+        <ul class="nav-links">
+          <li><a href="/">Home</a></li>
+          <li><a href="/approach">Approach</a></li>
+          <li><a href="/projects">Projects</a></li>
+          <li><a href="/about">About</a></li>
+          <li><a href="/contact">Contact</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main>
+      <slot />
+    </main>
+
+    <footer>
+      <p>
+        Statecraft Systems supports projects including
+        <a href="https://modernminuteman.net" target="_blank" rel="noopener noreferrer">Modern Minuteman</a>
+        and
+        <a href="https://fieldcompany.org" target="_blank" rel="noopener noreferrer">The Field Company</a>.
+      </p>
+    </footer>
+  </body>
+</html>

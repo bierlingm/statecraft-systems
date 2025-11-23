@@ -1,0 +1,268 @@
+/* Modern Monastic Design System */
+
+@font-face {
+  font-family: 'Berkeley Mono';
+  src: url('/fonts/BerkeleyMono-Regular.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Berkeley Mono';
+  src: url('/fonts/BerkeleyMono-Bold.otf') format('opentype');
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Berkeley Mono';
+  src: url('/fonts/BerkeleyMono-Oblique.otf') format('opentype');
+  font-weight: 400;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'Berkeley Mono';
+  src: url('/fonts/BerkeleyMono-Bold-Oblique.otf') format('opentype');
+  font-weight: 700;
+  font-style: italic;
+}
+
+:root {
+  --bg-primary: #f7f5f0;
+  --text-primary: #1a1816;
+  --text-secondary: #6b6560;
+  --accent: #8b6f47;
+  --border: #e8e5df;
+  
+  --font-mono: 'Berkeley Mono', monospace;
+  --font-sans: -apple-system, blinkmacsystemfont, 'segoe ui', roboto, sans-serif;
+  
+  --spacing-xs: 0.5rem;
+  --spacing-sm: 1rem;
+  --spacing-md: 1.5rem;
+  --spacing-lg: 2rem;
+  --spacing-xl: 3rem;
+  --spacing-2xl: 4rem;
+  
+  --max-width: 800px;
+  --max-width-sidebar: 900px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-mono);
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  line-height: 1.6;
+  font-size: 16px;
+  font-weight: 400;
+}
+
+/* Typography */
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-mono);
+  font-weight: 400;
+  line-height: 1.3;
+  margin-top: var(--spacing-lg);
+  margin-bottom: var(--spacing-md);
+}
+
+h1 {
+  font-size: 2.5rem;
+  margin-top: var(--spacing-xl);
+}
+
+h2 {
+  font-size: 2rem;
+  color: var(--accent);
+}
+
+h3 {
+  font-size: 1.5rem;
+}
+
+h4 {
+  font-size: 1.25rem;
+}
+
+p {
+  margin-bottom: var(--spacing-md);
+  color: var(--text-primary);
+}
+
+a {
+  color: var(--accent);
+  text-decoration: none;
+  border-bottom: 1px solid var(--accent);
+  transition: opacity 0.2s ease;
+}
+
+a:hover {
+  opacity: 0.7;
+}
+
+/* Layout */
+
+header {
+  border-bottom: 1px solid var(--border);
+  padding: var(--spacing-lg) var(--spacing-sm);
+  background-color: var(--bg-primary);
+}
+
+nav {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--spacing-lg);
+}
+
+.logo {
+  font-family: var(--font-serif);
+  font-size: 1.25rem;
+  font-weight: 400;
+  color: var(--text-primary);
+}
+
+.logo a {
+  border: none;
+}
+
+.nav-links {
+  display: flex;
+  gap: var(--spacing-lg);
+  list-style: none;
+}
+
+.nav-links a {
+  font-size: 0.95rem;
+  text-transform: capitalize;
+}
+
+main {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: var(--spacing-2xl) var(--spacing-sm);
+  min-height: calc(100vh - 200px);
+}
+
+footer {
+  border-top: 1px solid var(--border);
+  padding: var(--spacing-xl) var(--spacing-sm);
+  background-color: var(--bg-primary);
+  text-align: center;
+}
+
+footer p {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+}
+
+footer a {
+  margin: 0 var(--spacing-xs);
+}
+
+/* Content Blocks */
+
+.intro {
+  margin-bottom: var(--spacing-xl);
+  max-width: 700px;
+}
+
+.intro p {
+  font-size: 1.1rem;
+  line-height: 1.7;
+  color: var(--text-primary);
+}
+
+.projects-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--spacing-lg);
+  margin-top: var(--spacing-xl);
+}
+
+.project-block {
+  padding: var(--spacing-lg);
+  border: 1px solid var(--border);
+  background-color: #fafaf8;
+}
+
+.project-block h3 {
+  margin-top: 0;
+  color: var(--text-primary);
+}
+
+.project-block p {
+  margin-bottom: var(--spacing-sm);
+  color: var(--text-secondary);
+}
+
+.project-block a {
+  font-weight: 600;
+}
+
+.section {
+  margin-bottom: var(--spacing-2xl);
+}
+
+.section p {
+  max-width: 700px;
+}
+
+/* Contact */
+
+.contact-section {
+  margin-top: var(--spacing-xl);
+}
+
+.contact-block {
+  background-color: #fafaf8;
+  padding: var(--spacing-lg);
+  border: 1px solid var(--border);
+  max-width: 500px;
+}
+
+.contact-block p {
+  margin-bottom: var(--spacing-md);
+}
+
+/* Responsive */
+
+@media (max-width: 600px) {
+  h1 {
+    font-size: 2rem;
+  }
+  
+  h2 {
+    font-size: 1.5rem;
+  }
+  
+  nav {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--spacing-md);
+  }
+  
+  .nav-links {
+    gap: var(--spacing-md);
+    flex-wrap: wrap;
+  }
+  
+  main {
+    padding: var(--spacing-lg) var(--spacing-sm);
+  }
+}

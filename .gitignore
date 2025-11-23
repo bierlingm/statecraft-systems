@@ -1,0 +1,28 @@
+# Archive folder
+archive/
+
+# Dependencies
+node_modules/
+.npm
+package-lock.json
+yarn.lock
+
+# Build output
+dist/
+.astro/
+
+# Dev environment
+.env
+.env.local
+.env.*.local
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Logs
+npm-debug.log*
