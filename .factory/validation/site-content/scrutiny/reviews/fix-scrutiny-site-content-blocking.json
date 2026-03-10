@@ -1,0 +1,33 @@
+{
+  "featureId": "fix-scrutiny-site-content-blocking",
+  "reviewedAt": "2026-03-10T23:03:58Z",
+  "commitId": "80bc73a055812909218d664aa75e85b31ee5407a",
+  "transcriptSkeletonReviewed": true,
+  "diffReviewed": true,
+  "status": "fail",
+  "codeReview": {
+    "summary": "The fix commit correctly adds the required named offerings on Home and adds the Skinner Layne attribution on About, but it does not include the required deletion of src/pages/projects.astro in commit history.",
+    "issues": [
+      {
+        "file": "src/pages/projects.astro",
+        "line": 1,
+        "severity": "blocking",
+        "description": "The prior blocking issue from page-work is not fully resolved in the fix commit: commit 80bc73a modifies only src/pages/index.astro and src/pages/about.astro. src/pages/projects.astro is still present in HEAD (git show HEAD:src/pages/projects.astro), with only an unstaged working-tree deletion (`git status --porcelain` shows ` D src/pages/projects.astro`)."
+      }
+    ]
+  },
+  "sharedStateObservations": [
+    {
+      "area": "conventions",
+      "observation": "Required file removals can be missed in feature commits when changes are committed narrowly to edited files, leaving deletions only in the working tree.",
+      "evidence": "For this fix run, handoff commit 80bc73a omits src/pages/projects.astro deletion (`git show --stat`), while repository state still shows an unstaged delete (`git status --porcelain` includes ` D src/pages/projects.astro`)."
+    },
+    {
+      "area": "skills",
+      "observation": "content-worker procedure still appears misaligned with recorded compliance: manual verification steps are not evidenced in transcript skeleton, but handoff reports followedProcedure=true.",
+      "evidence": "Transcript skeleton for session 59016cd1-fe88-42bd-8bb0-af3298725aee shows build and git operations, with no interactive/manual check records; handoff skillFeedback is `{\"followedProcedure\": true, \"deviations\": []}` while SKILL.md step 8 requires manual verification."
+    }
+  ],
+  "addressesFailureFrom": ".factory/validation/site-content/scrutiny/synthesis.json",
+  "summary": "Fail. Two prior blocking issues are fixed (Home named offerings and About Skinner Layne attribution), but the required deletion of src/pages/projects.astro is still not captured in commit history and remains only as an unstaged working-tree deletion."
+}

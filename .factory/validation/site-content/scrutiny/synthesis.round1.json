@@ -1,0 +1,85 @@
+{
+  "milestone": "site-content",
+  "round": 1,
+  "status": "fail",
+  "validatorsRun": {
+    "test": {
+      "passed": true,
+      "command": "npm run build",
+      "exitCode": 0
+    },
+    "typecheck": {
+      "passed": true,
+      "command": "npm run build",
+      "exitCode": 0
+    },
+    "lint": {
+      "passed": true,
+      "command": "npm run build",
+      "exitCode": 0
+    }
+  },
+  "reviewsSummary": {
+    "total": 6,
+    "passed": 3,
+    "failed": 3,
+    "failedFeatures": [
+      "page-about",
+      "page-home",
+      "page-work"
+    ]
+  },
+  "blockingIssues": [
+    {
+      "featureId": "page-about",
+      "severity": "blocking",
+      "description": "About page omits the required Skinner Layne attribution in the Exosphere formation-lineage section."
+    },
+    {
+      "featureId": "page-home",
+      "severity": "blocking",
+      "description": "Home page Two Engagement Paths section does not explicitly list required offerings (Unlock, Stack Build, Sparring, Discovery, Build, Train, Retainer)."
+    },
+    {
+      "featureId": "page-work",
+      "severity": "blocking",
+      "description": "Legacy src/pages/projects.astro deletion was required but not included in the reviewed feature commit."
+    }
+  ],
+  "appliedUpdates": [],
+  "suggestedGuidanceUpdates": [
+    {
+      "target": "skills",
+      "suggestion": "Update content-worker procedure to align with this repo's validator model (services.yaml maps test/typecheck/lint to build) and require explicit evidence for manual/browser verification. If required steps are skipped, workers must set followedProcedure=false and record deviations.",
+      "evidence": "Across page-home, page-work, page-services, page-about, and page-approach reviews, transcript skeletons showed build/curl/grep checks but no complete manual validation evidence while handoffs reported followedProcedure=true.",
+      "isSystemic": true
+    },
+    {
+      "target": "AGENTS.md",
+      "suggestion": "When defining features, duplicate critical must-have details in expectedBehavior and verificationSteps (not only long description text) so omissions are caught consistently.",
+      "evidence": "Blocking misses in page-home (named offerings), page-about (Skinner Layne attribution), and page-work (projects.astro deletion) were each described in long-form feature text but incompletely reinforced in acceptance fields.",
+      "isSystemic": true
+    },
+    {
+      "target": "AGENTS.md",
+      "suggestion": "Clarify whether 'component pattern' means a reusable component file or a CSS-class pattern to avoid unnecessary lookup churn.",
+      "evidence": "page-approach review observed attempted lookup of src/components/DisciplineDescription.astro while implementation used established CSS pattern classes.",
+      "isSystemic": false
+    }
+  ],
+  "rejectedObservations": [
+    {
+      "observation": "Repeated content-worker procedure drift reports across multiple features.",
+      "reason": "duplicate"
+    },
+    {
+      "observation": "Home feature references vault/people/Noah (The Meta Father).md while the vault file is Noah Revoy.md.",
+      "reason": "one-off mission metadata mismatch; not a shared repository state update"
+    },
+    {
+      "observation": "No shared checklist exists to ensure required deletions are staged.",
+      "reason": "covered by broader recommendation to strengthen acceptance/verification fields"
+    }
+  ],
+  "previousRound": null
+}

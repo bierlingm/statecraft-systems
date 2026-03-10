@@ -1,6 +1,6 @@
 {
   "milestone": "site-content",
-  "round": 1,
+  "round": 2,
   "status": "fail",
   "validatorsRun": {
     "test": {
@@ -20,66 +20,34 @@
     }
   },
   "reviewsSummary": {
-    "total": 6,
-    "passed": 3,
-    "failed": 3,
+    "total": 1,
+    "passed": 0,
+    "failed": 1,
     "failedFeatures": [
-      "page-about",
-      "page-home",
-      "page-work"
+      "fix-scrutiny-site-content-blocking"
     ]
   },
   "blockingIssues": [
     {
-      "featureId": "page-about",
+      "featureId": "fix-scrutiny-site-content-blocking",
       "severity": "blocking",
-      "description": "About page omits the required Skinner Layne attribution in the Exosphere formation-lineage section."
-    },
-    {
-      "featureId": "page-home",
-      "severity": "blocking",
-      "description": "Home page Two Engagement Paths section does not explicitly list required offerings (Unlock, Stack Build, Sparring, Discovery, Build, Train, Retainer)."
-    },
-    {
-      "featureId": "page-work",
-      "severity": "blocking",
-      "description": "Legacy src/pages/projects.astro deletion was required but not included in the reviewed feature commit."
+      "description": "The required deletion of src/pages/projects.astro is still not captured in the fix commit history; commit 80bc73a modifies only src/pages/index.astro and src/pages/about.astro, while the projects.astro deletion remains unstaged in the working tree."
     }
   ],
   "appliedUpdates": [],
   "suggestedGuidanceUpdates": [
     {
       "target": "skills",
-      "suggestion": "Update content-worker procedure to align with this repo's validator model (services.yaml maps test/typecheck/lint to build) and require explicit evidence for manual/browser verification. If required steps are skipped, workers must set followedProcedure=false and record deviations.",
-      "evidence": "Across page-home, page-work, page-services, page-about, and page-approach reviews, transcript skeletons showed build/curl/grep checks but no complete manual validation evidence while handoffs reported followedProcedure=true.",
-      "isSystemic": true
-    },
-    {
-      "target": "AGENTS.md",
-      "suggestion": "When defining features, duplicate critical must-have details in expectedBehavior and verificationSteps (not only long description text) so omissions are caught consistently.",
-      "evidence": "Blocking misses in page-home (named offerings), page-about (Skinner Layne attribution), and page-work (projects.astro deletion) were each described in long-form feature text but incompletely reinforced in acceptance fields.",
-      "isSystemic": true
-    },
-    {
-      "target": "AGENTS.md",
-      "suggestion": "Clarify whether 'component pattern' means a reusable component file or a CSS-class pattern to avoid unnecessary lookup churn.",
-      "evidence": "page-approach review observed attempted lookup of src/components/DisciplineDescription.astro while implementation used established CSS pattern classes.",
+      "suggestion": "Add an explicit pre-handoff verification step for required file deletions: workers should confirm both `git status --porcelain` and `git show --name-status <commit>` prove the deletion is included in the feature commit.",
+      "evidence": "In fix-scrutiny-site-content-blocking, the required src/pages/projects.astro deletion was not part of commit 80bc73a and remained only as an unstaged delete, causing the rerun review to fail.",
       "isSystemic": false
     }
   ],
   "rejectedObservations": [
     {
-      "observation": "Repeated content-worker procedure drift reports across multiple features.",
-      "reason": "duplicate"
-    },
-    {
-      "observation": "Home feature references vault/people/Noah (The Meta Father).md while the vault file is Noah Revoy.md.",
-      "reason": "one-off mission metadata mismatch; not a shared repository state update"
-    },
-    {
-      "observation": "No shared checklist exists to ensure required deletions are staged.",
-      "reason": "covered by broader recommendation to strengthen acceptance/verification fields"
+      "observation": "content-worker procedure compliance evidence mismatch for manual verification",
+      "reason": "duplicate of prior-round systemic recommendation already recorded in site-content scrutiny round 1"
     }
   ],
-  "previousRound": null
+  "previousRound": ".factory/validation/site-content/scrutiny/synthesis.round1.json"
 }
