@@ -2,34 +2,25 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 ---
 
-<BaseLayout title="About" description="About Moritz Bierling and Statecraft Systems.">
-  <h1>About</h1>
-
-  <section class="section">
-    <p>
-      Statecraft Systems was founded by Moritz Bierling, a systems architect and strategist focused on the design of institutions, brands, and operational frameworks for communities committed to sovereignty and responsible cooperation.
+<BaseLayout title="About" narrow={true}>
+  <section class="intro">
+    <h1>About</h1>
+    <p class="long-form">
+      Statecraft Systems is an operative tradition, not a consultancy. It is operative because the disciplines are practiced and transmitted through direct work.
     </p>
+    <div class="rule"></div>
+  </section>
 
+  <section class="section long-form">
+    <h2>Moritz Bierling</h2>
     <p>
-      Bierling brings experience across distributed systems, organizational design, strategic communication, and formation practices. His work has included advising civic resilience initiatives, designing governance structures for decentralized organizations, and building institutional infrastructure for communities aligned on principles of reciprocal obligation and local responsibility.
+      Founder and practitioner. With 4+ years of experience in agent orchestration, multi-model systems, and frontier tooling.
     </p>
-
     <p>
-      In addition to Statecraft Systems, Bierling contributes to the wider ecosystem through:
+      The foundation of this work comes through a lineage of formation: Exosphere, Volta, and Modern Minuteman. He is currently pursuing certification as a Structural Consultant.
     </p>
-
-    <ul style="margin-bottom: var(--spacing-md); margin-left: var(--spacing-lg); color: var(--text-primary);">
-      <li style="margin-bottom: var(--spacing-sm);"><strong>Modern Minuteman:</strong> Founder and director of training and formation programs for distributed civic resilience and practical competence.</li>
-      <li style="margin-bottom: var(--spacing-sm);"><strong>The Field Company:</strong> Founder and director of experiential programs that develop character, clarity, and responsible action through shared challenge and dialogue.</li>
-      <li><strong>Personal work:</strong> Writing, research, and consulting on systems architecture, institutional design, and the formation of trustworthy people and communities.</li>
-    </ul>
-
     <p>
-      More information about Moritz Bierling's work, writing, and consulting practice can be found at:
+      <a href="https://moritzbierling.com" target="_blank" rel="noopener noreferrer">moritzbierling.com ↗</a>
     </p>
-
-    <div class="contact-block" style="margin-top: var(--spacing-lg);">
-      <a href="https://moritzbierling.com" target="_blank" rel="noopener noreferrer">moritzbierling.com</a>
-    </div>
   </section>
 </BaseLayout>

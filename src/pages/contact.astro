@@ -2,30 +2,18 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 ---
 
-<BaseLayout title="Contact" description="Contact information for Statecraft Systems.">
-  <h1>Contact</h1>
-
-  <section class="section">
-    <p>
-      For inquiries regarding systems design, institutional consulting, training, or collaboration opportunities, contact Statecraft Systems:
+<BaseLayout title="Contact" narrow={true}>
+  <section class="intro">
+    <h1>Contact</h1>
+    <p class="long-form">
+      Reaching out is a question of structural alignment. If the principles and the work resonate, we can determine if there is a fit.
     </p>
-
-    <div class="contact-block" style="margin-top: var(--spacing-lg);">
-      <p>
-        <strong>Email:</strong><br />
-        <a href="mailto:contact@statecraft.systems">contact@statecraft.systems</a>
-      </p>
-
-      <p style="margin-bottom: 0;">
-        <strong>Secure Contact:</strong><br />
-        PGP key available upon request. Include "PGP" in your initial message if secure communication is required.
-      </p>
-    </div>
+    <div class="rule"></div>
   </section>
 
-  <section class="section" style="margin-top: var(--spacing-xl);">
-    <p style="font-size: 0.95rem; color: var(--text-secondary);">
-      Response time may vary depending on current projects and engagements. The studio prioritizes substantive inquiries that align with its focus areas.
-    </p>
+  <section class="section">
+    <div class="contact-block">
+      <p><strong>Email:</strong> <a href="mailto:contact@statecraft.systems">contact@statecraft.systems</a></p>
+    </div>
   </section>
 </BaseLayout>

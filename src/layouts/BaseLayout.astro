@@ -4,9 +4,14 @@ import '../styles/global.css';
 interface Props {
   title: string;
   description?: string;
+  narrow?: boolean;
 }
 
-const { title, description } = Astro.props;
+const { title, description, narrow = false } = Astro.props;
+
+// Get current path to highlight active nav link
+const pathname = new URL(Astro.request.url).pathname;
+const currentPath = pathname.slice(1).replace(/\/$/, ""); // remove leading and trailing slash
 ---
 
 <!DOCTYPE html>
@@ -19,32 +24,84 @@ const { title, description } = Astro.props;
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   </head>
   <body>
-    <header>
-      <nav>
-        <div class="logo">
-          <a href="/">Statecraft Systems</a>
+    <div class="site-wrapper">
+      <header>
+        <div class="header-inner">
+          <div class="logo">
+            <a href="/">Statecraft Systems</a>
+          </div>
+          
+          <button class="mobile-nav-toggle" aria-expanded="false" aria-controls="main-nav">
+            Menu
+          </button>
+
+          <nav id="main-nav">
+            <ul class="nav-links">
+              <li><a href="/" class={currentPath === "" ? "active" : ""}>Home</a></li>
+              <li><a href="/work" class={currentPath === "work" ? "active" : ""}>Work</a></li>
+              <li><a href="/approach" class={currentPath === "approach" ? "active" : ""}>Approach</a></li>
+              <li><a href="/services" class={currentPath === "services" ? "active" : ""}>Services</a></li>
+              <li><a href="/about" class={currentPath === "about" ? "active" : ""}>About</a></li>
+              <li><a href="/contact" class={currentPath === "contact" ? "active" : ""}>Contact</a></li>
+            </ul>
+          </nav>
         </div>
-        <ul class="nav-links">
-          <li><a href="/">Home</a></li>
-          <li><a href="/approach">Approach</a></li>
-          <li><a href="/projects">Projects</a></li>
-          <li><a href="/about">About</a></li>
-          <li><a href="/contact">Contact</a></li>
-        </ul>
-      </nav>
-    </header>
+      </header>
 
-    <main>
-      <slot />
-    </main>
+      <main class={narrow ? "narrow" : ""}>
+        <slot />
+      </main>
 
-    <footer>
-      <p>
-        Statecraft Systems supports projects including
-        <a href="https://modernminuteman.net" target="_blank" rel="noopener noreferrer">Modern Minuteman</a>
-        and
-        <a href="https://fieldcompany.org" target="_blank" rel="noopener noreferrer">The Field Company</a>.
-      </p>
-    </footer>
+      <footer>
+        <div class="footer-inner">
+          <div class="footer-col">
+            <h4>Network</h4>
+            <ul>
+              <li><a href="https://modernminuteman.net" target="_blank" rel="noopener noreferrer">Modern Minuteman</a></li>
+              <li><a href="https://fieldcompany.org" target="_blank" rel="noopener noreferrer">The Field Company</a></li>
+              <li><a href="https://hayescanon.org" target="_blank" rel="noopener noreferrer">Hayes Canon</a></li>
+              <li><a href="https://capablefew.com" target="_blank" rel="noopener noreferrer">Capable Few</a></li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h4>Tools</h4>
+            <ul>
+              <li>sd-core</li>
+              <li>spikes.sh</li>
+              <li>beats</li>
+              <li>werk-cli</li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h4>Contact</h4>
+            <ul>
+              <li><a href="mailto:contact@statecraft.systems">contact@statecraft.systems</a></li>
+              <li><a href="https://moritzbierling.com" target="_blank" rel="noopener noreferrer">moritzbierling.com</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <span>&copy; {new Date().getFullYear()} Statecraft Systems</span>
+          <span>Operative Tradition</span>
+        </div>
+      </footer>
+    </div>
+
+    <script>
+      // Mobile navigation toggle
+      const mobileNavToggle = document.querySelector('.mobile-nav-toggle');
+      const navLinks = document.querySelector('.nav-links');
+
+      if (mobileNavToggle && navLinks) {
+        mobileNavToggle.addEventListener('click', () => {
+          const isExpanded = mobileNavToggle.getAttribute('aria-expanded') === 'true';
+          mobileNavToggle.setAttribute('aria-expanded', String(!isExpanded));
+          navLinks.classList.toggle('is-open');
+          
+          // Update button text
+          mobileNavToggle.textContent = isExpanded ? 'Menu' : 'Close';
+        });
+      }
+    </script>
   </body>
 </html>
