@@ -1,0 +1,33 @@
+{
+  "featureId": "page-home",
+  "reviewedAt": "2026-03-10T22:54:06Z",
+  "commitId": "34e7fa0404c05a34acc7a70c0754ff6d93fec746",
+  "transcriptSkeletonReviewed": true,
+  "diffReviewed": true,
+  "status": "fail",
+  "codeReview": {
+    "summary": "Home page implementation satisfies most validation-contract assertions, but it does not fully implement the feature description for engagement paths.",
+    "issues": [
+      {
+        "file": "src/pages/index.astro",
+        "line": 31,
+        "severity": "blocking",
+        "description": "The Two Engagement Paths section omits the required named offerings for each path. Feature description requires Individual (Unlock, Stack Build, Sparring) and Team (Discovery, Build, Train, Retainer) alongside links to Services, but only generic 'Individual Track' and 'Team Track' copy is present."
+      }
+    ]
+  },
+  "sharedStateObservations": [
+    {
+      "area": "skills",
+      "observation": "The content-worker skill requires tests-first and manual verification (including loading pages and 375px checks), but this worker run only shows `npm run build` and a grep content check while `skillFeedback.followedProcedure` is true. The procedure and compliance signal appear misaligned.",
+      "evidence": ".factory/skills/content-worker/SKILL.md steps 5 and 8 vs transcript skeleton for session 064c90b0-a6a3-4672-aeba-ea9315f24e25 (commands shown: `npm run build`, grep on src/pages/index.astro)."
+    },
+    {
+      "area": "knowledge",
+      "observation": "Feature instructions reference a vault note path that does not exist, causing avoidable lookup churn.",
+      "evidence": "features.json description for page-home references `vault/people/Noah (The Meta Father).md`; actual file is `vault/people/Noah Revoy.md` (confirmed by `vault/people` listing and transcript skeleton showing fallback lookup)."
+    }
+  ],
+  "addressesFailureFrom": null,
+  "summary": "Review failed: content is strong overall, but the home page misses explicitly naming the required engagement offerings under each path."
+}

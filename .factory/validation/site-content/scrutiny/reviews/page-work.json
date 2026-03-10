@@ -1,0 +1,33 @@
+{
+  "featureId": "page-work",
+  "reviewedAt": "2026-03-10T22:54:33Z",
+  "commitId": "e3d0ea96508ef14ded2c6beaf9366e7e36a0af86",
+  "transcriptSkeletonReviewed": true,
+  "diffReviewed": true,
+  "status": "fail",
+  "codeReview": {
+    "summary": "The Work page copy in src/pages/work.astro aligns with the requested productions/interventions/programs/tools content and privacy constraints, but the feature is incomplete because the legacy projects page was not removed in the reviewed commit.",
+    "issues": [
+      {
+        "file": "src/pages/projects.astro",
+        "line": 1,
+        "severity": "blocking",
+        "description": "Feature requirement says to delete old projects.astro, but commit e3d0ea96508ef14ded2c6beaf9366e7e36a0af86 only changes src/pages/work.astro and does not stage/remove src/pages/projects.astro from history; the file remains tracked in HEAD."
+      }
+    ]
+  },
+  "sharedStateObservations": [
+    {
+      "area": "skills",
+      "observation": "content-worker procedure requires 'Write tests first' and explicit manual verification (including mobile), but the transcript skeleton only shows build/curl/grep checks and no test creation; handoff.skillFeedback still marks followedProcedure=true with no deviations.",
+      "evidence": "Skill: .factory/skills/content-worker/SKILL.md steps 5 and 8. Transcript skeleton for session 3d1f322f-1a92-413b-8019-909d2e344468 shows npm run build, grep/curl checks, and no browser/mobile interaction entries or added tests."
+    },
+    {
+      "area": "conventions",
+      "observation": "There appears to be no enforced shared checklist to ensure required deletions are staged before committing feature work.",
+      "evidence": "Transcript skeleton shows commit command 'git add src/pages/work.astro && git commit ...' while current git status shows 'D src/pages/projects.astro' unstaged; requirement included deleting projects.astro."
+    }
+  ],
+  "addressesFailureFrom": null,
+  "summary": "Fail. Content updates to the Work page are mostly correct, but the feature does not fully satisfy its requirements because the legacy projects page deletion was not included in the reviewed commit."
+}
