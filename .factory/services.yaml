@@ -1,0 +1,14 @@
+commands:
+  install: npm install
+  build: npm run build
+  dev: npm run dev
+  preview: npm run preview
+  test: npm run build
+
+services:
+  dev-server:
+    start: npm run dev -- --host 0.0.0.0 --port 4321
+    stop: lsof -ti :4321 | xargs kill
+    healthcheck: curl -sf http://localhost:4321
+    port: 4321
+    depends_on: []
