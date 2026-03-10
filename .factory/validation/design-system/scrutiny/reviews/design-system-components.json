@@ -1,0 +1,28 @@
+{
+  "featureId": "design-system-components",
+  "reviewedAt": "2026-03-10T21:51:45Z",
+  "commitId": "ab9b08efcf40f0a166e97beeb96f32e83f4abc54",
+  "transcriptSkeletonReviewed": true,
+  "diffReviewed": true,
+  "status": "pass",
+  "codeReview": {
+    "summary": "Implementation satisfies the feature requirements: offering-card, production-block, and discipline-block patterns are present on Services/Work/Approach pages, earned-depth interactions are implemented (structural line/marker reveals), precise geometric detail is present on rule terminals, and responsive behavior at 375px is supported by existing grid/mobile breakpoints. No blocking defects were found.",
+    "issues": [
+      {
+        "file": "src/styles/global.css",
+        "line": 439,
+        "severity": "non_blocking",
+        "description": "The `.offering-card > .structural-marker` and corresponding hover styles are currently unused because no `.structural-marker` element is rendered inside offering cards in page templates, leaving this interaction path inactive."
+      }
+    ]
+  },
+  "sharedStateObservations": [
+    {
+      "area": "skills",
+      "observation": "Skill-procedure compliance signaling appears inconsistent: the run is marked as following procedure, but required procedure steps in the design-worker skill were skipped.",
+      "evidence": "design-worker SKILL.md requires reading `src/content/thesis.md` (step 2) and FetchUrl reference-site study (step 3). The transcript skeleton for workerSessionId d5f88b12-21c7-49d0-b331-14152b13a121 shows `Read` of `src/content/brand.md` but no `Read` of `src/content/thesis.md` and no `FetchUrl` calls; handoff.skillFeedback.followedProcedure is true."
+    }
+  ],
+  "addressesFailureFrom": null,
+  "summary": "Reviewed design-system-components at commit ab9b08efcf40f0a166e97beeb96f32e83f4abc54. Feature requirements are met and the review passes with one non-blocking code note and one shared-state observation about skill-procedure compliance tracking."
+}

@@ -1,0 +1,45 @@
+{
+  "milestone": "design-system",
+  "round": 1,
+  "status": "pass",
+  "validatorsRun": {
+    "test": {
+      "passed": true,
+      "command": "npm run build",
+      "exitCode": 0
+    },
+    "typecheck": {
+      "passed": true,
+      "command": "npm run build",
+      "exitCode": 0
+    },
+    "lint": {
+      "passed": true,
+      "command": "npm run build",
+      "exitCode": 0
+    }
+  },
+  "reviewsSummary": {
+    "total": 2,
+    "passed": 2,
+    "failed": 0,
+    "failedFeatures": []
+  },
+  "blockingIssues": [],
+  "appliedUpdates": [],
+  "suggestedGuidanceUpdates": [
+    {
+      "target": "skills",
+      "suggestion": "Update skill feedback guidance and/or review checks so workers do not mark `followedProcedure: true` when required procedure steps are skipped.",
+      "evidence": "Both reviewed design-system features reported `handoff.skillFeedback.followedProcedure: true`, while their transcript skeletons lacked required design-worker steps (reference-site study and other required checks).",
+      "isSystemic": true
+    }
+  ],
+  "rejectedObservations": [
+    {
+      "observation": "Skill-compliance signaling mismatch reported in both review files.",
+      "reason": "duplicate"
+    }
+  ],
+  "previousRound": null
+}
