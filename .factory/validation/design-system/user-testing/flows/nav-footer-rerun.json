@@ -1,0 +1,54 @@
+{
+  "groupId": "nav-footer-rerun",
+  "testedAt": "2026-03-10T22:33:42Z",
+  "credentials": {
+    "account": "static-nav-validator-1@example.test",
+    "namespace": "nav-footer-rerun"
+  },
+  "toolsUsed": [
+    "agent-browser",
+    "curl"
+  ],
+  "assertions": [
+    {
+      "id": "VAL-NAV-002",
+      "status": "pass",
+      "reason": "Footer contains a Modern Minuteman link to modernminuteman.net that opens correctly, and no fieldcompany.org link is present.",
+      "evidence": {
+        "screenshots": [
+          ".factory/validation/design-system/user-testing/flows/evidence/nav-footer-rerun-footer.png",
+          ".factory/validation/design-system/user-testing/flows/evidence/nav-footer-rerun-modernminuteman.png"
+        ],
+        "footerDomCheck": {
+          "footerFound": true,
+          "modernMinutemanHref": "https://modernminuteman.net",
+          "hasModernMinutemanLink": true,
+          "hasFieldCompanyLink": false
+        },
+        "linkOpenCheck": {
+          "openedUrl": "https://modernminuteman.net/",
+          "pageTitle": "Modern Minuteman — Stop Complaining. Start Organizing."
+        },
+        "network": "curl -I -L https://modernminuteman.net => HTTP 200",
+        "homepageLinkScan": "curl -s http://localhost:4321 | rg -o 'modernminuteman\\.net|fieldcompany\\.org' => modernminuteman.net only",
+        "consoleErrors": "none (agent-browser errors returned no entries)"
+      }
+    }
+  ],
+  "passedAssertions": [
+    "VAL-NAV-002"
+  ],
+  "failedAssertions": [],
+  "blockedAssertions": [],
+  "frictions": [
+    {
+      "description": "agent-browser wait --load networkidle timed out on modernminuteman.net after opening the footer link.",
+      "resolved": true,
+      "resolution": "Switched to domcontentloaded wait, then confirmed destination URL/title and captured screenshot.",
+      "affectedAssertions": [
+        "VAL-NAV-002"
+      ]
+    }
+  ],
+  "blockers": []
+}

@@ -1,0 +1,24 @@
+{
+  "milestone": "design-system",
+  "round": 2,
+  "status": "pass",
+  "assertionsSummary": {
+    "total": 1,
+    "passed": 1,
+    "failed": 0,
+    "blocked": 0
+  },
+  "passedAssertions": [
+    "VAL-NAV-002"
+  ],
+  "failedAssertions": [],
+  "blockedAssertions": [],
+  "appliedUpdates": [
+    {
+      "target": "user-testing.md",
+      "description": "Updated external-link guidance to match current design-system scope: fieldcompany.org is intentionally not linked and should not be tested as a footer URL.",
+      "source": "flow-report"
+    }
+  ],
+  "previousRound": ".factory/validation/design-system/user-testing/synthesis.round-1.json"
+}
