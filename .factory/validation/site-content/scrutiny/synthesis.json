@@ -1,7 +1,7 @@
 {
   "milestone": "site-content",
-  "round": 2,
-  "status": "fail",
+  "round": 3,
+  "status": "pass",
   "validatorsRun": {
     "test": {
       "passed": true,
@@ -21,33 +21,18 @@
   },
   "reviewsSummary": {
     "total": 1,
-    "passed": 0,
-    "failed": 1,
-    "failedFeatures": [
-      "fix-scrutiny-site-content-blocking"
-    ]
+    "passed": 1,
+    "failed": 0,
+    "failedFeatures": []
   },
-  "blockingIssues": [
-    {
-      "featureId": "fix-scrutiny-site-content-blocking",
-      "severity": "blocking",
-      "description": "The required deletion of src/pages/projects.astro is still not captured in the fix commit history; commit 80bc73a modifies only src/pages/index.astro and src/pages/about.astro, while the projects.astro deletion remains unstaged in the working tree."
-    }
-  ],
+  "blockingIssues": [],
   "appliedUpdates": [],
-  "suggestedGuidanceUpdates": [
-    {
-      "target": "skills",
-      "suggestion": "Add an explicit pre-handoff verification step for required file deletions: workers should confirm both `git status --porcelain` and `git show --name-status <commit>` prove the deletion is included in the feature commit.",
-      "evidence": "In fix-scrutiny-site-content-blocking, the required src/pages/projects.astro deletion was not part of commit 80bc73a and remained only as an unstaged delete, causing the rerun review to fail.",
-      "isSystemic": false
-    }
-  ],
+  "suggestedGuidanceUpdates": [],
   "rejectedObservations": [
     {
-      "observation": "content-worker procedure compliance evidence mismatch for manual verification",
-      "reason": "duplicate of prior-round systemic recommendation already recorded in site-content scrutiny round 1"
+      "observation": "content-worker procedure mismatch on maintenance-style fix tasks",
+      "reason": "duplicate of the prior systemic skills recommendation already documented in .factory/validation/site-content/scrutiny/synthesis.round1.json"
     }
   ],
-  "previousRound": ".factory/validation/site-content/scrutiny/synthesis.round1.json"
+  "previousRound": ".factory/validation/site-content/scrutiny/synthesis.round2.json"
 }

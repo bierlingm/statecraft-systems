@@ -1,0 +1,53 @@
+{
+  "milestone": "site-content",
+  "round": 2,
+  "status": "fail",
+  "validatorsRun": {
+    "test": {
+      "passed": true,
+      "command": "npm run build",
+      "exitCode": 0
+    },
+    "typecheck": {
+      "passed": true,
+      "command": "npm run build",
+      "exitCode": 0
+    },
+    "lint": {
+      "passed": true,
+      "command": "npm run build",
+      "exitCode": 0
+    }
+  },
+  "reviewsSummary": {
+    "total": 1,
+    "passed": 0,
+    "failed": 1,
+    "failedFeatures": [
+      "fix-scrutiny-site-content-blocking"
+    ]
+  },
+  "blockingIssues": [
+    {
+      "featureId": "fix-scrutiny-site-content-blocking",
+      "severity": "blocking",
+      "description": "The required deletion of src/pages/projects.astro is still not captured in the fix commit history; commit 80bc73a modifies only src/pages/index.astro and src/pages/about.astro, while the projects.astro deletion remains unstaged in the working tree."
+    }
+  ],
+  "appliedUpdates": [],
+  "suggestedGuidanceUpdates": [
+    {
+      "target": "skills",
+      "suggestion": "Add an explicit pre-handoff verification step for required file deletions: workers should confirm both `git status --porcelain` and `git show --name-status <commit>` prove the deletion is included in the feature commit.",
+      "evidence": "In fix-scrutiny-site-content-blocking, the required src/pages/projects.astro deletion was not part of commit 80bc73a and remained only as an unstaged delete, causing the rerun review to fail.",
+      "isSystemic": false
+    }
+  ],
+  "rejectedObservations": [
+    {
+      "observation": "content-worker procedure compliance evidence mismatch for manual verification",
+      "reason": "duplicate of prior-round systemic recommendation already recorded in site-content scrutiny round 1"
+    }
+  ],
+  "previousRound": ".factory/validation/site-content/scrutiny/synthesis.round1.json"
+}

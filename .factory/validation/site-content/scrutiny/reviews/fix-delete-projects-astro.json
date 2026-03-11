@@ -1,0 +1,21 @@
+{
+  "featureId": "fix-delete-projects-astro",
+  "reviewedAt": "2026-03-11T08:33:50Z",
+  "commitId": "84b178148dbbdc19f64e50ba33a4107b18dd216a",
+  "transcriptSkeletonReviewed": true,
+  "diffReviewed": true,
+  "status": "pass",
+  "codeReview": {
+    "summary": "The fix commit fully addresses the prior blocking issue: it stages and commits the deletion of src/pages/projects.astro as its only code change, matching the feature requirements. Handoff/transcript evidence also shows npm run build exited 0 after the commit.",
+    "issues": []
+  },
+  "sharedStateObservations": [
+    {
+      "area": "skills",
+      "observation": "The content-worker procedure is broader than this fix type: the transcript skeleton shows a git-only deletion/build workflow, but handoff marks followedProcedure=true even though SKILL.md mandates brand/thesis/vault reading and manual page verification steps that are not represented for this maintenance-style task.",
+      "evidence": "Transcript skeleton for session 26273d8a-b8b4-4598-83b7-ad378efb71be shows git add/commit, git log, npm run build, and ls checks; .factory/skills/content-worker/SKILL.md steps 1-3 and 8 require brand/thesis/vault reading and manual verification."
+    }
+  ],
+  "addressesFailureFrom": ".factory/validation/site-content/scrutiny/reviews/fix-scrutiny-site-content-blocking.json",
+  "summary": "Pass. Compared against the failed feature commit (80bc73a, which omitted file deletion), this fix commit (84b1781) cleanly records the src/pages/projects.astro deletion and includes successful build verification evidence, resolving the original blocking failure."
+}
