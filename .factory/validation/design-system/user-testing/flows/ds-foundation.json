@@ -1,0 +1,50 @@
+{
+  "groupId": "ds-foundation",
+  "assertions": [
+    {
+      "id": "VAL-DS-001",
+      "status": "pass",
+      "reason": "Homepage and approach page use a warm, weighted palette (warm off-white background, dark warm text, muted red-brown accents) rather than cool/corporate tones.",
+      "evidence": [
+        "screenshot:/Users/moritzbierling/werk/repos/statecraft.systems/.factory/validation/design-system/user-testing/flows/ds-foundation-home-full.png",
+        "screenshot:/Users/moritzbierling/werk/repos/statecraft.systems/.factory/validation/design-system/user-testing/flows/ds-foundation-approach-full.png",
+        "computed-style: body background rgb(245, 240, 230), body text rgb(43, 40, 36)"
+      ]
+    },
+    {
+      "id": "VAL-DS-002",
+      "status": "pass",
+      "reason": "Primary typography is Berkeley Mono/monospace with clear hierarchy and intentional weight/spacing across headings and body copy.",
+      "evidence": [
+        "screenshot:/Users/moritzbierling/werk/repos/statecraft.systems/.factory/validation/design-system/user-testing/flows/ds-foundation-home-full.png",
+        "screenshot:/Users/moritzbierling/werk/repos/statecraft.systems/.factory/validation/design-system/user-testing/flows/ds-foundation-approach-full.png",
+        "computed-style: bodyFontFamily=\"Berkeley Mono\", monospace; h1FontWeight=700",
+        "console-errors-check: none observed on / and /approach"
+      ]
+    },
+    {
+      "id": "VAL-DS-006",
+      "status": "pass",
+      "reason": "First-load impression is distinctive and operative (monospaced system aesthetic, structural sectioning, dense factual copy), not generic corporate/startup/guru or empty-minimal.",
+      "evidence": [
+        "screenshot:/Users/moritzbierling/werk/repos/statecraft.systems/.factory/validation/design-system/user-testing/flows/ds-foundation-home-full.png",
+        "visual-observation: strong site-specific character via typography, grid blocks, and restrained warm palette"
+      ]
+    }
+  ],
+  "passedAssertions": [
+    "VAL-DS-001",
+    "VAL-DS-002",
+    "VAL-DS-006"
+  ],
+  "failedAssertions": [],
+  "blockedAssertions": [],
+  "frictions": [
+    "A floating agent-browser toolbar briefly overlays central content during capture; full-page screenshots still retained required sections for these assertions."
+  ],
+  "blockers": [],
+  "toolsUsed": [
+    "agent-browser",
+    "curl"
+  ]
+}

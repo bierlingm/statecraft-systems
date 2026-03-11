@@ -1,0 +1,55 @@
+{
+  "groupId": "ds-components",
+  "assertions": [
+    {
+      "id": "VAL-DS-003",
+      "status": "pass",
+      "reason": "Interaction depth is present: hovering an offering card reveals structural detail (border/background shift plus geometric terminal lines via pseudo-elements), not just a color swap.",
+      "evidence": [
+        "Screenshot before hover: .factory/validation/design-system/user-testing/flows/evidence/ds-components-services-offering-before-hover.png",
+        "Screenshot after hover: .factory/validation/design-system/user-testing/flows/evidence/ds-components-services-offering-hover.png",
+        "Computed style delta on first .offering-card: borderColor rgb(214,208,196) -> rgb(43,40,36), background rgb(245,240,230) -> rgb(235,229,217), ::before width 0px -> 78.1875px and opacity 0 -> 1, ::after width 0px -> 78.1875px and opacity 0 -> 1",
+        "Browser errors check: none (agent-browser errors returned no page errors)"
+      ]
+    },
+    {
+      "id": "VAL-DS-004",
+      "status": "pass",
+      "reason": "Mobile responsiveness at 375px is valid across all pages; navigation is usable via the menu, content remains readable, and no horizontal scrolling was detected.",
+      "evidence": [
+        "Screenshot home mobile 375px: .factory/validation/design-system/user-testing/flows/evidence/ds-components-home-mobile-375.png",
+        "Screenshot services mobile 375px: .factory/validation/design-system/user-testing/flows/evidence/ds-components-services-mobile-375.png",
+        "Mobile nav opened with all six links visible: .factory/validation/design-system/user-testing/flows/evidence/ds-components-home-mobile-menu-open.png",
+        "Per-page viewport checks at 375px: /, /work, /approach, /services, /about, /contact each reported innerWidth=375 and doc/body scrollWidth=375 (horizontalScroll=false)",
+        "HTTP status checks: curl returned 200 for /, /work, /approach, /services, /about, /contact"
+      ]
+    },
+    {
+      "id": "VAL-DS-005",
+      "status": "pass",
+      "reason": "Distinct component patterns are present and structurally clear for offerings/services, productions/blocks, and discipline descriptions.",
+      "evidence": [
+        "Services offerings pattern screenshot: .factory/validation/design-system/user-testing/flows/evidence/ds-components-services-page-offerings.png",
+        "Work productions pattern screenshot: .factory/validation/design-system/user-testing/flows/evidence/ds-components-work-page-productions.png",
+        "Approach discipline pattern screenshot: .factory/validation/design-system/user-testing/flows/evidence/ds-components-approach-disciplines.png",
+        "DOM pattern counts: .offering-card=7 on /services, .production-block=6 on /work, .discipline-block=6 on /approach"
+      ]
+    }
+  ],
+  "passedAssertions": [
+    "VAL-DS-003",
+    "VAL-DS-004",
+    "VAL-DS-005"
+  ],
+  "failedAssertions": [],
+  "blockedAssertions": [],
+  "frictions": [
+    "agent-browser snapshot/find encountered duplicate 'Menu' controls due an external overlay toolbar; resolved by targeting '.mobile-nav-toggle' selector directly.",
+    "An on-screen floating toolbar intermittently overlapped page content in screenshots; core UI remained inspectable and assertions were still verifiable."
+  ],
+  "blockers": [],
+  "toolsUsed": [
+    "agent-browser",
+    "curl"
+  ]
+}

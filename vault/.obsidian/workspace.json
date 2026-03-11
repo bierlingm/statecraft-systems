@@ -1,0 +1,193 @@
+{
+  "main": {
+    "id": "ea260252f4b7cf15",
+    "type": "split",
+    "children": [
+      {
+        "id": "540f32ff51c7fae2",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "f469da5ac76cef10",
+            "type": "leaf",
+            "state": {
+              "type": "empty",
+              "state": {},
+              "icon": "lucide-file",
+              "title": "New tab"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "7d7f39bea7d69ecf",
+    "type": "split",
+    "children": [
+      {
+        "id": "6fc570994261be57",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "0d4f6077d6e60fc2",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical",
+                "autoReveal": false
+              },
+              "icon": "lucide-folder-closed",
+              "title": "Files"
+            }
+          },
+          {
+            "id": "2c7d724ed7518a83",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              },
+              "icon": "lucide-search",
+              "title": "Search"
+            }
+          },
+          {
+            "id": "72d1d7379a8afdfb",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {},
+              "icon": "lucide-bookmark",
+              "title": "Bookmarks"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "bb7e3dd32121d7c0",
+    "type": "split",
+    "children": [
+      {
+        "id": "d2c6bd76c8432111",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "e816368f722a2ac0",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "people/Noah Revoy.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-coming-in",
+              "title": "Backlinks for Noah Revoy"
+            }
+          },
+          {
+            "id": "152e4bdcf20a3f48",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "people/Noah Revoy.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-going-out",
+              "title": "Outgoing links from Noah Revoy"
+            }
+          },
+          {
+            "id": "5c8dff44254fe419",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-tags",
+              "title": "Tags"
+            }
+          },
+          {
+            "id": "48fa59aa238cdf6c",
+            "type": "leaf",
+            "state": {
+              "type": "all-properties",
+              "state": {
+                "sortOrder": "frequency",
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-archive",
+              "title": "All properties"
+            }
+          },
+          {
+            "id": "7279aa3fcb317551",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "people/Noah Revoy.md",
+                "followCursor": false,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-list",
+              "title": "Outline of Noah Revoy"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:Open quick switcher": false,
+      "graph:Open graph view": false,
+      "canvas:Create new canvas": false,
+      "daily-notes:Open today's daily note": false,
+      "templates:Insert template": false,
+      "command-palette:Open command palette": false,
+      "bases:Create new base": false
+    }
+  },
+  "active": "0d4f6077d6e60fc2",
+  "lastOpenFiles": [
+    "concepts/Calibration Framework.md",
+    "concepts/Operative Aesthetics.md",
+    "concepts/Statecraft as Operative Tradition.md",
+    "disciplines/Operative Traditions.md",
+    "people/Miguel Angel Fernandez.md",
+    "concepts/Good Rule.md",
+    "concepts/Structures of Persistence.md",
+    "concepts/The Intergenerational Challenge.md"
+  ]
+}

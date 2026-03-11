@@ -1,0 +1,58 @@
+{
+  "groupId": "nav-layout",
+  "assertions": [
+    {
+      "id": "VAL-NAV-001",
+      "status": "pass",
+      "reason": "Desktop navigation exposes Home, Work, Approach, Services, About, and Contact; each link routed to the expected page and all six internal routes returned HTTP 200.",
+      "evidence": [
+        ".factory/validation/design-system/user-testing/flows/evidence/nav-layout-desktop-navigation.png",
+        "Desktop click-through URLs observed: /work, /approach, /services, /about, /contact, /",
+        "curl status checks: GET /, /work, /approach, /services, /about, /contact -> 200",
+        "Console errors: none"
+      ]
+    },
+    {
+      "id": "VAL-NAV-002",
+      "status": "fail",
+      "reason": "Footer includes Modern Minuteman and The Field Company, but fieldcompany.org did not open successfully (ERR_NAME_NOT_RESOLVED / DNS resolution failure).",
+      "evidence": [
+        ".factory/validation/design-system/user-testing/flows/evidence/nav-layout-footer.png",
+        "Footer hrefs: Modern Minuteman -> https://modernminuteman.net, The Field Company -> https://fieldcompany.org",
+        "agent-browser new-tab result: https://modernminuteman.net/ opened",
+        "agent-browser error opening fieldcompany.org: net::ERR_NAME_NOT_RESOLVED",
+        "curl -I https://fieldcompany.org -> Could not resolve host"
+      ]
+    },
+    {
+      "id": "VAL-NAV-003",
+      "status": "pass",
+      "reason": "At 375px width, mobile navigation menu is accessible and all six page links are reachable and route correctly.",
+      "evidence": [
+        ".factory/validation/design-system/user-testing/flows/evidence/nav-layout-mobile-375-navigation-open.png",
+        "Mobile click-through URLs observed: /work, /approach, /services, /about, /contact, /",
+        "Menu toggle present at 375px (button: Menu/Close)",
+        "Console errors: none"
+      ]
+    }
+  ],
+  "passedAssertions": [
+    "VAL-NAV-001",
+    "VAL-NAV-003"
+  ],
+  "failedAssertions": [
+    {
+      "id": "VAL-NAV-002",
+      "reason": "The Field Company footer link target (fieldcompany.org) failed to resolve in browser and curl checks."
+    }
+  ],
+  "blockedAssertions": [],
+  "frictions": [
+    "agent-browser strict locator matching required more specific selectors due duplicate labels (e.g., 'Menu' from Astro dev toolbar and 'Work' text collision with a content link)."
+  ],
+  "blockers": [],
+  "toolsUsed": [
+    "agent-browser",
+    "curl"
+  ]
+}
