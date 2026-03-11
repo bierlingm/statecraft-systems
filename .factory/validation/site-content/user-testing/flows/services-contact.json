@@ -1,0 +1,75 @@
+{
+  "groupId": "services-contact",
+  "testedAt": "2026-03-11T08:46:08Z",
+  "credentials": {
+    "account": "static-validator-servicescontact@example.test",
+    "namespace": "site-content-services-contact"
+  },
+  "assertions": [
+    {
+      "id": "VAL-SVC-001",
+      "status": "pass",
+      "reason": "Services page shows all three individual offerings with required pricing and duration details.",
+      "evidence": [
+        "screenshot:/Users/moritzbierling/werk/repos/statecraft.systems/.factory/validation/site-content/user-testing/flows/evidence/services-contact-services-individual.png",
+        "content-check:/services contains Unlock Session (~3hrs, $1,500), Personal Stack Build (2 weeks, $5,000), Sparring Partner (Monthly $1,500 - $2,500)",
+        "network:curl -I http://localhost:4321/services -> 200"
+      ]
+    },
+    {
+      "id": "VAL-SVC-002",
+      "status": "pass",
+      "reason": "Services page shows all four team offerings with required price ranges.",
+      "evidence": [
+        "screenshot:/Users/moritzbierling/werk/repos/statecraft.systems/.factory/validation/site-content/user-testing/flows/evidence/services-contact-services-team.png",
+        "content-check:/services contains Discovery ($3,000-$5,000), Build ($8,000-$15,000), Train ($2,500-$5,000), Retainer (Monthly $2,000-$4,000)",
+        "network:curl -I http://localhost:4321/services -> 200"
+      ]
+    },
+    {
+      "id": "VAL-SVC-003",
+      "status": "pass",
+      "reason": "Services page explicitly states the natural path: individual leader/CEO gains value first, then brings capacity to the team.",
+      "evidence": [
+        "screenshot:/Users/moritzbierling/werk/repos/statecraft.systems/.factory/validation/site-content/user-testing/flows/evidence/services-contact-services-individual.png",
+        "content-check:/services intro includes 'natural path of engagement begins with the individual leader... CEO gains personal technical capability... then brings this capacity to the rest of the organization'"
+      ]
+    },
+    {
+      "id": "VAL-CTT-001",
+      "status": "pass",
+      "reason": "Contact page displays contact@statecraft.systems as the contact method.",
+      "evidence": [
+        "screenshot:/Users/moritzbierling/werk/repos/statecraft.systems/.factory/validation/site-content/user-testing/flows/evidence/services-contact-contact-page.png",
+        "content-check:/contact contains 'Email: contact@statecraft.systems'",
+        "network:curl -I http://localhost:4321/contact -> 200"
+      ]
+    },
+    {
+      "id": "VAL-CTT-002",
+      "status": "pass",
+      "reason": "Contact page frames outreach around structural alignment and fit rather than generic inquiry language.",
+      "evidence": [
+        "screenshot:/Users/moritzbierling/werk/repos/statecraft.systems/.factory/validation/site-content/user-testing/flows/evidence/services-contact-contact-page.png",
+        "content-check:/contact contains 'structural alignment' and 'determine if there is a fit'"
+      ]
+    }
+  ],
+  "passedAssertions": [
+    "VAL-SVC-001",
+    "VAL-SVC-002",
+    "VAL-SVC-003",
+    "VAL-CTT-001",
+    "VAL-CTT-002"
+  ],
+  "failedAssertions": [],
+  "blockedAssertions": [],
+  "frictions": [
+    "Inline multi-command heredoc eval failed once in shell chaining; resolved by running eval as a separate command without impact on validation outcomes."
+  ],
+  "blockers": [],
+  "toolsUsed": [
+    "agent-browser",
+    "curl"
+  ]
+}

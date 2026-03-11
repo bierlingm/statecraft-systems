@@ -1,0 +1,11 @@
+value_prop: PASS
+ai_native: PASS
+structural_capacity: PASS
+individual_track: PASS
+team_track: PASS
+skinner_layne_result: PASS
+noah_result: PASS
+web_relationships: PASS
+View Individual Services href: /services
+View Team Services href: /services
+View our Work & Productions href: /work

@@ -1,0 +1,125 @@
+{
+  "groupId": "approach-about",
+  "testedAt": "2026-03-11T08:42:51Z",
+  "credentials": {
+    "account": "static-validator-approachabout@example.test",
+    "namespace": "site-content-approach-about"
+  },
+  "toolsUsed": [
+    "agent-browser",
+    "curl"
+  ],
+  "assertions": [
+    {
+      "id": "VAL-APP-001",
+      "title": "Six disciplines with originators",
+      "status": "pass",
+      "reason": "Approach page lists all six disciplines and credits the specified originators where required.",
+      "evidence": [
+        "screenshot: .factory/validation/site-content/user-testing/flows/evidence/approach-about-VAL-APP-001-approach-disciplines.png",
+        "content-check: page text includes Structural Dynamics (Robert Fritz), Natural Law (Curt Doolittle / Natural Law Institute), Currency Design (Arthur Brock), Collective Intelligence, Operative Traditions (Miguel Angel Fernandez), Formation (with Exosphere, Volta, Modern Minuteman)",
+        "consoleErrors: none (agent-browser errors --json => [])",
+        "network: GET http://localhost:4321/approach -> 200"
+      ]
+    },
+    {
+      "id": "VAL-APP-002",
+      "title": "Synthesis described",
+      "status": "pass",
+      "reason": "The page explains what simultaneous use of all disciplines produces beyond a simple list.",
+      "evidence": [
+        "screenshot: .factory/validation/site-content/user-testing/flows/evidence/approach-about-VAL-APP-002-approach-synthesis.png",
+        "content-check: includes 'Looking through all these lenses simultaneously produces a unified perception, a structural clarity that none can achieve in isolation.'",
+        "consoleErrors: none (agent-browser errors --json => [])",
+        "network: GET http://localhost:4321/approach -> 200"
+      ]
+    },
+    {
+      "id": "VAL-APP-003",
+      "title": "Via negativa as via positiva",
+      "status": "pass",
+      "reason": "The opening section explicitly states that constraints require active enactment and frames via negativa as via positiva.",
+      "evidence": [
+        "screenshot: .factory/validation/site-content/user-testing/flows/evidence/approach-about-VAL-APP-003-approach-via-negativa.png",
+        "content-check: includes 'Even the via negativa... is itself a via positiva. It must be actively enacted.'",
+        "consoleErrors: none (agent-browser errors --json => [])",
+        "network: GET http://localhost:4321/approach -> 200"
+      ]
+    },
+    {
+      "id": "VAL-APP-004",
+      "title": "Who this is for stated plainly",
+      "status": "pass",
+      "reason": "The Alignment section clearly states who the work is for and explicitly who it is not for in direct language.",
+      "evidence": [
+        "screenshot: .factory/validation/site-content/user-testing/flows/evidence/approach-about-VAL-APP-004-approach-audience.png",
+        "content-check: includes both 'This work is for:' and 'It is not for:' statements",
+        "consoleErrors: none (agent-browser errors --json => [])",
+        "network: GET http://localhost:4321/approach -> 200"
+      ]
+    },
+    {
+      "id": "VAL-ABT-001",
+      "title": "Background described",
+      "status": "pass",
+      "reason": "About page states 4+ years of direct involvement in agent orchestration, multi-model systems, and frontier tooling.",
+      "evidence": [
+        "screenshot: .factory/validation/site-content/user-testing/flows/evidence/approach-about-VAL-ABT-001-about-background.png",
+        "content-check: includes 'over four years of direct involvement in agent orchestration, multi-model systems, and frontier tooling'",
+        "consoleErrors: none (agent-browser errors --json => [])",
+        "network: GET http://localhost:4321/about -> 200"
+      ]
+    },
+    {
+      "id": "VAL-ABT-002",
+      "title": "Formation lineage present",
+      "status": "pass",
+      "reason": "About page contains a Formation Lineage section naming Exosphere, Volta, and Modern Minuteman.",
+      "evidence": [
+        "screenshot: .factory/validation/site-content/user-testing/flows/evidence/approach-about-VAL-ABT-002-about-lineage.png",
+        "content-check: Formation Lineage lists Exosphere, Volta, Modern Minuteman",
+        "consoleErrors: none (agent-browser errors --json => [])",
+        "network: GET http://localhost:4321/about -> 200"
+      ]
+    },
+    {
+      "id": "VAL-ABT-003",
+      "title": "Operative tradition framing",
+      "status": "pass",
+      "reason": "The page explicitly frames Statecraft Systems as an operative tradition and contrasts it against consultancy framing.",
+      "evidence": [
+        "screenshot: .factory/validation/site-content/user-testing/flows/evidence/approach-about-VAL-ABT-003-about-tradition.png",
+        "content-check: includes 'We are not a consultancy with a philosophy. We are an operative tradition in formation.'",
+        "consoleErrors: none (agent-browser errors --json => [])",
+        "network: GET http://localhost:4321/about -> 200"
+      ]
+    },
+    {
+      "id": "VAL-ABT-004",
+      "title": "Link to moritzbierling.com",
+      "status": "pass",
+      "reason": "About page has working moritzbierling.com links and external GET returns 200.",
+      "evidence": [
+        "screenshot: .factory/validation/site-content/user-testing/flows/evidence/approach-about-VAL-ABT-004-about-link.png",
+        "selector-check: about page links @e8 and @e14 href -> https://moritzbierling.com",
+        "consoleErrors: none (agent-browser errors --json => [])",
+        "network: GET https://moritzbierling.com -> 200"
+      ]
+    }
+  ],
+  "passedAssertions": [
+    "VAL-APP-001",
+    "VAL-APP-002",
+    "VAL-APP-003",
+    "VAL-APP-004",
+    "VAL-ABT-001",
+    "VAL-ABT-002",
+    "VAL-ABT-003",
+    "VAL-ABT-004"
+  ],
+  "failedAssertions": [],
+  "blockedAssertions": [],
+  "frictions": [],
+  "blockers": [],
+  "summary": "Tested 8 assigned assertions in web UI scope (Approach + About). All 8 passed with screenshot, content, console, and network evidence."
+}

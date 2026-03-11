@@ -1,0 +1,68 @@
+{
+  "groupId": "work",
+  "testedAt": "2026-03-11T08:45:38Z",
+  "credentials": {
+    "account": "static-validator-work@example.test",
+    "namespace": "site-content-work"
+  },
+  "assertions": [
+    {
+      "id": "VAL-WORK-001",
+      "status": "pass",
+      "reason": "Productions section is present with required external links, and The Field Company is mentioned without a fieldcompany.org link.",
+      "evidence": [
+        "Screenshot: .factory/validation/site-content/user-testing/flows/evidence/work-productions.png",
+        "DOM check on /work: hayescanon.org, modernminuteman.net, capablefew.com hrefs present; fieldcompany.org href absent; 'The Field Company' text present.",
+        "curl GET status: https://hayescanon.org -> 200; https://modernminuteman.net -> 200; https://capablefew.com -> 200.",
+        "Console errors on /work: none"
+      ]
+    },
+    {
+      "id": "VAL-WORK-002",
+      "status": "pass",
+      "reason": "Interventions section includes Skinner Layne and Noah (The Meta Father) with specific factual outcomes and no inflated language observed.",
+      "evidence": [
+        "Screenshot: .factory/validation/site-content/user-testing/flows/evidence/work-interventions.png",
+        "Content check: Skinner Layne includes team training, product building, scientific work, and fundraising acceleration; Noah entry states rebuilt platform architecture and moved off Kajabi.",
+        "Console errors on /work: none"
+      ]
+    },
+    {
+      "id": "VAL-WORK-003",
+      "status": "pass",
+      "reason": "Programs section lists Exosphere, Volta, and Modern Minuteman with brief descriptions.",
+      "evidence": [
+        "Screenshot: .factory/validation/site-content/user-testing/flows/evidence/work-programs.png",
+        "Content check: Exosphere (multi-week to two-month intensives), Volta (weekend retreat format), Modern Minuteman (structured cohort programs).",
+        "Console errors on /work: none"
+      ]
+    },
+    {
+      "id": "VAL-WORK-004",
+      "status": "pass",
+      "reason": "Tools section lists sd-core, spikes.sh, beats, and werk-cli with brief descriptions; sd-core appears as a tool item and not as a dedicated top-level section.",
+      "evidence": [
+        "Screenshot: .factory/validation/site-content/user-testing/flows/evidence/work-tools.png",
+        "Content check: sd-core (Structural dynamics framework), spikes.sh (Rapid prototyping), beats (Knowledge and memory system), werk-cli (Workspace management).",
+        "Heading check: no H1/H2 section titled 'sd-core' on /work.",
+        "Console errors on /work: none"
+      ]
+    }
+  ],
+  "passedAssertions": [
+    "VAL-WORK-001",
+    "VAL-WORK-002",
+    "VAL-WORK-003",
+    "VAL-WORK-004"
+  ],
+  "failedAssertions": [],
+  "blockedAssertions": [],
+  "frictions": [
+    "agent-browser occasionally returned to the Home page between commands; mitigated by explicitly reopening /work before each section screenshot."
+  ],
+  "blockers": [],
+  "toolsUsed": [
+    "agent-browser",
+    "curl"
+  ]
+}

@@ -1,0 +1,3 @@
+GET / -> 200
+GET /work -> 200
+GET /services -> 200

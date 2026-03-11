@@ -1,0 +1,83 @@
+{
+  "groupId": "home",
+  "testedAt": "2026-03-11T08:45:06Z",
+  "appUrl": "http://localhost:4321",
+  "credentials": {
+    "account": "static-validator-home@example.test",
+    "password": "not-required-static-site",
+    "namespace": "site-content-home"
+  },
+  "toolsUsed": [
+    "agent-browser",
+    "curl"
+  ],
+  "assertions": [
+    {
+      "id": "VAL-HOME-001",
+      "status": "pass",
+      "reason": "Above-the-fold section contains a concrete value proposition statement describing what Statecraft Systems does.",
+      "evidence": [
+        ".factory/validation/site-content/user-testing/flows/evidence/homepage-above-fold.png",
+        ".factory/validation/site-content/user-testing/flows/evidence/home-page-text.txt",
+        ".factory/validation/site-content/user-testing/flows/evidence/home-content-checks.txt",
+        ".factory/validation/site-content/user-testing/flows/evidence/home-console-errors.json"
+      ]
+    },
+    {
+      "id": "VAL-HOME-002",
+      "status": "pass",
+      "reason": "Home page explicitly mentions both technical capacity (AI-native) and structural capacity.",
+      "evidence": [
+        ".factory/validation/site-content/user-testing/flows/evidence/homepage.png",
+        ".factory/validation/site-content/user-testing/flows/evidence/home-page-text.txt",
+        ".factory/validation/site-content/user-testing/flows/evidence/home-content-checks.txt",
+        ".factory/validation/site-content/user-testing/flows/evidence/home-console-errors.json"
+      ]
+    },
+    {
+      "id": "VAL-HOME-003",
+      "status": "pass",
+      "reason": "Individual and Team tracks are both visible with explicit calls to Services; services page responds 200.",
+      "evidence": [
+        ".factory/validation/site-content/user-testing/flows/evidence/homepage-paths-section.png",
+        ".factory/validation/site-content/user-testing/flows/evidence/home-content-checks.txt",
+        ".factory/validation/site-content/user-testing/flows/evidence/home-http-status.txt",
+        ".factory/validation/site-content/user-testing/flows/evidence/home-console-errors.json"
+      ]
+    },
+    {
+      "id": "VAL-HOME-004",
+      "status": "pass",
+      "reason": "Results section includes both required factual examples: Skinner Layne and Noah (The Meta Father) with specific outcomes.",
+      "evidence": [
+        ".factory/validation/site-content/user-testing/flows/evidence/homepage-credibility.png",
+        ".factory/validation/site-content/user-testing/flows/evidence/home-page-text.txt",
+        ".factory/validation/site-content/user-testing/flows/evidence/home-content-checks.txt",
+        ".factory/validation/site-content/user-testing/flows/evidence/home-console-errors.json"
+      ]
+    },
+    {
+      "id": "VAL-HOME-005",
+      "status": "pass",
+      "reason": "Web of relationships section references Modern Minuteman, The Field Company, productions, and tools; Work link is present and opens /work successfully.",
+      "evidence": [
+        ".factory/validation/site-content/user-testing/flows/evidence/homepage-web-section.png",
+        ".factory/validation/site-content/user-testing/flows/evidence/home-content-checks.txt",
+        ".factory/validation/site-content/user-testing/flows/evidence/home-network-requests.txt",
+        ".factory/validation/site-content/user-testing/flows/evidence/home-http-status.txt",
+        ".factory/validation/site-content/user-testing/flows/evidence/home-console-errors.json"
+      ]
+    }
+  ],
+  "passedAssertions": [
+    "VAL-HOME-001",
+    "VAL-HOME-002",
+    "VAL-HOME-003",
+    "VAL-HOME-004",
+    "VAL-HOME-005"
+  ],
+  "failedAssertions": [],
+  "blockedAssertions": [],
+  "frictions": [],
+  "blockers": []
+}

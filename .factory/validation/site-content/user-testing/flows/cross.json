@@ -1,0 +1,81 @@
+{
+  "groupId": "cross",
+  "testedAt": "2026-03-11T08:45:28Z",
+  "credentials": {
+    "account": "static-validator-cross@example.test",
+    "namespace": "site-content-cross"
+  },
+  "toolsUsed": [
+    "agent-browser",
+    "curl"
+  ],
+  "assertions": [
+    {
+      "id": "VAL-CROSS-001",
+      "status": "pass",
+      "reason": "Brand-voice text search across all six pages found zero exclamation marks, zero question marks, and zero emoji characters.",
+      "evidence": [
+        "screenshot:/Users/moritzbierling/werk/repos/statecraft.systems/.factory/validation/site-content/user-testing/flows/evidence/cross-001-brand-voice-surface.png",
+        "agent-browser eval result: /,/work,/approach,/services,/about,/contact all returned status 200 with exclamCount=0, questionCount=0, emojiCount=0",
+        "consoleErrors: none (agent-browser errors returned no errors)"
+      ]
+    },
+    {
+      "id": "VAL-CROSS-002",
+      "status": "pass",
+      "reason": "Privacy name search across all six pages found none of the restricted names.",
+      "evidence": [
+        "screenshot:/Users/moritzbierling/werk/repos/statecraft.systems/.factory/validation/site-content/user-testing/flows/evidence/cross-002-privacy-surface.png",
+        "agent-browser eval result: Alex Beltechi, Alexis Papageorgiou, Nicholas Catton were absent on /,/work,/approach,/services,/about,/contact",
+        "consoleErrors: none (agent-browser errors returned no errors)"
+      ]
+    },
+    {
+      "id": "VAL-CROSS-003",
+      "status": "pass",
+      "reason": "All discovered internal links and in-page targets resolved successfully with HTTP 200 and no 404 responses.",
+      "evidence": [
+        "screenshot:/Users/moritzbierling/werk/repos/statecraft.systems/.factory/validation/site-content/user-testing/flows/evidence/cross-003-internal-links-surface.png",
+        "agent-browser eval network check: /, /about, /approach, /contact, /favicon.svg, /services, /work => all status 200",
+        "curl status check: /,/work,/approach,/services,/about,/contact,/favicon.svg -> 200"
+      ]
+    },
+    {
+      "id": "VAL-CROSS-004",
+      "status": "pass",
+      "reason": "Build command completed successfully with exit code 0.",
+      "evidence": [
+        "terminal: npm --prefix /Users/moritzbierling/werk/repos/statecraft.systems run build",
+        "exitCode: 0"
+      ]
+    },
+    {
+      "id": "VAL-CROSS-005",
+      "status": "pass",
+      "reason": "Starting from Home, navigation links were used to reach Work, Approach, Services, About, and Contact without typing URLs directly.",
+      "evidence": [
+        "screenshot:/Users/moritzbierling/werk/repos/statecraft.systems/.factory/validation/site-content/user-testing/flows/evidence/cross-005-home-nav.png",
+        "screenshot:/Users/moritzbierling/werk/repos/statecraft.systems/.factory/validation/site-content/user-testing/flows/evidence/cross-005-work-via-nav.png",
+        "screenshot:/Users/moritzbierling/werk/repos/statecraft.systems/.factory/validation/site-content/user-testing/flows/evidence/cross-005-approach-via-nav.png",
+        "screenshot:/Users/moritzbierling/werk/repos/statecraft.systems/.factory/validation/site-content/user-testing/flows/evidence/cross-005-services-via-nav.png",
+        "screenshot:/Users/moritzbierling/werk/repos/statecraft.systems/.factory/validation/site-content/user-testing/flows/evidence/cross-005-about-via-nav.png",
+        "screenshot:/Users/moritzbierling/werk/repos/statecraft.systems/.factory/validation/site-content/user-testing/flows/evidence/cross-005-contact-via-nav.png",
+        "consoleErrors: none (agent-browser errors returned no errors)"
+      ]
+    }
+  ],
+  "passedAssertions": [
+    "VAL-CROSS-001",
+    "VAL-CROSS-002",
+    "VAL-CROSS-003",
+    "VAL-CROSS-004",
+    "VAL-CROSS-005"
+  ],
+  "failedAssertions": [],
+  "blockedAssertions": [],
+  "frictions": [
+    "agent-browser strict-mode ambiguity occurred for link name 'Work' because both nav link and CTA matched; resolved by clicking the nav element ref (@e3)."
+  ],
+  "blockers": [],
+  "summary": "Validated 5 cross assertions: 5 passed, 0 failed, 0 blocked."
+}

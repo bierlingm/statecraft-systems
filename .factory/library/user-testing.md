@@ -41,6 +41,7 @@ Testing surface: tools, URLs, setup steps, isolation notes, known quirks.
 
 - Stale `src/pages/index.astro.save` file may cause build warnings. Should be deleted by init.sh.
 - Astro/agent-browser overlay UI can duplicate labels like `Menu` and `Work`; prefer scoped selectors such as `.mobile-nav-toggle` and `header .site-nav a`.
+- During long browser runs, the page can occasionally jump back to Home between actions; explicitly re-open the target route before final evidence capture.
 - `fieldcompany.org` is intentionally not linked in the current site build; validate only that the domain is absent from footer links where applicable.
 
 ## Flow Validator Guidance: web-ui
@@ -50,7 +51,7 @@ Testing surface: tools, URLs, setup steps, isolation notes, known quirks.
 - Isolation for parallel runs:
   - Use unique screenshot/report labels per assertion group (`ds-foundation`, `ds-components`, `nav-layout`).
   - Do not modify application code, content files, or test data.
-  - Restrict writes to your assigned flow report file under `.factory/validation/design-system/user-testing/flows/`.
+  - Restrict writes to your assigned flow report file under `.factory/validation/<milestone>/user-testing/flows/`.
 - Shared state boundaries:
   - No login/account creation is required for this static site; credentials are placeholders only.
   - Avoid killing or restarting the dev server started by the validator coordinator.
