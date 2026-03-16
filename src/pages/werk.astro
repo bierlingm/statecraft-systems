@@ -1,0 +1,268 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="werk" description="The Operative Instrument — a structural dynamics engine for the gap between desire and reality.">
+  <div class="werk-page">
+
+    <div class="werk-hero">
+      <div class="werk-glyph">◇</div>
+      <h1>werk</h1>
+      <p class="werk-subtitle">The Operative Instrument</p>
+    </div>
+
+    <div class="werk-body">
+
+      <section class="werk-section">
+        <p class="werk-lead">
+          A structural dynamics engine for the gap between desire and reality.
+        </p>
+        <p>
+          You want things. You have a reality. The gap between them is a <em>tension</em> — and tensions, when held honestly, drive resolution.
+        </p>
+        <p>
+          werk computes 13 structural dynamics from the history of your declared tensions. Not vibes. Not sentiment. Structural truth, computed from your own recorded actions over time.
+        </p>
+        <p>
+          Then it hands those dynamics to an AI agent — and the agent serves your declared intentions. Not the reverse.
+        </p>
+      </section>
+
+      <section class="werk-section">
+        <h2>The Instrument</h2>
+        <pre class="werk-terminal"><code>  ◇ Ship a tool that 1000 people use weekly            ○○●●○●● ▸
+  ◆ Complete a 50-mile ultramarathon                    ○○○○●●●
+  ◇ Be engaged by end of year                           ○○○○○○○
+  ◈ Have 48k in liquid savings                          ●○●○●○●
+  ◉ Call mom every Sunday                               ●●●●●●●</code></pre>
+        <p>
+          A terminal interface built on descent — you navigate by going deeper into what matters, not by scanning dashboards. Space opens the <em>Gaze</em>: desire and reality facing each other, children below, dynamics computed. The instrument holds the structure of your work and reveals the shape of your effort.
+        </p>
+      </section>
+
+      <section class="werk-section">
+        <h2>13 Structural Dynamics</h2>
+        <div class="werk-dynamics-grid">
+          <div class="werk-dynamic"><strong>Phase</strong><span>Germination → Assimilation → Completion → Momentum</span></div>
+          <div class="werk-dynamic"><strong>Tendency</strong><span>Advancing, oscillating, or stagnant</span></div>
+          <div class="werk-dynamic"><strong>Magnitude</strong><span>How large the gap between desire and reality</span></div>
+          <div class="werk-dynamic"><strong>Conflict</strong><span>When sibling tensions compete for the same life</span></div>
+          <div class="werk-dynamic"><strong>Neglect</strong><span>Threads declared important but abandoned</span></div>
+          <div class="werk-dynamic"><strong>Oscillation</strong><span>The pattern of advancing then retreating</span></div>
+          <div class="werk-dynamic"><strong>Resolution</strong><span>Sustainable forward movement</span></div>
+          <div class="werk-dynamic"><strong>Orientation</strong><span>Creative, problem-solving, or reactive</span></div>
+          <div class="werk-dynamic"><strong>Compensating strategy</strong><span>The structural lie substituting for progress</span></div>
+          <div class="werk-dynamic"><strong>Assimilation</strong><span>Shallow knowing vs embodied change</span></div>
+          <div class="werk-dynamic"><strong>Horizon drift</strong><span>Whether deadlines keep moving</span></div>
+          <div class="werk-dynamic"><strong>Urgency</strong><span>Temporal pressure from approaching horizons</span></div>
+          <div class="werk-dynamic"><strong>Temporal pressure</strong><span>Magnitude × urgency</span></div>
+        </div>
+      </section>
+
+      <section class="werk-section">
+        <h2>The Agent</h2>
+        <p>
+          Press <code>@</code> on any tension. The agent receives the full structural context — all 13 dynamics, children, history — and responds within scope. It proposes structured mutations: update reality, add children, resolve, set horizon. You review each one. Accept or reject. The agent is subordinate.
+        </p>
+        <p>
+          This is individual alignment made concrete. Not through fine-tuning or system prompts, but through structure. Your tensions are the alignment data. The agent serves them.
+        </p>
+      </section>
+
+      <section class="werk-section">
+        <h2>The Daimon</h2>
+        <p>
+          <code>werk watch</code> runs in the background. When neglect sets in, when conflict emerges, when oscillation spikes, when a horizon passes — the daimon notices and stores an observation. Next time you open the instrument: <em>"3 insights waiting."</em>
+        </p>
+        <p>
+          Not a notification. Not an alert. A quiet observation waiting for you to return.
+        </p>
+      </section>
+
+      <section class="werk-section">
+        <h2>The Philosophy</h2>
+        <p>
+          The alchemist creates gold — his works in the world, and his soul refined by the process. The Great Work is bringing every part of your life into coherence with every other. werk is the operative instrument for that process.
+        </p>
+        <p>
+          Like the alchemist's folio — the notebook where experiments are recorded, patterns tracked, and the structure of effort made visible — werk makes itself a vehicle for the practitioner's experiments.
+        </p>
+      </section>
+
+      <section class="werk-section">
+        <h2>Install</h2>
+        <pre class="werk-terminal"><code>git clone https://github.com/bierlingm/werk && cd werk
+cargo install --path werk-cli
+werk init && werk</code></pre>
+        <p class="werk-note">Requires Rust nightly (edition 2024). Built on sd-core: 652 tests, zero unsafe code.</p>
+      </section>
+
+      <div class="werk-footer">
+        <a href="https://github.com/bierlingm/werk" class="werk-link">GitHub</a>
+        <span class="werk-divider">·</span>
+        <span class="werk-credit">Built with <a href="https://github.com/NousResearch/hermes-agent">Hermes Agent</a> by <a href="https://nousresearch.com">Nous Research</a></span>
+      </div>
+
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .werk-page {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 4rem 1.5rem;
+  }
+
+  .werk-hero {
+    text-align: center;
+    margin-bottom: 4rem;
+  }
+
+  .werk-glyph {
+    font-size: 3rem;
+    color: var(--accent-primary, #8b7355);
+    margin-bottom: 1rem;
+    font-family: 'Berkeley Mono', monospace;
+  }
+
+  .werk-hero h1 {
+    font-family: 'Berkeley Mono', monospace;
+    font-size: 2.5rem;
+    font-weight: 400;
+    letter-spacing: 0.15em;
+    margin: 0;
+    color: var(--text-primary, #2c2416);
+  }
+
+  .werk-subtitle {
+    font-family: 'Charter', Georgia, serif;
+    font-style: italic;
+    font-size: 1.1rem;
+    color: var(--text-secondary, #6b5d4f);
+    margin-top: 0.5rem;
+  }
+
+  .werk-body {
+    font-family: 'Charter', Georgia, serif;
+    line-height: 1.7;
+    color: var(--text-primary, #2c2416);
+  }
+
+  .werk-section {
+    margin-bottom: 3rem;
+  }
+
+  .werk-section h2 {
+    font-family: 'Berkeley Mono', monospace;
+    font-size: 1rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 1rem;
+    color: var(--text-primary, #2c2416);
+  }
+
+  .werk-lead {
+    font-size: 1.2rem;
+    font-style: italic;
+    margin-bottom: 1.5rem;
+  }
+
+  .werk-terminal {
+    background: #1a1a1e;
+    color: #dcdcdc;
+    padding: 1.5rem;
+    border-radius: 4px;
+    overflow-x: auto;
+    font-family: 'Berkeley Mono', 'Menlo', monospace;
+    font-size: 0.85rem;
+    line-height: 1.6;
+    margin: 1.5rem 0;
+  }
+
+  .werk-terminal code {
+    background: none;
+    padding: 0;
+    font-size: inherit;
+  }
+
+  .werk-dynamics-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+  }
+
+  .werk-dynamic {
+    display: flex;
+    gap: 1rem;
+    padding: 0.4rem 0;
+    border-bottom: 1px solid var(--border-light, #d9d0c3);
+    font-size: 0.95rem;
+  }
+
+  .werk-dynamic strong {
+    font-family: 'Berkeley Mono', monospace;
+    font-size: 0.85rem;
+    min-width: 180px;
+    flex-shrink: 0;
+  }
+
+  .werk-dynamic span {
+    color: var(--text-secondary, #6b5d4f);
+  }
+
+  .werk-section code {
+    font-family: 'Berkeley Mono', monospace;
+    background: var(--bg-secondary, #ebe5d9);
+    padding: 0.15rem 0.4rem;
+    border-radius: 2px;
+    font-size: 0.9em;
+  }
+
+  .werk-note {
+    font-size: 0.9rem;
+    color: var(--text-secondary, #6b5d4f);
+    font-style: italic;
+  }
+
+  .werk-footer {
+    text-align: center;
+    margin-top: 4rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border-light, #d9d0c3);
+    font-family: 'Berkeley Mono', monospace;
+    font-size: 0.85rem;
+    color: var(--text-secondary, #6b5d4f);
+  }
+
+  .werk-footer a {
+    color: var(--accent-primary, #8b7355);
+    text-decoration: none;
+  }
+
+  .werk-footer a:hover {
+    text-decoration: underline;
+  }
+
+  .werk-divider {
+    margin: 0 0.75rem;
+  }
+
+  .werk-link {
+    font-weight: 700;
+  }
+
+  @media (max-width: 600px) {
+    .werk-dynamic {
+      flex-direction: column;
+      gap: 0.2rem;
+    }
+    .werk-dynamic strong {
+      min-width: auto;
+    }
+    .werk-hero h1 {
+      font-size: 2rem;
+    }
+  }
+</style>
