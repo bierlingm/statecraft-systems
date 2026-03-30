@@ -1,0 +1,1247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mirko Loiodice — Private Performance Coach</title>
+<meta name="description" content="Transforming your body and mindset. Ultra-personalised training, integrated medical-nutrition support, and meticulous execution across any setting.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,200;0,300;0,400;0,500;0,600;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --black: #0a0a0a;
+  --dark: #111111;
+  --darker: #0e0e0e;
+  --card: #151515;
+  --card-border: rgba(255,255,255,0.08);
+  --white: #ffffff;
+  --off-white: #e0e0e0;
+  --gray: #808080;
+  --mid-gray: #4a4a4a;
+  --dim: rgba(255,255,255,0.04);
+  --dim-border: rgba(255,255,255,0.08);
+  --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-out: cubic-bezier(0.33, 1, 0.68, 1);
+  --space-xs: 1rem;
+  --space-sm: 2rem;
+  --space-md: 4rem;
+  --space-lg: 8rem;
+  --space-xl: 10rem;
+  --section-pad: var(--space-xl);
+  --section-pad-alt: var(--space-lg);
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font);
+  background: var(--black);
+  color: var(--white);
+  line-height: 1.65;
+  font-size: 1rem;
+  font-weight: 300;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* A11Y */
+:focus-visible { outline: 2px solid var(--white); outline-offset: 3px; }
+:focus:not(:focus-visible) { outline: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+  .reveal { opacity: 1; transform: none; }
+  html { scroll-behavior: auto; }
+}
+
+/* SCROLL PROGRESS */
+.scroll-progress {
+  position: fixed; top: 0; left: 0; width: 100%; height: 2px; z-index: 200;
+  background: var(--white);
+  transform-origin: left; transform: scaleX(0);
+  will-change: transform; opacity: 0.35;
+  pointer-events: none;
+}
+
+/* NAV */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  padding: 1.75rem 3rem;
+  display: flex; justify-content: space-between; align-items: center;
+  background: transparent;
+  transition: padding 0.5s var(--ease), background 0.5s var(--ease), border-color 0.5s var(--ease);
+  border-bottom: 1px solid transparent;
+}
+nav.scrolled {
+  padding: 1rem 3rem;
+  background: rgba(10,10,10,0.92);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border-bottom-color: rgba(255,255,255,0.04);
+}
+.logo { display: flex; align-items: center; gap: 0.75rem; text-decoration: none; }
+.logo-mark { width: 34px; height: 34px; transition: transform 0.4s var(--ease); }
+.logo-mark svg { width: 100%; height: 100%; }
+.logo:hover .logo-mark { transform: scale(1.06); }
+.logo-text {
+  font-size: 0.8rem; font-weight: 600; letter-spacing: 0.15em;
+  color: var(--white); text-transform: uppercase;
+}
+.nav-links { display: flex; align-items: center; gap: 2.25rem; }
+.nav-link {
+  font-size: 0.78rem; font-weight: 400; letter-spacing: 0.08em;
+  color: var(--gray); text-decoration: none; text-transform: uppercase;
+  transition: color 0.35s var(--ease-out);
+  padding: 0.5rem 0;
+  position: relative;
+}
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: 0.25rem; left: 0;
+  width: 100%; height: 1px;
+  background: var(--white);
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.4s var(--ease);
+}
+.nav-link:hover { color: var(--white); }
+.nav-link:hover::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+.nav-cta {
+  padding: 0.65rem 1.6rem;
+  border: 1px solid rgba(255,255,255,0.35);
+  background: transparent;
+  color: var(--white);
+  font-family: var(--font);
+  font-size: 0.78rem; font-weight: 500;
+  letter-spacing: 0.06em;
+  cursor: pointer;
+  text-decoration: none;
+  position: relative;
+  overflow: hidden;
+  transition: color 0.45s var(--ease), border-color 0.45s var(--ease);
+  min-height: 44px;
+  display: inline-flex; align-items: center;
+}
+.nav-cta::before {
+  content: ''; position: absolute; inset: 0;
+  background: var(--white);
+  transform: scaleX(0); transform-origin: left;
+  transition: transform 0.45s var(--ease);
+  z-index: -1;
+}
+.nav-cta:hover { color: var(--black); border-color: var(--white); }
+.nav-cta:hover::before { transform: scaleX(1); }
+
+/* MOBILE NAV */
+.nav-toggle {
+  display: none; background: none; border: none; cursor: pointer;
+  width: 32px; height: 44px; position: relative; z-index: 110; padding: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+.nav-toggle span {
+  display: block; width: 24px; height: 1.5px; background: var(--white);
+  position: absolute; left: 4px; transition: all 0.4s var(--ease);
+}
+.nav-toggle span:nth-child(1) { top: 13px; }
+.nav-toggle span:nth-child(2) { top: 21px; }
+.nav-toggle span:nth-child(3) { top: 29px; }
+.nav-toggle[aria-expanded="true"] span:nth-child(1) { top: 21px; transform: rotate(45deg); }
+.nav-toggle[aria-expanded="true"] span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+.nav-toggle[aria-expanded="true"] span:nth-child(3) { top: 21px; transform: rotate(-45deg); }
+.mobile-menu {
+  display: none; position: fixed; inset: 0; z-index: 99;
+  background: rgba(10,10,10,0.98);
+  backdrop-filter: blur(40px);
+  -webkit-backdrop-filter: blur(40px);
+  flex-direction: column; justify-content: center; align-items: center;
+  gap: 0.5rem; opacity: 0; pointer-events: none;
+  transition: opacity 0.5s var(--ease);
+}
+.mobile-menu[aria-hidden="false"] { opacity: 1; pointer-events: auto; }
+.mobile-menu a {
+  font-size: 1.8rem; font-weight: 200; letter-spacing: -0.01em;
+  color: var(--white); text-decoration: none;
+  opacity: 0; transform: translateY(20px);
+  transition: opacity 0.5s var(--ease), transform 0.5s var(--ease), color 0.3s var(--ease);
+  min-height: 56px; display: flex; align-items: center;
+  padding: 0.25rem 1rem;
+}
+.mobile-menu a:hover, .mobile-menu a:active { color: var(--gray); }
+.mobile-menu[aria-hidden="false"] a { opacity: 1; transform: translateY(0); }
+.mobile-menu[aria-hidden="false"] a:nth-child(1) { transition-delay: 0.05s; }
+.mobile-menu[aria-hidden="false"] a:nth-child(2) { transition-delay: 0.1s; }
+.mobile-menu[aria-hidden="false"] a:nth-child(3) { transition-delay: 0.15s; }
+.mobile-menu[aria-hidden="false"] a:nth-child(4) { transition-delay: 0.22s; }
+
+/* LAYOUT */
+section { position: relative; }
+.container { max-width: 1200px; margin: 0 auto; padding: 0 3rem; }
+
+/* HERO */
+.hero {
+  min-height: 100vh;
+  display: flex; align-items: center;
+  padding-top: 6rem;
+  position: relative;
+}
+.hero::after {
+  content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 200px;
+  background: linear-gradient(to top, var(--black), transparent);
+  pointer-events: none;
+}
+.hero .container {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: center;
+}
+.hero-visual {
+  width: 100%; aspect-ratio: 4/5;
+  position: relative; overflow: hidden;
+  background: #111;
+}
+.hero-visual img {
+  width: 100%; height: 100%; object-fit: cover;
+  filter: brightness(0.6) contrast(1.12) grayscale(0.2);
+  transition: transform 1s var(--ease), filter 1s var(--ease);
+}
+.hero-visual:hover img { transform: scale(1.03); filter: brightness(0.65) contrast(1.12) grayscale(0.15); }
+.hero-visual::after {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(to bottom, transparent 50%, rgba(10,10,10,0.6) 100%);
+  pointer-events: none;
+}
+.hero-tagline {
+  display: flex; align-items: center; gap: 0.75rem;
+  margin-bottom: var(--space-sm);
+}
+.hero-tagline span {
+  font-size: 0.75rem; font-weight: 400; letter-spacing: 0.14em;
+  color: var(--gray); text-transform: uppercase;
+}
+.hero-tagline::before {
+  content: ''; width: 28px; height: 1px; background: var(--mid-gray); flex-shrink: 0;
+}
+.hero h1 {
+  font-size: clamp(2.6rem, 5vw, 4.2rem);
+  font-weight: 200;
+  line-height: 1.06;
+  letter-spacing: -0.025em;
+  margin-bottom: 1.5rem;
+  text-wrap: balance;
+}
+.hero-sub {
+  font-size: 1.05rem; color: var(--gray); font-weight: 300;
+  letter-spacing: 0.01em; line-height: 1.7;
+}
+.hero-scroll {
+  position: absolute; bottom: 3rem; left: 50%; transform: translateX(-50%);
+  display: flex; flex-direction: column; align-items: center; gap: 0.6rem; z-index: 2;
+}
+.hero-scroll span {
+  font-size: 0.6rem; font-weight: 400; letter-spacing: 0.2em; text-transform: uppercase; color: var(--mid-gray);
+}
+.scroll-line {
+  width: 1px; height: 32px; position: relative; overflow: hidden;
+  background: rgba(255,255,255,0.06);
+}
+.scroll-line::after {
+  content: ''; position: absolute; top: -100%; left: 0;
+  width: 1px; height: 100%; background: rgba(255,255,255,0.5);
+  animation: scrollPulse 2.2s ease-in-out infinite;
+}
+@keyframes scrollPulse {
+  0% { top: -100%; } 50% { top: 0; } 100% { top: 100%; }
+}
+
+/* ABOUT — bg: black (default) */
+.about { padding: var(--section-pad) 0; }
+.about .container {
+  display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 6rem; align-items: start;
+}
+.about-lead {
+  font-size: 0.9rem; font-weight: 300; color: var(--gray);
+  letter-spacing: 0.02em; font-style: italic; margin-bottom: var(--space-sm);
+  line-height: 1.6;
+}
+.about h2 {
+  font-size: clamp(1.8rem, 3.2vw, 2.6rem);
+  font-weight: 200; line-height: 1.2;
+  letter-spacing: -0.01em;
+  margin-bottom: var(--space-sm);
+  text-wrap: balance;
+}
+.about-body {
+  font-size: clamp(1.15rem, 2vw, 1.6rem);
+  font-weight: 200; line-height: 1.4;
+  color: var(--off-white);
+  font-style: italic;
+}
+.credentials { display: flex; flex-direction: column; gap: var(--space-xs); }
+.credential-card {
+  padding: var(--space-sm);
+  background: linear-gradient(135deg, rgba(255,255,255,0.04) 0%, rgba(255,255,255,0.02) 100%);
+  border: 1px solid var(--card-border);
+  transition: border-color 0.45s var(--ease), transform 0.45s var(--ease), box-shadow 0.45s var(--ease);
+}
+.credential-card:hover {
+  border-color: rgba(255,255,255,0.16);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+}
+.credential-label {
+  font-size: 0.7rem; letter-spacing: 0.14em; color: var(--gray);
+  text-transform: uppercase; margin-bottom: 0.35rem; font-weight: 500;
+}
+.credential-title { font-size: 0.9rem; font-weight: 400; margin-bottom: 0.4rem; color: var(--off-white); }
+.credential-value { font-size: 3rem; font-weight: 200; letter-spacing: -0.03em; }
+.credential-detail { font-size: 0.78rem; color: var(--gray); font-weight: 300; }
+
+/* SECTION LABEL */
+.section-label {
+  font-size: 0.7rem; letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--gray); margin-bottom: 0.75rem; font-weight: 500;
+  line-height: 1;
+}
+
+/* PRINCIPLES — bg: dark (pulse up) */
+.principles { padding: var(--section-pad-alt) 0; background: var(--dark); }
+.principles-header { margin-bottom: var(--space-md); }
+.principles h2 {
+  font-size: clamp(2rem, 3.5vw, 3rem);
+  font-weight: 200; font-style: italic;
+  letter-spacing: -0.01em;
+  text-wrap: balance;
+}
+.principles-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-xs);
+  margin-bottom: var(--space-md);
+}
+.principle-card {
+  padding: var(--space-sm);
+  background: linear-gradient(135deg, rgba(255,255,255,0.04) 0%, rgba(255,255,255,0.02) 100%);
+  border: 1px solid var(--card-border);
+  transition: border-color 0.45s var(--ease), transform 0.45s var(--ease), box-shadow 0.45s var(--ease);
+}
+.principle-card:hover {
+  border-color: rgba(255,255,255,0.16);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+}
+.principle-card h3 {
+  font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase;
+  font-weight: 500; margin-bottom: var(--space-xs); color: var(--off-white);
+}
+.principle-card p { font-size: 0.9rem; color: var(--gray); line-height: 1.7; font-weight: 300; }
+.mission-block { padding: var(--space-sm) 0 0; border-top: 1px solid var(--card-border); }
+.mission-block h3 {
+  font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase;
+  font-weight: 500; margin-bottom: 1.25rem; color: var(--off-white);
+}
+.mission-block p {
+  font-size: 1.05rem; color: var(--gray); line-height: 1.7;
+  font-weight: 300; max-width: 700px;
+}
+
+/* GLOBAL — bg: black (pulse down) */
+.global { padding: var(--section-pad) 0; }
+.global .container {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: start;
+}
+.global-intro p {
+  font-size: 0.95rem; color: var(--gray); line-height: 1.75;
+  margin-bottom: var(--space-sm); font-weight: 300;
+}
+.global h2 {
+  font-size: clamp(2rem, 3.5vw, 3rem);
+  font-weight: 200; margin-bottom: var(--space-sm);
+  letter-spacing: -0.015em;
+}
+.stats-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-xs); }
+.stat {
+  padding: 1.5rem 1rem;
+  background: linear-gradient(135deg, rgba(255,255,255,0.04) 0%, rgba(255,255,255,0.02) 100%);
+  border: 1px solid var(--card-border);
+  text-align: center;
+  transition: border-color 0.45s var(--ease), transform 0.45s var(--ease);
+}
+.stat:hover { border-color: rgba(255,255,255,0.16); transform: translateY(-1px); }
+.stat-value { font-size: 2.2rem; font-weight: 200; margin-bottom: 0.3rem; letter-spacing: -0.02em; }
+.stat-label { font-size: 0.72rem; color: var(--gray); letter-spacing: 0.04em; line-height: 1.45; font-weight: 400; }
+.locations-grid { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.location-tag {
+  padding: 0.55rem 1.15rem;
+  border: 1px solid var(--card-border);
+  font-size: 0.75rem; font-weight: 400;
+  letter-spacing: 0.08em; color: var(--off-white);
+  background: transparent; text-transform: uppercase;
+  transition: border-color 0.35s var(--ease), background 0.35s var(--ease), color 0.35s var(--ease);
+  min-height: 44px;
+  display: inline-flex; align-items: center;
+}
+.location-tag:hover {
+  border-color: rgba(255,255,255,0.25);
+  background: rgba(255,255,255,0.06);
+}
+.global-services { display: flex; flex-direction: column; gap: var(--space-xs); margin-top: var(--space-sm); }
+.global-service-card {
+  padding: var(--space-sm);
+  background: linear-gradient(135deg, rgba(255,255,255,0.04) 0%, rgba(255,255,255,0.02) 100%);
+  border: 1px solid var(--card-border);
+  transition: border-color 0.45s var(--ease), transform 0.45s var(--ease), box-shadow 0.45s var(--ease);
+}
+.global-service-card:hover {
+  border-color: rgba(255,255,255,0.16);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+}
+.global-service-card .section-label { margin-bottom: 0.5rem; }
+.global-service-card h3 { font-size: 1.15rem; font-weight: 400; margin-bottom: 0.5rem; letter-spacing: -0.005em; }
+.global-service-card p { font-size: 0.875rem; color: var(--gray); line-height: 1.65; font-weight: 300; }
+
+/* SATISFACTION — bg: darker (deepest pulse) */
+.satisfaction {
+  padding: var(--section-pad-alt) 0; background: var(--darker);
+  text-align: center; position: relative; overflow: hidden;
+}
+.satisfaction::before {
+  content: '';
+  position: absolute;
+  top: 50%; left: 50%;
+  width: 700px; height: 700px;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(circle, rgba(255,255,255,0.03) 0%, transparent 65%);
+  pointer-events: none;
+}
+.satisfaction::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  border-top: 1px solid rgba(255,255,255,0.05);
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+  pointer-events: none;
+}
+.satisfaction .container { position: relative; z-index: 1; }
+.satisfaction-tagline {
+  font-size: 0.75rem; letter-spacing: 0.16em; color: var(--gray);
+  margin-bottom: var(--space-sm); text-transform: uppercase; font-weight: 400;
+}
+.satisfaction h2 {
+  font-size: clamp(1.5rem, 2.8vw, 2.2rem);
+  font-weight: 300; line-height: 1.3;
+  letter-spacing: -0.005em;
+  max-width: 780px; margin: 0 auto var(--space-sm);
+}
+.satisfaction h2 span {
+  font-size: clamp(4.5rem, 10vw, 8rem); font-weight: 200;
+  display: block; letter-spacing: -0.04em;
+  line-height: 1;
+  margin: 0.4rem 0 0.5rem;
+  background: linear-gradient(180deg, var(--white) 0%, rgba(255,255,255,0.55) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.cta-button {
+  display: inline-flex; align-items: center; justify-content: center;
+  padding: 0.9rem 2.25rem;
+  border: 1px solid rgba(255,255,255,0.3);
+  color: var(--white);
+  text-decoration: none;
+  font-family: var(--font);
+  font-size: 0.75rem; font-weight: 500;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  transition: color 0.45s var(--ease), border-color 0.45s var(--ease);
+  position: relative; overflow: hidden;
+  min-height: 48px;
+}
+.cta-button::before {
+  content: ''; position: absolute; inset: 0;
+  background: var(--white);
+  transform: scaleX(0); transform-origin: left;
+  transition: transform 0.5s var(--ease);
+  z-index: -1;
+}
+.cta-button:hover { color: var(--black); border-color: var(--white); }
+.cta-button:hover::before { transform: scaleX(1); }
+.cta-button:active::before { transition-duration: 0.15s; }
+
+/* WHY MIRKO — bg: black (pulse down) */
+.why { padding: var(--section-pad) 0; }
+.why-header { text-align: center; margin-bottom: var(--space-md); }
+.why-header .tagline {
+  font-size: 0.75rem; letter-spacing: 0.16em; color: var(--gray);
+  text-transform: uppercase; margin-bottom: var(--space-xs); font-weight: 400;
+}
+.why h2 {
+  font-size: clamp(2.2rem, 4vw, 3.5rem);
+  font-weight: 200; letter-spacing: -0.02em;
+}
+.why-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-xs);
+}
+.why-card {
+  padding: var(--space-sm);
+  background: linear-gradient(135deg, rgba(255,255,255,0.04) 0%, rgba(255,255,255,0.02) 100%);
+  border: 1px solid var(--card-border);
+  transition: border-color 0.45s var(--ease), transform 0.45s var(--ease), box-shadow 0.45s var(--ease);
+  position: relative; overflow: hidden;
+}
+.why-card::before {
+  content: ''; position: absolute; top: 1.25rem; right: 1.25rem;
+  width: 24px; height: 24px; opacity: 0.03;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 40 40' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M8 8L14 8L20 20L14 32L8 32L14 20L8 8Z' fill='white'/%3E%3Cpath d='M32 8L26 8L20 20L26 32L32 32L26 20L32 8Z' fill='white'/%3E%3C/svg%3E");
+  background-size: contain; background-repeat: no-repeat;
+  transition: opacity 0.45s var(--ease);
+}
+.why-card:hover {
+  border-color: rgba(255,255,255,0.16);
+  transform: translateY(-3px);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.3);
+}
+.why-card:hover::before { opacity: 0.06; }
+.why-card h3 { font-size: 0.95rem; font-weight: 500; margin-bottom: var(--space-xs); letter-spacing: 0.01em; }
+.why-card p { font-size: 0.875rem; color: var(--gray); line-height: 1.7; font-weight: 300; }
+
+/* SERVICES — bg: dark (pulse up) */
+.services { padding: var(--section-pad-alt) 0; background: var(--dark); }
+.services-header {
+  display: flex; justify-content: space-between; align-items: flex-end;
+  margin-bottom: var(--space-md);
+}
+.services h2 {
+  font-size: clamp(2.2rem, 4vw, 3.5rem);
+  font-weight: 200; letter-spacing: -0.02em;
+}
+.services-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-xs);
+}
+.service-card {
+  padding: var(--space-sm);
+  background: linear-gradient(135deg, rgba(255,255,255,0.04) 0%, rgba(255,255,255,0.02) 100%);
+  border: 1px solid var(--card-border);
+  transition: border-color 0.45s var(--ease), transform 0.45s var(--ease), box-shadow 0.45s var(--ease);
+  display: flex; flex-direction: column;
+}
+.service-card:hover {
+  border-color: rgba(255,255,255,0.16);
+  transform: translateY(-3px);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.3);
+}
+.service-card h3 {
+  font-size: 1rem; font-weight: 500; margin-bottom: var(--space-xs);
+  line-height: 1.3; letter-spacing: -0.005em;
+}
+.service-card p { font-size: 0.875rem; color: var(--gray); line-height: 1.7; font-weight: 300; }
+.service-card .service-tag {
+  display: inline-block; margin-top: auto; padding-top: 1.5rem;
+  font-size: 0.65rem; letter-spacing: 0.12em; text-transform: uppercase;
+  color: rgba(255,255,255,0.15); font-weight: 400;
+  transition: color 0.35s var(--ease);
+}
+.service-card:hover .service-tag { color: rgba(255,255,255,0.25); }
+
+/* EXPERIENCE SECTIONS — bg: images (visual break) */
+.experience-section {
+  position: relative; overflow: hidden;
+  min-height: 75vh; display: flex; align-items: flex-end;
+}
+.experience-section .bg-image {
+  position: absolute; inset: 0; z-index: 0;
+}
+.experience-section .bg-image img {
+  width: 100%; height: 100%; object-fit: cover;
+  transition: transform 8s var(--ease-out);
+}
+.experience-section:hover .bg-image img {
+  transform: scale(1.03);
+}
+.experience-section .bg-image::after {
+  content: ''; position: absolute; inset: 0; z-index: 1;
+}
+.villa-overlay::after {
+  background: linear-gradient(
+    to top,
+    rgba(10,10,10,0.94) 0%,
+    rgba(10,10,10,0.6) 30%,
+    rgba(10,10,10,0.2) 55%,
+    rgba(10,10,10,0.08) 70%,
+    rgba(10,10,10,0.15) 100%
+  );
+}
+.yacht-overlay::after {
+  background: linear-gradient(
+    to top,
+    rgba(10,10,10,0.94) 0%,
+    rgba(10,10,10,0.55) 30%,
+    rgba(10,10,10,0.15) 55%,
+    rgba(10,10,10,0.05) 70%,
+    rgba(10,10,10,0.12) 100%
+  );
+}
+.experience-section .container {
+  position: relative; z-index: 2;
+  padding-top: var(--space-lg); padding-bottom: var(--space-md);
+}
+.experience-content { max-width: 640px; }
+.experience-content .section-label {
+  margin-bottom: var(--space-xs);
+  color: rgba(255,255,255,0.7);
+  text-shadow: 0 1px 8px rgba(0,0,0,0.5);
+}
+.experience-content h2 {
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 200; margin-bottom: 1.25rem;
+  letter-spacing: -0.01em;
+  text-shadow: 0 2px 20px rgba(0,0,0,0.4);
+  text-wrap: balance;
+}
+.experience-content p {
+  font-size: 1rem; color: var(--off-white); line-height: 1.7;
+  font-weight: 300; margin-bottom: var(--space-sm);
+  text-shadow: 0 1px 12px rgba(0,0,0,0.4);
+}
+.experience-features { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.feature-pill {
+  padding: 0.55rem 1.1rem;
+  border: 1px solid rgba(255,255,255,0.18);
+  font-size: 0.75rem; color: var(--off-white);
+  background: rgba(255,255,255,0.06);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  letter-spacing: 0.03em; font-weight: 400;
+  transition: border-color 0.35s var(--ease), background 0.35s var(--ease), transform 0.35s var(--ease);
+  min-height: 44px;
+  display: inline-flex; align-items: center;
+}
+.feature-pill:hover {
+  border-color: rgba(255,255,255,0.35);
+  background: rgba(255,255,255,0.12);
+  transform: translateY(-1px);
+}
+
+/* CLOSING — bg: black (pulse down) */
+.closing { padding: var(--section-pad) 0; }
+.closing .container {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: start;
+}
+.closing h2 {
+  font-size: clamp(2rem, 3.5vw, 3rem);
+  font-weight: 200; font-style: italic;
+  line-height: 1.15; margin-bottom: var(--space-sm);
+  letter-spacing: -0.01em;
+  text-wrap: balance;
+}
+.closing-body { font-size: 0.95rem; color: var(--gray); line-height: 1.75; font-weight: 300; }
+.closing-cards { display: flex; flex-direction: column; gap: var(--space-xs); }
+.closing-card {
+  padding: var(--space-sm);
+  background: linear-gradient(135deg, rgba(255,255,255,0.04) 0%, rgba(255,255,255,0.02) 100%);
+  border: 1px solid var(--card-border);
+  transition: border-color 0.45s var(--ease), transform 0.45s var(--ease), box-shadow 0.45s var(--ease);
+}
+.closing-card:hover {
+  border-color: rgba(255,255,255,0.16);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+}
+.closing-card h3 {
+  font-size: 0.9rem; font-weight: 500; margin-bottom: 0.75rem;
+  letter-spacing: 0.01em;
+}
+.closing-card p { font-size: 0.875rem; color: var(--gray); line-height: 1.65; font-weight: 300; }
+.closing-card-note { margin-top: 0.75rem; font-size: 0.8rem; color: var(--mid-gray); font-weight: 300; }
+.closing-card ul { list-style: none; }
+.closing-card ul li {
+  font-size: 0.9rem; color: var(--off-white); padding: 0.25rem 0; font-weight: 300;
+}
+.closing-card ul li::before { content: '— '; color: var(--mid-gray); }
+
+/* FOOTER — bg: dark (confident close) */
+footer {
+  padding: var(--space-md) 0 var(--space-sm);
+  background: var(--dark);
+  border-top: 1px solid var(--card-border);
+}
+.footer-content {
+  display: grid; grid-template-columns: 1fr auto; gap: var(--space-md); align-items: start;
+  margin-bottom: var(--space-md);
+}
+.footer-brand { max-width: 440px; }
+.footer-brand .logo { margin-bottom: 1.5rem; }
+.footer-brand p { font-size: 0.875rem; color: var(--gray); line-height: 1.75; font-weight: 300; }
+.footer-contact { text-align: right; }
+.footer-contact a {
+  display: flex; align-items: center; justify-content: flex-end;
+  color: var(--off-white); text-decoration: none;
+  font-size: 0.875rem; padding: 0.35rem 0;
+  transition: color 0.35s var(--ease);
+  font-weight: 300;
+  position: relative;
+  min-height: 44px;
+}
+.footer-contact a::after {
+  content: '';
+  position: absolute;
+  bottom: 0.15rem; left: 0;
+  width: 100%; height: 1px;
+  background: var(--white);
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.4s var(--ease);
+}
+.footer-contact a:hover { color: var(--white); }
+.footer-contact a:hover::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+.footer-cta {
+  margin-top: var(--space-sm);
+  padding-top: var(--space-sm);
+  border-top: 1px solid var(--card-border);
+}
+.footer-cta .cta-button {
+  padding: 1rem 2.5rem;
+  font-size: 0.78rem;
+  letter-spacing: 0.1em;
+}
+.footer-bottom {
+  padding-top: var(--space-sm);
+  border-top: 1px solid var(--card-border);
+  display: flex; justify-content: space-between; align-items: center;
+}
+.footer-bottom p { font-size: 0.72rem; color: rgba(255,255,255,0.2); letter-spacing: 0.03em; font-weight: 400; }
+.footer-tagline { font-style: italic; }
+
+/* REVEAL */
+.reveal {
+  opacity: 0; transform: translateY(24px);
+  transition: opacity 0.9s var(--ease), transform 0.9s var(--ease);
+}
+.reveal.visible { opacity: 1; transform: translateY(0); }
+.reveal-d1 { transition-delay: 0.08s; }
+.reveal-d2 { transition-delay: 0.16s; }
+.reveal-d3 { transition-delay: 0.24s; }
+.reveal-d4 { transition-delay: 0.32s; }
+
+/* ===== TABLET ===== */
+@media (max-width: 968px) {
+  :root {
+    --section-pad: var(--space-md);
+    --section-pad-alt: var(--space-md);
+  }
+  nav { padding: 1.15rem 1.5rem; }
+  nav.scrolled { padding: 0.9rem 1.5rem; }
+  .nav-links { display: none; }
+  .nav-toggle { display: block; }
+  .mobile-menu { display: flex; }
+  .container { padding: 0 2rem; }
+  .hero .container,
+  .about .container,
+  .global .container,
+  .closing .container { grid-template-columns: 1fr; gap: var(--space-sm); }
+  .hero { min-height: auto; padding: 7rem 0 4rem; }
+  .hero-visual { max-width: 320px; aspect-ratio: 3/4; }
+  .hero-scroll { display: none; }
+  .principles-grid { grid-template-columns: 1fr; }
+  .why-grid, .services-grid { grid-template-columns: 1fr 1fr; }
+  .footer-content { grid-template-columns: 1fr; gap: var(--space-sm); }
+  .footer-contact { text-align: left; }
+  .footer-contact a { justify-content: flex-start; }
+  .footer-contact a::after { transform-origin: left; }
+  .services-header { flex-direction: column; align-items: flex-start; gap: 1.5rem; }
+  .experience-section { min-height: 55vh; }
+}
+
+/* ===== MOBILE ===== */
+@media (max-width: 600px) {
+  :root {
+    --section-pad: 3.5rem;
+    --section-pad-alt: 3.5rem;
+  }
+  .container { padding: 0 1.25rem; }
+
+  /* Hero: full-width image above text, stacked, powerful */
+  .hero { padding: 5.5rem 0 3rem; }
+  .hero .container { gap: 2rem; }
+  .hero-visual {
+    max-width: 100%; aspect-ratio: 16/10;
+    margin: 0 -1.25rem; width: calc(100% + 2.5rem);
+  }
+  .hero h1 {
+    font-size: clamp(2rem, 8.5vw, 2.6rem);
+    line-height: 1.08;
+  }
+  .hero-sub { font-size: 0.95rem; }
+  .hero-tagline span { font-size: 0.72rem; }
+
+  /* Grids */
+  .why-grid, .services-grid { grid-template-columns: 1fr; }
+  .stats-row { grid-template-columns: 1fr; gap: 0.5rem; }
+  .stat {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.15rem 1.25rem; min-height: 60px;
+  }
+  .stat-value { margin-bottom: 0; font-size: 1.8rem; }
+  .stat-label { text-align: right; font-size: 0.72rem; }
+
+  /* Experience sections: taller on mobile for drama */
+  .experience-section { min-height: 60vh; }
+  .experience-section .container { padding-top: 3rem; padding-bottom: var(--space-sm); }
+
+  /* CTAs: full-width, generous touch targets */
+  .cta-button { padding: 0.95rem 2rem; width: 100%; text-align: center; min-height: 52px; }
+  .footer-cta .cta-button { width: 100%; text-align: center; }
+  .nav-cta { padding: 0.55rem 1.15rem; font-size: 0.72rem; }
+
+  /* Footer */
+  .footer-bottom { flex-direction: column; gap: 0.5rem; text-align: center; }
+
+  /* Cards: comfortable mobile padding */
+  .why-card, .service-card, .principle-card, .closing-card, .credential-card, .global-service-card { padding: 1.5rem; }
+
+  /* Touch targets */
+  .feature-pill { min-height: 44px; display: inline-flex; align-items: center; }
+  .location-tag { min-height: 44px; }
+
+  /* Satisfaction: bigger impact */
+  .satisfaction h2 span { font-size: clamp(3.5rem, 18vw, 6rem); }
+  .satisfaction { padding: 4.5rem 0; }
+
+  /* About: ensure readability */
+  .about-lead { font-size: 0.875rem; }
+  .about-body { font-size: clamp(1.05rem, 4.5vw, 1.35rem); }
+
+  /* Mobile menu: larger hit areas */
+  .mobile-menu a { font-size: 2rem; min-height: 60px; font-weight: 200; }
+}
+
+/* ===== SMALL MOBILE (375px and below) ===== */
+@media (max-width: 400px) {
+  .container { padding: 0 1rem; }
+  .hero-visual { margin: 0 -1rem; width: calc(100% + 2rem); }
+  .hero h1 { font-size: 1.85rem; }
+  .satisfaction h2 span { font-size: clamp(3rem, 20vw, 5rem); }
+  .credential-value { font-size: 2.5rem; }
+  .nav-cta { padding: 0.5rem 0.9rem; font-size: 0.68rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- SCROLL PROGRESS -->
+<div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
+<!-- NAV -->
+<nav id="nav" role="navigation" aria-label="Main navigation">
+  <a href="#" class="logo" aria-label="Mirko Loiodice — Home">
+    <div class="logo-mark" aria-hidden="true">
+      <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M8 8L14 8L20 20L14 32L8 32L14 20L8 8Z" fill="white"/>
+        <path d="M32 8L26 8L20 20L26 32L32 32L26 20L32 8Z" fill="white"/>
+      </svg>
+    </div>
+    <span class="logo-text">Mirko Loiodice</span>
+  </a>
+  <div class="nav-links">
+    <a href="#about" class="nav-link">About</a>
+    <a href="#services" class="nav-link">Services</a>
+    <a href="#experience" class="nav-link">Experience</a>
+    <a href="mailto:mirkoloiodice@gmail.com" class="nav-cta">Private Consultation</a>
+  </div>
+  <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu" role="dialog" aria-label="Navigation menu" aria-hidden="true">
+  <a href="#about" data-close>About</a>
+  <a href="#services" data-close>Services</a>
+  <a href="#experience" data-close>Experience</a>
+  <a href="mailto:mirkoloiodice@gmail.com">Private Consultation</a>
+</div>
+
+<!-- HERO -->
+<section class="hero" aria-label="Introduction">
+  <div class="container">
+    <div class="hero-visual reveal">
+      <img src="https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?w=900&q=80&auto=format&fit=crop" alt="Athletic man in focused training" loading="eager" fetchpriority="high">
+    </div>
+    <div>
+      <div class="hero-tagline reveal reveal-d1">
+        <span>Private Performance Coach</span>
+      </div>
+      <h1 class="reveal reveal-d2">Transforming your body and&nbsp;mindset.</h1>
+      <p class="hero-sub reveal reveal-d3">Precision coaching for exceptional lives.<br>Where performance meets discretion.</p>
+    </div>
+  </div>
+  <div class="hero-scroll" aria-hidden="true">
+    <span>Scroll</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="about" aria-label="About Mirko">
+  <div class="container">
+    <div>
+      <p class="about-lead reveal">I don't sell formulas &mdash; I design&nbsp;solutions.</p>
+      <h2 class="reveal reveal-d1">Every client brings a story, a goal, and a personal&nbsp;urgency.</h2>
+      <p class="about-body reveal reveal-d2">Training with me is a real commitment to your body, your time, and your&nbsp;wellbeing.</p>
+    </div>
+    <div class="credentials">
+      <div class="credential-card reveal reveal-d2">
+        <p class="credential-label">Satisfaction Rate</p>
+        <p class="credential-detail">For our fitness services</p>
+        <p class="credential-value">99%</p>
+      </div>
+      <div class="credential-card reveal reveal-d3">
+        <p class="credential-label">ISSA Certified</p>
+        <p class="credential-title">Certified Personal Fitness Trainer</p>
+        <p class="credential-detail">CFT 3 &mdash; ISSA Europe</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GUIDING PRINCIPLES -->
+<section class="principles" aria-label="Guiding Principles">
+  <div class="container">
+    <div class="principles-header">
+      <p class="section-label reveal">Values</p>
+      <h2 class="reveal reveal-d1">Guiding Principles</h2>
+    </div>
+    <div class="principles-grid">
+      <div class="principle-card reveal reveal-d1">
+        <h3>Integrity</h3>
+        <p>We honour every commitment with confidentiality, punctuality and transparency. Promises become&nbsp;reality.</p>
+      </div>
+      <div class="principle-card reveal reveal-d2">
+        <h3>Excellence</h3>
+        <p>We benchmark training against evidence-based practice and elite performance standards, pursuing measurable, repeatable&nbsp;results.</p>
+      </div>
+    </div>
+    <div class="mission-block reveal reveal-d3">
+      <h3>Our Mission</h3>
+      <p>Translate ambitious personal goals into measurable outcomes through ultra-personalised training, integrated medical-nutrition support, and meticulous execution across any setting; studio, villa or&nbsp;yacht.</p>
+    </div>
+  </div>
+</section>
+
+<!-- GLOBAL EXPERIENCE -->
+<section class="global" id="experience" aria-label="Global Experience">
+  <div class="container">
+    <div class="global-intro">
+      <p class="reveal">Mirko now leads a Barcelona training centre and partners with nutritionists, physiotherapists and sports physicians to deliver integrated&nbsp;results.</p>
+      <h2 class="reveal reveal-d1">Global Experience.</h2>
+      <div class="stats-row reveal reveal-d2">
+        <div class="stat">
+          <p class="stat-value">+10</p>
+          <p class="stat-label">Years of experience</p>
+        </div>
+        <div class="stat">
+          <p class="stat-value">3</p>
+          <p class="stat-label">Service languages<br>(EN, ES, IT)</p>
+        </div>
+        <div class="stat">
+          <p class="stat-value">6</p>
+          <p class="stat-label">Destinations served</p>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="locations-grid reveal reveal-d1" aria-label="Locations served">
+        <span class="location-tag">Barcelona</span>
+        <span class="location-tag">Ibiza</span>
+        <span class="location-tag">Milan</span>
+        <span class="location-tag">Saint Tropez</span>
+        <span class="location-tag">London</span>
+        <span class="location-tag">New York</span>
+        <span class="location-tag">Los Angeles</span>
+        <span class="location-tag">Miami</span>
+        <span class="location-tag">Caribbean</span>
+      </div>
+      <div class="global-services">
+        <div class="global-service-card reveal reveal-d2">
+          <p class="section-label">Services</p>
+          <h3>Programmes for HNWIs</h3>
+          <p>Training and nutrition designed for high-net-worth&nbsp;individuals.</p>
+        </div>
+        <div class="global-service-card reveal reveal-d3">
+          <p class="section-label">Services</p>
+          <h3>Seasonal Residencies</h3>
+          <p>Intensives for travel&nbsp;periods.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SATISFACTION BANNER -->
+<section class="satisfaction" aria-label="Client satisfaction">
+  <div class="container">
+    <p class="satisfaction-tagline reveal">High standards. High commitment. High&nbsp;performance.</p>
+    <h2 class="reveal reveal-d1">We have a <span>99%</span> customer satisfaction rate for our fitness&nbsp;services.</h2>
+    <a href="mailto:mirkoloiodice@gmail.com" class="cta-button reveal reveal-d2">Click Here for Private Consultation</a>
+  </div>
+</section>
+
+<!-- WHY MIRKO -->
+<section class="why" aria-label="Why choose Mirko">
+  <div class="container">
+    <div class="why-header">
+      <p class="tagline reveal">Discretion. Precision. Visible&nbsp;transformation.</p>
+      <h2 class="reveal reveal-d1">Why Mirko?</h2>
+    </div>
+    <div class="why-grid">
+      <div class="why-card reveal reveal-d1">
+        <h3>Ultra-Personalisation</h3>
+        <p>No templates. Every plan is engineered to your goals, travel patterns, recovery needs and&nbsp;lifestyle.</p>
+      </div>
+      <div class="why-card reveal reveal-d2">
+        <h3>Proven Expertise</h3>
+        <p>Discreet experience across Europe and the US, accustomed to complex schedules and privacy&nbsp;requirements.</p>
+      </div>
+      <div class="why-card reveal reveal-d3">
+        <h3>Continuous Education</h3>
+        <p>Ongoing specialisation in biomechanics, supplementation and hormonal health to optimise performance&nbsp;safely.</p>
+      </div>
+      <div class="why-card reveal reveal-d1">
+        <h3>Integrated Care Team</h3>
+        <p>Seamless coordination with nutritionists, physiotherapists and sports physicians for end-to-end&nbsp;results.</p>
+      </div>
+      <div class="why-card reveal reveal-d2">
+        <h3>Clear Communication</h3>
+        <p>English, Spanish and Italian for frictionless service&nbsp;worldwide.</p>
+      </div>
+      <div class="why-card reveal reveal-d3">
+        <h3>Professional &amp; Discrete</h3>
+        <p>Punctual, confidential and outcome-focused. Your objectives are the only&nbsp;metric.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services" id="services" aria-label="Services offered">
+  <div class="container">
+    <div class="services-header">
+      <h2 class="reveal">Our Services</h2>
+      <a href="mailto:mirkoloiodice@gmail.com" class="cta-button reveal reveal-d1">Click Here for Private Consultation</a>
+    </div>
+    <div class="services-grid">
+      <div class="service-card reveal reveal-d1">
+        <h3>1:1 Bespoke Training</h3>
+        <p>Precision programming built around your physiology, goals and calendar. In-person or private-site&nbsp;delivery.</p>
+        <span class="service-tag">In-Person &middot; Private Site</span>
+      </div>
+      <div class="service-card reveal reveal-d2">
+        <h3>Rehabilitation &amp; Return&nbsp;Performance</h3>
+        <p>Readaptation after injury with progressive load management, biomechanics focus and medical&nbsp;liaison.</p>
+        <span class="service-tag">Recovery &middot; Medical</span>
+      </div>
+      <div class="service-card reveal reveal-d3">
+        <h3>Performance &amp; Mindset&nbsp;Coaching</h3>
+        <p>Elite habits, stress regulation, sleep hygiene and mental resilience to sustain peak&nbsp;outcomes.</p>
+        <span class="service-tag">Mindset &middot; Performance</span>
+      </div>
+      <div class="service-card reveal reveal-d1">
+        <h3>Advanced Body Recomposition</h3>
+        <p>Lean mass development and extreme definition protocols with data-led&nbsp;monitoring.</p>
+        <span class="service-tag">Body Composition &middot; Data</span>
+      </div>
+      <div class="service-card reveal reveal-d2">
+        <h3>Quarterly Online Coaching</h3>
+        <p>Remote programmes with full oversight: assessments, plan updates, check-ins and compliance&nbsp;tracking.</p>
+        <span class="service-tag">Remote &middot; Quarterly</span>
+      </div>
+      <div class="service-card reveal reveal-d3">
+        <h3>On-Site Training: Villas &amp;&nbsp;Yachts</h3>
+        <p>Fully mobile set-up, concierge scheduling and NDA-level confidentiality for HNWIs, executives and&nbsp;talent.</p>
+        <span class="service-tag">Travel &middot; Concierge</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VILLA EXPERIENCE -->
+<section class="experience-section" aria-label="Villa training experience">
+  <div class="bg-image villa-overlay">
+    <img src="https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=1600&q=80&auto=format&fit=crop" alt="Luxury Mediterranean villa with infinity pool at dusk" loading="lazy" decoding="async">
+  </div>
+  <div class="container">
+    <div class="experience-content">
+      <p class="section-label reveal">Private Setting</p>
+      <h2 class="reveal reveal-d1">Villa Training Experience</h2>
+      <p class="reveal reveal-d2">Bespoke in-villa fitness and wellness programs designed for maximum privacy and&nbsp;convenience.</p>
+      <div class="experience-features reveal reveal-d3">
+        <span class="feature-pill">Fully mobile equipment</span>
+        <span class="feature-pill">Concierge scheduling</span>
+        <span class="feature-pill">Privacy-first</span>
+        <span class="feature-pill">Integrated nutrition</span>
+        <span class="feature-pill">Recovery protocols</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- YACHT EXPERIENCE -->
+<section class="experience-section" aria-label="Yacht performance coaching">
+  <div class="bg-image yacht-overlay">
+    <img src="https://images.unsplash.com/photo-1567899378494-47b22a2ae96a?w=1600&q=80&auto=format&fit=crop" alt="Luxury superyacht anchored in crystal clear waters" loading="lazy" decoding="async">
+  </div>
+  <div class="container">
+    <div class="experience-content">
+      <p class="section-label reveal">At Sea</p>
+      <h2 class="reveal reveal-d1">Yacht Performance Coaching</h2>
+      <p class="reveal reveal-d2">Exclusive onboard training tailored for life at&nbsp;sea.</p>
+      <div class="experience-features reveal reveal-d3">
+        <span class="feature-pill">Adapted programming</span>
+        <span class="feature-pill">Space-efficient training</span>
+        <span class="feature-pill">NDA-level discretion</span>
+        <span class="feature-pill">Travel-ready setup</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CLOSING -->
+<section class="closing" aria-label="Closing statement">
+  <div class="container">
+    <div>
+      <h2 class="reveal">A coach who has operated at the highest level of&nbsp;expectation.</h2>
+      <p class="closing-body reveal reveal-d1">I have cultivated recognised trust among an international clientele for delivering visible, measurable change while protecting their time and&nbsp;privacy.</p>
+    </div>
+    <div class="closing-cards">
+      <div class="closing-card reveal reveal-d1">
+        <h3>Performance Mentality</h3>
+        <p>Training is not only about changing your body &mdash; it is about transforming your&nbsp;mindset.</p>
+      </div>
+      <div class="closing-card reveal reveal-d2">
+        <h3>Main Locations</h3>
+        <ul>
+          <li>Barcelona</li>
+          <li>Ibiza</li>
+        </ul>
+        <p class="closing-card-note">Available for short-term projects or extended residencies &mdash;&nbsp;globally.</p>
+      </div>
+      <div class="closing-card reveal reveal-d3">
+        <h3>Engagement &amp; Pricing</h3>
+        <p>Every engagement begins with a private consultation and assessment. Fees are provided on request and vary by location, scope and level of&nbsp;access.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer role="contentinfo">
+  <div class="container">
+    <div class="footer-content">
+      <div class="footer-brand">
+        <a href="#" class="logo" aria-label="Mirko Loiodice — Home">
+          <div class="logo-mark" aria-hidden="true">
+            <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M8 8L14 8L20 20L14 32L8 32L14 20L8 8Z" fill="white"/>
+              <path d="M32 8L26 8L20 20L26 32L32 32L26 20L32 8Z" fill="white"/>
+            </svg>
+          </div>
+          <span class="logo-text">Mirko Loiodice</span>
+        </a>
+        <p>Precision coaching for exceptional lives. Where performance meets discretion. Engineered training. Evident&nbsp;results.</p>
+      </div>
+      <div class="footer-contact">
+        <a href="https://instagram.com/mirko_loiodice" target="_blank" rel="noopener">@mirko_loiodice</a>
+        <a href="mailto:mirkoloiodice@gmail.com">mirkoloiodice@gmail.com</a>
+        <a href="tel:+34653642449">+34 653 642 449</a>
+        <div class="footer-cta">
+          <a href="mailto:mirkoloiodice@gmail.com" class="cta-button">Click Here for Private Consultation</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; Mirko Loiodice. All rights reserved.</p>
+      <p class="footer-tagline">Tailored coaching for people who don't follow the&nbsp;crowd.</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+// Scroll progress
+const scrollProgress = document.getElementById('scrollProgress');
+function updateProgress() {
+  const s = window.scrollY;
+  const d = document.documentElement.scrollHeight - window.innerHeight;
+  scrollProgress.style.transform = 'scaleX(' + (d > 0 ? s / d : 0) + ')';
+}
+
+// Nav
+const nav = document.getElementById('nav');
+let lastScrollY = 0;
+function updateNav() {
+  const y = window.scrollY;
+  nav.classList.toggle('scrolled', y > 60);
+  lastScrollY = y;
+}
+
+let ticking = false;
+window.addEventListener('scroll', function() {
+  if (!ticking) {
+    requestAnimationFrame(function() { updateProgress(); updateNav(); ticking = false; });
+    ticking = true;
+  }
+}, { passive: true });
+
+// Reveal — single observer, efficient
+const ro = new IntersectionObserver(function(entries) {
+  for (var i = 0; i < entries.length; i++) {
+    if (entries[i].isIntersecting) {
+      entries[i].target.classList.add('visible');
+      ro.unobserve(entries[i].target);
+    }
+  }
+}, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+document.querySelectorAll('.reveal').forEach(function(el) { ro.observe(el); });
+
+// Mobile menu
+const navToggle = document.getElementById('navToggle');
+const mobileMenu = document.getElementById('mobileMenu');
+function toggleMenu() {
+  const open = navToggle.getAttribute('aria-expanded') === 'true';
+  navToggle.setAttribute('aria-expanded', !open);
+  navToggle.setAttribute('aria-label', open ? 'Open menu' : 'Close menu');
+  mobileMenu.setAttribute('aria-hidden', open);
+  document.body.style.overflow = open ? '' : 'hidden';
+}
+navToggle.addEventListener('click', toggleMenu);
+mobileMenu.querySelectorAll('[data-close]').forEach(function(l) {
+  l.addEventListener('click', function() {
+    navToggle.setAttribute('aria-expanded', 'false');
+    navToggle.setAttribute('aria-label', 'Open menu');
+    mobileMenu.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+  });
+});
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape' && navToggle.getAttribute('aria-expanded') === 'true') { toggleMenu(); navToggle.focus(); }
+});
+
+// Smooth scroll
+document.querySelectorAll('a[href^="#"]').forEach(function(a) {
+  a.addEventListener('click', function(e) {
+    var h = a.getAttribute('href');
+    if (h === '#') return;
+    var t = document.querySelector(h);
+    if (t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+  });
+});
+</script>
+
+</body>
+</html>
