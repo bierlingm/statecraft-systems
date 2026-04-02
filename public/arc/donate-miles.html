@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Donate Flight Miles | ARC – Association for the Recovery of Children</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --blue: #006fff;
+      --navy: #062367;
+      --red: #ff0000;
+      --gray: #676363;
+      --light-blue: #c2e4f5;
+      --bg: #f8fafc;
+    }
+
+    body {
+      font-family: 'Rubik', system-ui, sans-serif;
+      color: #1a1a2e;
+      background: var(--bg);
+      line-height: 1.6;
+    }
+
+    /* HERO */
+    .hero {
+      background: linear-gradient(135deg, var(--navy) 0%, #0a3a8f 60%, var(--blue) 100%);
+      color: white;
+      text-align: center;
+      padding: 4rem 1.5rem 3.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -60%; left: -20%;
+      width: 140%; height: 200%;
+      background: radial-gradient(ellipse at 30% 50%, rgba(255,255,255,0.06) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    .hero-badge {
+      display: inline-block;
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 100px;
+      padding: 0.4rem 1.2rem;
+      font-size: 0.85rem;
+      font-weight: 500;
+      letter-spacing: 0.03em;
+      margin-bottom: 1.5rem;
+      backdrop-filter: blur(4px);
+    }
+    .hero h1 {
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      font-weight: 700;
+      line-height: 1.15;
+      margin-bottom: 1rem;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .hero h1 span { color: var(--light-blue); }
+    .hero p {
+      font-size: 1.15rem;
+      opacity: 0.88;
+      max-width: 600px;
+      margin: 0 auto 2rem;
+    }
+    .hero-stats {
+      display: flex;
+      justify-content: center;
+      gap: 3rem;
+      flex-wrap: wrap;
+      margin-top: 2rem;
+    }
+    .stat { text-align: center; }
+    .stat-number {
+      font-size: 2rem;
+      font-weight: 700;
+      display: block;
+    }
+    .stat-label {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      opacity: 0.7;
+    }
+
+    /* SECTION */
+    section { padding: 4rem 1.5rem; }
+    .container { max-width: 960px; margin: 0 auto; }
+    .section-title {
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 0.5rem;
+    }
+    .section-subtitle {
+      color: var(--gray);
+      margin-bottom: 2.5rem;
+      font-size: 1.05rem;
+    }
+
+    /* HOW IT WORKS */
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 2rem;
+    }
+    .step {
+      background: white;
+      border-radius: 16px;
+      padding: 2rem 1.5rem;
+      text-align: center;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 8px 24px rgba(0,0,0,0.04);
+      position: relative;
+    }
+    .step-number {
+      width: 48px; height: 48px;
+      background: var(--blue);
+      color: white;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+    .step h3 {
+      font-size: 1.05rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      color: var(--navy);
+    }
+    .step p {
+      font-size: 0.92rem;
+      color: var(--gray);
+    }
+
+    /* AIRLINE CARDS */
+    .airlines {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+    .airline-card {
+      background: white;
+      border-radius: 16px;
+      padding: 2rem;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 8px 24px rgba(0,0,0,0.04);
+      border-left: 4px solid var(--blue);
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+    .airline-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08), 0 12px 32px rgba(0,0,0,0.06);
+    }
+    .airline-name {
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: var(--navy);
+      margin-bottom: 0.25rem;
+    }
+    .airline-program {
+      font-size: 0.85rem;
+      color: var(--gray);
+      margin-bottom: 1rem;
+    }
+    .airline-instructions {
+      font-size: 0.9rem;
+      color: #444;
+      margin-bottom: 1.25rem;
+    }
+    .airline-instructions ol {
+      padding-left: 1.2rem;
+    }
+    .airline-instructions li {
+      margin-bottom: 0.3rem;
+    }
+    .airline-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+    .airline-minimum {
+      font-size: 0.8rem;
+      color: var(--gray);
+      background: #f0f4f8;
+      padding: 0.25rem 0.75rem;
+      border-radius: 100px;
+    }
+    .airline-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: var(--blue);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      padding: 0.6rem 1.2rem;
+      font-family: inherit;
+      font-size: 0.9rem;
+      font-weight: 500;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.15s ease;
+    }
+    .airline-btn:hover { background: #005ae0; }
+    .airline-btn svg {
+      width: 16px; height: 16px;
+      fill: currentColor;
+    }
+
+    /* ALTERNATIVE */
+    .alt-section {
+      background: white;
+    }
+    .alt-box {
+      background: linear-gradient(135deg, #f0f7ff 0%, #e8f4fd 100%);
+      border: 1px solid #d0e3f5;
+      border-radius: 16px;
+      padding: 2.5rem;
+      text-align: center;
+    }
+    .alt-box h3 {
+      font-size: 1.2rem;
+      color: var(--navy);
+      margin-bottom: 0.75rem;
+    }
+    .alt-box p {
+      color: var(--gray);
+      margin-bottom: 1.5rem;
+      max-width: 520px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .alt-contact {
+      font-size: 0.95rem;
+      color: var(--navy);
+      font-weight: 500;
+    }
+    .alt-contact a {
+      color: var(--blue);
+      text-decoration: none;
+    }
+    .alt-contact a:hover { text-decoration: underline; }
+
+    /* FAQ */
+    .faq-list { max-width: 700px; margin: 0 auto; }
+    .faq-item {
+      border-bottom: 1px solid #e8ecf0;
+      padding: 1.25rem 0;
+    }
+    .faq-item:last-child { border-bottom: none; }
+    .faq-q {
+      font-weight: 600;
+      color: var(--navy);
+      margin-bottom: 0.4rem;
+      cursor: pointer;
+    }
+    .faq-a {
+      font-size: 0.92rem;
+      color: var(--gray);
+    }
+
+    /* FOOTER */
+    footer {
+      background: var(--navy);
+      color: rgba(255,255,255,0.7);
+      text-align: center;
+      padding: 2.5rem 1.5rem;
+      font-size: 0.85rem;
+    }
+    footer strong {
+      color: white;
+      display: block;
+      font-size: 1rem;
+      margin-bottom: 0.3rem;
+    }
+    footer a { color: var(--light-blue); text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+    .footer-legal {
+      margin-top: 1rem;
+      font-size: 0.78rem;
+      opacity: 0.6;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HERO -->
+  <header class="hero">
+    <div class="hero-badge">501(c)(3) Non-Profit &middot; Est. 1993</div>
+    <h1>Your Unused Flight Miles<br>Can <span>Bring Children Home</span></h1>
+    <p>ARC's operators travel worldwide to recover missing and abducted children. Donated airline miles directly fuel rescue missions.</p>
+    <div class="hero-stats">
+      <div class="stat">
+        <span class="stat-number">30+</span>
+        <span class="stat-label">Years of Operations</span>
+      </div>
+      <div class="stat">
+        <span class="stat-number">100%</span>
+        <span class="stat-label">Recovery Success Rate</span>
+      </div>
+      <div class="stat">
+        <span class="stat-number">$0</span>
+        <span class="stat-label">Cost to Families</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- HOW IT WORKS -->
+  <section>
+    <div class="container">
+      <h2 class="section-title">How It Works</h2>
+      <p class="section-subtitle">Donating miles takes about two minutes through your airline's website.</p>
+      <div class="steps">
+        <div class="step">
+          <div class="step-number">1</div>
+          <h3>Pick Your Airline</h3>
+          <p>Find your frequent flyer program below and click through to the airline's donation portal.</p>
+        </div>
+        <div class="step">
+          <div class="step-number">2</div>
+          <h3>Log In &amp; Donate</h3>
+          <p>Sign in to your loyalty account and enter the number of miles you'd like to give.</p>
+        </div>
+        <div class="step">
+          <div class="step-number">3</div>
+          <h3>Miles Fuel Rescues</h3>
+          <p>Your miles go directly to ARC's account, funding flights for child recovery operations.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- AIRLINE CARDS -->
+  <section style="background: white;">
+    <div class="container">
+      <h2 class="section-title">Donate Through Your Airline</h2>
+      <p class="section-subtitle">Select your loyalty program to get started. Miles are transferred directly to ARC's account.</p>
+      <div class="airlines">
+
+        <div class="airline-card">
+          <div class="airline-name">American Airlines</div>
+          <div class="airline-program">AAdvantage&reg;</div>
+          <div class="airline-instructions">
+            <ol>
+              <li>Visit the "Let Good Take Flight" donations page</li>
+              <li>Log in with your AAdvantage account</li>
+              <li>Search for or select ARC as the recipient</li>
+              <li>Enter the number of miles to donate</li>
+            </ol>
+          </div>
+          <div class="airline-meta">
+            <span class="airline-minimum">Min. 1,000 miles</span>
+            <a class="airline-btn" href="https://www.aa.com/i18n/customer-service/about-us/let-good-take-flight/donate.jsp" target="_blank" rel="noopener">
+              Donate Miles
+              <svg viewBox="0 0 20 20"><path d="M11 3a1 1 0 100 2h2.586l-6.293 6.293a1 1 0 101.414 1.414L15 6.414V9a1 1 0 102 0V4a1 1 0 00-1-1h-5zM5 5a2 2 0 00-2 2v8a2 2 0 002 2h8a2 2 0 002-2v-3a1 1 0 10-2 0v3H5V7h3a1 1 0 000-2H5z"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <div class="airline-card">
+          <div class="airline-name">United Airlines</div>
+          <div class="airline-program">MileagePlus&reg;</div>
+          <div class="airline-instructions">
+            <ol>
+              <li>Visit United's charity miles donation page</li>
+              <li>Log in with your MileagePlus account</li>
+              <li>Select ARC as the recipient organization</li>
+              <li>Enter miles and confirm</li>
+            </ol>
+          </div>
+          <div class="airline-meta">
+            <span class="airline-minimum">Min. 500 miles</span>
+            <a class="airline-btn" href="https://www.united.com/ual/en/us/fly/mileageplus/donate-miles.html" target="_blank" rel="noopener">
+              Donate Miles
+              <svg viewBox="0 0 20 20"><path d="M11 3a1 1 0 100 2h2.586l-6.293 6.293a1 1 0 101.414 1.414L15 6.414V9a1 1 0 102 0V4a1 1 0 00-1-1h-5zM5 5a2 2 0 00-2 2v8a2 2 0 002 2h8a2 2 0 002-2v-3a1 1 0 10-2 0v3H5V7h3a1 1 0 000-2H5z"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <div class="airline-card">
+          <div class="airline-name">Delta Air Lines</div>
+          <div class="airline-program">SkyMiles&reg;</div>
+          <div class="airline-instructions">
+            <ol>
+              <li>Go to "Buy or Transfer Miles" in your SkyMiles account</li>
+              <li>Select the "Donate" tab</li>
+              <li>Choose ARC as the charity</li>
+              <li>Enter miles (no commas) and apply</li>
+            </ol>
+          </div>
+          <div class="airline-meta">
+            <span class="airline-minimum">Min. 1,000 miles</span>
+            <a class="airline-btn" href="https://www.delta.com/buygftxfer/displayDonateMiles.action" target="_blank" rel="noopener">
+              Donate Miles
+              <svg viewBox="0 0 20 20"><path d="M11 3a1 1 0 100 2h2.586l-6.293 6.293a1 1 0 101.414 1.414L15 6.414V9a1 1 0 102 0V4a1 1 0 00-1-1h-5zM5 5a2 2 0 00-2 2v8a2 2 0 002 2h8a2 2 0 002-2v-3a1 1 0 10-2 0v3H5V7h3a1 1 0 000-2H5z"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <div class="airline-card">
+          <div class="airline-name">Alaska Airlines</div>
+          <div class="airline-program">Mileage Plan&reg;</div>
+          <div class="airline-instructions">
+            <ol>
+              <li>Visit Alaska's "Donate Miles" page</li>
+              <li>Log in with your Mileage Plan account</li>
+              <li>Search for ARC as the recipient</li>
+              <li>Enter miles in increments of 1,000</li>
+            </ol>
+          </div>
+          <div class="airline-meta">
+            <span class="airline-minimum">Min. 1,000 miles</span>
+            <a class="airline-btn" href="https://www.alaskaair.com/content/mileage-plan/use-miles/share-gift-miles/donate-miles" target="_blank" rel="noopener">
+              Donate Miles
+              <svg viewBox="0 0 20 20"><path d="M11 3a1 1 0 100 2h2.586l-6.293 6.293a1 1 0 101.414 1.414L15 6.414V9a1 1 0 102 0V4a1 1 0 00-1-1h-5zM5 5a2 2 0 00-2 2v8a2 2 0 002 2h8a2 2 0 002-2v-3a1 1 0 10-2 0v3H5V7h3a1 1 0 000-2H5z"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <div class="airline-card">
+          <div class="airline-name">Southwest Airlines</div>
+          <div class="airline-program">Rapid Rewards&reg;</div>
+          <div class="airline-instructions">
+            <ol>
+              <li>Log in to your Rapid Rewards account</li>
+              <li>Navigate to "Transfer Points"</li>
+              <li>Enter ARC's Rapid Rewards number</li>
+              <li>Specify the points amount and confirm</li>
+            </ol>
+          </div>
+          <div class="airline-meta">
+            <span class="airline-minimum">Contact ARC for details</span>
+            <a class="airline-btn" href="mailto:baz@recoveryofchildren.com?subject=Southwest%20Miles%20Donation%20for%20ARC">
+              Contact ARC
+              <svg viewBox="0 0 20 20"><path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/><path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <div class="airline-card">
+          <div class="airline-name">Other Airlines / Points Programs</div>
+          <div class="airline-program">Hotel points, credit card points, etc.</div>
+          <div class="airline-instructions">
+            <ol>
+              <li>Check if your program allows charity transfers</li>
+              <li>Email ARC with your program name and available points</li>
+              <li>ARC will coordinate the transfer with you</li>
+            </ol>
+          </div>
+          <div class="airline-meta">
+            <span class="airline-minimum">Any amount welcome</span>
+            <a class="airline-btn" href="mailto:baz@recoveryofchildren.com?subject=Points%20Donation%20for%20ARC">
+              Email ARC
+              <svg viewBox="0 0 20 20"><path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/><path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/></svg>
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- DIRECT / ALTERNATIVE -->
+  <section class="alt-section">
+    <div class="container">
+      <div class="alt-box">
+        <h3>Don't Have Miles? You Can Still Help.</h3>
+        <p>Monetary donations are used to purchase flights when mile transfers aren't available. Every dollar goes directly to funding rescue travel.</p>
+        <p class="alt-contact">
+          Donate at <a href="https://recoveryofchildren.com" target="_blank" rel="noopener">recoveryofchildren.com</a>
+          &nbsp;&middot;&nbsp;
+          Email <a href="mailto:baz@recoveryofchildren.com">baz@recoveryofchildren.com</a>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section>
+    <div class="container">
+      <h2 class="section-title">Common Questions</h2>
+      <p class="section-subtitle"></p>
+      <div class="faq-list">
+        <div class="faq-item">
+          <div class="faq-q">Are donated miles tax-deductible?</div>
+          <div class="faq-a">The IRS does not currently recognize frequent flyer mile donations as tax-deductible contributions. However, monetary donations to ARC are fully deductible as ARC is a registered 501(c)(3).</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q">Is there a minimum donation?</div>
+          <div class="faq-a">Minimums are set by each airline, typically 500 to 1,000 miles. Every bit helps &mdash; a single domestic rescue flight can require 25,000+ miles.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q">How are the miles used?</div>
+          <div class="faq-a">Miles fund flights for ARC's field operators &mdash; former CIA, military special ops, and law enforcement professionals &mdash; who travel domestically and internationally to recover missing and abducted children.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q">What if my airline isn't listed?</div>
+          <div class="faq-a">Email ARC at <a href="mailto:baz@recoveryofchildren.com" style="color:var(--blue)">baz@recoveryofchildren.com</a> with your airline and available miles. They'll work with you to arrange the transfer.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q">Can I donate hotel or credit card points?</div>
+          <div class="faq-a">Yes. Many hotel loyalty programs (Marriott Bonvoy, Hilton Honors, IHG) and credit card reward programs allow charity transfers. Contact ARC to coordinate.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <strong>ARC &ndash; Association for the Recovery of Children</strong>
+      PO Box 792, Estes Park, CO 80517<br>
+      <a href="https://recoveryofchildren.com" target="_blank" rel="noopener">recoveryofchildren.com</a>
+      &nbsp;&middot;&nbsp;
+      <a href="mailto:baz@recoveryofchildren.com">baz@recoveryofchildren.com</a>
+      <div class="footer-legal">
+        ARC is a 501(c)(3) non-profit organization. "We don't come home without the child."
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
