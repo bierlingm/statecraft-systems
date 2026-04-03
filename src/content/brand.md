@@ -121,10 +121,9 @@ Every page should be internally consistent at its calibration level. Do not mix 
 These are presented as "productions" or "projects," not "sub-brands." They have their own identities but are credited to Statecraft Systems.
 
 **Tools (built and used internally, shared with the network):**
-- sd-core — structural dynamics framework (flagship, not yet ready for dedicated page)
+- sd-core — structural dynamics framework (flagship)
+- werk — the operative instrument (CLI + TUI, built on sd-core)
 - spikes.sh — rapid prototyping
-- beats — knowledge/memory system
-- werk-cli — workspace management
 
 These are presented as tools, not products. They demonstrate capability and serve the network.
 

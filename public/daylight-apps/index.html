@@ -1,0 +1,874 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#faf5f2">
+    <title>Community Apps | Daylight</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,600;1,8..60,300;1,8..60,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --cream: #faf5f2;
+            --cream-deep: #f3ece4;
+            --white: #fff;
+            --night: #1c1917;
+            --night-soft: #292524;
+            --night-hover: #3a3533;
+            --amber: #d97706;
+            --amber-glow: #fbbf24;
+            --amber-soft: rgba(217,119,6,0.07);
+            --amber-medium: rgba(217,119,6,0.14);
+            --text: #44403c;
+            --text-secondary: #78716c;
+            --text-tertiary: #a8a29e;
+            --border: #e7e0d9;
+            --border-light: #f0ebe5;
+            --shadow-sm: 0 1px 2px rgba(28,25,23,0.04);
+            --shadow-md: 0 4px 12px rgba(28,25,23,0.06);
+            --shadow-lg: 0 12px 40px rgba(28,25,23,0.08);
+            --serif: 'Source Serif 4', Georgia, serif;
+            --sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            --mono: 'SF Mono', 'Fira Code', monospace;
+            --ease: cubic-bezier(0.16, 1, 0.3, 1);
+            --nav-w: 200px;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        ::selection { background: var(--amber-medium); color: var(--night); }
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: var(--serif);
+            background: var(--cream);
+            color: var(--text);
+            line-height: 1.7;
+            -webkit-font-smoothing: antialiased;
+            text-rendering: optimizeLegibility;
+        }
+
+        /* ================================================================
+           TOP BAR
+           ================================================================ */
+        .topbar {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(250,245,242,0.85);
+            backdrop-filter: blur(16px) saturate(180%);
+            -webkit-backdrop-filter: blur(16px) saturate(180%);
+            border-bottom: 1px solid var(--border);
+            padding: 0 32px;
+            height: 56px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .topbar-left {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        .topbar-brand {
+            font-family: var(--sans);
+            font-size: 0.82rem;
+            font-weight: 600;
+            color: var(--night);
+            text-decoration: none;
+            letter-spacing: -0.2px;
+        }
+        .topbar-divider {
+            width: 1px;
+            height: 20px;
+            background: var(--border);
+        }
+        .topbar-title {
+            font-family: var(--sans);
+            font-size: 0.82rem;
+            font-weight: 400;
+            color: var(--text-secondary);
+        }
+        .topbar-cta {
+            font-family: var(--sans);
+            font-size: 0.78rem;
+            font-weight: 600;
+            text-decoration: none;
+            padding: 7px 16px;
+            background: var(--night);
+            color: #fff;
+            border-radius: 6px;
+            transition: background 0.15s;
+        }
+        .topbar-cta:hover { background: var(--night-hover); }
+
+        /* ================================================================
+           LAYOUT: sidebar + main
+           ================================================================ */
+        .layout {
+            display: grid;
+            grid-template-columns: var(--nav-w) 1fr;
+            max-width: 1080px;
+            margin: 0 auto;
+            min-height: calc(100vh - 56px);
+        }
+
+        /* ================================================================
+           SIDEBAR NAV
+           ================================================================ */
+        .sidebar {
+            position: sticky;
+            top: 56px;
+            height: calc(100vh - 56px);
+            padding: 32px 24px 32px 32px;
+            overflow-y: auto;
+            border-right: 1px solid var(--border-light);
+        }
+        .sidebar-section {
+            margin-bottom: 28px;
+        }
+        .sidebar-label {
+            font-family: var(--sans);
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--text-tertiary);
+            margin-bottom: 10px;
+        }
+        .sidebar-link {
+            display: block;
+            font-family: var(--sans);
+            font-size: 0.82rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+            text-decoration: none;
+            padding: 6px 10px;
+            margin: 0 -10px;
+            border-radius: 6px;
+            transition: all 0.15s;
+        }
+        .sidebar-link:hover {
+            color: var(--night);
+            background: var(--amber-soft);
+        }
+        .sidebar-link.active {
+            color: var(--night);
+            background: var(--amber-soft);
+            font-weight: 600;
+        }
+        .sidebar-count {
+            font-size: 0.72rem;
+            color: var(--text-tertiary);
+            font-weight: 400;
+        }
+
+        /* ================================================================
+           MAIN CONTENT
+           ================================================================ */
+        .main {
+            padding: 40px 48px 80px;
+            max-width: 780px;
+        }
+
+        /* ---- Page header ---- */
+        .page-header {
+            margin-bottom: 48px;
+        }
+        .page-header h1 {
+            font-family: var(--serif);
+            font-size: 2rem;
+            font-weight: 600;
+            color: var(--night);
+            letter-spacing: -0.5px;
+            margin-bottom: 8px;
+        }
+        .page-header p {
+            font-size: 1.02rem;
+            font-weight: 300;
+            color: var(--text-secondary);
+            max-width: 500px;
+            line-height: 1.8;
+        }
+
+        /* ================================================================
+           FEATURED CARD
+           ================================================================ */
+        .featured {
+            background: var(--night);
+            color: #fff;
+            border-radius: 14px;
+            padding: 36px 40px;
+            margin-bottom: 48px;
+            position: relative;
+            overflow: hidden;
+        }
+        .featured::after {
+            content: '';
+            position: absolute;
+            top: -40%;
+            right: -20%;
+            width: 60%;
+            height: 180%;
+            background: radial-gradient(ellipse, rgba(217,119,6,0.1) 0%, transparent 70%);
+            pointer-events: none;
+        }
+        .featured-label {
+            font-family: var(--sans);
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2.5px;
+            color: var(--amber-glow);
+            margin-bottom: 14px;
+        }
+        .featured h2 {
+            font-family: var(--serif);
+            font-size: 1.55rem;
+            font-weight: 600;
+            margin-bottom: 4px;
+            position: relative;
+            z-index: 1;
+        }
+        .featured .by {
+            font-family: var(--sans);
+            font-size: 0.78rem;
+            color: rgba(255,255,255,0.4);
+            margin-bottom: 16px;
+        }
+        .featured .desc {
+            font-size: 0.98rem;
+            font-weight: 300;
+            color: rgba(255,255,255,0.7);
+            line-height: 1.8;
+            max-width: 480px;
+            margin-bottom: 24px;
+            position: relative;
+            z-index: 1;
+        }
+        .featured-stats {
+            display: flex;
+            gap: 28px;
+            margin-bottom: 24px;
+            position: relative;
+            z-index: 1;
+        }
+        .featured-stat-val {
+            font-family: var(--sans);
+            font-size: 0.88rem;
+            font-weight: 600;
+            color: #fff;
+        }
+        .featured-stat-label {
+            font-family: var(--sans);
+            font-size: 0.68rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: rgba(255,255,255,0.35);
+        }
+        .featured-quote {
+            font-style: italic;
+            font-weight: 300;
+            font-size: 0.9rem;
+            color: rgba(255,255,255,0.5);
+            border-left: 2px solid var(--amber);
+            padding-left: 16px;
+            margin-bottom: 24px;
+            line-height: 1.75;
+            position: relative;
+            z-index: 1;
+        }
+        .featured-quote .who {
+            font-family: var(--sans);
+            font-style: normal;
+            font-size: 0.72rem;
+            color: rgba(255,255,255,0.3);
+            margin-top: 6px;
+        }
+        .featured-actions {
+            display: flex;
+            gap: 10px;
+            position: relative;
+            z-index: 1;
+        }
+        .btn-light {
+            font-family: var(--sans);
+            font-size: 0.82rem;
+            font-weight: 600;
+            text-decoration: none;
+            padding: 10px 22px;
+            border-radius: 7px;
+            background: #fff;
+            color: var(--night);
+            transition: all 0.15s var(--ease);
+        }
+        .btn-light:hover { box-shadow: var(--shadow-md); transform: translateY(-1px); }
+        .btn-outline {
+            font-family: var(--sans);
+            font-size: 0.82rem;
+            font-weight: 500;
+            text-decoration: none;
+            padding: 10px 22px;
+            border-radius: 7px;
+            border: 1px solid rgba(255,255,255,0.2);
+            color: rgba(255,255,255,0.7);
+            transition: all 0.15s;
+        }
+        .btn-outline:hover { border-color: rgba(255,255,255,0.4); color: #fff; }
+
+        /* ================================================================
+           SECTION
+           ================================================================ */
+        .section {
+            margin-bottom: 48px;
+        }
+        .section-header {
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--border-light);
+        }
+        .section-title {
+            font-family: var(--sans);
+            font-size: 0.72rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2.5px;
+            color: var(--text-tertiary);
+        }
+        .section-count {
+            font-family: var(--sans);
+            font-size: 0.72rem;
+            color: var(--text-tertiary);
+        }
+
+        /* ================================================================
+           APP CARDS (grid)
+           ================================================================ */
+        .app-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 12px;
+        }
+        .app-card {
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 24px 28px;
+            transition: all 0.2s var(--ease);
+            box-shadow: var(--shadow-sm);
+            cursor: default;
+        }
+        .app-card:hover {
+            box-shadow: var(--shadow-md);
+            border-color: var(--text-tertiary);
+            transform: translateY(-1px);
+        }
+        .app-card-top {
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+            gap: 8px;
+            margin-bottom: 8px;
+        }
+        .app-card-name {
+            font-family: var(--serif);
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--night);
+            letter-spacing: -0.2px;
+        }
+        .app-card-by {
+            font-family: var(--sans);
+            font-size: 0.73rem;
+            color: var(--text-tertiary);
+            white-space: nowrap;
+        }
+        .app-card-desc {
+            font-size: 0.92rem;
+            font-weight: 400;
+            color: var(--text-secondary);
+            line-height: 1.75;
+            margin-bottom: 18px;
+        }
+
+        /* Stats inline */
+        .app-card-stats {
+            display: flex;
+            gap: 0;
+            margin-bottom: 18px;
+            border: 1px solid var(--border-light);
+            border-radius: 8px;
+            overflow: hidden;
+            background: var(--cream);
+        }
+        .app-card-stat {
+            font-family: var(--sans);
+            flex: 1;
+            padding: 10px 14px;
+            border-right: 1px solid var(--border-light);
+        }
+        .app-card-stat:last-child { border-right: none; }
+        .app-card-stat-val {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--night);
+        }
+        .app-card-stat-label {
+            font-size: 0.65rem;
+            font-weight: 500;
+            color: var(--text-tertiary);
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+        }
+
+        /* Quote in card */
+        .app-card-quote {
+            background: var(--amber-soft);
+            border-radius: 8px;
+            padding: 14px 18px;
+            margin-bottom: 18px;
+        }
+        .app-card-quote p {
+            font-style: italic;
+            font-weight: 300;
+            font-size: 0.86rem;
+            color: var(--text);
+            line-height: 1.75;
+        }
+        .app-card-quote .who {
+            font-family: var(--sans);
+            font-style: normal;
+            font-size: 0.7rem;
+            font-weight: 500;
+            color: var(--text-tertiary);
+            margin-top: 6px;
+        }
+
+        /* Card actions */
+        .app-card-actions {
+            display: flex;
+            gap: 8px;
+        }
+        .btn-sm {
+            font-family: var(--sans);
+            font-size: 0.78rem;
+            font-weight: 600;
+            text-decoration: none;
+            padding: 8px 18px;
+            border-radius: 6px;
+            transition: all 0.15s var(--ease);
+        }
+        .btn-sm:active { transform: scale(0.97); }
+        .btn-sm-dark {
+            background: var(--night);
+            color: #fff;
+        }
+        .btn-sm-dark:hover { background: var(--night-hover); transform: translateY(-1px); }
+        .btn-sm-ghost {
+            background: var(--cream);
+            color: var(--text);
+            border: 1px solid var(--border);
+        }
+        .btn-sm-ghost:hover { border-color: var(--text-tertiary); }
+
+        /* ================================================================
+           TIP CARDS
+           ================================================================ */
+        .tip-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 10px;
+        }
+        .tip {
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 20px 24px;
+            box-shadow: var(--shadow-sm);
+            transition: box-shadow 0.2s, transform 0.2s;
+        }
+        .tip:hover { box-shadow: var(--shadow-md); transform: translateY(-1px); }
+        .tip-title {
+            font-family: var(--sans);
+            font-size: 0.84rem;
+            font-weight: 600;
+            color: var(--night);
+            margin-bottom: 4px;
+        }
+        .tip p {
+            font-size: 0.86rem;
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+        .tip code {
+            display: block;
+            margin-top: 10px;
+            padding: 10px 14px;
+            background: var(--cream);
+            border: 1px solid var(--border-light);
+            border-radius: 6px;
+            font-size: 0.78rem;
+            font-family: var(--mono);
+            color: var(--night);
+            overflow-x: auto;
+        }
+        .tip a { color: var(--amber); text-decoration: none; font-weight: 500; }
+        .tip a:hover { text-decoration: underline; }
+
+        /* ================================================================
+           CTA (bottom)
+           ================================================================ */
+        .cta-bar {
+            text-align: center;
+            padding: 48px 0 0;
+            margin-top: 16px;
+            border-top: 1px solid var(--border);
+        }
+        .cta-bar h3 {
+            font-family: var(--serif);
+            font-size: 1.25rem;
+            font-weight: 400;
+            color: var(--night);
+            margin-bottom: 8px;
+        }
+        .cta-bar p {
+            font-size: 0.92rem;
+            font-weight: 300;
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+        }
+        .btn-cta {
+            display: inline-block;
+            font-family: var(--sans);
+            font-size: 0.84rem;
+            font-weight: 600;
+            text-decoration: none;
+            padding: 12px 28px;
+            background: var(--night);
+            color: #fff;
+            border-radius: 7px;
+            transition: all 0.15s var(--ease);
+        }
+        .btn-cta:hover { background: var(--night-hover); transform: translateY(-1px); box-shadow: var(--shadow-md); }
+
+        /* ================================================================
+           FOOTER
+           ================================================================ */
+        .main-footer {
+            margin-top: 48px;
+            padding-top: 24px;
+            border-top: 1px solid var(--border-light);
+            font-family: var(--sans);
+            font-size: 0.73rem;
+            color: var(--text-tertiary);
+            text-align: center;
+        }
+        .main-footer a { color: var(--amber); text-decoration: none; }
+        .main-footer a:hover { text-decoration: underline; }
+
+        /* ================================================================
+           FOCUS
+           ================================================================ */
+        a:focus-visible, .btn-sm:focus-visible, .btn-cta:focus-visible, .topbar-cta:focus-visible {
+            outline: 2px solid var(--amber);
+            outline-offset: 2px;
+        }
+
+        /* ================================================================
+           MOBILE (<768px): collapse sidebar, full-width
+           ================================================================ */
+        @media (max-width: 767px) {
+            .topbar { padding: 0 18px; height: 50px; }
+            .topbar-title { display: none; }
+            .topbar-divider { display: none; }
+
+            .layout {
+                grid-template-columns: 1fr;
+            }
+            .sidebar {
+                display: none;
+            }
+
+            .main {
+                padding: 28px 20px 60px;
+            }
+
+            .page-header { margin-bottom: 32px; }
+            .page-header h1 { font-size: 1.65rem; }
+            .page-header p { font-size: 0.95rem; }
+
+            .featured {
+                padding: 28px 24px;
+                border-radius: 12px;
+                margin-bottom: 36px;
+            }
+            .featured h2 { font-size: 1.35rem; }
+            .featured .desc { font-size: 0.92rem; }
+            .featured-stats { gap: 20px; flex-wrap: wrap; }
+            .featured-actions { flex-direction: column; }
+            .btn-light, .btn-outline { text-align: center; padding: 12px 20px; min-height: 46px; }
+
+            .section { margin-bottom: 36px; }
+
+            .app-card { padding: 20px 22px; }
+            .app-card-name { font-size: 1.12rem; }
+
+            .app-card-stats { flex-direction: column; }
+            .app-card-stat {
+                border-right: none;
+                border-bottom: 1px solid var(--border-light);
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 9px 14px;
+            }
+            .app-card-stat:last-child { border-bottom: none; }
+            .app-card-stat-label { order: -1; }
+
+            .app-card-actions { flex-direction: column; }
+            .btn-sm { text-align: center; padding: 12px 18px; min-height: 46px; }
+
+            .tip { padding: 18px 20px; }
+            .tip code { font-size: 0.72rem; }
+
+            .cta-bar { padding: 36px 0 0; }
+            .btn-cta { display: block; text-align: center; padding: 14px 24px; }
+        }
+
+        /* ================================================================
+           WIDE DESKTOP (>1200px)
+           ================================================================ */
+        @media (min-width: 1200px) {
+            :root { --nav-w: 220px; }
+            .main { padding: 48px 56px 80px; }
+        }
+
+        /* ================================================================
+           REDUCED MOTION
+           ================================================================ */
+        @media (prefers-reduced-motion: reduce) {
+            * { transition-duration: 0.01ms !important; }
+            html { scroll-behavior: auto; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Top bar -->
+    <div class="topbar">
+        <div class="topbar-left">
+            <a href="https://daylightcomputer.com" class="topbar-brand">Daylight</a>
+            <div class="topbar-divider"></div>
+            <span class="topbar-title">Community Apps</span>
+        </div>
+        <a href="https://reddit.com/r/daylightcomputer/" class="topbar-cta">Submit an app</a>
+    </div>
+
+    <div class="layout">
+
+        <!-- Sidebar -->
+        <nav class="sidebar">
+            <div class="sidebar-section">
+                <p class="sidebar-label">Apps</p>
+                <a href="#display" class="sidebar-link">Display <span class="sidebar-count">1</span></a>
+                <a href="#writing" class="sidebar-link">Writing &amp; Notes <span class="sidebar-count">2</span></a>
+                <a href="#reading" class="sidebar-link">Reading <span class="sidebar-count">1</span></a>
+                <a href="#experiments" class="sidebar-link">Experiments <span class="sidebar-count">1</span></a>
+            </div>
+            <div class="sidebar-section">
+                <p class="sidebar-label">Resources</p>
+                <a href="#tips" class="sidebar-link">Tips</a>
+            </div>
+        </nav>
+
+        <!-- Main content -->
+        <main class="main">
+
+            <div class="page-header">
+                <h1>Apps made for Daylight</h1>
+                <p>Software the community built or chose for the paper-like display they write, read, and think on every day.</p>
+            </div>
+
+            <!-- Featured -->
+            <div class="featured">
+                <p class="featured-label">Featured</p>
+                <h2>SuperMirror</h2>
+                <p class="by">by welf</p>
+                <p class="desc">Turn your DC-1 into an external Mac display. USB or WiFi, with touch input. The greyscale rendering is sharp enough for real work, and the latency is low enough that it feels native.</p>
+                <div class="featured-stats">
+                    <div><span class="featured-stat-val">60 fps</span><br><span class="featured-stat-label">Frame rate</span></div>
+                    <div><span class="featured-stat-val">&lt;10 ms</span><br><span class="featured-stat-label">Latency</span></div>
+                    <div><span class="featured-stat-val">Lossless</span><br><span class="featured-stat-label">Quality</span></div>
+                    <div><span class="featured-stat-val">Touch</span><br><span class="featured-stat-label">Input</span></div>
+                </div>
+                <div class="featured-quote">
+                    <p>Official Daylight team needs to take note. I returned mine specifically because I couldn't use it for Mac mirroring.</p>
+                    <div class="who">u/pensotroppo &middot; Reddit</div>
+                </div>
+                <div class="featured-actions">
+                    <a href="https://welf.ai/mirror/" class="btn-light">Get SuperMirror</a>
+                    <a href="https://reddit.com/r/daylightcomputer/comments/1ravym9/" class="btn-outline">Discussion</a>
+                </div>
+            </div>
+
+            <!-- Writing & Notes -->
+            <div class="section" id="writing">
+                <div class="section-header">
+                    <span class="section-title">Writing &amp; Notes</span>
+                    <span class="section-count">2 apps</span>
+                </div>
+                <div class="app-grid">
+
+                    <div class="app-card">
+                        <div class="app-card-top">
+                            <span class="app-card-name">Saber</span>
+                            <span class="app-card-by">Adil Hanney &middot; open source</span>
+                        </div>
+                        <p class="app-card-desc">The community's pick for handwriting on DC-1. Pen pressure works. Cross-device sync works. When something didn't work right on the Daylight display, community member regex forked it and fixed it herself.</p>
+                        <div class="app-card-stats">
+                            <div class="app-card-stat"><span class="app-card-stat-val">Pen pressure</span><br><span class="app-card-stat-label">Stylus</span></div>
+                            <div class="app-card-stat"><span class="app-card-stat-val">F-Droid</span><br><span class="app-card-stat-label">Install via</span></div>
+                            <div class="app-card-stat"><span class="app-card-stat-val">Cross-sync</span><br><span class="app-card-stat-label">Multi-device</span></div>
+                        </div>
+                        <div class="app-card-quote">
+                            <p><em>Did in fact edit Saber to be better for her.</em> Yay open source wins again.</p>
+                            <div class="who">regex &middot; Discord</div>
+                        </div>
+                        <div class="app-card-actions">
+                            <a href="https://f-droid.org/packages/com.adilhanney.saber/" class="btn-sm btn-sm-dark">Get on F-Droid</a>
+                            <a href="https://github.com/saber-notes/saber" class="btn-sm btn-sm-ghost">Source</a>
+                        </div>
+                    </div>
+
+                    <div class="app-card">
+                        <div class="app-card-top">
+                            <span class="app-card-name">Glassnote</span>
+                            <span class="app-card-by">mattsdevlog &middot; open source</span>
+                        </div>
+                        <p class="app-card-desc">A transparent writing surface that floats on top of whatever you're doing. Toggle it with the DC-1's side buttons. Annotate a PDF, sketch over a webpage, grab the screen. A sheet of paper you look through.</p>
+                        <div class="app-card-stats">
+                            <div class="app-card-stat"><span class="app-card-stat-val">Transparent overlay</span><br><span class="app-card-stat-label">Mode</span></div>
+                            <div class="app-card-stat"><span class="app-card-stat-val">Side buttons</span><br><span class="app-card-stat-label">Hardware</span></div>
+                            <div class="app-card-stat"><span class="app-card-stat-val">Screengrab</span><br><span class="app-card-stat-label">Capture</span></div>
+                        </div>
+                        <div class="app-card-actions">
+                            <a href="https://reddit.com/r/daylightcomputer/comments/1qs5nlh/" class="btn-sm btn-sm-dark">Learn more</a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Reading -->
+            <div class="section" id="reading">
+                <div class="section-header">
+                    <span class="section-title">Reading</span>
+                    <span class="section-count">1 app</span>
+                </div>
+                <div class="app-grid">
+                    <div class="app-card">
+                        <div class="app-card-top">
+                            <span class="app-card-name">Solarium</span>
+                            <span class="app-card-by">u/yr379</span>
+                        </div>
+                        <p class="app-card-desc">An ePub reader designed for this display, not adapted for it. No skeuomorphic bookshelves. No color-coded highlights that vanish on greyscale. Every element assumes monochrome, because that's what you're holding.</p>
+                        <div class="app-card-quote">
+                            <p>I've had my DC1 for over a year. Love the hardware for reading, but every ePub reader I tried felt wrong on it. So I built one.</p>
+                            <div class="who">Solarium creator &middot; Reddit</div>
+                        </div>
+                        <div class="app-card-actions">
+                            <a href="https://reddit.com/r/daylightcomputer/comments/1sawse8/" class="btn-sm btn-sm-dark">Learn more</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Experiments -->
+            <div class="section" id="experiments">
+                <div class="section-header">
+                    <span class="section-title">Experiments</span>
+                    <span class="section-count">1 project</span>
+                </div>
+                <div class="app-grid">
+                    <div class="app-card">
+                        <div class="app-card-top">
+                            <span class="app-card-name">Project Warden</span>
+                            <span class="app-card-by">mattsdevlog &middot; in development</span>
+                        </div>
+                        <p class="app-card-desc">Interactive fiction that uses the display as a narrative device. New sentences arrive dark; old ones fade but remain visible, like memory. Only makes sense on a screen that behaves like paper.</p>
+                        <div class="app-card-quote">
+                            <p>I like the reading effect of new sentences appearing darker, old sentences staying visible.</p>
+                            <div class="who">u/CopperCoinStudio &middot; Reddit</div>
+                        </div>
+                        <div class="app-card-actions">
+                            <a href="https://reddit.com/r/daylightcomputer/comments/1ra8a1x/" class="btn-sm btn-sm-dark">See footage</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tips -->
+            <div class="section" id="tips">
+                <div class="section-header">
+                    <span class="section-title">Tips from the community</span>
+                    <span class="section-count">3 tips</span>
+                </div>
+                <div class="tip-grid">
+                    <div class="tip">
+                        <p class="tip-title">Install apps from F-Droid, not Google Play</p>
+                        <p>Many community apps live on <a href="https://f-droid.org/">F-Droid</a>, a free app store for open-source Android software. Also where you should get Termux&mdash;the Google Play version broke on DC-1 after the January 2026 security update.</p>
+                    </div>
+                    <div class="tip">
+                        <p class="tip-title">Fix accidental gesture triggers while writing</p>
+                        <p>If resting your palm triggers app switching, try 3-button navigation with a hidden nav bar:</p>
+                        <code>adb shell settings put global policy_control immersive.navigation=*</code>
+                    </div>
+                    <div class="tip">
+                        <p class="tip-title">The display runs at 120 Hz</p>
+                        <p>Daylight advertises 60 fps because most apps cap there. But the hardware does 120. Apps that support higher refresh rates feel noticeably smoother.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CTA -->
+            <div class="cta-bar">
+                <h3>Built something for the DC-1?</h3>
+                <p>This page exists because people made things and shared them.</p>
+                <a href="https://reddit.com/r/daylightcomputer/" class="btn-cta">Share on r/daylightcomputer</a>
+            </div>
+
+            <div class="main-footer">
+                <p>Curated by the Daylight community &middot; April 2026</p>
+                <p style="margin-top:4px;">Corrections welcome on <a href="https://reddit.com/r/daylightcomputer/">Reddit</a> or <a href="https://discord.gg/daylighthackerwiki">Discord</a></p>
+            </div>
+
+        </main>
+    </div>
+
+    <!-- Sidebar active state tracking -->
+    <script>
+    const links = document.querySelectorAll('.sidebar-link[href^="#"]');
+    const sections = [];
+    links.forEach(link => {
+        const id = link.getAttribute('href').slice(1);
+        const el = document.getElementById(id);
+        if (el) sections.push({ el, link });
+    });
+    function updateActive() {
+        let current = sections[0];
+        for (const s of sections) {
+            if (s.el.getBoundingClientRect().top <= 120) current = s;
+        }
+        links.forEach(l => l.classList.remove('active'));
+        if (current) current.link.classList.add('active');
+    }
+    window.addEventListener('scroll', updateActive, { passive: true });
+    updateActive();
+    </script>
+
+</body>
+</html>
