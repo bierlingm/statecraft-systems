@@ -5,13 +5,22 @@ interface Props {
   title: string;
   description?: string;
   narrow?: boolean;
+  image?: string;
 }
 
-const { title, description, narrow = false } = Astro.props;
+const { title, description, narrow = false, image } = Astro.props;
 
-// Get current path to highlight active nav link
-const pathname = new URL(Astro.request.url).pathname;
-const currentPath = pathname.slice(1).replace(/\/$/, ""); // remove leading and trailing slash
+const SITE = 'Statecraft Systems';
+const DEFAULT_DESCRIPTION = 'Statecraft Systems designs and operates systems of cooperation and sovereignty.';
+const SITE_URL = 'https://statecraft.systems';
+
+const pageTitle = title === SITE ? SITE : `${title} — ${SITE}`;
+const metaDescription = description || DEFAULT_DESCRIPTION;
+const canonicalUrl = new URL(Astro.url.pathname, SITE_URL).href;
+const ogImage = new URL(image || '/og-default.png', SITE_URL).href;
+
+const pathname = Astro.url.pathname;
+const currentPath = pathname.slice(1).replace(/\/$/, "");
 ---
 
 <!DOCTYPE html>
@@ -19,9 +28,24 @@ const currentPath = pathname.slice(1).replace(/\/$/, ""); // remove leading and 
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>{title} — Statecraft Systems</title>
-    <meta name="description" content={description || 'Statecraft Systems designs and operates systems of cooperation and sovereignty.'} />
+    <title>{pageTitle}</title>
+    <meta name="description" content={metaDescription} />
+    <link rel="canonical" href={canonicalUrl} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={SITE} />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={metaDescription} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={metaDescription} />
+    <meta name="twitter:image" content={ogImage} />
   </head>
   <body>
     <div class="site-wrapper">
