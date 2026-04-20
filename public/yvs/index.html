@@ -1,0 +1,340 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Yakima Valley Supply — Website Draft v0.1</title>
+<meta name="description" content="First-draft website for Yakima Valley Supply & Labor LLC. Framing, navigation, and how to leave feedback.">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="Yakima Valley Supply — Website Draft v0.1">
+<meta property="og:description" content="First-draft website for Yakima Valley Supply & Labor. Built from Tyler's templates. Leave inline feedback anywhere.">
+<meta property="og:url" content="https://statecraft.systems/yvs/">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #0c0c0d;
+    --bg-elev: #16161a;
+    --bg-surface: #1d1d22;
+    --border: #2a2a31;
+    --border-light: #3a3a44;
+    --fg: #e8e6e1;
+    --fg-muted: #a8a49b;
+    --fg-dim: #6a6760;
+    --accent: #d46a3b;
+    --accent-soft: #f0a574;
+    --success: #6fa869;
+    --warning: #d4a14a;
+    --mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  }
+
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: "Inter", system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--fg);
+    line-height: 1.65;
+    font-size: 16px;
+  }
+
+  a { color: var(--accent-soft); text-decoration: none; border-bottom: 1px solid rgba(240,165,116,0.2); }
+  a:hover { color: var(--accent); border-bottom-color: var(--accent); }
+
+  .topbar {
+    position: fixed; top: 0; left: 0; right: 0;
+    background: rgba(12,12,13,0.92);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--border);
+    padding: 0.9rem 1.5rem;
+    display: flex; justify-content: space-between; align-items: center;
+    z-index: 100;
+  }
+  .topbar a { border: none; }
+  .topbar .back {
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--fg-dim);
+  }
+  .topbar .back:hover { color: var(--accent-soft); }
+  .topbar .version {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--fg-dim);
+  }
+
+  main { max-width: 780px; margin: 0 auto; padding: 7rem 1.5rem 5rem; }
+
+  .doc-meta {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--fg-dim);
+    margin-bottom: 1.2rem;
+  }
+
+  h1 {
+    font-size: clamp(2rem, 4vw, 2.8rem);
+    font-weight: 700;
+    line-height: 1.1;
+    margin-bottom: 0.8rem;
+    letter-spacing: -0.01em;
+  }
+  .subtitle {
+    font-size: 1.15rem;
+    color: var(--fg-muted);
+    max-width: 60ch;
+    margin-bottom: 2.5rem;
+  }
+
+  .divider {
+    height: 1px; background: var(--border);
+    margin: 2.5rem 0;
+  }
+
+  h2 {
+    font-family: var(--mono);
+    font-size: 0.8rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--accent-soft);
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--border);
+    margin: 2.5rem 0 1.2rem;
+    display: flex; gap: 0.6rem; align-items: center;
+  }
+  h2::before {
+    content: attr(data-n);
+    font-weight: 700;
+    color: var(--accent);
+  }
+
+  p { margin-bottom: 1rem; color: var(--fg); }
+  p.muted { color: var(--fg-muted); }
+
+  .panel {
+    background: var(--bg-elev);
+    border: 1px solid var(--border);
+    border-left: 2px solid var(--accent);
+    padding: 1.25rem 1.5rem;
+    margin: 1.5rem 0;
+  }
+  .panel strong { color: var(--fg); }
+
+  ul.plain { list-style: none; }
+  ul.plain li {
+    padding: 0.6rem 0;
+    border-bottom: 1px dashed var(--border);
+    font-size: 0.97rem;
+    color: var(--fg-muted);
+  }
+  ul.plain li:last-child { border-bottom: none; }
+  ul.plain li strong { color: var(--fg); }
+
+  .page-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 0.75rem;
+    margin-top: 1.5rem;
+  }
+  .page-card {
+    background: var(--bg-elev);
+    border: 1px solid var(--border);
+    padding: 1rem 1.15rem;
+    transition: border-color 0.15s, background 0.15s;
+  }
+  .page-card:hover {
+    border-color: var(--accent);
+    background: var(--bg-surface);
+  }
+  .page-card a {
+    display: block;
+    border: none;
+    color: var(--fg);
+    font-weight: 600;
+    font-size: 0.98rem;
+    margin-bottom: 0.2rem;
+  }
+  .page-card a:hover { color: var(--accent-soft); }
+  .page-card .path {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    color: var(--fg-dim);
+    text-transform: lowercase;
+  }
+  .page-card .note {
+    font-size: 0.88rem;
+    color: var(--fg-muted);
+    margin-top: 0.4rem;
+    line-height: 1.5;
+  }
+
+  ol.steps {
+    counter-reset: step;
+    list-style: none;
+    margin: 1.5rem 0;
+  }
+  ol.steps li {
+    counter-increment: step;
+    padding: 0.9rem 0 0.9rem 2.5rem;
+    position: relative;
+    border-bottom: 1px solid var(--border);
+    color: var(--fg-muted);
+  }
+  ol.steps li:last-child { border-bottom: none; }
+  ol.steps li::before {
+    content: counter(step, decimal-leading-zero);
+    position: absolute;
+    left: 0; top: 0.95rem;
+    font-family: var(--mono);
+    font-weight: 600;
+    font-size: 0.85rem;
+    color: var(--accent);
+    letter-spacing: 0.05em;
+  }
+  ol.steps strong { color: var(--fg); font-weight: 600; }
+
+  .kicker {
+    display: inline-block;
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--accent);
+    padding: 0.25em 0.7em;
+    border: 1px solid var(--accent);
+    margin-bottom: 1.2rem;
+  }
+
+  .cta-row {
+    display: flex; gap: 0.75rem; flex-wrap: wrap;
+    margin-top: 1.5rem;
+  }
+  .btn {
+    display: inline-block;
+    padding: 0.8em 1.4em;
+    background: var(--accent);
+    color: #0c0c0d;
+    font-family: var(--mono);
+    font-weight: 600;
+    font-size: 0.82rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    border: 1px solid var(--accent);
+    border-bottom: 1px solid var(--accent);
+  }
+  .btn:hover { background: var(--accent-soft); border-color: var(--accent-soft); color: #0c0c0d; }
+  .btn--ghost { background: transparent; color: var(--accent-soft); }
+  .btn--ghost:hover { background: var(--accent); color: #0c0c0d; }
+
+  footer {
+    text-align: center;
+    padding: 2rem 1.5rem;
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--fg-dim);
+    border-top: 1px solid var(--border);
+  }
+
+  @media (max-width: 600px) {
+    .topbar .version { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="topbar">
+  <a href="/" class="back">← Statecraft Systems</a>
+  <span class="version">Draft v0.1 // 20 April 2026</span>
+</nav>
+
+<main>
+
+  <span class="kicker">For Brandon · via ThruTheHayes</span>
+  <div class="doc-meta">Website Draft // Yakima Valley Supply & Labor LLC</div>
+
+  <h1>A first cut at Tyler's website.</h1>
+  <p class="subtitle">You forwarded the request on April 19. This is what was built from the five templates attached to that email — laid out as a working site you can click through, critique, and hand back.</p>
+
+  <div class="panel">
+    <p style="margin-bottom: 0.6rem;"><strong>What this is.</strong> A first-draft, five-page static website for Yakima Valley Supply & Labor LLC, built verbatim from Tyler's own copy. No invented content. No backend. No dependencies beyond a web browser.</p>
+    <p style="margin-bottom: 0;"><strong>What this isn't.</strong> A finished product. Photography, refined branding, a real intake backend, and domain setup on Namecheap are all next passes — not this pass.</p>
+  </div>
+
+  <h2 data-n="01">Context</h2>
+  <p>Tyler's email described a small supply business in Prosser, WA selling jobsite consumables — gloves, coveralls, tape, brushes — to farms and remediation crews across Central Washington. He asked for help standing up a website on Namecheap and attached five Word documents covering the pages he wanted: <em>Home, Industries We Serve, Ordering Process, Industrial Customer Intake Form,</em> and <em>Contact</em>.</p>
+  <p>The copy is already strong — specific to how crews actually burn through supplies on the job. The task was to give it a home: clean typography, a work-grade aesthetic, and structure a first-time visitor can navigate without friction.</p>
+
+  <h2 data-n="02">What You're Looking At</h2>
+  <p>Five pages, one stylesheet, zero JavaScript. The whole thing is static HTML — it will upload to any Namecheap plan and load instantly on any device.</p>
+  <div class="page-grid">
+    <div class="page-card">
+      <a href="home.html">Home</a>
+      <div class="path">/yvs/home.html</div>
+      <div class="note">Positioning, common products, who Tyler supplies, and why pricing is competitive.</div>
+    </div>
+    <div class="page-card">
+      <a href="industries.html">Industries We Serve</a>
+      <div class="path">/yvs/industries.html</div>
+      <div class="note">Six industries, each with the work phases and consumables tailored to that trade.</div>
+    </div>
+    <div class="page-card">
+      <a href="ordering.html">How Ordering Works</a>
+      <div class="path">/yvs/ordering.html</div>
+      <div class="note">The four-step, relationship-driven ordering process — intentionally not a checkout.</div>
+    </div>
+    <div class="page-card">
+      <a href="intake.html">New Customer Intake</a>
+      <div class="path">/yvs/intake.html</div>
+      <div class="note">Tyler's intake form, wired to open a pre-filled email to <code>orders@</code>. No backend required on day one.</div>
+    </div>
+    <div class="page-card">
+      <a href="contact.html">Contact</a>
+      <div class="path">/yvs/contact.html</div>
+      <div class="note">Phone, email, service region, and a nudge back toward the intake.</div>
+    </div>
+  </div>
+
+  <h2 data-n="03">How to Leave Feedback</h2>
+  <p>A small feedback widget is injected on every page. You'll see a floating marker in the lower corner. Click anywhere on the page to pin a comment to that exact element — a sentence, a button, a section header — and type what you'd change.</p>
+  <ol class="steps">
+    <li><strong>Open any page</strong> in the list above.</li>
+    <li><strong>Click the element</strong> you want to comment on. The widget captures which thing on the page you're pointing at.</li>
+    <li><strong>Leave a note</strong> — as blunt or rough as you want. Name optional.</li>
+    <li><strong>That's it.</strong> Comments land server-side; I'll review them, reply, and revise.</li>
+  </ol>
+  <p class="muted">This is easier than tracking changes in a document — especially for visual things ("make this smaller," "move this up," "this word feels wrong"). For Tyler and anyone else you want to loop in, the link is the whole interface.</p>
+
+  <h2 data-n="04">What's Next</h2>
+  <ul class="plain">
+    <li><strong>Tyler sees it.</strong> Confirm the structure fits his operation. Catch factual errors, missing products, tone mismatches.</li>
+    <li><strong>Photography & brand.</strong> A logo, a color pulled from the Yakima Valley, and even a few crew/jobsite photos would lift this substantially.</li>
+    <li><strong>Intake backend.</strong> The form works via <code>mailto:</code> on day one. When volume picks up, swap in a small form handler — Cloudflare Workers or a Supabase endpoint — so submissions hit a database instead of an inbox.</li>
+    <li><strong>Namecheap deployment.</strong> Upload <code>/yvs/</code> as the document root on the Namecheap hosting plan Tyler already has, and point <code>www.yakimavalleysupply.com</code> at it.</li>
+  </ul>
+
+  <div class="cta-row">
+    <a href="home.html" class="btn">Enter the draft →</a>
+    <a href="mailto:moritzbierling@hey.com?subject=YVS%20draft%20feedback" class="btn btn--ghost">Email me directly</a>
+  </div>
+
+</main>
+
+<footer>
+  Statecraft Systems · Draft served from <code>statecraft.systems/yvs/</code>
+</footer>
+<script src="https://spikes.sh/widget.js" data-project="yvs" data-theme="dark" data-position="bottom-right" data-color="#e74c3c"></script>
+</body>
+</html>

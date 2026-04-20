@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Industrial Customer Intake — Yakima Valley Supply & Labor</title>
+<meta name="description" content="Tell us about your operation so we can quote the right supplies for your crew.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&display=swap">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="site-header__inner">
+    <a href="home.html" class="site-header__brand">
+      Yakima Valley Supply & Labor
+      <small>Prosser, Washington</small>
+    </a>
+    <nav class="site-nav" aria-label="Primary">
+      <ul>
+        <li><a href="home.html">Home</a></li>
+        <li><a href="industries.html">Industries</a></li>
+        <li><a href="ordering.html">Ordering</a></li>
+        <li><a href="intake.html" aria-current="page">New Customer</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main class="narrow">
+
+  <div class="page-title">
+    <span class="eyebrow">Industrial Customer Intake</span>
+    <h1>Tell Us About Your Operation</h1>
+  </div>
+
+  <p>Fill out the form below and a sales representative will follow up to set an introductory meeting and start building your order sheet.</p>
+
+  <form class="intake" action="mailto:orders@yakimavalleysupply.com" method="post" enctype="text/plain">
+
+    <div class="field-row">
+      <label for="company">Company Name</label>
+      <input type="text" id="company" name="Company" required>
+    </div>
+
+    <div class="field-row">
+      <label for="contact">Primary Contact Name</label>
+      <input type="text" id="contact" name="Primary Contact" required>
+    </div>
+
+    <div class="field-row">
+      <label for="phone">Phone Number</label>
+      <input type="tel" id="phone" name="Phone" required>
+    </div>
+
+    <div class="field-row">
+      <label for="email">Email Address</label>
+      <input type="email" id="email" name="Email" required>
+    </div>
+
+    <div class="field-row">
+      <label for="industry">Industry</label>
+      <select id="industry" name="Industry" required>
+        <option value="">— Select an industry —</option>
+        <option>Agriculture</option>
+        <option>Mold Remediation</option>
+        <option>Asbestos Abatement</option>
+        <option>Painting Contractor</option>
+        <option>Construction Contractor</option>
+        <option>Industrial Cleaning</option>
+        <option>Other</option>
+      </select>
+    </div>
+
+    <div class="field-row">
+      <label>Products of Interest</label>
+      <p class="form-note">Check all that apply.</p>
+      <div class="checkgrid">
+        <label><input type="checkbox" name="Product" value="Disposable coveralls"> Disposable coveralls</label>
+        <label><input type="checkbox" name="Product" value="Nitrile gloves"> Nitrile gloves</label>
+        <label><input type="checkbox" name="Product" value="Safety glasses"> Safety glasses</label>
+        <label><input type="checkbox" name="Product" value="Paint brushes"> Paint brushes</label>
+        <label><input type="checkbox" name="Product" value="Paint rollers"> Paint rollers</label>
+        <label><input type="checkbox" name="Product" value="Roller covers"> Roller covers</label>
+        <label><input type="checkbox" name="Product" value="Masking / jobsite tape"> Masking / jobsite tape</label>
+        <label><input type="checkbox" name="Product" value="Other consumables"> Other consumables</label>
+      </div>
+    </div>
+
+    <div class="field-row">
+      <label>Estimated Purchase Volume</label>
+      <div class="radio-row">
+        <label><input type="radio" name="Volume" value="Small order" required> Small order</label>
+        <label><input type="radio" name="Volume" value="Recurring supply"> Recurring supply</label>
+        <label><input type="radio" name="Volume" value="Bulk purchasing"> Bulk purchasing</label>
+      </div>
+    </div>
+
+    <div class="field-row">
+      <label>Preferred Contact Method</label>
+      <div class="radio-row">
+        <label><input type="radio" name="Contact Method" value="Phone" required> Phone</label>
+        <label><input type="radio" name="Contact Method" value="Email"> Email</label>
+      </div>
+    </div>
+
+    <div class="field-row">
+      <label for="notes">Notes (optional)</label>
+      <textarea id="notes" name="Notes" placeholder="Tell us about your crew, the products you go through, or any specs you already know you'll need."></textarea>
+    </div>
+
+    <button type="submit" class="btn">Submit Intake</button>
+    <p class="form-note" style="margin-top:1rem">
+      This form opens your email client with the details filled in. Prefer to call? <a href="tel:+14259992904">1-425-999-2904</a>.
+    </p>
+
+  </form>
+
+</main>
+
+<footer class="site-footer">
+  <div class="site-footer__inner">
+    <div>
+      <div class="site-footer__brand">Yakima Valley Supply & Labor LLC</div>
+      <div>Prosser, Washington · Serving Central Washington & the Inland Northwest</div>
+    </div>
+    <div>
+      <a href="tel:+14259992904">1-425-999-2904</a><br>
+      <a href="mailto:orders@yakimavalleysupply.com">orders@yakimavalleysupply.com</a>
+    </div>
+  </div>
+</footer>
+<script src="https://spikes.sh/widget.js" data-project="yvs" data-theme="dark" data-position="bottom-right" data-color="#e74c3c"></script>
+</body>
+</html>
