@@ -9,8 +9,8 @@
       <path d="M 60 0 L 0 0 0 60" fill="none" stroke="#2a2a31" stroke-width="1"/>
     </pattern>
     <linearGradient id="accentBar" x1="0" y1="0" x2="1" y2="0">
-      <stop offset="0%" stop-color="#d46a3b"/>
-      <stop offset="100%" stop-color="#f0a574"/>
+      <stop offset="0%" stop-color="#4a8660"/>
+      <stop offset="100%" stop-color="#86b89a"/>
     </linearGradient>
   </defs>
 
@@ -21,7 +21,7 @@
   <rect x="0" y="0" width="8" height="630" fill="url(#accentBar)"/>
 
   <!-- corner marks: all four L's open inward toward center -->
-  <g stroke="#d46a3b" stroke-width="2" fill="none" opacity="0.85" stroke-linecap="square">
+  <g stroke="#4a8660" stroke-width="2" fill="none" opacity="0.85" stroke-linecap="square">
     <!-- top-left: corner at (80,60), arms go right and down -->
     <path d="M 110 60 L 80 60 L 80 90"/>
     <!-- top-right: corner at (1120,60), arms go left and down -->
@@ -33,7 +33,7 @@
   </g>
 
   <!-- Kicker line -->
-  <g font-family="JetBrains Mono, ui-monospace, monospace" font-size="16" fill="#d46a3b" letter-spacing="4">
+  <g font-family="JetBrains Mono, ui-monospace, monospace" font-size="16" fill="#4a8660" letter-spacing="4">
     <text x="80" y="140" font-weight="600">FOR TYLER · WEBSITE DRAFT V0.1 · 20 APRIL 2026</text>
   </g>
 
@@ -44,7 +44,7 @@
   </g>
 
   <!-- Divider -->
-  <rect x="80" y="365" width="80" height="3" fill="#d46a3b"/>
+  <rect x="80" y="365" width="80" height="3" fill="#4a8660"/>
 
   <!-- Subtitle -->
   <g font-family="Inter, system-ui, sans-serif" fill="#a8a49b" font-size="24" font-weight="400">
