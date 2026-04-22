@@ -668,6 +668,74 @@
     border-top:1px solid var(--rule);
     text-align:center;
   }
+  .apply-form{
+    max-width:720px; margin:0 auto 48px;
+    text-align:left;
+    border:1px solid var(--rule);
+    background:var(--bg);
+    padding:36px;
+  }
+  .apply-form .form-label{
+    font-family:"JetBrains Mono", monospace;
+    font-size:10px; letter-spacing:.22em; text-transform:uppercase;
+    color:var(--accent); margin-bottom:22px; display:block;
+  }
+  .apply-form .field{
+    display:grid; grid-template-columns:150px 1fr;
+    gap:22px; padding:14px 0;
+    border-bottom:1px solid var(--hair);
+    align-items:baseline;
+  }
+  .apply-form .field:last-of-type{border-bottom:none;}
+  .apply-form label{
+    font-family:"JetBrains Mono", monospace;
+    font-size:10.5px; letter-spacing:.2em; text-transform:uppercase;
+    color:var(--muted);
+  }
+  .apply-form input,
+  .apply-form textarea{
+    width:100%;
+    background:transparent; border:none;
+    border-bottom:1px solid var(--rule);
+    color:var(--ink);
+    font-family:"Newsreader", Georgia, serif;
+    font-size:16px; line-height:1.55;
+    padding:6px 0;
+    resize:vertical;
+    transition:border-color .2s;
+  }
+  .apply-form input:focus,
+  .apply-form textarea:focus{
+    outline:none; border-bottom-color:var(--accent);
+  }
+  .apply-form textarea{min-height:64px;}
+  .apply-form .submit-row{
+    display:flex; justify-content:space-between; align-items:center;
+    margin-top:28px; padding-top:20px;
+    border-top:1px solid var(--rule);
+    gap:18px; flex-wrap:wrap;
+  }
+  .apply-form .fine{
+    font-family:"JetBrains Mono", monospace;
+    font-size:10px; letter-spacing:.15em; text-transform:uppercase;
+    color:var(--muted); flex:1;
+  }
+  .apply-form button{
+    display:inline-flex; align-items:center; gap:10px;
+    padding:12px 22px;
+    background:var(--accent); color:var(--bg);
+    font-family:"JetBrains Mono", monospace;
+    font-size:11px; letter-spacing:.18em; text-transform:uppercase;
+    font-weight:500;
+    border:1px solid var(--accent);
+    transition:background .2s, color .2s;
+    cursor:pointer;
+  }
+  .apply-form button:hover{background:transparent; color:var(--accent);}
+  @media (max-width:600px){
+    .apply-form{padding:24px;}
+    .apply-form .field{grid-template-columns:1fr; gap:6px;}
+  }
   .apply-section .kicker{
     font-family:"JetBrains Mono", monospace;
     font-size:11px; letter-spacing:.22em; text-transform:uppercase;
@@ -780,6 +848,18 @@
   .reveal.delay-2{transition-delay:.2s;}
   .reveal.delay-3{transition-delay:.3s;}
 
+  /* reduced motion */
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    *,*::before,*::after{
+      animation-duration:.001ms !important;
+      animation-iteration-count:1 !important;
+      transition-duration:.001ms !important;
+    }
+    .reveal{opacity:1; transform:none;}
+    .live-pill .pulse{animation:none;}
+  }
+
   /* print */
   @media print{
     body{background:white; color:black;}
@@ -826,7 +906,7 @@
 
     <div class="hero-title">
       <h1 class="bigtype reveal">Decide<span class="slash">/</span><span class="act">Act.</span></h1>
-      <p class="hero-sub reveal delay-1">A vouched online convening for <strong>sixty-four operators</strong> already inside a real fight. You submit a Brief, join three working days, leave with a Roster of who is doing what — and a 90-day commitment your peers will hold you to.</p>
+      <p class="hero-sub reveal delay-1">A vouched online convening for <strong>sixty-four operators</strong> already inside a real fight. You submit a Brief, join three working days, and leave with a Roster of who is doing what, plus a 90-day commitment your peers will hold you to.</p>
       <div class="hero-cta-row reveal delay-2">
         <a href="#apply" class="btn">Request invitation <span class="arrow">→</span></a>
         <a href="#operation" class="btn btn-ghost">See how it works</a>
@@ -870,9 +950,9 @@
       </div>
 
       <div class="prose reveal">
-        <p class="lead">The watching posture is over. The opening for small teams of grounded operators — wielding AI as leverage and working with the excellent — is wide. <em>Decide / Act</em> is the National Law Institute's first operating cadence: a vouched online convening that converts orientation into commitment.</p>
-        <p>The format is simple. Every operator in the cohort submits a five-field Brief by June 19. We synthesize the Briefs into one Operations Picture and distribute it to the room. We convene online for three working days, July 1–3 — calibrate, pair into pods, and commit. One week later we publish the Roster: who is doing what, where they are exposed, what matches exist, and the 90-day commitment each has put on the record. Ninety days later, we Pulse — re-up against commitment, or be marked as didn't.</p>
-        <p>The orienting vocabulary is Brandon's <em>The New Emergence of Operational Reality</em>. The relevant distinction is structural, not ideological: between <strong>grounded sovereign agents</strong> who bear the consequences of their decisions, and <strong>meta-agents</strong> who operate without exposure to them. This convening is for the first kind.</p>
+        <p class="lead">The watching posture is over. The opening is wide for small teams of grounded operators wielding AI as leverage and working with the excellent. <em>Decide / Act</em> is the National Law Institute's first operating cadence: a vouched online convening that converts orientation into commitment.</p>
+        <p>The format is simple. Every operator in the cohort submits a five-field Brief by June 19. We synthesize the Briefs into one Operations Picture and distribute it to the room. We convene online for three working days, July 1–3, to calibrate, pair into pods, and commit. One week later we publish the Roster: who is doing what, where they are exposed, what matches exist, and the 90-day commitment each has put on the record. Ninety days later, we Pulse. Re-up against commitment, or be marked as didn't.</p>
+        <p>The orienting vocabulary is Brandon's <em>The New Emergence of Operational Reality</em>. The relevant distinction is structural, not ideological: <strong>grounded sovereign agents</strong> who bear the consequences of their decisions, versus <strong>meta-agents</strong> who operate without exposure to them. This convening is for the first kind.</p>
         <div class="citation">Read the Frame · <a href="https://natlawinstitute.substack.com/p/the-new-emergence-of-operational" target="_blank" rel="noopener">natlawinstitute.substack.com</a></div>
       </div>
 
@@ -912,7 +992,7 @@
         </div>
       </div>
 
-      <p class="lead reveal">Four phases over six weeks, plus a 90-day Pulse. Geographic dispersion is the feature: every operator stays inside their own field of consequence while convening with the others.</p>
+      <p class="lead reveal">Four phases over six weeks, plus a 90-day Pulse. Geographic dispersion is the feature. Every operator stays inside their own field of consequence while convening with the others.</p>
 
       <div class="phases">
 
@@ -972,7 +1052,8 @@
           <div class="ph-body">
             <span class="ph-name">The Roster</span>
             <h3>One artifact, distributed to every <em>operator.</em></h3>
-            <p>One week after the Sessions, NLI publishes the Roster — a single internal document modeled on the situational assessment NLI produced from staff contributions in 2025. Not a report about the convening. The convening, rendered as instrument: who is doing what, where they are exposed, the matches between them, and the commitments on the record.</p>
+            <p>One week after the Sessions, NLI publishes the Roster: a single internal document modeled on the <a href="https://modernminuteman.net/strategy/assessment" target="_blank" rel="noopener">situational assessment</a> NLI produced from staff contributions last year. Not a report about the convening. The convening, rendered as instrument: who is doing what, where they are exposed, the matches between them, and the commitments on the record.</p>
+            <p style="font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:.18em; text-transform:uppercase; color:var(--muted); margin-top:32px;">The shape of your entry</p>
             <div class="roster">
               <div class="head"><span class="label">The Roster · entry preview</span><span>v.1 · internal</span></div>
               <div class="body">
@@ -997,7 +1078,7 @@
           <div class="ph-body">
             <span class="ph-name">The Pulse</span>
             <h3>Re-up. Or be marked as <em>didn't.</em></h3>
-            <p>Ninety days after commitment, an async pulse. Each operator updates their entry against the commitment they made. The Roster is republished, the field is visible to itself again, and the cadence continues quarterly thereafter — the heartbeat that keeps the network operating between conferences.</p>
+            <p>Ninety days after commitment, an async pulse. Each operator updates their entry against the commitment they made. The Roster is republished, the field is visible to itself again, and the cadence continues quarterly thereafter. The heartbeat that keeps the network operating between conferences.</p>
           </div>
         </div>
 
@@ -1132,16 +1213,28 @@
 
       <div class="hosts">
         <div class="prose reveal">
-          <p>The <strong>National Law Institute</strong> is a small institute of structural-dynamics practitioners, attorneys, technologists, and operators. It works on the legal, civic, and technological substrate that lets grounded agents decide and act inside their fields of consequence — and find each other.</p>
-          <p>Previous NLI convenings built the circle. <em>Decide / Act 2026</em> is its first operating cadence: not a stage for ideas but an instrument that produces commitments and the network they run on.</p>
+          <p>The <strong>National Law Institute</strong> is a small institute of structural-dynamics practitioners, attorneys, technologists, and operators. It works on the legal, civic, and technological substrate that lets grounded agents decide and act inside their fields of consequence, and find each other.</p>
+          <p>Previous NLI convenings built the circle. <em>Decide / Act 2026</em> is its first operating cadence: not a stage for ideas but an instrument that produces commitments and the network they run on. The four principals below each carry a distinct function of the convening. Staff and contributors are listed in the Roster.</p>
           <p>The convening is operated by <a href="https://statecraft.systems/" target="_blank" rel="noopener">Statecraft Systems</a>, which designs and runs the Brief, Synthesis, Sessions, Roster, and Pulse infrastructure end-to-end.</p>
         </div>
         <div class="reveal delay-1">
           <div class="principals">
-            <div class="principal"><span class="name">Kurt</span><span class="role">Principal · Frame &amp; convening</span></div>
-            <div class="principal"><span class="name">Brandon</span><span class="role">Doctrine · Author of the Frame</span></div>
-            <div class="principal"><span class="name">Francis</span><span class="role">Operations · Logistics &amp; archive</span></div>
-            <div class="principal"><span class="name">Moritz</span><span class="role">Convening lead · Brief, Roster, Pulse</span></div>
+            <div class="principal">
+              <span class="name">Curt Doolittle</span>
+              <span class="role">Founder, NLI<br/>Principal · Frame &amp; convening.<br/>Holds the long arc of the Institute's work and the standard for who enters the room.</span>
+            </div>
+            <div class="principal">
+              <span class="name">Brandon Hayes</span>
+              <span class="role">Doctrine · Author of the Frame.<br/>Writes the orienting vocabulary the cohort shares. Reads the terrain out loud on Day 01.</span>
+            </div>
+            <div class="principal">
+              <span class="name">Francis Zhou</span>
+              <span class="role">Operations · Logistics &amp; archive.<br/>Runs the room, keeps the record, and carries the institutional memory between cohorts.</span>
+            </div>
+            <div class="principal">
+              <span class="name">Moritz Bierling</span>
+              <span class="role">Convening lead · Brief, Roster, Pulse.<br/>Designs the instrument. Synthesizes the Briefs, assembles the Roster, operates the Pulse.</span>
+            </div>
           </div>
         </div>
       </div>
@@ -1177,6 +1270,19 @@
           <summary>What does it cost?</summary>
           <div class="body">
             <p>USD 290, paid once, after vouching is confirmed. The stake exists to make participation real. If the stake is a barrier and you have been vouched for, request a waiver. These are granted without comment.</p>
+            <p>Refunds: full refund if you withdraw before Briefs close on June 19. After that, the stake is forfeit — the synthesis work has already begun.</p>
+          </div>
+        </details>
+        <details>
+          <summary>What if I submit a Brief but can't attend the live week?</summary>
+          <div class="body">
+            <p>The live week is the spine. If you know in advance that you cannot be present for the bulk of July 1–3, defer to the next cohort — your Brief will carry. If an emergency pulls you out mid-week, your pod continues without you and you re-enter at the Pulse with an honest update against commitment.</p>
+          </div>
+        </details>
+        <details>
+          <summary>Accessibility?</summary>
+          <div class="body">
+            <p>Live sessions run in a closed video room with live captions. Operations Picture, Roster, and Brief tooling are keyboard-navigable and screen-reader-tested. If you need a specific accommodation, name it in your Brief or email <a href="mailto:convening@statecraft.systems?subject=Decide%2FAct%202026%20%E2%80%94%20Accessibility">convening@statecraft.systems</a>.</p>
           </div>
         </details>
         <details>
@@ -1224,23 +1330,18 @@
     <div class="container">
       <div class="kicker reveal">Door open · Briefs accept June 1</div>
       <h2 class="reveal delay-1">Request <em>invitation.</em></h2>
-      <p class="lead-line reveal delay-2">There is no public application. Participation is by vouch. Three paths to the inside of the door.</p>
+      <p class="lead-line reveal delay-2">There is no public application. Participation is by vouch. Below is how you reach the inside of the door.</p>
 
-      <div class="apply-actions reveal delay-2">
-        <a href="mailto:convening@statecraft.systems?subject=Decide%2FAct%202026%20%E2%80%94%20Request%20introduction&amp;body=Name%3A%20%0AField%20of%20consequence%20%2F%20locality%3A%20%0AThe%20fight%20I%27m%20inside%3A%20%0AOperators%20I%20know%20in%20your%20orbit%20%28names%29%3A%20%0AHow%20they%20can%20speak%20to%20my%20work%3A%20%0AAnything%20else%3A%20%0A" class="btn">Request introduction <span class="arrow">→</span></a>
-        <a href="#operation" class="btn btn-ghost">Re-read the operation</a>
-      </div>
-
-      <div class="apply-paths reveal delay-3">
+      <div class="apply-paths reveal delay-2">
         <div class="apply-path">
           <span class="num">— Path 01</span>
           <h4>You know <em>someone.</em></h4>
-          <p>Reach the operator in the network who knows you and your work. Ask them to vouch.</p>
+          <p>Reach the operator in the network who knows you and your work. Ask them to vouch. A vouch is an underwriting of your productive participation, not a referral.</p>
         </div>
         <div class="apply-path">
           <span class="num">— Path 02</span>
-          <h4>You know <em>of</em> someone.</h4>
-          <p>Email <a href="mailto:convening@statecraft.systems?subject=Decide%2FAct%202026%20%E2%80%94%20Request%20introduction">convening@statecraft.systems</a>. Name the operators in our orbit who could plausibly speak to your fight. We reach out on your behalf.</p>
+          <h4>You know of someone.</h4>
+          <p>Fill in the request below. Name the operators in our orbit who could plausibly speak to your fight. We reach out to them on your behalf.</p>
         </div>
         <div class="apply-path">
           <span class="num">— Path 03</span>
@@ -1248,6 +1349,38 @@
           <p>Subscribe to the Pulse. Future cohorts open quarterly. Use the time to get inside a real fight.</p>
         </div>
       </div>
+
+      <form class="apply-form reveal delay-3" id="applyForm" aria-labelledby="applyFormLabel">
+        <span class="form-label" id="applyFormLabel">Request introduction · fields are prompts, not checkboxes</span>
+        <div class="field">
+          <label for="f-name">Name</label>
+          <input id="f-name" name="name" type="text" autocomplete="name" required />
+        </div>
+        <div class="field">
+          <label for="f-email">Email</label>
+          <input id="f-email" name="email" type="email" autocomplete="email" required />
+        </div>
+        <div class="field">
+          <label for="f-locality">Locality</label>
+          <input id="f-locality" name="locality" type="text" placeholder="Where you bear consequences" />
+        </div>
+        <div class="field">
+          <label for="f-fight">The fight</label>
+          <textarea id="f-fight" name="fight" rows="2" placeholder="What you are inside of right now"></textarea>
+        </div>
+        <div class="field">
+          <label for="f-vouches">Who could vouch</label>
+          <textarea id="f-vouches" name="vouches" rows="2" placeholder="Operators in our orbit who can speak to your work"></textarea>
+        </div>
+        <div class="field">
+          <label for="f-note">Anything else</label>
+          <textarea id="f-note" name="note" rows="2"></textarea>
+        </div>
+        <div class="submit-row">
+          <span class="fine">Goes to convening@statecraft.systems · We reply within a week.</span>
+          <button type="submit">Send request <span class="arrow">→</span></button>
+        </div>
+      </form>
     </div>
   </section>
 
@@ -1283,7 +1416,7 @@
     <div class="foot-bottom">
       <span>National Law Institute <span class="x">///</span> Decide / Act 2026</span>
       <span>By vouch only <span class="x">///</span> No public application</span>
-      <span>Operated by <a href="https://statecraft.systems/">Statecraft Systems</a></span>
+      <span>Operated by <a href="https://statecraft.systems/" rel="noopener">Statecraft Systems</a></span>
     </div>
   </footer>
 
@@ -1372,11 +1505,38 @@
     document.querySelectorAll('#schedRows .sched-row').forEach(row => {
       const start = new Date(row.dataset.start);
       const end = new Date(row.dataset.end);
-      row.classList.toggle('now', now >= start && now < end);
+      const active = now >= start && now < end;
+      row.classList.toggle('now', active);
+      if (active) row.setAttribute('aria-current', 'true');
+      else row.removeAttribute('aria-current');
     });
   }
   updatePhase();
   setInterval(updatePhase, 30000);
+
+  // Apply form → structured mailto
+  const applyForm = document.getElementById('applyForm');
+  if (applyForm) {
+    applyForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const d = new FormData(applyForm);
+      const rows = [
+        ['Name', d.get('name')],
+        ['Email', d.get('email')],
+        ['Locality', d.get('locality')],
+        ['The fight I am inside', d.get('fight')],
+        ['Operators who could vouch', d.get('vouches')],
+        ['Anything else', d.get('note')],
+      ];
+      const body = rows
+        .filter(([, v]) => v && String(v).trim())
+        .map(([k, v]) => `${k}:\n${String(v).trim()}`)
+        .join('\n\n');
+      const subject = 'Decide/Act 2026 — Request introduction';
+      const href = `mailto:convening@statecraft.systems?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+      window.location.href = href;
+    });
+  }
 </script>
 
 </body>
