@@ -135,6 +135,7 @@
     font-weight: 700;
     color: var(--accent);
   }
+  h2.h2--plain::before { content: none; }
 
   p { margin-bottom: 1rem; color: var(--fg); }
   p.muted { color: var(--fg-muted); }
@@ -147,12 +148,43 @@
     margin: 1.5rem 0;
   }
   .panel strong { color: var(--fg); }
-  .panel--update {
-    border-left-width: 3px;
-    background: linear-gradient(180deg, rgba(74,134,96,0.08), rgba(74,134,96,0.02));
+
+  .revisions { margin: 3rem 0 2rem; }
+  .revisions > p.muted { margin-bottom: 1.8rem; }
+  .rev {
+    border-left: 2px solid var(--border);
+    padding: 0.2rem 0 1.6rem 1.4rem;
+    margin-left: 0.4rem;
+    position: relative;
   }
-  .panel--update ul li { padding: 0.15rem 0; border: none; }
-  .panel--update em { color: var(--fg-muted); font-style: italic; }
+  .rev + .rev { margin-top: 0.5rem; }
+  .rev::before {
+    content: "";
+    position: absolute;
+    left: -7px; top: 0.9rem;
+    width: 11px; height: 11px;
+    background: var(--bg); border: 2px solid var(--border); border-radius: 50%;
+  }
+  .rev--current { border-left-color: var(--accent); }
+  .rev--current::before { background: var(--accent); border-color: var(--accent); }
+  .rev__header {
+    display: flex; gap: 1rem; align-items: baseline;
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    margin-bottom: 0.4rem;
+  }
+  .rev__tag { color: var(--fg-muted); }
+  .rev--current .rev__tag { color: var(--accent-soft); }
+  .rev__date { color: var(--fg-dim); }
+  .rev__title { font-size: 1.15rem; font-weight: 600; margin: 0 0 0.6rem; color: var(--fg); }
+  .rev p { margin: 0 0 0.6rem; color: var(--fg-muted); }
+  .rev ul { margin: 0.2rem 0 0.8rem 1.2rem; padding: 0; color: var(--fg-muted); }
+  .rev ul li { padding: 0.15rem 0; border: none; }
+  .rev em { color: var(--fg); font-style: italic; }
+  .rev__open { font-size: 0.92rem; color: var(--fg-dim); border-top: 1px dashed var(--border); padding-top: 0.6rem; margin-top: 0.4rem; }
+  .rev__open strong { color: var(--fg-muted); }
 
   ul.plain { list-style: none; }
   ul.plain li {
@@ -293,18 +325,37 @@
 
   <div class="panel">
     <p style="margin-bottom: 0.6rem;"><strong>What this is.</strong> A five-page static website for Yakima Valley Supply & Labor LLC, using the copy you already wrote, your logo, and jobsite photos you sent through Brandon. No invented content. No backend. No dependencies beyond a web browser — which means once you sign off, it'll upload straight to your Namecheap plan.</p>
-    <p style="margin-bottom: 0;"><strong>What this isn't.</strong> A finished product. A real form-submission backend and domain setup on Namecheap are next passes — not this pass. This pass is about locking the bones in and settling on the look.</p>
+    <p style="margin-bottom: 0;"><strong>What this isn't.</strong> A finished product. A real form-submission backend, a confirmed phone number, and domain setup on Namecheap are next passes — not this pass. This pass is about locking the bones in and settling on the look.</p>
   </div>
 
-  <div class="panel panel--update">
-    <p style="margin-bottom: 0.4rem;"><strong>Update · 22 April.</strong> Your logo and photos came in through Brandon overnight. Both are now on the site:</p>
-    <ul style="margin: 0.2rem 0 0.6rem 1.2rem; padding: 0;">
-      <li>The YVS mountain/valley mark sits in the header on every page and drives the favicon in the browser tab.</li>
-      <li>The site palette shifted from a generic earth tone to the dark green + cream of your logo (matching, too, the color study from the wall of swatches you sent).</li>
-      <li>Photos are placed where they carry weight: the vineyard tractor shot opens the home page; the orchard-bloom and hop-yard pair illustrate the Agriculture section on <em>Industries We Serve;</em> the C500 coverall product photo anchors <em>How Ordering Works</em>.</li>
-    </ul>
-    <p style="margin: 0;">The version bumped from v0.1 to v0.2. Walk through it again and see how it sits.</p>
-  </div>
+  <section class="revisions" aria-labelledby="revisions-heading">
+    <h2 id="revisions-heading" class="h2--plain">Revisions</h2>
+    <p class="muted" style="margin-top: -0.4rem;">Latest on top. Each revision stays in the log so you can see what changed, when, and what's still open.</p>
+
+    <article class="rev rev--current">
+      <header class="rev__header">
+        <span class="rev__tag">v0.2 — current</span>
+        <span class="rev__date">22 April 2026</span>
+      </header>
+      <h3 class="rev__title">Logo, photos, and a green palette.</h3>
+      <p>Your logo and photos came in through Brandon overnight. Integrated on the site:</p>
+      <ul>
+        <li>The YVS mountain/valley mark sits in the header on every page and drives the favicon in the browser tab.</li>
+        <li>The palette shifted from a generic earth tone to the dark green + cream of your logo — matching, too, the color study from the wall of swatches you sent.</li>
+        <li>Photos are placed where they carry weight: the vineyard tractor shot opens the home page; the orchard-bloom + hop-yard pair illustrate the Agriculture section on <em>Industries We Serve;</em> the C500 coverall product photo anchors <em>How Ordering Works</em>.</li>
+      </ul>
+      <p class="rev__open"><strong>Still open:</strong> phone number (currently marked "phone TBD — please send" on contact and the intake form), intake-form backend, Namecheap go-live.</p>
+    </article>
+
+    <article class="rev">
+      <header class="rev__header">
+        <span class="rev__tag">v0.1</span>
+        <span class="rev__date">20 April 2026</span>
+      </header>
+      <h3 class="rev__title">First cut from your five templates.</h3>
+      <p>Built straight from the five Word documents you attached — <em>Home, Industries We Serve, Ordering Process, Industrial Customer Intake Form,</em> and <em>Contact.</em> No invented content: your copy drives every page. Structure, typography, and feedback widget wired up; logo and photography were placeholders waiting for your assets.</p>
+    </article>
+  </section>
 
   <h2 data-n="01">Where This Came From</h2>
   <p>Your email described the shape of Yakima Valley Supply: small, direct, built around relationships with farms and remediation crews across Central Washington. The five Word documents you sent — <em>Home, Industries We Serve, Ordering Process, Industrial Customer Intake Form,</em> and <em>Contact</em> — already did most of the heavy lifting. The writing is specific to how crews actually burn through supplies on the job, which is exactly what makes a supply business's site worth reading.</p>
