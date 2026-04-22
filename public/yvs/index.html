@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Yakima Valley Supply — Website Draft v0.1 for Tyler</title>
+<title>Yakima Valley Supply — Website Draft v0.2 for Tyler</title>
 <meta name="description" content="A first cut at your website, Tyler — five pages built from the templates you sent. Click any element on any page to leave feedback. No account required.">
 <meta name="author" content="Moritz Bierling">
 <meta name="theme-color" content="#0c0c0d">
@@ -13,20 +13,20 @@
 
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Statecraft Systems">
-<meta property="og:title" content="Yakima Valley Supply — Website Draft v0.1 for Tyler">
+<meta property="og:title" content="Yakima Valley Supply — Website Draft v0.2 for Tyler">
 <meta property="og:description" content="A first cut at your website, Tyler — built from the five templates you sent. Click any element to leave feedback right on the page.">
 <meta property="og:url" content="https://statecraft.systems/yvs/">
 <meta property="og:image" content="https://statecraft.systems/yvs/og-yvs.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Yakima Valley Supply &amp; Labor LLC — Website Draft v0.1 for Tyler, hosted at statecraft.systems/yvs">
+<meta property="og:image:alt" content="Yakima Valley Supply &amp; Labor LLC — Website Draft v0.2 for Tyler, hosted at statecraft.systems/yvs">
 <meta property="og:locale" content="en_US">
 
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Yakima Valley Supply — Website Draft v0.1 for Tyler">
+<meta name="twitter:title" content="Yakima Valley Supply — Website Draft v0.2 for Tyler">
 <meta name="twitter:description" content="A first cut at your website, Tyler — built from the five templates you sent. Click any element to leave feedback right on the page.">
 <meta name="twitter:image" content="https://statecraft.systems/yvs/og-yvs.png">
-<meta name="twitter:image:alt" content="Yakima Valley Supply &amp; Labor LLC — Website Draft v0.1 for Tyler">
+<meta name="twitter:image:alt" content="Yakima Valley Supply &amp; Labor LLC — Website Draft v0.2 for Tyler">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -147,6 +147,12 @@
     margin: 1.5rem 0;
   }
   .panel strong { color: var(--fg); }
+  .panel--update {
+    border-left-width: 3px;
+    background: linear-gradient(180deg, rgba(74,134,96,0.08), rgba(74,134,96,0.02));
+  }
+  .panel--update ul li { padding: 0.15rem 0; border: none; }
+  .panel--update em { color: var(--fg-muted); font-style: italic; }
 
   ul.plain { list-style: none; }
   ul.plain li {
@@ -274,7 +280,7 @@
 
 <nav class="topbar">
   <a href="/" class="back">← Statecraft Systems</a>
-  <span class="version">Draft v0.1 // 20 April 2026</span>
+  <span class="version">Draft v0.2 // 22 April 2026</span>
 </nav>
 
 <main>
@@ -286,8 +292,18 @@
   <p class="subtitle">Brandon forwarded your note on April 19. This is what was built from the five templates you attached — laid out as a working site you can click through, pick apart, and hand back with notes.</p>
 
   <div class="panel">
-    <p style="margin-bottom: 0.6rem;"><strong>What this is.</strong> A first-draft, five-page static website for Yakima Valley Supply & Labor LLC, using the copy you already wrote. No invented content. No backend. No dependencies beyond a web browser — which means once you sign off, it'll upload straight to your Namecheap plan.</p>
-    <p style="margin-bottom: 0;"><strong>What this isn't.</strong> A finished product. A logo, photography, a real form-submission backend, and domain setup on Namecheap are all next passes — not this pass. Today is about getting the bones right.</p>
+    <p style="margin-bottom: 0.6rem;"><strong>What this is.</strong> A five-page static website for Yakima Valley Supply & Labor LLC, using the copy you already wrote, your logo, and jobsite photos you sent through Brandon. No invented content. No backend. No dependencies beyond a web browser — which means once you sign off, it'll upload straight to your Namecheap plan.</p>
+    <p style="margin-bottom: 0;"><strong>What this isn't.</strong> A finished product. A real form-submission backend and domain setup on Namecheap are next passes — not this pass. This pass is about locking the bones in and settling on the look.</p>
+  </div>
+
+  <div class="panel panel--update">
+    <p style="margin-bottom: 0.4rem;"><strong>Update · 22 April.</strong> Your logo and photos came in through Brandon overnight. Both are now on the site:</p>
+    <ul style="margin: 0.2rem 0 0.6rem 1.2rem; padding: 0;">
+      <li>The YVS mountain/valley mark sits in the header on every page and drives the favicon in the browser tab.</li>
+      <li>The site palette shifted from a generic earth tone to the dark green + cream of your logo (matching, too, the color study from the wall of swatches you sent).</li>
+      <li>Photos are placed where they carry weight: the vineyard tractor shot opens the home page; the orchard-bloom and hop-yard pair illustrate the Agriculture section on <em>Industries We Serve;</em> the C500 coverall product photo anchors <em>How Ordering Works</em>.</li>
+    </ul>
+    <p style="margin: 0;">The version bumped from v0.1 to v0.2. Walk through it again and see how it sits.</p>
   </div>
 
   <h2 data-n="01">Where This Came From</h2>
@@ -337,7 +353,7 @@
   <h2 data-n="04">What Happens Next</h2>
   <ul class="plain">
     <li><strong>You walk through it.</strong> Confirm the structure fits the business. Catch anything factually wrong, any products I missed, any tone that doesn't sound like you.</li>
-    <li><strong>Logo & photography.</strong> A simple mark and a handful of crew/jobsite photos would lift this a lot. If you have photos already, send them. If not, we can talk about getting a few.</li>
+    <li><strong>More photography as you build it up.</strong> The current set tells the right story but is light. As you get better crew and jobsite shots over the season, swap them in and the site gets richer without any rework.</li>
     <li><strong>The intake form.</strong> Right now it opens your customer's email client with their answers filled in — no backend, nothing to break. When orders start coming in regularly, we can swap in a proper form handler so submissions land in a database or straight into your inbox, whichever you prefer.</li>
     <li><strong>Going live on Namecheap.</strong> Once you sign off, we upload these files to your Namecheap hosting plan and point <code>www.yakimavalleysupply.com</code> at them. The draft stays up here for reference as long as it's useful.</li>
   </ul>
