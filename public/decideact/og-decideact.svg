@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <radialGradient id="amb" cx="80%" cy="0%" r="60%">
+      <stop offset="0%" stop-color="#e85a2d" stop-opacity="0.18"/>
+      <stop offset="100%" stop-color="#e85a2d" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="grain">
+      <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" stitchTiles="stitch"/>
+      <feColorMatrix values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.06 0"/>
+    </filter>
+  </defs>
+
+  <rect width="1200" height="630" fill="#0c0b09"/>
+  <rect width="1200" height="630" fill="url(#amb)"/>
+  <rect width="1200" height="630" filter="url(#grain)" opacity="0.7"/>
+
+  <!-- top bar -->
+  <text x="64" y="78"
+        font-family="JetBrains Mono, ui-monospace, monospace"
+        font-size="16" letter-spacing="3"
+        fill="#7a7163">NATIONAL LAW INSTITUTE   <tspan fill="#e85a2d">///</tspan>   2026 CONVENING</text>
+
+  <text x="1136" y="78" text-anchor="end"
+        font-family="JetBrains Mono, ui-monospace, monospace"
+        font-size="16" letter-spacing="3"
+        fill="#7a7163">JUN 1 – JUL 10, 2026   <tspan fill="#e85a2d">///</tspan>   ONLINE</text>
+
+  <!-- title -->
+  <text x="64" y="380"
+        font-family="Instrument Serif, Georgia, serif"
+        font-size="280" font-weight="400"
+        fill="#ece5d3" letter-spacing="-12">Decide<tspan fill="#e85a2d" font-style="italic">/</tspan><tspan font-style="italic" fill="#ece5d3">Act.</tspan></text>
+
+  <!-- subtitle -->
+  <text x="64" y="470"
+        font-family="Newsreader, Georgia, serif"
+        font-size="34" font-style="italic"
+        fill="#c7bfae">An online operation for sixty-four operators.</text>
+
+  <!-- bottom bar -->
+  <line x1="64" y1="540" x2="1136" y2="540" stroke="#3a342c" stroke-width="1"/>
+
+  <text x="64" y="585"
+        font-family="JetBrains Mono, ui-monospace, monospace"
+        font-size="18" letter-spacing="3"
+        fill="#ece5d3">BRIEF   <tspan fill="#e85a2d">/</tspan>   SESSIONS   <tspan fill="#e85a2d">/</tspan>   ROSTER   <tspan fill="#e85a2d">/</tspan>   PULSE</text>
+
+  <text x="1136" y="585" text-anchor="end"
+        font-family="JetBrains Mono, ui-monospace, monospace"
+        font-size="18" letter-spacing="3"
+        fill="#7a7163">BY VOUCH ONLY</text>
+</svg>
