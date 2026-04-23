@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>The Roster — Decide / Act 2026</title>
+<meta name="description" content="The Roster is the artifact the convening produces — a single internal document naming who is doing what, where they are exposed, and the 90-day commitments on the record." />
+<meta name="theme-color" content="#0c0b09" />
+<link rel="canonical" href="https://statecraft.systems/decideact/roster/" />
+<link rel="icon" type="image/svg+xml" href="/decideact/favicon.svg" />
+
+<meta property="og:type" content="article" />
+<meta property="og:title" content="The Roster — Decide / Act 2026" />
+<meta property="og:description" content="The convening rendered as instrument. One internal document, sixty-four operators, ninety days on the record." />
+<meta property="og:url" content="https://statecraft.systems/decideact/roster/" />
+<meta property="og:image" content="https://statecraft.systems/decideact/og-decideact.png" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="/decideact/_shared.css" />
+
+<style>
+  .roster-mock{
+    margin:40px 0;
+    border:1px solid var(--rule);
+    background:var(--bg-3);
+    font-family:"JetBrains Mono", monospace;
+  }
+  .roster-mock .head{
+    padding:14px 20px;
+    border-bottom:1px solid var(--rule);
+    display:flex; justify-content:space-between; align-items:center;
+    font-size:10px; letter-spacing:.22em; text-transform:uppercase;
+    color:var(--muted);
+  }
+  .roster-mock .head .label{color:var(--accent);}
+  .roster-mock .body{padding:22px 20px;}
+  .roster-mock .row{
+    display:grid; grid-template-columns:140px 1fr;
+    gap:18px; padding:8px 0;
+    border-bottom:1px dashed var(--hair); align-items:baseline;
+  }
+  .roster-mock .row:last-child{border-bottom:none;}
+  .roster-mock .row .k{
+    font-size:10px; letter-spacing:.2em; text-transform:uppercase;
+    color:var(--muted);
+  }
+  .roster-mock .row .v{
+    font-family:"Newsreader", Georgia, serif;
+    font-size:15.5px; color:var(--ink); font-style:italic;
+  }
+  .roster-mock .row .v.commit{color:var(--accent); font-style:normal; letter-spacing:.02em;}
+  .promise-grid{
+    display:grid; grid-template-columns:repeat(2, 1fr);
+    gap:0; margin:28px 0;
+    border:1px solid var(--rule);
+  }
+  .promise{padding:24px; border-right:1px solid var(--rule); border-bottom:1px solid var(--rule);}
+  .promise:nth-child(2n){border-right:none;}
+  .promise:nth-last-child(-n+2){border-bottom:none;}
+  .promise .lbl{
+    font-family:"JetBrains Mono", monospace;
+    font-size:10px; letter-spacing:.22em; color:var(--accent);
+    margin-bottom:10px; display:block;
+  }
+  .promise h4{
+    font-family:"Instrument Serif", Georgia, serif;
+    font-weight:400; font-size:22px; color:var(--ink);
+    margin-bottom:8px;
+  }
+  .promise p{font-size:15px; line-height:1.55; color:var(--ink-soft);}
+  @media (max-width:700px){
+    .promise-grid{grid-template-columns:1fr;}
+    .promise{border-right:none;}
+  }
+</style>
+</head>
+<body>
+
+<div class="ambient"></div>
+
+<header class="site" id="siteHeader">
+  <div class="bar">
+    <a href="/decideact/" class="logo">
+      <span class="mark">D/A</span>
+      <span>Decide / Act <span class="org">NLI 2026</span></span>
+    </a>
+    <nav class="primary">
+      <a href="/decideact/#about">About</a>
+      <a href="/decideact/frame/">The Frame</a>
+      <a href="/decideact/roster/" class="active">The Roster</a>
+      <a href="/decideact/pulse/">The Pulse</a>
+      <a href="/decideact/#faq">FAQ</a>
+    </nav>
+    <a href="/decideact/#apply" class="btn">Request invitation <span>→</span></a>
+  </div>
+</header>
+
+<main class="page">
+
+  <section class="subhero">
+    <div class="container">
+      <div class="crumbs"><a href="/decideact/">Decide / Act</a> // The Roster</div>
+      <span class="kicker">The artifact the convening produces</span>
+      <h1 class="reveal">The <em>Roster.</em></h1>
+      <p class="lede reveal">Not a report about the convening. The convening, rendered as instrument. Sixty-four operators, their exposures, their matches, and the ninety-day commitments each has put on the record.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="container prose reveal">
+      <p>A conference produces a feeling. A report produces pages. The Roster produces a working record: one internal document that a real operator can act on the week after they receive it.</p>
+
+      <p>It is published once, one week after the live sessions, and republished at each quarterly Pulse with updates, deletions, and new entries. It is distributed only to operators inside the cohort. It is not public, and is not positioned to become so. The entries below are not mock-ups for a pitch deck. They are the format we actually use.</p>
+
+      <h2><span class="num">/ Shape</span>Each entry.</h2>
+      <p>Every entry is a compressed picture of one operator's position in the field. Eight rows. No narrative sections, no bios. The Roster is a working instrument, not an anthology.</p>
+
+      <div class="roster-mock">
+        <div class="head"><span class="label">The Roster · entry shape</span><span>v.1 · internal</span></div>
+        <div class="body">
+          <div class="row"><span class="k">Operator</span><span class="v">— name or pseudonym —</span></div>
+          <div class="row"><span class="k">Locality</span><span class="v">geography &amp; jurisdiction of consequence</span></div>
+          <div class="row"><span class="k">Exposure</span><span class="v">what they cannot exit</span></div>
+          <div class="row"><span class="k">Lane</span><span class="v">the specific fight or build</span></div>
+          <div class="row"><span class="k">Offer</span><span class="v">capability, access, leverage on tap</span></div>
+          <div class="row"><span class="k">Ask</span><span class="v">named, concrete, 90-day support</span></div>
+          <div class="row"><span class="k">Matched with</span><span class="v">pod members &amp; cross-network ties</span></div>
+          <div class="row"><span class="k">Commitment</span><span class="v commit">→ specific 90-day move, on the record</span></div>
+        </div>
+      </div>
+
+      <h2><span class="num">/ Privacy</span>The four promises.</h2>
+      <p>Operators submit Briefs with real information because the handling is real. Four things are true about every Roster entry:</p>
+
+      <div class="promise-grid">
+        <div class="promise">
+          <span class="lbl">01</span>
+          <h4>Internal only.</h4>
+          <p>The Roster is distributed to the cohort. It is never published outside the network, shared with press, or mined by third parties. Not now, not at the quarterly republish.</p>
+        </div>
+        <div class="promise">
+          <span class="lbl">02</span>
+          <h4>Pseudonymity on request.</h4>
+          <p>If your fight requires it, your Operator row can be a handle. Locality can be regional rather than civic. Exposure and Lane still have to be specific enough to match against.</p>
+        </div>
+        <div class="promise">
+          <span class="lbl">03</span>
+          <h4>You control your entry.</h4>
+          <p>Revise at any Pulse. Request removal at any time. Pods can opt to keep the cross-references without the originating entry if a member rotates out.</p>
+        </div>
+        <div class="promise">
+          <span class="lbl">04</span>
+          <h4>No second list.</h4>
+          <p>There is no "observers" or "supporters" tier, no marketing mailing list derived from the Roster, and no list of rejected vouches kept anywhere. The Roster is the record. The Pulse subscription is separate.</p>
+        </div>
+      </div>
+
+      <h2><span class="num">/ Lineage</span>What it is modeled on.</h2>
+      <p>The format is modeled on a situational assessment NLI produced from staff contributions in a previous cadence — the same exercise, done once, that showed us the instrument is more useful than the narrative. Decide / Act is that exercise, run across a cohort.</p>
+
+      <h2><span class="num">/ Use</span>What operators do with it.</h2>
+      <p>The week after distribution is the Roster's highest-velocity moment. People open it, find their matches, and initiate. Pods that formed during the Sessions have their working channel. Cross-pod matches begin. By the Pulse, most entries carry evidence: a call taken, a project split, a capability moved, a fight won or lost, a commitment met or not.</p>
+
+      <p>The Roster that republishes at the Pulse is the first version with weight. The second, the third, the fourth — that is the network operating.</p>
+    </div>
+  </section>
+
+  <section class="cta-band">
+    <h3>Earn your <em>entry.</em></h3>
+    <p>Submission is the Brief. The Brief is the price. Every accepted Brief becomes an entry.</p>
+    <div class="actions">
+      <a href="/decideact/#apply" class="btn">Request invitation <span>→</span></a>
+      <a href="/decideact/" class="btn btn-ghost">Back to Decide / Act</a>
+    </div>
+  </section>
+
+  <footer class="site">
+    <div class="inner">
+      <span>Decide / Act <span class="x">///</span> Natural Law Institute 2026</span>
+      <span><a href="/decideact/">statecraft.systems/decideact</a></span>
+    </div>
+  </footer>
+
+</main>
+
+<script>
+  const hdr = document.getElementById('siteHeader');
+  window.addEventListener('scroll', () => hdr.classList.toggle('scrolled', window.scrollY > 40));
+  const io = new IntersectionObserver(es => es.forEach(e => e.isIntersecting && (e.target.classList.add('in'), io.unobserve(e.target))), {threshold:.08});
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
+
+<script src="https://spikes.sh/widget.js" data-project="decideact-2026" data-theme="dark" data-position="bottom-right" data-color="#e85a2d"></script>
+
+</body>
+</html>

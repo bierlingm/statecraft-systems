@@ -787,12 +787,12 @@
     backdrop-filter:blur(8px);
     -webkit-backdrop-filter:blur(8px);
     display:none;
-    align-items:flex-start; justify-content:center;
-    padding:80px 20px 40px;
+    place-items:center;
+    padding:40px 20px;
     overflow-y:auto;
     opacity:0; transition:opacity .25s ease;
   }
-  .modal-backdrop.open{display:flex; opacity:1;}
+  .modal-backdrop.open{display:grid; opacity:1;}
   .modal{
     position:relative;
     max-width:640px; width:100%;
@@ -935,8 +935,9 @@
     <nav class="primary">
       <a href="#about">About</a>
       <a href="#operation">Operation</a>
-      <a href="#schedule">Schedule</a>
-      <a href="#topics">Topics</a>
+      <a href="/decideact/frame/">Frame</a>
+      <a href="/decideact/roster/">Roster</a>
+      <a href="/decideact/pulse/">Pulse</a>
       <a href="#hosts">Hosts</a>
       <a href="#faq">FAQ</a>
     </nav>
@@ -1005,7 +1006,7 @@
         <p class="lead">The watching posture is over. The opening is wide for small teams of grounded operators working with the excellent and wielding AI as leverage. <em>Decide / Act</em> is the Natural Law Institute's first operating cadence: a vouched online convening that turns orientation into commitment.</p>
         <p>The format is simple. Every operator in the cohort submits a five-field Brief in the weeks before the live sessions. We synthesize the Briefs into one Operations Picture and distribute it to the room. We convene online for three working days, July 1–3, to calibrate, pair into pods, and commit. One week after the sessions we publish the Roster: who is doing what, where they are exposed, what matches exist, and the 90-day commitment each has put on the record. Ninety days later, we Pulse. Re-up against commitment, or be marked as didn't.</p>
         <p>The orienting vocabulary is a single NLI essay by fellow <strong>Brandon Hayes</strong>, <em>The New Emergence of Operational Reality</em>. The distinction it makes is structural, not ideological: <strong>grounded sovereign agents</strong>, who bear the consequences of their decisions, versus <strong>meta-agents</strong>, who operate without exposure to them. This convening is for the first kind.</p>
-        <div class="citation">Read the Frame · <a href="https://natlawinstitute.substack.com/p/the-new-emergence-of-operational" target="_blank" rel="noopener">natlawinstitute.substack.com</a></div>
+        <div class="citation">The Frame, distilled · <a href="/decideact/frame/">/decideact/frame/</a> · Full essay on <a href="https://natlawinstitute.substack.com/p/the-new-emergence-of-operational" target="_blank" rel="noopener">NLI Substack</a></div>
       </div>
 
       <div class="whom reveal delay-1">
@@ -1102,7 +1103,7 @@
             <div class="ph-when">July 10<span class="date">T + 1 week</span></div>
           </div>
           <div class="ph-body">
-            <span class="ph-name">The Roster</span>
+            <span class="ph-name"><a href="/decideact/roster/" style="color:var(--accent);">The Roster →</a></span>
             <h3>One artifact, distributed to every <em>operator.</em></h3>
             <p>One week after the Sessions, NLI publishes the Roster: a single internal document modeled on the situational assessment NLI produced from staff contributions in a previous cadence. Not a report about the convening. The convening, rendered as instrument: who is doing what, where they are exposed, the matches between them, and the commitments on the record.</p>
             <p style="font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:.18em; text-transform:uppercase; color:var(--muted); margin-top:32px;">The shape of your entry</p>
@@ -1128,7 +1129,7 @@
             <div class="ph-when">October 7 – 9<span class="date">T + 90 days</span></div>
           </div>
           <div class="ph-body">
-            <span class="ph-name">The Pulse</span>
+            <span class="ph-name"><a href="/decideact/pulse/" style="color:var(--accent);">The Pulse →</a></span>
             <h3>Re-up. Or be marked as <em>didn't.</em></h3>
             <p>Ninety days after commitment, an async pulse. Each operator updates their entry against the commitment they made. The Roster is republished, the field is visible to itself again, and the cadence continues quarterly thereafter. The heartbeat that keeps the network operating between conferences.</p>
           </div>
@@ -1277,7 +1278,7 @@
             </div>
             <div class="principal">
               <span class="name">Brandon Hayes</span>
-              <span class="role">NLI fellow · Author of the Frame.<br/>Writes on operational reality, sovereign agency, and lawful lane discipline. Authored <em>The New Emergence of Operational Reality</em>, the cohort's shared vocabulary. Reads the terrain out loud on Day 01.</span>
+              <span class="role">President, Natural Law Institute · Founding senior fellow.<br/>Author of <em>The New Emergence of Operational Reality</em>, the cohort's shared vocabulary. Reads the terrain out loud on Day 01.</span>
             </div>
             <div class="principal">
               <span class="name">Francis Zhou</span>
@@ -1417,12 +1418,12 @@
         <button type="button" class="pulse-cta" data-open-modal="pulseModal">Subscribe to the Pulse →</button>
       </div>
       <div class="foot-list">
-        <h5>The operation</h5>
+        <h5>Deep reads</h5>
         <ul>
-          <li><a href="#about">About</a></li>
-          <li><a href="#operation">How it works</a></li>
+          <li><a href="/decideact/frame/">The Frame</a></li>
+          <li><a href="/decideact/roster/">The Roster</a></li>
+          <li><a href="/decideact/pulse/">The Pulse</a></li>
           <li><a href="#schedule">Schedule</a></li>
-          <li><a href="#topics">Topics</a></li>
           <li><a href="#apply">Apply</a></li>
         </ul>
       </div>
@@ -1501,7 +1502,7 @@
 <!-- Form endpoint: set this to your Cloudflare Worker / API Route URL.
      If unset, forms fall back to a structured mailto. -->
 <script>
-  window.__DECIDEACT_FORM_ENDPOINT__ = '';
+  window.__DECIDEACT_FORM_ENDPOINT__ = 'https://decideact-api.moritzbierling.workers.dev/submit';
 </script>
 
 <!-- Spikes feedback widget · data-project groups feedback across pages -->

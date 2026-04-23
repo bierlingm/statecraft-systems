@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>The Pulse — Decide / Act 2026</title>
+<meta name="description" content="The Pulse is the quarterly cadence that keeps the network operating between convenings. Re-up against commitment, or be marked as didn't." />
+<meta name="theme-color" content="#0c0b09" />
+<link rel="canonical" href="https://statecraft.systems/decideact/pulse/" />
+<link rel="icon" type="image/svg+xml" href="/decideact/favicon.svg" />
+
+<meta property="og:type" content="article" />
+<meta property="og:title" content="The Pulse — Decide / Act 2026" />
+<meta property="og:description" content="Quarterly heartbeat. Ninety days after commitment, re-up or be marked as didn't." />
+<meta property="og:url" content="https://statecraft.systems/decideact/pulse/" />
+<meta property="og:image" content="https://statecraft.systems/decideact/og-decideact.png" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="/decideact/_shared.css" />
+
+<style>
+  .beats{
+    display:grid; grid-template-columns:repeat(4, 1fr);
+    gap:0; margin:32px 0;
+    border:1px solid var(--rule);
+  }
+  .beat{padding:24px 22px; border-right:1px solid var(--rule);}
+  .beat:last-child{border-right:none;}
+  .beat .when{
+    font-family:"JetBrains Mono", monospace;
+    font-size:10px; letter-spacing:.22em; text-transform:uppercase;
+    color:var(--accent); margin-bottom:10px; display:block;
+  }
+  .beat h4{
+    font-family:"Instrument Serif", Georgia, serif;
+    font-weight:400; font-style:italic;
+    font-size:22px; color:var(--ink);
+    margin-bottom:8px; line-height:1.1;
+  }
+  .beat p{font-size:14.5px; line-height:1.5; color:var(--ink-soft);}
+  @media (max-width:800px){
+    .beats{grid-template-columns:1fr 1fr;}
+    .beat{border-right:none; border-bottom:1px solid var(--rule);}
+    .beat:nth-child(odd){border-right:1px solid var(--rule);}
+    .beat:nth-last-child(-n+2){border-bottom:none;}
+  }
+  @media (max-width:500px){
+    .beats{grid-template-columns:1fr;}
+    .beat{border-right:none; border-bottom:1px solid var(--rule);}
+    .beat:last-child{border-bottom:none;}
+  }
+  .mark-row{
+    display:grid; grid-template-columns:1fr 1fr;
+    gap:0; margin:28px 0;
+    border:1px solid var(--rule);
+  }
+  .mark-row .side{padding:28px;}
+  .mark-row .yes{border-right:1px solid var(--rule); background:var(--bg-3);}
+  .mark-row h3{
+    font-family:"Instrument Serif", Georgia, serif;
+    font-weight:400; font-style:italic;
+    font-size:28px; color:var(--ink);
+    margin-bottom:10px;
+  }
+  .mark-row .yes h3{color:var(--accent);}
+  .mark-row p{font-size:15.5px; line-height:1.55; color:var(--ink-soft);}
+  @media (max-width:600px){
+    .mark-row{grid-template-columns:1fr;}
+    .mark-row .yes{border-right:none; border-bottom:1px solid var(--rule);}
+  }
+  .subscribe-box{
+    margin:48px 0 0;
+    padding:28px 32px;
+    background:var(--bg-2);
+    border:1px solid var(--rule);
+    border-left:3px solid var(--accent);
+    display:flex; align-items:center; justify-content:space-between;
+    gap:24px; flex-wrap:wrap;
+  }
+  .subscribe-box .txt{max-width:420px;}
+  .subscribe-box h4{
+    font-family:"Instrument Serif", Georgia, serif;
+    font-weight:400; font-style:italic;
+    font-size:24px; color:var(--ink); margin-bottom:6px;
+  }
+  .subscribe-box p{font-size:14.5px; line-height:1.5; color:var(--ink-soft);}
+</style>
+</head>
+<body>
+
+<div class="ambient"></div>
+
+<header class="site" id="siteHeader">
+  <div class="bar">
+    <a href="/decideact/" class="logo">
+      <span class="mark">D/A</span>
+      <span>Decide / Act <span class="org">NLI 2026</span></span>
+    </a>
+    <nav class="primary">
+      <a href="/decideact/#about">About</a>
+      <a href="/decideact/frame/">The Frame</a>
+      <a href="/decideact/roster/">The Roster</a>
+      <a href="/decideact/pulse/" class="active">The Pulse</a>
+      <a href="/decideact/#faq">FAQ</a>
+    </nav>
+    <a href="/decideact/#apply" class="btn">Request invitation <span>→</span></a>
+  </div>
+</header>
+
+<main class="page">
+
+  <section class="subhero">
+    <div class="container">
+      <div class="crumbs"><a href="/decideact/">Decide / Act</a> // The Pulse</div>
+      <span class="kicker">The quarterly cadence</span>
+      <h1 class="reveal">The <em>Pulse.</em></h1>
+      <p class="lede reveal">Ninety days after commitment, an async re-up. The Roster republishes. The field becomes visible to itself again. The heartbeat that keeps the network operating between conferences.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="container prose reveal">
+      <p>A convening that ends at the convening is a conference. A convening that carries commitments ninety days past the close is an operation. The Pulse is the difference.</p>
+
+      <p>It is async by design. Each operator updates their own Roster entry against the commitment they made. The update is short — a few lines, the evidence, the delta. The Roster republishes with the updates baked in. The cohort reads itself again.</p>
+
+      <h2><span class="num">/ Cadence</span>Four beats per year.</h2>
+      <p>The first Pulse closes the arc of the 2026 convening. Each subsequent Pulse is a checkpoint on the same record.</p>
+
+      <div class="beats">
+        <div class="beat">
+          <span class="when">Pulse I · Oct 7 – 9, 2026</span>
+          <h4>T + 90 days.</h4>
+          <p>First re-up against the commitments made at the close of the July sessions. The Roster republishes in full.</p>
+        </div>
+        <div class="beat">
+          <span class="when">Pulse II · Jan 2027</span>
+          <h4>T + 180.</h4>
+          <p>Second checkpoint. Pods report on pod-level commitments. New cohort window opens.</p>
+        </div>
+        <div class="beat">
+          <span class="when">Pulse III · Apr 2027</span>
+          <h4>T + 270.</h4>
+          <p>Third checkpoint. Cross-cohort introductions begin as 2027 invitees join the Roster.</p>
+        </div>
+        <div class="beat">
+          <span class="when">Pulse IV · Jul 2027</span>
+          <h4>T + one year.</h4>
+          <p>The year-mark. Full review of commitments made, met, revised, or retired. The convening opens again.</p>
+        </div>
+      </div>
+
+      <h2><span class="num">/ Two outcomes</span>Re-up. Or be marked as didn't.</h2>
+      <p>Every commitment resolves into one of two outcomes at Pulse. Both are public within the cohort. Neither is shameful. The binary is what makes the Roster useful.</p>
+
+      <div class="mark-row">
+        <div class="side yes">
+          <h3>Re-up.</h3>
+          <p>Commitment met, in whole or in good part. Entry updates with evidence and a new 90-day commitment. The operator stays active on the Roster and in pod matching. Work compounds.</p>
+        </div>
+        <div class="side">
+          <h3>Marked as didn't.</h3>
+          <p>Commitment not met, and no honest revision offered. The entry is annotated and de-prioritized in matching. The operator remains on the Roster but out of rotation until the next Pulse, when they can re-enter with a fresh commitment and a short account of what happened. Not a penalty. A signal.</p>
+        </div>
+      </div>
+
+      <h2><span class="num">/ What it is not</span>Not a newsletter.</h2>
+      <p>The Pulse is not a publication, not a podcast, and not a broadcast list. It is a working rhythm internal to the cohort. The only outward-facing artifact of Decide / Act is this page and Brandon's essay. Everything else stays in the Roster.</p>
+
+      <p>There is a separate subscribe list — the one below — for people outside the current cohort who want to be in range of future openings. It is infrequent. It does not quote the Roster.</p>
+
+      <div class="subscribe-box">
+        <div class="txt">
+          <h4>Subscribe to the Pulse notification list.</h4>
+          <p>One signal-only list for future cohort openings and convening news. Managed separately from the Roster.</p>
+        </div>
+        <a href="/decideact/#apply" class="btn">Subscribe <span>→</span></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-band">
+    <h3>Operate in the <em>open.</em></h3>
+    <p>The Pulse is how a network moves from a room that met once to a field that keeps score of itself.</p>
+    <div class="actions">
+      <a href="/decideact/#apply" class="btn">Request invitation <span>→</span></a>
+      <a href="/decideact/" class="btn btn-ghost">Back to Decide / Act</a>
+    </div>
+  </section>
+
+  <footer class="site">
+    <div class="inner">
+      <span>Decide / Act <span class="x">///</span> Natural Law Institute 2026</span>
+      <span><a href="/decideact/">statecraft.systems/decideact</a></span>
+    </div>
+  </footer>
+
+</main>
+
+<script>
+  const hdr = document.getElementById('siteHeader');
+  window.addEventListener('scroll', () => hdr.classList.toggle('scrolled', window.scrollY > 40));
+  const io = new IntersectionObserver(es => es.forEach(e => e.isIntersecting && (e.target.classList.add('in'), io.unobserve(e.target))), {threshold:.08});
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
+
+<script src="https://spikes.sh/widget.js" data-project="decideact-2026" data-theme="dark" data-position="bottom-right" data-color="#e85a2d"></script>
+
+</body>
+</html>
