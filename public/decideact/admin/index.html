@@ -1,0 +1,441 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex, nofollow" />
+<title>Decide / Act — Admin inbox</title>
+<link rel="icon" type="image/svg+xml" href="/decideact/favicon.svg" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+<style>
+  :root{
+    --bg:#0c0b09; --bg-2:#131210; --bg-3:#1b1914;
+    --ink:#ece5d3; --ink-soft:#c7bfae; --muted:#8a8173;
+    --accent:#e85a2d; --rule:#2e2a23; --hair:#23201b;
+    --ok:#6fbd7a; --warn:#e8a23d;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{
+    background:var(--bg); color:var(--ink-soft);
+    font-family:"Newsreader", Georgia, serif;
+    font-size:16px; line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+    min-height:100vh;
+  }
+  body::before{
+    content:""; position:fixed; inset:0;
+    pointer-events:none; z-index:200; opacity:.04;
+    mix-blend-mode:overlay;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/></svg>");
+  }
+  a{color:var(--accent); text-decoration:none;}
+  a:hover{text-decoration:underline;}
+
+  /* shell */
+  .shell{max-width:1200px; margin:0 auto; padding:40px 28px 80px;}
+  header.admin{
+    display:flex; justify-content:space-between; align-items:baseline;
+    border-bottom:1px solid var(--rule); padding-bottom:20px; margin-bottom:28px;
+    gap:24px; flex-wrap:wrap;
+  }
+  header.admin h1{
+    font-family:"Instrument Serif", Georgia, serif;
+    font-weight:400; font-size:40px;
+    color:var(--ink); letter-spacing:-.01em;
+  }
+  header.admin h1 em{color:var(--accent); font-style:italic;}
+  header.admin .crumbs{
+    font-family:"JetBrains Mono", monospace;
+    font-size:10.5px; letter-spacing:.22em; text-transform:uppercase;
+    color:var(--muted); margin-bottom:8px; display:block;
+  }
+  header.admin .crumbs a{color:var(--accent);}
+  header.admin .meta{
+    font-family:"JetBrains Mono", monospace;
+    font-size:10px; letter-spacing:.2em; text-transform:uppercase;
+    color:var(--muted); text-align:right;
+  }
+  header.admin .meta .ok{color:var(--ok);}
+  header.admin .meta .err{color:var(--accent);}
+
+  /* auth card */
+  .auth-card{
+    max-width:460px; margin:80px auto 0;
+    padding:36px 32px;
+    background:var(--bg-2); border:1px solid var(--rule);
+  }
+  .auth-card h2{
+    font-family:"Instrument Serif", Georgia, serif;
+    font-weight:400; font-size:32px; color:var(--ink);
+    margin-bottom:8px; line-height:1.1;
+  }
+  .auth-card p{color:var(--ink-soft); font-size:15px; margin-bottom:24px;}
+  .auth-card label{
+    display:block;
+    font-family:"JetBrains Mono", monospace;
+    font-size:10.5px; letter-spacing:.22em; text-transform:uppercase;
+    color:var(--muted); margin-bottom:10px;
+  }
+  .auth-card input{
+    width:100%; background:transparent; border:none;
+    border-bottom:1px solid var(--rule);
+    color:var(--ink);
+    font-family:"JetBrains Mono", monospace;
+    font-size:14px; padding:8px 0 10px;
+    transition:border-color .2s;
+    margin-bottom:24px;
+  }
+  .auth-card input:focus{outline:none; border-bottom-color:var(--accent);}
+  .auth-card .row{display:flex; gap:12px; align-items:center; flex-wrap:wrap;}
+  .auth-card .hint{
+    font-family:"JetBrains Mono", monospace;
+    font-size:10px; letter-spacing:.15em; text-transform:uppercase;
+    color:var(--muted);
+  }
+  .btn{
+    display:inline-flex; align-items:center; gap:10px;
+    padding:11px 18px;
+    background:var(--accent); color:var(--bg);
+    font-family:"JetBrains Mono", monospace;
+    font-size:11px; letter-spacing:.18em; text-transform:uppercase;
+    font-weight:500; border:1px solid var(--accent);
+    transition:background .2s, color .2s; cursor:pointer;
+  }
+  .btn:hover{background:transparent; color:var(--accent);}
+  .btn.ghost{background:transparent; color:var(--ink-soft); border-color:var(--rule);}
+  .btn.ghost:hover{color:var(--accent); border-color:var(--accent);}
+
+  /* filters */
+  .filters{
+    display:flex; gap:10px; margin-bottom:20px; flex-wrap:wrap;
+    padding:16px 0; border-bottom:1px solid var(--hair);
+  }
+  .pill{
+    padding:7px 14px; border:1px solid var(--rule); background:transparent;
+    color:var(--ink-soft); cursor:pointer;
+    font-family:"JetBrains Mono", monospace;
+    font-size:10.5px; letter-spacing:.18em; text-transform:uppercase;
+    transition:all .2s;
+  }
+  .pill:hover{border-color:var(--accent); color:var(--accent);}
+  .pill.active{background:var(--accent); color:var(--bg); border-color:var(--accent);}
+  .pill .count{
+    margin-left:8px; opacity:.7;
+  }
+  .spacer{flex:1;}
+  .search{
+    flex:1; min-width:200px;
+    background:transparent; border:1px solid var(--rule);
+    color:var(--ink); padding:8px 12px;
+    font-family:"JetBrains Mono", monospace;
+    font-size:11px; letter-spacing:.1em;
+  }
+  .search:focus{outline:none; border-color:var(--accent);}
+
+  /* list */
+  .list{display:grid; grid-template-columns:1fr; gap:0;}
+  .sub{
+    border:1px solid var(--rule);
+    background:var(--bg-2);
+    padding:20px 24px;
+    margin-bottom:12px;
+    transition:border-color .2s;
+  }
+  .sub:hover{border-color:var(--rule-strong, #4a4338);}
+  .sub .row1{
+    display:flex; justify-content:space-between; align-items:baseline;
+    gap:18px; flex-wrap:wrap; margin-bottom:14px;
+  }
+  .sub .kind{
+    display:inline-block;
+    font-family:"JetBrains Mono", monospace;
+    font-size:10px; letter-spacing:.22em; text-transform:uppercase;
+    padding:3px 10px; border:1px solid var(--accent); color:var(--accent);
+  }
+  .sub .kind.pulse{border-color:var(--warn); color:var(--warn);}
+  .sub .name{
+    font-family:"Instrument Serif", Georgia, serif;
+    font-size:22px; color:var(--ink); font-style:italic;
+  }
+  .sub .when{
+    font-family:"JetBrains Mono", monospace;
+    font-size:10px; letter-spacing:.18em; text-transform:uppercase;
+    color:var(--muted);
+  }
+  .sub .email{
+    font-family:"JetBrains Mono", monospace;
+    font-size:12px; color:var(--ink-soft);
+    letter-spacing:.02em;
+  }
+  .sub .email a{color:var(--ink-soft);}
+  .sub .field{
+    display:grid; grid-template-columns:120px 1fr;
+    gap:16px; padding:8px 0;
+    border-top:1px solid var(--hair);
+    align-items:baseline;
+  }
+  .sub .field .lbl{
+    font-family:"JetBrains Mono", monospace;
+    font-size:10px; letter-spacing:.2em; text-transform:uppercase;
+    color:var(--muted);
+  }
+  .sub .field .val{
+    color:var(--ink); font-size:15px; line-height:1.55;
+    white-space:pre-wrap;
+  }
+  .sub .field .val:empty::after{
+    content:"—"; color:var(--dim, #3f3a31);
+  }
+  .empty{
+    text-align:center; padding:80px 20px;
+    color:var(--muted);
+    font-family:"JetBrains Mono", monospace;
+    font-size:11px; letter-spacing:.22em; text-transform:uppercase;
+  }
+  .error{
+    padding:24px; border:1px solid var(--accent); background:rgba(232,90,45,.08);
+    color:var(--ink); margin-bottom:20px;
+  }
+  .error .lbl{
+    font-family:"JetBrains Mono", monospace;
+    font-size:10px; letter-spacing:.22em; text-transform:uppercase;
+    color:var(--accent); margin-bottom:4px; display:block;
+  }
+</style>
+</head>
+<body>
+
+<div class="shell">
+
+  <!-- Auth gate -->
+  <div id="authGate" class="auth-card" hidden>
+    <h2>Locked.</h2>
+    <p>This is the Decide / Act submission inbox. Paste your admin token to unlock. The token is stored in <code>sessionStorage</code> and dropped when you close the tab.</p>
+    <label for="tokenInput">Admin token</label>
+    <input id="tokenInput" type="password" autocomplete="off" spellcheck="false" />
+    <div class="row">
+      <button class="btn" id="unlockBtn">Unlock <span>→</span></button>
+      <span class="hint" id="authHint"></span>
+    </div>
+  </div>
+
+  <!-- Main app -->
+  <div id="app" hidden>
+    <header class="admin">
+      <div>
+        <span class="crumbs"><a href="/decideact/">Decide / Act</a> // Admin · Submissions</span>
+        <h1>The <em>inbox.</em></h1>
+      </div>
+      <div class="meta">
+        <span id="statusLine" class="ok">Loading…</span><br/>
+        <span id="countLine"></span><br/>
+        <a href="#" id="logoutBtn">Log out</a> · <a href="#" id="refreshBtn">Refresh</a>
+      </div>
+    </header>
+
+    <div id="errorBox"></div>
+
+    <div class="filters">
+      <button class="pill active" data-filter="all">All <span class="count" data-count="all">0</span></button>
+      <button class="pill" data-filter="apply">Apply <span class="count" data-count="apply">0</span></button>
+      <button class="pill" data-filter="pulse">Pulse <span class="count" data-count="pulse">0</span></button>
+      <div class="spacer"></div>
+      <input class="search" id="searchInput" placeholder="Search name / email / fight / locality…" />
+      <button class="btn ghost" id="exportBtn">Export JSON</button>
+    </div>
+
+    <div id="list" class="list"></div>
+  </div>
+
+</div>
+
+<script>
+const API_BASE = 'https://decideact-api.moritzbierling.workers.dev';
+const TOKEN_KEY = 'decideact_admin_token';
+
+const $ = (id) => document.getElementById(id);
+const authGate = $('authGate');
+const app = $('app');
+const tokenInput = $('tokenInput');
+const unlockBtn = $('unlockBtn');
+const authHint = $('authHint');
+const listEl = $('list');
+const errorBox = $('errorBox');
+const statusLine = $('statusLine');
+const countLine = $('countLine');
+const searchInput = $('searchInput');
+
+let allSubs = [];
+let activeFilter = 'all';
+
+function getToken() {
+  return sessionStorage.getItem(TOKEN_KEY) || '';
+}
+function setToken(t) {
+  if (t) sessionStorage.setItem(TOKEN_KEY, t);
+  else sessionStorage.removeItem(TOKEN_KEY);
+}
+
+function esc(s) {
+  return String(s ?? '')
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;');
+}
+
+function fmtDate(iso) {
+  if (!iso) return '—';
+  const d = new Date(iso);
+  if (isNaN(d)) return iso;
+  return d.toLocaleString(undefined, {
+    year: 'numeric', month: 'short', day: '2-digit',
+    hour: '2-digit', minute: '2-digit',
+  });
+}
+
+async function fetchSubmissions() {
+  const token = getToken();
+  if (!token) { showAuth(); return; }
+  statusLine.textContent = 'Fetching…';
+  statusLine.className = 'ok';
+  errorBox.innerHTML = '';
+  try {
+    const res = await fetch(`${API_BASE}/submissions`, {
+      headers: { 'Authorization': `Bearer ${token}` },
+    });
+    if (res.status === 401) {
+      setToken('');
+      showAuth('That token did not unlock the inbox. Try again.');
+      return;
+    }
+    if (!res.ok) throw new Error(`status ${res.status}`);
+    const data = await res.json();
+    allSubs = (data.submissions || []).sort((a, b) =>
+      (b._submittedAt || '').localeCompare(a._submittedAt || '')
+    );
+    statusLine.textContent = `Live · ${new Date().toLocaleTimeString()}`;
+    statusLine.className = 'ok';
+    render();
+  } catch (err) {
+    statusLine.textContent = 'Fetch failed';
+    statusLine.className = 'err';
+    errorBox.innerHTML = `
+      <div class="error">
+        <span class="lbl">Error</span>
+        Could not reach the API at ${esc(API_BASE)}. ${esc(err.message)}
+      </div>`;
+  }
+}
+
+function render() {
+  const q = (searchInput.value || '').toLowerCase().trim();
+  const counts = { all: allSubs.length, apply: 0, pulse: 0 };
+  allSubs.forEach(s => { if (s._kind === 'apply') counts.apply++; else if (s._kind === 'pulse') counts.pulse++; });
+  document.querySelectorAll('[data-count]').forEach(el => {
+    el.textContent = counts[el.dataset.count] ?? 0;
+  });
+
+  const rows = allSubs
+    .filter(s => activeFilter === 'all' || s._kind === activeFilter)
+    .filter(s => {
+      if (!q) return true;
+      return [s.name, s.email, s.locality, s.fight, s.vouches, s.note]
+        .some(f => (f || '').toLowerCase().includes(q));
+    });
+
+  countLine.textContent = `${rows.length} shown · ${allSubs.length} total`;
+
+  if (!rows.length) {
+    listEl.innerHTML = `<div class="empty">No submissions match.</div>`;
+    return;
+  }
+
+  listEl.innerHTML = rows.map(s => {
+    const fields = [
+      ['Locality', s.locality],
+      ['The fight', s.fight],
+      ['Vouches', s.vouches],
+      ['Note', s.note],
+    ].filter(([, v]) => v && v.trim());
+    const fieldRows = fields.map(([k, v]) =>
+      `<div class="field"><span class="lbl">${esc(k)}</span><span class="val">${esc(v)}</span></div>`
+    ).join('');
+    const emailLink = s.email
+      ? `<a href="mailto:${esc(s.email)}?subject=${encodeURIComponent('Re: Decide/Act 2026 request')}">${esc(s.email)}</a>`
+      : '—';
+    return `
+      <div class="sub" data-kind="${esc(s._kind)}">
+        <div class="row1">
+          <div>
+            <span class="kind ${esc(s._kind)}">${esc(s._kind)}</span>
+            <span class="name" style="margin-left:12px;">${esc(s.name || '— no name —')}</span>
+          </div>
+          <span class="when">${esc(fmtDate(s._submittedAt))}</span>
+        </div>
+        <div class="email">${emailLink}</div>
+        ${fieldRows ? `<div style="margin-top:10px;">${fieldRows}</div>` : ''}
+      </div>`;
+  }).join('');
+}
+
+function showAuth(msg) {
+  app.hidden = true;
+  authGate.hidden = false;
+  if (msg) authHint.textContent = msg;
+  tokenInput.focus();
+}
+function showApp() {
+  authGate.hidden = true;
+  app.hidden = false;
+  fetchSubmissions();
+}
+
+unlockBtn.addEventListener('click', () => {
+  const t = tokenInput.value.trim();
+  if (!t) { authHint.textContent = 'Paste the token first.'; return; }
+  setToken(t);
+  showApp();
+});
+tokenInput.addEventListener('keydown', e => { if (e.key === 'Enter') unlockBtn.click(); });
+
+$('logoutBtn').addEventListener('click', e => {
+  e.preventDefault();
+  setToken('');
+  allSubs = [];
+  showAuth('Logged out.');
+});
+$('refreshBtn').addEventListener('click', e => { e.preventDefault(); fetchSubmissions(); });
+searchInput.addEventListener('input', render);
+document.querySelectorAll('.pill').forEach(p => {
+  p.addEventListener('click', () => {
+    document.querySelectorAll('.pill').forEach(x => x.classList.remove('active'));
+    p.classList.add('active');
+    activeFilter = p.dataset.filter;
+    render();
+  });
+});
+$('exportBtn').addEventListener('click', () => {
+  const blob = new Blob([JSON.stringify(allSubs, null, 2)], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `decideact-submissions-${new Date().toISOString().slice(0, 10)}.json`;
+  a.click();
+  URL.revokeObjectURL(url);
+});
+
+// Auto-refresh every 60s when tab is visible
+setInterval(() => {
+  if (!app.hidden && document.visibilityState === 'visible') fetchSubmissions();
+}, 60000);
+
+// boot
+if (getToken()) showApp(); else showAuth();
+</script>
+
+</body>
+</html>
