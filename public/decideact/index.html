@@ -29,6 +29,7 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,300;1,6..72,400&family=JetBrains+Mono:wght@400;500&display=swap" />
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,300;1,6..72,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
 
 <script type="application/ld+json">
@@ -52,8 +53,6 @@
   },
   "offers": {
     "@type": "Offer",
-    "price": "290",
-    "priceCurrency": "USD",
     "availability": "https://schema.org/LimitedAvailability",
     "url": "https://statecraft.systems/decideact/#apply",
     "validFrom": "2026-04-23T00:00:00-07:00"
@@ -68,7 +67,7 @@
     --bg-3:#1b1914;
     --ink:#ece5d3;
     --ink-soft:#c7bfae;
-    --muted:#7a7163;
+    --muted:#8a8173;
     --dim:#3f3a31;
     --accent:#e85a2d;
     --rule:#2e2a23;
@@ -668,12 +667,38 @@
     border-top:1px solid var(--rule);
     text-align:center;
   }
+  .apply-divider{
+    max-width:720px; margin:96px auto 32px;
+    display:grid; grid-template-columns:1fr auto 1fr;
+    gap:20px; align-items:center;
+    font-family:"JetBrains Mono", monospace;
+    font-size:10px; letter-spacing:.24em; text-transform:uppercase;
+    color:var(--muted);
+  }
+  .apply-divider::before,
+  .apply-divider::after{
+    content:""; height:1px; background:var(--rule); display:block;
+  }
+  .apply-divider .mark{color:var(--accent);}
   .apply-form{
     max-width:720px; margin:0 auto 48px;
     text-align:left;
     border:1px solid var(--rule);
     background:var(--bg);
-    padding:36px;
+    padding:40px 44px;
+  }
+  .apply-form h3{
+    font-family:"Instrument Serif", Georgia, serif;
+    font-weight:400; font-size:32px;
+    color:var(--ink); line-height:1.1;
+    margin-bottom:8px;
+  }
+  .apply-form h3 em{color:var(--accent); font-style:italic;}
+  .apply-form .intro{
+    color:var(--ink-soft); font-size:15.5px; line-height:1.55;
+    margin-bottom:28px;
+    padding-bottom:24px;
+    border-bottom:1px solid var(--rule);
   }
   .apply-form .form-label{
     font-family:"JetBrains Mono", monospace;
@@ -918,7 +943,7 @@
       <div class="cell"><span class="k">Dates</span><span class="v">Jun 1 – Jul 10, 2026</span></div>
       <div class="cell"><span class="k">Mode</span><span class="v">Online · async + live</span></div>
       <div class="cell"><span class="k">Cohort</span><span class="v">≈ 64 operators</span></div>
-      <div class="cell"><span class="k">Access</span><span class="v">By vouch · USD 290</span></div>
+      <div class="cell"><span class="k">Access</span><span class="v">By vouch only</span></div>
     </div>
   </section>
 
@@ -999,7 +1024,7 @@
         <div class="phase reveal">
           <div class="ph-tag">
             <div class="ph-num">I.</div>
-            <div class="ph-when">June 1 – June 19<span class="date">T − 2 weeks</span></div>
+            <div class="ph-when">June 1 – June 19<span class="date">Pre-work window</span></div>
           </div>
           <div class="ph-body">
             <span class="ph-name">The Brief</span>
@@ -1052,7 +1077,7 @@
           <div class="ph-body">
             <span class="ph-name">The Roster</span>
             <h3>One artifact, distributed to every <em>operator.</em></h3>
-            <p>One week after the Sessions, NLI publishes the Roster: a single internal document modeled on the <a href="https://modernminuteman.net/strategy/assessment" target="_blank" rel="noopener">situational assessment</a> NLI produced from staff contributions last year. Not a report about the convening. The convening, rendered as instrument: who is doing what, where they are exposed, the matches between them, and the commitments on the record.</p>
+            <p>One week after the Sessions, NLI publishes the Roster: a single internal document modeled on the situational assessment NLI produced from staff contributions in a previous cadence. Not a report about the convening. The convening, rendered as instrument: who is doing what, where they are exposed, the matches between them, and the commitments on the record.</p>
             <p style="font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:.18em; text-transform:uppercase; color:var(--muted); margin-top:32px;">The shape of your entry</p>
             <div class="roster">
               <div class="head"><span class="label">The Roster · entry preview</span><span>v.1 · internal</span></div>
@@ -1269,8 +1294,7 @@
         <details>
           <summary>What does it cost?</summary>
           <div class="body">
-            <p>USD 290, paid once, after vouching is confirmed. The stake exists to make participation real. If the stake is a barrier and you have been vouched for, request a waiver. These are granted without comment.</p>
-            <p>Refunds: full refund if you withdraw before Briefs close on June 19. After that, the stake is forfeit — the synthesis work has already begun.</p>
+            <p>No fee for the 2026 cohort. The cost is the Brief and the 90-day commitment you carry out of it. Once you are vouched in, showing up honestly is the whole price.</p>
           </div>
         </details>
         <details>
@@ -1350,8 +1374,16 @@
         </div>
       </div>
 
-      <form class="apply-form reveal delay-3" id="applyForm" aria-labelledby="applyFormLabel">
-        <span class="form-label" id="applyFormLabel">Request introduction · fields are prompts, not checkboxes</span>
+      <div class="apply-divider reveal delay-3" aria-hidden="true">
+        <span class="mark">///</span>
+        <span>Or send a request directly</span>
+        <span class="mark">///</span>
+      </div>
+
+      <form class="apply-form reveal delay-3" id="applyForm" aria-labelledby="applyFormHeading">
+        <h3 id="applyFormHeading">Request <em>introduction.</em></h3>
+        <p class="intro">Fields are prompts, not checkboxes. Write the way you would to an operator you respect. Lands in the convening inbox; we reply within a week.</p>
+        <span class="form-label">Fields</span>
         <div class="field">
           <label for="f-name">Name</label>
           <input id="f-name" name="name" type="text" autocomplete="name" required />
