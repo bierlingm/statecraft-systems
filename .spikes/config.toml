@@ -1,0 +1,12 @@
+[project]
+
+[widget]
+theme = "dark"
+collect_email = false
+position = "bottom-right"
+color = "#e74c3c"
+
+[remote]
+hosted = true
+endpoint = "https://spikes.sh"
+token = "sk_spikes_bb5978aed546e43890df1826de044c7939a7dda39d2033e725df20d06d34ccab"
