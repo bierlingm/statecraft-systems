@@ -1,0 +1,406 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex, nofollow" />
+<title>YVS — Intake inbox</title>
+
+<style>
+  :root{
+    --ink:#1e1a15; --ink-soft:#3d362c; --paper:#f5efe1; --paper-warm:#ece4d2;
+    --rule:#cbbfa6; --hair:#ddd2ba;
+    --accent:#0d3625; --accent-dark:#07281a; --accent-soft:#4a8660;
+    --muted:#6b6152;
+    --ok:#0d6b33; --warn:#b46a00; --err:#a5281a;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{
+    background:var(--paper); color:var(--ink-soft);
+    font-family:Georgia, "Times New Roman", serif;
+    font-size:16px; line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+    min-height:100vh;
+  }
+  a{color:var(--accent); text-decoration:none; border-bottom:1px solid rgba(13,54,37,.3);}
+  a:hover{color:var(--accent-dark); border-bottom-color:var(--accent-dark);}
+  code{font-family:"SF Mono", ui-monospace, Menlo, monospace; font-size:.85em; background:var(--paper-warm); padding:1px 5px; border-radius:3px;}
+
+  .shell{max-width:1100px; margin:0 auto; padding:40px 28px 80px;}
+
+  header.admin{
+    display:flex; justify-content:space-between; align-items:baseline;
+    border-bottom:1px solid var(--rule); padding-bottom:20px; margin-bottom:28px;
+    gap:24px; flex-wrap:wrap;
+  }
+  header.admin h1{
+    font-weight:400; font-size:36px; color:var(--ink); letter-spacing:-.01em;
+  }
+  header.admin h1 em{color:var(--accent); font-style:italic;}
+  header.admin .crumbs{
+    font-family:"SF Mono", ui-monospace, Menlo, monospace;
+    font-size:10.5px; letter-spacing:.22em; text-transform:uppercase;
+    color:var(--muted); margin-bottom:8px; display:block;
+  }
+  header.admin .crumbs a{color:var(--accent); border-bottom:none;}
+  header.admin .meta{
+    font-family:"SF Mono", ui-monospace, Menlo, monospace;
+    font-size:10.5px; letter-spacing:.18em; text-transform:uppercase;
+    color:var(--muted); text-align:right;
+  }
+  header.admin .meta .ok{color:var(--ok);}
+  header.admin .meta .err{color:var(--err);}
+  header.admin .meta a{color:var(--accent); border-bottom:none;}
+  header.admin .meta a:hover{text-decoration:underline;}
+
+  /* auth */
+  .auth-card{
+    max-width:520px; margin:60px auto 0;
+    background:#fff; border:1px solid var(--rule); border-radius:4px;
+    padding:36px;
+  }
+  .auth-card h2{font-size:28px; font-weight:400; color:var(--ink); margin-bottom:10px;}
+  .auth-card p{color:var(--ink-soft); margin-bottom:22px;}
+  .auth-card label{
+    display:block; font-family:"SF Mono", ui-monospace, Menlo, monospace;
+    font-size:10.5px; letter-spacing:.22em; text-transform:uppercase;
+    color:var(--muted); margin-bottom:8px;
+  }
+  .auth-card input{
+    width:100%; background:var(--paper); border:1px solid var(--rule);
+    color:var(--ink); padding:12px 14px; font:inherit;
+    font-family:"SF Mono", ui-monospace, Menlo, monospace; font-size:14px;
+    border-radius:3px;
+  }
+  .auth-card input:focus{outline:none; border-color:var(--accent);}
+  .auth-card .row{display:flex; align-items:center; gap:16px; margin-top:18px;}
+  .auth-card .hint{font-family:"SF Mono", ui-monospace, Menlo, monospace; font-size:11px; color:var(--err);}
+  .btn{
+    display:inline-flex; align-items:center; gap:8px;
+    background:var(--accent); color:var(--paper);
+    border:none; padding:12px 20px; font:inherit; font-size:15px;
+    border-radius:3px; cursor:pointer; letter-spacing:.01em;
+  }
+  .btn:hover{background:var(--accent-dark);}
+  .btn.ghost{
+    background:transparent; color:var(--accent); border:1px solid var(--rule);
+  }
+  .btn.ghost:hover{background:var(--paper-warm); color:var(--accent-dark);}
+
+  /* filters / search */
+  .filters{
+    display:flex; gap:10px; align-items:center; flex-wrap:wrap;
+    margin-bottom:20px;
+  }
+  .pill{
+    background:transparent; border:1px solid var(--rule);
+    color:var(--ink-soft); padding:8px 14px;
+    font:inherit; font-size:13px; border-radius:999px; cursor:pointer;
+  }
+  .pill:hover{border-color:var(--accent);}
+  .pill.active{background:var(--accent); border-color:var(--accent); color:var(--paper);}
+  .pill .count{
+    display:inline-block; margin-left:6px; font-family:"SF Mono", ui-monospace, Menlo, monospace;
+    font-size:11px; opacity:.8;
+  }
+  .search{
+    flex:1; min-width:260px;
+    background:#fff; border:1px solid var(--rule); color:var(--ink);
+    padding:10px 14px; font:inherit; font-size:14px; border-radius:3px;
+  }
+  .search:focus{outline:none; border-color:var(--accent);}
+  .spacer{flex:1;}
+
+  /* list */
+  .list{display:flex; flex-direction:column; gap:16px;}
+  .sub{
+    background:#fff; border:1px solid var(--rule); border-radius:4px;
+    padding:22px 24px;
+  }
+  .sub .row1{
+    display:flex; justify-content:space-between; align-items:baseline;
+    gap:16px; flex-wrap:wrap; margin-bottom:6px;
+  }
+  .sub .company{
+    font-size:20px; color:var(--ink); font-weight:500;
+  }
+  .sub .when{
+    font-family:"SF Mono", ui-monospace, Menlo, monospace;
+    font-size:10.5px; letter-spacing:.15em; text-transform:uppercase;
+    color:var(--muted); white-space:nowrap;
+  }
+  .sub .contact-line{
+    color:var(--ink-soft); margin-bottom:4px;
+  }
+  .sub .contact-line strong{color:var(--ink); font-weight:500;}
+  .sub .contact-line .sep{color:var(--rule); margin:0 8px;}
+  .sub .field{
+    display:flex; gap:14px; margin-top:8px;
+    border-top:1px solid var(--hair); padding-top:8px;
+  }
+  .sub .field:first-of-type{border-top:none; padding-top:12px;}
+  .sub .field .lbl{
+    font-family:"SF Mono", ui-monospace, Menlo, monospace;
+    font-size:10px; letter-spacing:.2em; text-transform:uppercase;
+    color:var(--muted); flex:0 0 150px; padding-top:3px;
+  }
+  .sub .field .val{color:var(--ink-soft); white-space:pre-wrap;}
+  .sub .pills{display:flex; flex-wrap:wrap; gap:6px;}
+  .sub .pills .tag{
+    background:var(--paper-warm); color:var(--accent-dark);
+    padding:3px 10px; border-radius:999px; font-size:12.5px;
+  }
+  .sub .tagline{
+    display:inline-block; background:var(--accent-soft); color:var(--paper);
+    font-family:"SF Mono", ui-monospace, Menlo, monospace;
+    font-size:10px; letter-spacing:.2em; text-transform:uppercase;
+    padding:3px 10px; border-radius:3px;
+  }
+
+  .empty{
+    background:#fff; border:1px dashed var(--rule); border-radius:4px;
+    padding:60px 24px; text-align:center; color:var(--muted);
+    font-style:italic;
+  }
+
+  .error{
+    border-radius:4px; padding:20px 24px;
+    border:1px solid var(--err); background:rgba(165,40,26,.06);
+    color:var(--ink); margin-bottom:20px;
+  }
+  .error .lbl{
+    font-family:"SF Mono", ui-monospace, Menlo, monospace;
+    font-size:10px; letter-spacing:.22em; text-transform:uppercase;
+    color:var(--err); margin-bottom:4px; display:block;
+  }
+</style>
+</head>
+<body>
+
+<div class="shell">
+
+  <div id="authGate" class="auth-card" hidden>
+    <h2>Locked.</h2>
+    <p>This is the Yakima Valley Supply intake inbox. Paste your admin token to unlock. The token is stored in <code>sessionStorage</code> and dropped when you close the tab.</p>
+    <label for="tokenInput">Admin token</label>
+    <input id="tokenInput" type="password" autocomplete="off" spellcheck="false" />
+    <div class="row">
+      <button class="btn" id="unlockBtn">Unlock &rarr;</button>
+      <span class="hint" id="authHint"></span>
+    </div>
+  </div>
+
+  <div id="app" hidden>
+    <header class="admin">
+      <div>
+        <span class="crumbs"><a href="/yvs/">YVS</a> // Admin · Intake</span>
+        <h1>The <em>intake inbox.</em></h1>
+      </div>
+      <div class="meta">
+        <span id="statusLine" class="ok">Loading&hellip;</span><br/>
+        <span id="countLine"></span><br/>
+        <a href="#" id="logoutBtn">Log out</a> &middot; <a href="#" id="refreshBtn">Refresh</a>
+      </div>
+    </header>
+
+    <div id="errorBox"></div>
+
+    <div class="filters">
+      <button class="pill active" data-filter="all">All <span class="count" data-count="all">0</span></button>
+      <div class="spacer"></div>
+      <input class="search" id="searchInput" placeholder="Search company / contact / email / notes&hellip;" />
+      <button class="btn ghost" id="exportBtn">Export JSON</button>
+    </div>
+
+    <div id="list" class="list"></div>
+  </div>
+
+</div>
+
+<script>
+const API_BASE = 'https://yvs-api.moritzbierling.workers.dev';
+const TOKEN_KEY = 'yvs_admin_token';
+
+const $ = (id) => document.getElementById(id);
+const authGate = $('authGate');
+const app = $('app');
+const tokenInput = $('tokenInput');
+const unlockBtn = $('unlockBtn');
+const authHint = $('authHint');
+const listEl = $('list');
+const errorBox = $('errorBox');
+const statusLine = $('statusLine');
+const countLine = $('countLine');
+const searchInput = $('searchInput');
+
+let allSubs = [];
+
+function getToken() { return sessionStorage.getItem(TOKEN_KEY) || ''; }
+function setToken(t) {
+  if (t) sessionStorage.setItem(TOKEN_KEY, t);
+  else sessionStorage.removeItem(TOKEN_KEY);
+}
+
+function esc(s) {
+  return String(s ?? '')
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;');
+}
+
+function fmtDate(iso) {
+  if (!iso) return '—';
+  const d = new Date(iso);
+  if (isNaN(d)) return iso;
+  return d.toLocaleString(undefined, {
+    year: 'numeric', month: 'short', day: '2-digit',
+    hour: '2-digit', minute: '2-digit',
+  });
+}
+
+async function fetchSubmissions() {
+  const token = getToken();
+  if (!token) { showAuth(); return; }
+  statusLine.textContent = 'Fetching…';
+  statusLine.className = 'ok';
+  errorBox.innerHTML = '';
+  try {
+    const res = await fetch(`${API_BASE}/submissions`, {
+      headers: { 'Authorization': `Bearer ${token}` },
+    });
+    if (res.status === 401) {
+      setToken('');
+      showAuth('That token did not unlock the inbox. Try again.');
+      return;
+    }
+    if (!res.ok) throw new Error(`status ${res.status}`);
+    const data = await res.json();
+    allSubs = (data.submissions || []).sort((a, b) =>
+      (b._submittedAt || '').localeCompare(a._submittedAt || '')
+    );
+    statusLine.textContent = `Live · ${new Date().toLocaleTimeString()}`;
+    statusLine.className = 'ok';
+    render();
+  } catch (err) {
+    statusLine.textContent = 'Fetch failed';
+    statusLine.className = 'err';
+    errorBox.innerHTML = `
+      <div class="error">
+        <span class="lbl">Error</span>
+        Could not reach the API at ${esc(API_BASE)}. ${esc(err.message)}
+      </div>`;
+  }
+}
+
+function render() {
+  const q = (searchInput.value || '').toLowerCase().trim();
+  document.querySelectorAll('[data-count]').forEach(el => {
+    el.textContent = allSubs.length;
+  });
+
+  const rows = allSubs.filter(s => {
+    if (!q) return true;
+    return [s.company, s.contact, s.email, s.phone, s.industry, s.notes,
+            (s.products || []).join(' '), s.volume, s.contactMethod]
+      .some(f => (f || '').toLowerCase().includes(q));
+  });
+
+  countLine.textContent = `${rows.length} shown · ${allSubs.length} total`;
+
+  if (!rows.length) {
+    listEl.innerHTML = `<div class="empty">No submissions yet.</div>`;
+    return;
+  }
+
+  listEl.innerHTML = rows.map(s => {
+    const products = (s.products || []).filter(Boolean);
+    const productsHtml = products.length
+      ? `<div class="pills">${products.map(p => `<span class="tag">${esc(p)}</span>`).join('')}</div>`
+      : '<span style="color:var(--muted);font-style:italic;">— none checked —</span>';
+
+    const emailSubj = encodeURIComponent(`Re: Your intake — ${s.company || s.contact || ''}`);
+    const emailLink = s.email
+      ? `<a href="mailto:${esc(s.email)}?subject=${emailSubj}">${esc(s.email)}</a>`
+      : '—';
+    const phoneLink = s.phone
+      ? `<a href="tel:${esc(s.phone)}">${esc(s.phone)}</a>`
+      : '—';
+
+    const preferredTag = s.contactMethod
+      ? `<span class="tagline">Prefers ${esc(s.contactMethod)}</span>`
+      : '';
+
+    const notesBlock = s.notes && s.notes.trim()
+      ? `<div class="field"><span class="lbl">Notes</span><span class="val">${esc(s.notes)}</span></div>`
+      : '';
+
+    return `
+      <div class="sub">
+        <div class="row1">
+          <div class="company">${esc(s.company || '— no company —')}</div>
+          <span class="when">${esc(fmtDate(s._submittedAt))}</span>
+        </div>
+        <div class="contact-line">
+          <strong>${esc(s.contact || '—')}</strong>
+          <span class="sep">&middot;</span>
+          ${phoneLink}
+          <span class="sep">&middot;</span>
+          ${emailLink}
+          ${preferredTag ? `<span class="sep">&middot;</span>${preferredTag}` : ''}
+        </div>
+        <div class="field"><span class="lbl">Industry</span><span class="val">${esc(s.industry || '—')}</span></div>
+        <div class="field"><span class="lbl">Products</span><span class="val">${productsHtml}</span></div>
+        <div class="field"><span class="lbl">Volume</span><span class="val">${esc(s.volume || '—')}</span></div>
+        ${notesBlock}
+      </div>`;
+  }).join('');
+}
+
+function showAuth(msg) {
+  app.hidden = true;
+  authGate.hidden = false;
+  if (msg) authHint.textContent = msg;
+  tokenInput.focus();
+}
+function showApp() {
+  authGate.hidden = true;
+  app.hidden = false;
+  fetchSubmissions();
+}
+
+unlockBtn.addEventListener('click', () => {
+  const t = tokenInput.value.trim();
+  if (!t) { authHint.textContent = 'Paste the token first.'; return; }
+  setToken(t);
+  showApp();
+});
+tokenInput.addEventListener('keydown', e => { if (e.key === 'Enter') unlockBtn.click(); });
+
+$('logoutBtn').addEventListener('click', e => {
+  e.preventDefault();
+  setToken('');
+  allSubs = [];
+  showAuth('Logged out.');
+});
+$('refreshBtn').addEventListener('click', e => { e.preventDefault(); fetchSubmissions(); });
+searchInput.addEventListener('input', render);
+
+$('exportBtn').addEventListener('click', () => {
+  const blob = new Blob([JSON.stringify(allSubs, null, 2)], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `yvs-intake-${new Date().toISOString().slice(0, 10)}.json`;
+  a.click();
+  URL.revokeObjectURL(url);
+});
+
+setInterval(() => {
+  if (!app.hidden && document.visibilityState === 'visible') fetchSubmissions();
+}, 60000);
+
+if (getToken()) showApp(); else showAuth();
+</script>
+
+</body>
+</html>
