@@ -1,0 +1,15 @@
+{
+  "name": "yvs-api",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "deploy": "wrangler deploy",
+    "dev": "wrangler dev",
+    "tail": "wrangler tail"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20250320.0",
+    "typescript": "^5.6.0",
+    "wrangler": "^4.0.0"
+  }
+}

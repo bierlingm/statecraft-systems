@@ -58,7 +58,7 @@
 
   <p>Fill out the form below and a sales representative will follow up to set an introductory meeting and start building your order sheet.</p>
 
-  <form class="intake" action="mailto:orders@yakimavalleysupply.com" method="post" enctype="text/plain">
+  <form id="intake-form" class="intake" novalidate>
 
     <div class="field-row">
       <label for="company">Company Name</label>
@@ -131,10 +131,86 @@
 
     <button type="submit" class="btn">Submit Intake</button>
     <p class="form-note" style="margin-top:1rem">
-      This form opens your email client with the details filled in.
+      We'll review your submission and a sales representative will reach out shortly.
     </p>
 
+    <div id="intake-status" role="status" aria-live="polite" style="margin-top:1rem;"></div>
+
   </form>
+
+  <script>
+    (function () {
+      var form = document.getElementById('intake-form');
+      var statusEl = document.getElementById('intake-status');
+      var ENDPOINT = 'https://yvs-api.moritzbierling.workers.dev/intake';
+
+      function setStatus(msg, kind) {
+        statusEl.textContent = msg;
+        statusEl.style.color =
+          kind === 'ok' ? '#0a7a2f' : kind === 'err' ? '#b42318' : 'inherit';
+      }
+
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        if (!form.checkValidity()) {
+          form.reportValidity();
+          return;
+        }
+
+        var submitBtn = form.querySelector('button[type="submit"]');
+        submitBtn.disabled = true;
+        setStatus('Sending…');
+
+        var products = Array.prototype.slice
+          .call(form.querySelectorAll('input[name="Product"]:checked'))
+          .map(function (el) { return el.value; });
+
+        var volumeEl = form.querySelector('input[name="Volume"]:checked');
+        var contactMethodEl = form.querySelector('input[name="Contact Method"]:checked');
+
+        var payload = {
+          _source: 'statecraft.systems/yvs/intake',
+          company: form.querySelector('#company').value,
+          contact: form.querySelector('#contact').value,
+          phone: form.querySelector('#phone').value,
+          email: form.querySelector('#email').value,
+          industry: form.querySelector('#industry').value,
+          products: products,
+          volume: volumeEl ? volumeEl.value : '',
+          contactMethod: contactMethodEl ? contactMethodEl.value : '',
+          notes: form.querySelector('#notes').value,
+        };
+
+        fetch(ENDPOINT, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload),
+        })
+          .then(function (r) {
+            return r.json().then(function (body) { return { ok: r.ok, body: body }; });
+          })
+          .then(function (res) {
+            if (res.ok) {
+              form.style.display = 'none';
+              setStatus(
+                'Thanks — your intake is in. A sales representative will be in touch.',
+                'ok'
+              );
+            } else {
+              submitBtn.disabled = false;
+              setStatus(
+                'Submission failed: ' + (res.body && res.body.error ? res.body.error : 'unknown error'),
+                'err'
+              );
+            }
+          })
+          .catch(function (err) {
+            submitBtn.disabled = false;
+            setStatus('Network error: ' + err.message, 'err');
+          });
+      });
+    })();
+  </script>
 
 </main>
 
