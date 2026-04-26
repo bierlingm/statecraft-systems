@@ -249,16 +249,18 @@
     background: var(--bg-elev);
     border: 1px solid var(--border);
     padding: 1.1rem 1.25rem;
+    display: flex;
+    flex-direction: column;
   }
   .path-card h3 {
     font-size: 1rem;
     margin-bottom: 0.4rem;
     color: var(--fg);
   }
-  .path-card p {
+  .path-card > p {
     font-size: 0.9rem;
     color: var(--fg-muted);
-    margin: 0;
+    margin: 0 0 1rem;
     line-height: 1.55;
   }
   .path-card .path-tag {
@@ -271,7 +273,54 @@
     border: 1px solid var(--border-light);
     color: var(--fg-dim);
     margin-bottom: 0.6rem;
+    align-self: flex-start;
   }
+  .path-form { display: flex; flex-direction: column; gap: 0.5rem; margin-top: auto; }
+  .path-form label {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--fg-dim);
+  }
+  .path-form input, .path-form textarea {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    color: var(--fg);
+    padding: 0.55em 0.7em;
+    font-family: inherit;
+    font-size: 0.92rem;
+    border-radius: 2px;
+  }
+  .path-form input:focus, .path-form textarea:focus {
+    outline: none;
+    border-color: var(--accent);
+  }
+  .path-form textarea { resize: vertical; min-height: 3.2em; }
+  .path-form button {
+    margin-top: 0.4rem;
+    padding: 0.7em 1em;
+    background: var(--accent);
+    color: #0c0c0d;
+    border: 1px solid var(--accent);
+    font-family: var(--mono);
+    font-weight: 600;
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    cursor: pointer;
+  }
+  .path-form button:hover:not(:disabled) { background: var(--accent-soft); border-color: var(--accent-soft); }
+  .path-form button:disabled { opacity: 0.6; cursor: not-allowed; }
+  .path-status {
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    margin-top: 0.5rem;
+    color: var(--fg-muted);
+    min-height: 1.2em;
+  }
+  .path-status.is-ok { color: var(--success); }
+  .path-status.is-err { color: #d97a6c; }
 
   .kicker {
     display: inline-block;
@@ -404,13 +453,80 @@
       <span class="path-tag">Path A · fastest</span>
       <h3>We host it on our Cloudflare</h3>
       <p>You point <code>yakimavalleysupply.com</code> at us. The site goes live the same day, no work for you. We keep operating the intake worker, the email, and the AI/SEO setup as it stands today.</p>
+      <form class="path-form" data-path="A" novalidate>
+        <label for="a-name">Your name</label>
+        <input id="a-name" name="contact_name" type="text" required autocomplete="name">
+        <label for="a-email">Your email</label>
+        <input id="a-email" name="contact_email" type="email" required autocomplete="email">
+        <label for="a-notes">Notes (optional)</label>
+        <textarea id="a-notes" name="notes" rows="2" placeholder="Anything to flag?"></textarea>
+        <button type="submit">Go with Path A →</button>
+        <div class="path-status" data-status="A" role="status" aria-live="polite"></div>
+      </form>
     </div>
     <div class="path-card">
       <span class="path-tag">Path B · you own it</span>
       <h3>We hand it over to your infrastructure</h3>
       <p>You take the files, the intake worker, and the email config. We help with the move. From there it's yours end-to-end — host where you like, change whoever you like.</p>
+      <form class="path-form" data-path="B" novalidate>
+        <label for="b-name">Your name</label>
+        <input id="b-name" name="contact_name" type="text" required autocomplete="name">
+        <label for="b-email">Your email</label>
+        <input id="b-email" name="contact_email" type="email" required autocomplete="email">
+        <label for="b-notes">Notes (optional)</label>
+        <textarea id="b-notes" name="notes" rows="2" placeholder="Where will you host it?"></textarea>
+        <button type="submit">Go with Path B →</button>
+        <div class="path-status" data-status="B" role="status" aria-live="polite"></div>
+      </form>
     </div>
   </div>
+  <script>
+    (function () {
+      var ENDPOINT = 'https://yvs-api.moritzbierling.workers.dev/path-choice';
+      var forms = document.querySelectorAll('.path-form');
+      Array.prototype.forEach.call(forms, function (form) {
+        var path = form.getAttribute('data-path');
+        var statusEl = form.querySelector('.path-status');
+        var btn = form.querySelector('button[type="submit"]');
+        form.addEventListener('submit', function (e) {
+          e.preventDefault();
+          if (!form.checkValidity()) { form.reportValidity(); return; }
+          btn.disabled = true;
+          statusEl.className = 'path-status';
+          statusEl.textContent = 'Sending…';
+          var payload = {
+            path: path,
+            contact_name: form.querySelector('input[name="contact_name"]').value,
+            contact_email: form.querySelector('input[name="contact_email"]').value,
+            notes: form.querySelector('textarea[name="notes"]').value,
+            _source: location.href,
+          };
+          fetch(ENDPOINT, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload),
+          })
+            .then(function (r) { return r.json().then(function (b) { return { ok: r.ok, body: b }; }); })
+            .then(function (res) {
+              if (res.ok) {
+                statusEl.className = 'path-status is-ok';
+                statusEl.textContent = 'Confirmed. Redirecting…';
+                location.href = 'going-live/?path=' + path;
+              } else {
+                btn.disabled = false;
+                statusEl.className = 'path-status is-err';
+                statusEl.textContent = 'Submission failed: ' + ((res.body && res.body.error) || 'unknown');
+              }
+            })
+            .catch(function (err) {
+              btn.disabled = false;
+              statusEl.className = 'path-status is-err';
+              statusEl.textContent = 'Network error: ' + err.message;
+            });
+        });
+      });
+    })();
+  </script>
 
   <h2 data-n="05">Latest changes</h2>
   <section class="revisions" aria-labelledby="revisions-heading">
