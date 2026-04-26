@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Yakima Valley Supply — Website Draft v0.5 for Tyler</title>
-<meta name="description" content="A working draft of your website, Tyler — five pages, a live intake form that emails orders@, and a click-to-comment feedback widget on every page.">
+<meta name="description" content="Working draft of the Yakima Valley Supply website — five pages, live intake form, search and AI discovery turned on, ready to point at yakimavalleysupply.com.">
 <meta name="author" content="Moritz Bierling">
 <meta name="theme-color" content="#0c0c0d">
 <meta name="robots" content="noindex, nofollow">
@@ -14,19 +14,19 @@
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Statecraft Systems">
 <meta property="og:title" content="Yakima Valley Supply — Website Draft v0.5 for Tyler">
-<meta property="og:description" content="A working draft of your website, Tyler — five pages, a live intake form that emails orders@, and a click-to-comment feedback widget on every page.">
+<meta property="og:description" content="Working draft of the Yakima Valley Supply website — five pages, live intake form, search and AI discovery turned on, ready to point at yakimavalleysupply.com.">
 <meta property="og:url" content="https://statecraft.systems/yvs/">
 <meta property="og:image" content="https://statecraft.systems/yvs/og-yvs.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Yakima Valley Supply &amp; Labor LLC — Website Draft v0.4 for Tyler, hosted at statecraft.systems/yvs">
+<meta property="og:image:alt" content="Yakima Valley Supply &amp; Labor LLC — Website Draft v0.5 for Tyler, hosted at statecraft.systems/yvs">
 <meta property="og:locale" content="en_US">
 
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Yakima Valley Supply — Website Draft v0.5 for Tyler">
-<meta name="twitter:description" content="A working draft of your website, Tyler — five pages, a live intake form that emails orders@, and a click-to-comment feedback widget on every page.">
+<meta name="twitter:description" content="Working draft of the Yakima Valley Supply website — five pages, live intake form, search and AI discovery turned on, ready to point at yakimavalleysupply.com.">
 <meta name="twitter:image" content="https://statecraft.systems/yvs/og-yvs.png">
-<meta name="twitter:image:alt" content="Yakima Valley Supply &amp; Labor LLC — Website Draft v0.4 for Tyler">
+<meta name="twitter:image:alt" content="Yakima Valley Supply &amp; Labor LLC — Website Draft v0.5 for Tyler">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -113,11 +113,6 @@
     margin-bottom: 2.5rem;
   }
 
-  .divider {
-    height: 1px; background: var(--border);
-    margin: 2.5rem 0;
-  }
-
   h2 {
     font-family: var(--mono);
     font-size: 0.8rem;
@@ -127,7 +122,7 @@
     color: var(--accent-soft);
     padding-bottom: 0.5rem;
     border-bottom: 1px solid var(--border);
-    margin: 2.5rem 0 1.2rem;
+    margin: 3rem 0 1.2rem;
     display: flex; gap: 0.6rem; align-items: center;
   }
   h2::before {
@@ -140,61 +135,37 @@
   p { margin-bottom: 1rem; color: var(--fg); }
   p.muted { color: var(--fg-muted); }
 
-  .panel {
+  /* Status grid: done / live / open */
+  .status-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 0.75rem;
+    margin: 1.2rem 0 1.5rem;
+  }
+  .status-card {
     background: var(--bg-elev);
     border: 1px solid var(--border);
-    border-left: 2px solid var(--accent);
-    padding: 1.25rem 1.5rem;
-    margin: 1.5rem 0;
+    border-left: 2px solid var(--border-light);
+    padding: 1rem 1.15rem;
   }
-  .panel strong { color: var(--fg); }
-
-  .revisions { margin: 3rem 0 2rem; }
-  .revisions > p.muted { margin-bottom: 1.8rem; }
-  .rev {
-    border-left: 2px solid var(--border);
-    padding: 0.2rem 0 1.6rem 1.4rem;
-    margin-left: 0.4rem;
-    position: relative;
-  }
-  .rev + .rev { margin-top: 0.5rem; }
-  .rev::before {
-    content: "";
-    position: absolute;
-    left: -7px; top: 0.9rem;
-    width: 11px; height: 11px;
-    background: var(--bg); border: 2px solid var(--border); border-radius: 50%;
-  }
-  .rev--current { border-left-color: var(--accent); }
-  .rev--current::before { background: var(--accent); border-color: var(--accent); }
-  .rev__header {
-    display: flex; gap: 1rem; align-items: baseline;
+  .status-card.is-done { border-left-color: var(--success); }
+  .status-card.is-live { border-left-color: var(--accent); }
+  .status-card.is-open { border-left-color: var(--warning); }
+  .status-card .status-label {
     font-family: var(--mono);
-    font-size: 0.72rem;
+    font-size: 0.68rem;
     text-transform: uppercase;
     letter-spacing: 0.15em;
-    margin-bottom: 0.4rem;
+    color: var(--fg-dim);
+    margin-bottom: 0.5rem;
+    display: flex; gap: 0.5em; align-items: center;
   }
-  .rev__tag { color: var(--fg-muted); }
-  .rev--current .rev__tag { color: var(--accent-soft); }
-  .rev__date { color: var(--fg-dim); }
-  .rev__title { font-size: 1.15rem; font-weight: 600; margin: 0 0 0.6rem; color: var(--fg); }
-  .rev p { margin: 0 0 0.6rem; color: var(--fg-muted); }
-  .rev ul { margin: 0.2rem 0 0.8rem 1.2rem; padding: 0; color: var(--fg-muted); }
-  .rev ul li { padding: 0.15rem 0; border: none; }
-  .rev em { color: var(--fg); font-style: italic; }
-  .rev__open { font-size: 0.92rem; color: var(--fg-dim); border-top: 1px dashed var(--border); padding-top: 0.6rem; margin-top: 0.4rem; }
-  .rev__open strong { color: var(--fg-muted); }
-
-  ul.plain { list-style: none; }
-  ul.plain li {
-    padding: 0.6rem 0;
-    border-bottom: 1px dashed var(--border);
-    font-size: 0.97rem;
-    color: var(--fg-muted);
-  }
-  ul.plain li:last-child { border-bottom: none; }
-  ul.plain li strong { color: var(--fg); }
+  .status-card.is-done .status-label { color: var(--success); }
+  .status-card.is-live .status-label { color: var(--accent-soft); }
+  .status-card.is-open .status-label { color: var(--warning); }
+  .status-card ul { list-style: none; margin: 0; padding: 0; font-size: 0.92rem; color: var(--fg-muted); }
+  .status-card li { padding: 0.2rem 0; }
+  .status-card li strong { color: var(--fg); font-weight: 600; }
 
   .page-grid {
     display: grid;
@@ -234,30 +205,73 @@
     line-height: 1.5;
   }
 
-  ol.steps {
-    counter-reset: step;
-    list-style: none;
-    margin: 1.5rem 0;
-  }
-  ol.steps li {
-    counter-increment: step;
-    padding: 0.9rem 0 0.9rem 2.5rem;
+  .revisions { margin: 1.2rem 0 0; }
+  .rev {
+    border-left: 2px solid var(--border);
+    padding: 0.2rem 0 1.6rem 1.4rem;
+    margin-left: 0.4rem;
     position: relative;
-    border-bottom: 1px solid var(--border);
-    color: var(--fg-muted);
   }
-  ol.steps li:last-child { border-bottom: none; }
-  ol.steps li::before {
-    content: counter(step, decimal-leading-zero);
+  .rev + .rev { margin-top: 0.5rem; }
+  .rev::before {
+    content: "";
     position: absolute;
-    left: 0; top: 0.95rem;
-    font-family: var(--mono);
-    font-weight: 600;
-    font-size: 0.85rem;
-    color: var(--accent);
-    letter-spacing: 0.05em;
+    left: -7px; top: 0.9rem;
+    width: 11px; height: 11px;
+    background: var(--bg); border: 2px solid var(--border); border-radius: 50%;
   }
-  ol.steps strong { color: var(--fg); font-weight: 600; }
+  .rev--current { border-left-color: var(--accent); }
+  .rev--current::before { background: var(--accent); border-color: var(--accent); }
+  .rev__header {
+    display: flex; gap: 1rem; align-items: baseline;
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    margin-bottom: 0.4rem;
+  }
+  .rev__tag { color: var(--fg-muted); }
+  .rev--current .rev__tag { color: var(--accent-soft); }
+  .rev__date { color: var(--fg-dim); }
+  .rev__title { font-size: 1.1rem; font-weight: 600; margin: 0 0 0.5rem; color: var(--fg); }
+  .rev p { margin: 0 0 0.5rem; color: var(--fg-muted); font-size: 0.95rem; }
+  .rev ul { margin: 0.2rem 0 0.8rem 1.2rem; padding: 0; color: var(--fg-muted); font-size: 0.95rem; }
+  .rev ul li { padding: 0.15rem 0; border: none; }
+
+  /* Two-path go-live picker */
+  .paths {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 0.75rem;
+    margin: 1.2rem 0 1.5rem;
+  }
+  .path-card {
+    background: var(--bg-elev);
+    border: 1px solid var(--border);
+    padding: 1.1rem 1.25rem;
+  }
+  .path-card h3 {
+    font-size: 1rem;
+    margin-bottom: 0.4rem;
+    color: var(--fg);
+  }
+  .path-card p {
+    font-size: 0.9rem;
+    color: var(--fg-muted);
+    margin: 0;
+    line-height: 1.55;
+  }
+  .path-card .path-tag {
+    display: inline-block;
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    padding: 0.18em 0.55em;
+    border: 1px solid var(--border-light);
+    color: var(--fg-dim);
+    margin-bottom: 0.6rem;
+  }
 
   .kicker {
     display: inline-block;
@@ -273,7 +287,7 @@
 
   .cta-row {
     display: flex; gap: 0.75rem; flex-wrap: wrap;
-    margin-top: 1.5rem;
+    margin-top: 2rem;
   }
   .btn {
     display: inline-block;
@@ -286,7 +300,6 @@
     text-transform: uppercase;
     letter-spacing: 0.12em;
     border: 1px solid var(--accent);
-    border-bottom: 1px solid var(--accent);
   }
   .btn:hover { background: var(--accent-soft); border-color: var(--accent-soft); color: #0c0c0d; }
   .btn--ghost { background: transparent; color: var(--accent-soft); }
@@ -318,28 +331,101 @@
 <main>
 
   <span class="kicker">For Tyler · via Brandon Hayes</span>
-  <div class="doc-meta">Website Draft // Yakima Valley Supply & Labor LLC</div>
+  <div class="doc-meta">Website Draft // Yakima Valley Supply &amp; Labor LLC</div>
 
-  <h1>Your site, working end-to-end.</h1>
-  <p class="subtitle">Five pages, your logo and photos, and a real intake form that emails <code>orders@yakimavalleysupply.com</code> the moment a customer hits submit. Your latest round of notes is in, the site is set up to be found by Google and answer engines, and it's ready to go live behind <code>yakimavalleysupply.com</code> — either hosted on our Cloudflare or handed off to your infrastructure, your call.</p>
+  <h1>Your site is ready to go live.</h1>
+  <p class="subtitle">Five pages, your logo and team photo, a real intake form that emails <code>orders@yakimavalleysupply.com</code> on submit, and search &amp; AI discovery turned on. Sign off and we point <code>yakimavalleysupply.com</code> at it.</p>
 
+  <h2 data-n="01">Where things stand</h2>
+  <div class="status-grid">
+    <div class="status-card is-done">
+      <div class="status-label">● Done</div>
+      <ul>
+        <li><strong>Phone:</strong> (425) 999-2904</li>
+        <li><strong>Logo &amp; team photo</strong> placed</li>
+        <li><strong>Product photos</strong> on home + Agriculture</li>
+        <li><strong>Intake form</strong> emails orders@</li>
+      </ul>
+    </div>
+    <div class="status-card is-live">
+      <div class="status-label">● Live infrastructure</div>
+      <ul>
+        <li><strong>Indexable</strong> by Google</li>
+        <li><strong>Sitemap</strong> + clean URLs</li>
+        <li><strong>LocalBusiness</strong> schema</li>
+        <li><strong>FAQ</strong> for ChatGPT / Perplexity / AI Overviews</li>
+      </ul>
+    </div>
+    <div class="status-card is-open">
+      <div class="status-label">● Waiting on you</div>
+      <ul>
+        <li>Final walk-through &amp; sign-off</li>
+        <li>Pick a hosting path (below)</li>
+        <li>DNS for <code>yakimavalleysupply.com</code></li>
+      </ul>
+    </div>
+  </div>
+
+  <h2 data-n="02">The five pages</h2>
+  <div class="page-grid">
+    <div class="page-card">
+      <a href="home">Home</a>
+      <div class="path">/yvs/home</div>
+      <div class="note">Positioning, common products, who you supply, FAQ for AI search.</div>
+    </div>
+    <div class="page-card">
+      <a href="industries">Industries We Serve</a>
+      <div class="path">/yvs/industries</div>
+      <div class="note">Six industries, each with work phases and consumables tailored to the trade.</div>
+    </div>
+    <div class="page-card">
+      <a href="ordering">How Ordering Works</a>
+      <div class="path">/yvs/ordering</div>
+      <div class="note">The four-step, relationship-driven ordering process — not a checkout.</div>
+    </div>
+    <div class="page-card">
+      <a href="intake">New Customer Intake</a>
+      <div class="path">/yvs/intake</div>
+      <div class="note">Live form. Submissions email straight to <code>orders@yakimavalleysupply.com</code>.</div>
+    </div>
+    <div class="page-card">
+      <a href="contact">Contact</a>
+      <div class="path">/yvs/contact</div>
+      <div class="note">Phone, email, service region, and a nudge back to the intake.</div>
+    </div>
+  </div>
+
+  <h2 data-n="03">Leaving feedback</h2>
+  <p>Every page has a small red marker in the lower corner. Click it, or click any element on the page you want to comment on — a headline, a section, an image. Leave a note. Your comments come straight back to me; no account, no Word redlines.</p>
+
+  <h2 data-n="04">Going live: pick a path</h2>
+  <div class="paths">
+    <div class="path-card">
+      <span class="path-tag">Path A · fastest</span>
+      <h3>We host it on our Cloudflare</h3>
+      <p>You point <code>yakimavalleysupply.com</code> at us. The site goes live the same day, no work for you. We keep operating the intake worker, the email, and the AI/SEO setup as it stands today.</p>
+    </div>
+    <div class="path-card">
+      <span class="path-tag">Path B · you own it</span>
+      <h3>We hand it over to your infrastructure</h3>
+      <p>You take the files, the intake worker, and the email config. We help with the move. From there it's yours end-to-end — host where you like, change whoever you like.</p>
+    </div>
+  </div>
+
+  <h2 data-n="05">Latest changes</h2>
   <section class="revisions" aria-labelledby="revisions-heading">
-    <h2 id="revisions-heading" class="h2--plain">Revisions</h2>
-    <p class="muted" style="margin-top: -0.4rem;">Latest on top.</p>
 
     <article class="rev rev--current">
       <header class="rev__header">
         <span class="rev__tag">v0.5 — current</span>
         <span class="rev__date">26 April 2026</span>
       </header>
-      <h3 class="rev__title">Phone number, team photo, and the site is ready to be found.</h3>
-      <p>This round closes out your latest spikes and gets the site discoverable. Changes:</p>
+      <h3 class="rev__title">Phone live, new team hero, search &amp; AI discovery turned on.</h3>
       <ul>
-        <li><strong>Phone number live</strong> on the contact page and in the footer: <a href="tel:+14259992904">(425) 999-2904</a>, click-to-dial.</li>
-        <li><strong>New team hero on the home page</strong> — the floor shot of you and the crew at the hop pile, replacing the cropped tractor image you flagged.</li>
-        <li><strong>Search &amp; AI discovery turned on.</strong> The five public pages are now indexable, with clean URLs, a sitemap, a LocalBusiness schema (Prosser, WA + service area + you as founder), and an FAQ block on home that answers what YVS sells, where it serves, who runs it, and how to order — written so ChatGPT, Perplexity, and Google AI Overviews can quote it directly.</li>
+        <li><strong>Phone</strong> on the contact page and footer: <a href="tel:+14259992904">(425) 999-2904</a>, click-to-dial.</li>
+        <li><strong>New team hero on home</strong> — the floor shot of you and the crew at the hop pile, replacing the cropped tractor image you flagged.</li>
+        <li><strong>Search &amp; AI discovery on.</strong> The five public pages are now indexable, with clean URLs, a sitemap, a LocalBusiness schema (Prosser, WA + service area + you as founder), and an FAQ block on home written so ChatGPT, Perplexity, and Google AI Overviews can quote it directly when someone asks what YVS sells, where it serves, or how to order.</li>
       </ul>
-      <p class="rev__open"><strong>Still open:</strong> your final sign-off, then we point <code>yakimavalleysupply.com</code> at the site. Two paths: keep it hosted on our Cloudflare with your domain in front, or hand the whole thing over to your infrastructure — either is straightforward.</p>
     </article>
 
     <article class="rev">
@@ -348,10 +434,9 @@
         <span class="rev__date">25 April 2026</span>
       </header>
       <h3 class="rev__title">Product photos placed on home and Agriculture.</h3>
-      <p>You sent over three product shots — the green Ansell Solvex chemical-resistant gloves and the clear ANSI Z87+ wraparound safety glasses. They're now on the site:</p>
       <ul>
-        <li><strong>Home page:</strong> three-up product row right under "Common products" — gloves, glasses (angle), glasses (front).</li>
-        <li><strong>Industries → Agriculture:</strong> gloves + glasses placed under the "Common consumables" list, tying directly to the "mixing and loading chemicals" copy.</li>
+        <li><strong>Home:</strong> three-up product row under "Common products" — gloves, glasses (angle), glasses (front).</li>
+        <li><strong>Industries → Agriculture:</strong> gloves + glasses placed under "Common consumables," tying directly to the mixing-and-loading copy.</li>
       </ul>
     </article>
 
@@ -360,13 +445,12 @@
         <span class="rev__tag">v0.3</span>
         <span class="rev__date">24 April 2026</span>
       </header>
-      <h3 class="rev__title">Your feedback, acted on. Intake form now sends email.</h3>
-      <p>Everything you clicked through and commented on in v0.2 came back to me. Changes this round:</p>
+      <h3 class="rev__title">Your feedback acted on. Intake form went live.</h3>
       <ul>
-        <li><strong>The intake form is live.</strong> Customers fill it out and the answers land in your inbox at <code>orders@yakimavalleysupply.com</code> within seconds. Hit reply and you're talking to them directly.</li>
-        <li><strong>Product categories reworked</strong> per your note: PPE, Jobsite Prep, Consumables, Adhesives, Abrasives, Paint supplies. Let me know if that list should grow.</li>
-        <li><strong>Section eyebrows removed</strong> — you called one out on the industries page as "small and unnoticeable," so I pulled them off the other pages too for consistency.</li>
-        <li><strong>A few copy cleanups</strong> across the pages to make the language plainer.</li>
+        <li><strong>Intake form live</strong> — submissions land in <code>orders@yakimavalleysupply.com</code> within seconds. Hit reply, you're talking to the customer.</li>
+        <li><strong>Product categories reworked</strong> per your note: PPE, Jobsite Prep, Consumables, Adhesives, Abrasives, Paint supplies.</li>
+        <li><strong>Section eyebrows removed</strong> sitewide — you flagged one as "small and unnoticeable."</li>
+        <li><strong>Copy cleanups</strong> across the pages.</li>
       </ul>
     </article>
 
@@ -376,7 +460,7 @@
         <span class="rev__date">22 April 2026</span>
       </header>
       <h3 class="rev__title">Logo, photos, and a green palette.</h3>
-      <p>Your logo and jobsite photos integrated: mountain/valley mark in the header and favicon, dark green + cream palette pulled from your swatch study, and photos placed where they carry the story — vineyard tractor on home, orchard + hop yard in Agriculture, C500 coverall in Ordering.</p>
+      <p>Logo and jobsite photos integrated: mountain/valley mark in the header and favicon, dark green + cream palette pulled from your swatch study, and the first round of photos placed across home, Agriculture, and Ordering.</p>
     </article>
 
     <article class="rev">
@@ -385,52 +469,13 @@
         <span class="rev__date">20 April 2026</span>
       </header>
       <h3 class="rev__title">First cut from your five templates.</h3>
-      <p>Built straight from the five Word docs you attached. Your copy, your structure, typography and feedback widget wired up. Logo and photography were placeholders waiting for your assets.</p>
+      <p>Built straight from the five Word docs you sent. Your copy, your structure, typography and feedback widget wired up. Logo and photography placeholders waiting for your assets.</p>
     </article>
   </section>
 
-  <h2 data-n="01">The Five Pages</h2>
-  <div class="page-grid">
-    <div class="page-card">
-      <a href="home.html">Home</a>
-      <div class="path">/yvs/home.html</div>
-      <div class="note">Positioning, common products, who you supply, competitive pricing.</div>
-    </div>
-    <div class="page-card">
-      <a href="industries.html">Industries We Serve</a>
-      <div class="path">/yvs/industries.html</div>
-      <div class="note">Six industries, each with work phases and consumables tailored to the trade.</div>
-    </div>
-    <div class="page-card">
-      <a href="ordering.html">How Ordering Works</a>
-      <div class="path">/yvs/ordering.html</div>
-      <div class="note">The four-step, relationship-driven ordering process — not a checkout.</div>
-    </div>
-    <div class="page-card">
-      <a href="intake.html">New Customer Intake</a>
-      <div class="path">/yvs/intake.html</div>
-      <div class="note">Live form. Submissions email straight to <code>orders@yakimavalleysupply.com</code>.</div>
-    </div>
-    <div class="page-card">
-      <a href="contact.html">Contact</a>
-      <div class="path">/yvs/contact.html</div>
-      <div class="note">Phone, email, service region, nudge back to the intake.</div>
-    </div>
-  </div>
-
-  <h2 data-n="02">How to Leave Feedback</h2>
-  <p>Every page has a small red marker in the lower corner. Click it, or click any element on the page you want to comment on — a headline, a section, a button. Leave a note. That's it. Your comments come straight back to me; no account, no Word redlines.</p>
-
-  <h2 data-n="03">What's Next</h2>
-  <ul class="plain">
-    <li><strong>Another walk-through from you.</strong> Keep clicking. Anything wrong, anything missing, anything that doesn't sound like you.</li>
-    <li><strong>Phone number.</strong> Send it when you have one and I'll swap it in everywhere.</li>
-    <li><strong>Going live on your domain.</strong> Once you sign off, we point <code>yakimavalleysupply.com</code> at the site and this draft stays up here for reference.</li>
-  </ul>
-
   <div class="cta-row">
-    <a href="home.html" class="btn">Enter the draft →</a>
-    <a href="mailto:moritzbierling@hey.com?subject=YVS%20draft%20feedback&amp;cc=thruthehayes@protonmail.com" class="btn btn--ghost">Email me directly</a>
+    <a href="home" class="btn">Open the site →</a>
+    <a href="mailto:moritzbierling@hey.com?subject=YVS%20draft%20sign-off&amp;cc=thruthehayes@protonmail.com" class="btn btn--ghost">Sign off by email</a>
   </div>
 
 </main>
