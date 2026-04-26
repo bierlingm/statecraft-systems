@@ -166,6 +166,28 @@ main.narrow { max-width: 720px; }
   margin: 2rem 0;
 }
 
+dl.faq {
+  margin: 1rem 0 2rem;
+}
+dl.faq dt {
+  font-weight: 600;
+  font-size: 1.05rem;
+  color: var(--ink);
+  margin-top: 1.5rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid rgba(13, 54, 37, 0.12);
+}
+dl.faq dt:first-child {
+  margin-top: 0;
+  padding-top: 0;
+  border-top: none;
+}
+dl.faq dd {
+  margin: 0.5rem 0 0;
+  color: var(--ink-soft, var(--ink));
+  line-height: 1.65;
+}
+
 .callout {
   background: var(--ink);
   color: var(--paper);
