@@ -31,3 +31,4 @@ npm-debug.log*
 .werk/
 codedb.snapshot
 tensions.json
+.spikes/
