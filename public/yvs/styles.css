@@ -397,7 +397,7 @@ form.intake { margin: 2.5rem 0; }
   text-transform: none;
   letter-spacing: 0;
 }
-.photo--wide img { max-height: 420px; }
+.photo--wide img { max-height: 420px; object-position: center top; }
 .photo--product {
   max-width: 380px;
   margin-left: auto;
