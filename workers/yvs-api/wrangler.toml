@@ -15,6 +15,9 @@ preview_id = "71c09840ce034cb08b5c6ae579115e41"
 ALLOWED_ORIGIN = "https://statecraft.systems"
 NOTIFY_TO = "orders@yakimavalleysupply.com"
 NOTIFY_FROM = "Yakima Valley Supply <no-reply@statecraft.systems>"
+ADMIN_EMAIL = "moritzbierling@hey.com"
+PAGES_TARGET = "yakimavalleysupply-website.pages.dev"
+BUNDLE_URL = "https://github.com/bierlingm/yakimavalleysupply-website/releases/latest"
 
 # Secrets (set with: wrangler secret put <NAME>):
 # RESEND_API_KEY   — Resend key for sending the notification email
