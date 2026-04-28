@@ -1,0 +1,25 @@
+name = "PROJECT-api"
+main = "src/index.ts"
+compatibility_date = "2025-09-01"
+
+# KV namespace for storing form submissions.
+# Create with:  wrangler kv namespace create "SUBMISSIONS"
+#               wrangler kv namespace create "SUBMISSIONS" --preview
+# Then paste the returned ids below.
+[[kv_namespaces]]
+binding = "SUBMISSIONS"
+id = "REPLACE_WITH_KV_ID"
+preview_id = "REPLACE_WITH_KV_PREVIEW_ID"
+
+[vars]
+ALLOWED_ORIGIN = "https://PROJECT-DOMAIN"
+NOTIFY_TO = "orders@PROJECT-DOMAIN"
+NOTIFY_FROM = "Project Name <no-reply@PROJECT-DOMAIN>"
+ADMIN_EMAIL = "moritzbierling@hey.com"
+PAGES_TARGET = "PROJECT-website.pages.dev"
+BUNDLE_URL = "https://github.com/bierlingm/PROJECT-DOMAIN/releases/latest"
+
+# Secrets (set with: wrangler secret put <NAME>):
+# RESEND_API_KEY   — Resend key for sending the notification email
+# ADMIN_TOKEN      — optional; bearer token for GET /submissions
+# SLACK_WEBHOOK    — optional; if set, new submissions ping this webhook
