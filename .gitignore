@@ -26,4 +26,11 @@ dist/
 
 # Logs
 npm-debug.log*
+
+# Local tooling
+.werk/
+codedb.snapshot
+tensions.json
+.spikes/
+
 public/yvs/
