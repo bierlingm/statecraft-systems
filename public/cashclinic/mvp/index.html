@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Cashclinic MVP · Intake — Statecraft Systems</title>
+  <meta name="description" content="Naive interactable MVP: patient free-text + document upload → provisional doctor report. Processing layer only." />
+  <meta name="theme-color" content="#0f1419" />
+  <meta name="robots" content="noindex" />
+  <link rel="canonical" href="https://statecraft.systems/cashclinic/mvp/" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <style>
+    :root {
+      --bg: #0f1419;
+      --panel: #1a2332;
+      --border: #2d3a4d;
+      --text: #e7ecf3;
+      --muted: #8b9bb4;
+      --accent: #3d8bfd;
+      --warn: #f0b429;
+      --danger: #f07178;
+      --ok: #7fd99a;
+      --font: "IBM Plex Sans", system-ui, sans-serif;
+      --mono: "IBM Plex Mono", ui-monospace, monospace;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: var(--font);
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+      min-height: 100vh;
+    }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    header {
+      border-bottom: 1px solid var(--border);
+      padding: 1rem 1.5rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      align-items: baseline;
+      justify-content: space-between;
+    }
+    header h1 { margin: 0; font-size: 1.05rem; font-weight: 600; letter-spacing: 0.02em; }
+    header h1 a { color: var(--text); text-decoration: none; }
+    header h1 a:hover { color: var(--accent); }
+    .badge {
+      font-size: 0.75rem;
+      padding: 0.2rem 0.55rem;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      color: var(--muted);
+      font-family: var(--mono);
+    }
+    .badge.ok { border-color: var(--ok); color: var(--ok); }
+    .badge.warn { border-color: var(--warn); color: var(--warn); }
+    main {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 1.25rem 1.5rem 3rem;
+      display: grid;
+      gap: 1.25rem;
+    }
+    .banner {
+      background: #2a2110;
+      border: 1px solid var(--warn);
+      color: #f5e6b8;
+      padding: 0.85rem 1rem;
+      border-radius: 8px;
+      font-size: 0.9rem;
+    }
+    .panel {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.1rem 1.2rem;
+    }
+    .panel h2 {
+      margin: 0 0 0.75rem;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+    label {
+      display: block;
+      font-size: 0.85rem;
+      color: var(--muted);
+      margin-bottom: 0.35rem;
+    }
+    input[type="text"], textarea {
+      width: 100%;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      color: var(--text);
+      border-radius: 8px;
+      padding: 0.65rem 0.75rem;
+      font: inherit;
+      margin-bottom: 0.9rem;
+    }
+    textarea { min-height: 160px; resize: vertical; }
+    input[type="file"] { margin-bottom: 0.9rem; color: var(--muted); font-size: 0.85rem; }
+    .row { display: flex; flex-wrap: wrap; gap: 0.6rem; align-items: center; }
+    button {
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: 0.65rem 1.1rem;
+      font: inherit;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    button:disabled { opacity: 0.5; cursor: not-allowed; }
+    button.secondary {
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--text);
+    }
+    pre {
+      white-space: pre-wrap;
+      word-break: break-word;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1rem;
+      font-family: var(--mono);
+      font-size: 0.82rem;
+      max-height: 60vh;
+      overflow: auto;
+    }
+    .meta { font-size: 0.8rem; color: var(--muted); margin-bottom: 0.5rem; }
+    .error { color: var(--danger); font-size: 0.9rem; }
+    footer {
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.75rem;
+      padding: 1rem;
+      border-top: 1px solid var(--border);
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1><a href="/cashclinic/">Cashclinic</a> · Naive MVP Intake</h1>
+    <span id="modeBadge" class="badge">checking…</span>
+  </header>
+  <main>
+    <div class="banner">
+      <strong>Prototype only.</strong> Not medical advice. Not a medical record of truth.
+      Processing layer only — do not use real patient data unless you have a compliant workflow.
+      All AI output is <strong>provisional</strong> for physician review.
+    </div>
+
+    <section class="panel">
+      <h2>1 · Patient provides history</h2>
+      <label for="chief">Chief concern (optional short field)</label>
+      <input id="chief" type="text" placeholder="e.g. sore throat for 3 days" />
+
+      <label for="history">Free-text medical history / story</label>
+      <textarea id="history" placeholder="Describe symptoms, duration, what makes it better/worse, current meds, allergies, relevant history…"></textarea>
+
+      <label for="doc">Document upload (txt/md preferred; other files noted only)</label>
+      <input id="doc" type="file" />
+
+      <div class="row">
+        <button id="generate" type="button">Generate provisional doctor report</button>
+        <button id="sample" type="button" class="secondary">Load sample case</button>
+        <a href="/cashclinic/" style="margin-left:0.25rem;font-size:0.85rem;color:var(--muted);">← Project page</a>
+      </div>
+      <p id="error" class="error" hidden></p>
+    </section>
+
+    <section class="panel" id="resultPanel" hidden>
+      <h2>2 · Output for physician review</h2>
+      <div class="meta" id="resultMeta"></div>
+      <div class="row" style="margin-bottom: 0.75rem;">
+        <button id="download" type="button" class="secondary">Download .md</button>
+        <button id="copy" type="button" class="secondary">Copy</button>
+      </div>
+      <pre id="report"></pre>
+    </section>
+  </main>
+  <footer>
+    <a href="https://statecraft.systems">statecraft.systems</a>
+    · Cashclinic MVP · processing layer only · not for production clinical use
+  </footer>
+  <script>
+    // Production API worker. Override locally with window.__CASHCLINIC_API__ if needed.
+    const API_BASE =
+      window.__CASHCLINIC_API__ ||
+      "https://cashclinic-api.moritzbierling.workers.dev";
+
+    const $ = (id) => document.getElementById(id);
+    let lastReport = "";
+
+    async function refreshStatus() {
+      try {
+        const r = await fetch(API_BASE + "/status");
+        const s = await r.json();
+        const badge = $("modeBadge");
+        badge.textContent = "mode: " + (s.mode || "unknown");
+        badge.className = "badge " + (s.mode === "anthropic" ? "ok" : "warn");
+      } catch {
+        $("modeBadge").textContent = "api offline";
+        $("modeBadge").className = "badge warn";
+      }
+    }
+
+    $("sample").onclick = () => {
+      $("chief").value = "Sore throat and low-grade fever for 3 days";
+      $("history").value =
+        "I'm 34, otherwise healthy. Sore throat started 3 days ago, worse when swallowing. " +
+        "Low-grade fever last night (99.8F). No difficulty breathing. Mild cough. " +
+        "No rash. No recent travel. Take occasional ibuprofen. No known drug allergies. " +
+        "Never had strep confirmed before. Want to know if I need antibiotics or can wait.";
+    };
+
+    async function readFileAsText(file) {
+      if (!file) return { name: "", text: "" };
+      const isTextish =
+        file.type.startsWith("text/") ||
+        /\.(txt|md|csv|json)$/i.test(file.name);
+      if (!isTextish) {
+        return {
+          name: file.name,
+          text: `[Binary or non-text file attached: ${file.name}, ${file.type}, ${file.size} bytes — content not extracted in this naive MVP. Physician should review original if needed.]`,
+        };
+      }
+      const text = (await file.text()).slice(0, 40000);
+      return { name: file.name, text };
+    }
+
+    $("generate").onclick = async () => {
+      $("error").hidden = true;
+      $("generate").disabled = true;
+      $("generate").textContent = "Generating…";
+      try {
+        const file = $("doc").files[0];
+        const doc = await readFileAsText(file);
+
+        const r = await fetch(API_BASE + "/generate", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            chiefConcern: $("chief").value,
+            freeText: $("history").value,
+            documentText: doc.text,
+            documentName: doc.name,
+          }),
+        });
+        const data = await r.json();
+        if (!r.ok) throw new Error(data.error || "Request failed");
+
+        lastReport = data.report;
+        $("report").textContent = data.report;
+        $("resultMeta").textContent =
+          `mode=${data.mode} · ${data.generatedAt} · ${data.note || ""}`;
+        $("resultPanel").hidden = false;
+      } catch (e) {
+        $("error").textContent = e.message;
+        $("error").hidden = false;
+      } finally {
+        $("generate").disabled = false;
+        $("generate").textContent = "Generate provisional doctor report";
+      }
+    };
+
+    $("download").onclick = () => {
+      if (!lastReport) return;
+      const blob = new Blob([lastReport], { type: "text/markdown" });
+      const a = document.createElement("a");
+      a.href = URL.createObjectURL(blob);
+      a.download = `cashclinic-report-${Date.now()}.md`;
+      a.click();
+      URL.revokeObjectURL(a.href);
+    };
+
+    $("copy").onclick = async () => {
+      if (!lastReport) return;
+      await navigator.clipboard.writeText(lastReport);
+    };
+
+    refreshStatus();
+  </script>
+</body>
+</html>
