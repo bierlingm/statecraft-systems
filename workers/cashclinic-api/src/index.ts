@@ -1,21 +1,29 @@
 /**
- * Cashclinic API — provisional doctor-report generation
+ * Cashclinic API — provisional doctor-report generation (access-gated)
  *
  * Routes:
- *   POST /generate   Public. Accepts intake text (+ optional document text) and
- *                    returns a structured provisional report via Anthropic.
+ *   POST /auth       Validate access password; returns ok if authorized.
+ *   POST /generate   Requires Authorization: Bearer <ACCESS_PASSWORD>
  *   GET  /health     Unauthenticated liveness check.
- *   GET  /status     Returns mode info (does not expose secrets).
+ *   GET  /status     Public mode flag (auth_required: true).
  *
- * Secret: ANTHROPIC_API_KEY
+ * Secrets:
+ *   ANTHROPIC_API_KEY
+ *   ACCESS_PASSWORD   — shared access code for authorized parties
  */
 
 export interface Env {
   ANTHROPIC_API_KEY?: string;
+  ACCESS_PASSWORD?: string;
   ALLOWED_ORIGIN: string;
 }
 
-const MAX_BODY_BYTES = 200 * 1024; // 200 KB
+const MAX_BODY_BYTES = 200 * 1024;
+const RATE_LIMIT_WINDOW_MS = 60_000;
+const RATE_LIMIT_MAX = 20; // per IP per minute for /generate
+
+/** Simple in-memory rate limit (resets on isolate recycle). */
+const rateBuckets = new Map<string, { count: number; resetAt: number }>();
 
 const SYSTEM_PROMPT = `You are a clinical documentation assistant for a PROTOTYPE cash-only telemedicine intake system (Cashclinic).
 
@@ -81,7 +89,7 @@ function corsHeaders(env: Env, req: Request): Record<string, string> {
   return {
     "Access-Control-Allow-Origin": allowed ? origin || allow : allow,
     "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
-    "Access-Control-Allow-Headers": "Content-Type",
+    "Access-Control-Allow-Headers": "Content-Type, Authorization",
     "Access-Control-Max-Age": "86400",
     Vary: "Origin",
   };
@@ -97,6 +105,47 @@ function json(status: number, body: unknown, headers: Record<string, string> = {
 function sanitize(s: unknown, max = 40000): string {
   if (typeof s !== "string") return "";
   return s.slice(0, max).trim();
+}
+
+/** Constant-time-ish compare for short secrets. */
+function secretsEqual(a: string, b: string): boolean {
+  if (a.length !== b.length) return false;
+  let out = 0;
+  for (let i = 0; i < a.length; i++) out |= a.charCodeAt(i) ^ b.charCodeAt(i);
+  return out === 0;
+}
+
+function extractBearer(req: Request): string {
+  const h = req.headers.get("Authorization") || "";
+  const m = /^Bearer\s+(.+)$/i.exec(h);
+  return m ? m[1].trim() : "";
+}
+
+function isAuthorized(req: Request, env: Env): boolean {
+  const expected = env.ACCESS_PASSWORD || "";
+  if (!expected) return false;
+  const token = extractBearer(req);
+  return token.length > 0 && secretsEqual(token, expected);
+}
+
+function clientIp(req: Request): string {
+  return (
+    req.headers.get("CF-Connecting-IP") ||
+    req.headers.get("X-Forwarded-For")?.split(",")[0]?.trim() ||
+    "unknown"
+  );
+}
+
+function rateLimitOk(ip: string): boolean {
+  const now = Date.now();
+  const bucket = rateBuckets.get(ip);
+  if (!bucket || now >= bucket.resetAt) {
+    rateBuckets.set(ip, { count: 1, resetAt: now + RATE_LIMIT_WINDOW_MS });
+    return true;
+  }
+  if (bucket.count >= RATE_LIMIT_MAX) return false;
+  bucket.count += 1;
+  return true;
 }
 
 async function callAnthropic(apiKey: string, userContent: string): Promise<string> {
@@ -141,14 +190,54 @@ export default {
       return json(
         200,
         {
-          mode: env.ANTHROPIC_API_KEY ? "anthropic" : "unavailable",
           service: "cashclinic-api",
+          auth_required: true,
+          mode: env.ANTHROPIC_API_KEY ? "anthropic" : "unavailable",
+          access_configured: Boolean(env.ACCESS_PASSWORD),
+        },
+        cors
+      );
+    }
+
+    if (url.pathname === "/auth" && req.method === "POST") {
+      if (!env.ACCESS_PASSWORD) {
+        return json(503, { error: "ACCESS_PASSWORD not configured" }, cors);
+      }
+      let body: { password?: string };
+      try {
+        body = (await req.json()) as typeof body;
+      } catch {
+        return json(400, { error: "invalid json" }, cors);
+      }
+      const password = sanitize(body.password, 500);
+      if (!password || !secretsEqual(password, env.ACCESS_PASSWORD)) {
+        return json(401, { error: "invalid access code" }, cors);
+      }
+      return json(
+        200,
+        {
+          ok: true,
+          // Client stores this and sends as Bearer on subsequent calls.
+          // Same value as the password; not a separate session store.
+          token: password,
         },
         cors
       );
     }
 
     if (url.pathname === "/generate" && req.method === "POST") {
+      if (!env.ACCESS_PASSWORD) {
+        return json(503, { error: "ACCESS_PASSWORD not configured" }, cors);
+      }
+      if (!isAuthorized(req, env)) {
+        return json(401, { error: "unauthorized" }, cors);
+      }
+
+      const ip = clientIp(req);
+      if (!rateLimitOk(ip)) {
+        return json(429, { error: "rate limit exceeded; try again in a minute" }, cors);
+      }
+
       const len = Number(req.headers.get("Content-Length") ?? "0");
       if (len > MAX_BODY_BYTES) {
         return json(413, { error: "payload too large" }, cors);

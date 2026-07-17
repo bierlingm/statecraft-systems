@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Cashclinic MVP · Intake — Statecraft Systems</title>
-  <meta name="description" content="Naive interactable MVP: patient free-text + document upload → provisional doctor report. Processing layer only." />
+  <meta name="description" content="Access-gated naive MVP: patient free-text + document upload → provisional doctor report. Processing layer only." />
   <meta name="theme-color" content="#0f1419" />
   <meta name="robots" content="noindex" />
   <link rel="canonical" href="https://statecraft.systems/cashclinic/mvp/" />
@@ -91,7 +91,7 @@
       color: var(--muted);
       margin-bottom: 0.35rem;
     }
-    input[type="text"], textarea {
+    input[type="text"], input[type="password"], textarea {
       width: 100%;
       background: var(--bg);
       border: 1px solid var(--border);
@@ -134,6 +134,7 @@
     }
     .meta { font-size: 0.8rem; color: var(--muted); margin-bottom: 0.5rem; }
     .error { color: var(--danger); font-size: 0.9rem; }
+    .hint { color: var(--muted); font-size: 0.85rem; margin-top: 0.5rem; }
     footer {
       text-align: center;
       color: var(--muted);
@@ -141,74 +142,141 @@
       padding: 1rem;
       border-top: 1px solid var(--border);
     }
+    #app { display: none; }
+    #app.unlocked { display: grid; gap: 1.25rem; }
+    #gate.hidden { display: none; }
   </style>
 </head>
 <body>
   <header>
     <h1><a href="/cashclinic/">Cashclinic</a> · Naive MVP Intake</h1>
-    <span id="modeBadge" class="badge">checking…</span>
+    <span id="modeBadge" class="badge">locked</span>
   </header>
   <main>
     <div class="banner">
-      <strong>Prototype only.</strong> Not medical advice. Not a medical record of truth.
-      Processing layer only — do not use real patient data unless you have a compliant workflow.
-      All AI output is <strong>provisional</strong> for physician review.
+      <strong>Prototype only · access gated.</strong> Not medical advice. Not a medical record of truth.
+      Processing layer only. All AI output is <strong>provisional</strong> for physician review.
     </div>
 
-    <section class="panel">
-      <h2>1 · Patient provides history</h2>
-      <label for="chief">Chief concern (optional short field)</label>
-      <input id="chief" type="text" placeholder="e.g. sore throat for 3 days" />
-
-      <label for="history">Free-text medical history / story</label>
-      <textarea id="history" placeholder="Describe symptoms, duration, what makes it better/worse, current meds, allergies, relevant history…"></textarea>
-
-      <label for="doc">Document upload (txt/md preferred; other files noted only)</label>
-      <input id="doc" type="file" />
-
+    <section class="panel" id="gate">
+      <h2>Access code</h2>
+      <p class="hint" style="margin-bottom: 1rem;">
+        Authorized parties only. Enter the shared access code (ask Moritz or Dr. Brad if you don’t have it).
+      </p>
+      <label for="accessCode">Access code</label>
+      <input id="accessCode" type="password" autocomplete="current-password" placeholder="••••••••" />
       <div class="row">
-        <button id="generate" type="button">Generate provisional doctor report</button>
-        <button id="sample" type="button" class="secondary">Load sample case</button>
-        <a href="/cashclinic/" style="margin-left:0.25rem;font-size:0.85rem;color:var(--muted);">← Project page</a>
+        <button id="unlock" type="button">Unlock</button>
+        <a href="/cashclinic/" style="font-size:0.85rem;color:var(--muted);">← Project page</a>
       </div>
-      <p id="error" class="error" hidden></p>
+      <p id="gateError" class="error" hidden></p>
     </section>
 
-    <section class="panel" id="resultPanel" hidden>
-      <h2>2 · Output for physician review</h2>
-      <div class="meta" id="resultMeta"></div>
-      <div class="row" style="margin-bottom: 0.75rem;">
-        <button id="download" type="button" class="secondary">Download .md</button>
-        <button id="copy" type="button" class="secondary">Copy</button>
-      </div>
-      <pre id="report"></pre>
-    </section>
+    <div id="app">
+      <section class="panel">
+        <h2>1 · Patient provides history</h2>
+        <label for="chief">Chief concern (optional short field)</label>
+        <input id="chief" type="text" placeholder="e.g. sore throat for 3 days" />
+
+        <label for="history">Free-text medical history / story</label>
+        <textarea id="history" placeholder="Describe symptoms, duration, what makes it better/worse, current meds, allergies, relevant history…"></textarea>
+
+        <label for="doc">Document upload (txt/md preferred; other files noted only)</label>
+        <input id="doc" type="file" />
+
+        <div class="row">
+          <button id="generate" type="button">Generate provisional doctor report</button>
+          <button id="sample" type="button" class="secondary">Load sample case</button>
+          <button id="lock" type="button" class="secondary">Lock</button>
+        </div>
+        <p id="error" class="error" hidden></p>
+      </section>
+
+      <section class="panel" id="resultPanel" hidden>
+        <h2>2 · Output for physician review</h2>
+        <div class="meta" id="resultMeta"></div>
+        <div class="row" style="margin-bottom: 0.75rem;">
+          <button id="download" type="button" class="secondary">Download .md</button>
+          <button id="copy" type="button" class="secondary">Copy</button>
+        </div>
+        <pre id="report"></pre>
+      </section>
+    </div>
   </main>
   <footer>
     <a href="https://statecraft.systems">statecraft.systems</a>
-    · Cashclinic MVP · processing layer only · not for production clinical use
+    · Cashclinic MVP · access gated · processing layer only
   </footer>
   <script>
-    // Production API worker. Override locally with window.__CASHCLINIC_API__ if needed.
     const API_BASE =
       window.__CASHCLINIC_API__ ||
       "https://cashclinic-api.moritzbierling.workers.dev";
+    const STORAGE_KEY = "cashclinic_access_token";
 
     const $ = (id) => document.getElementById(id);
     let lastReport = "";
+    let accessToken = sessionStorage.getItem(STORAGE_KEY) || "";
+
+    function setUnlocked(token) {
+      accessToken = token || "";
+      if (token) sessionStorage.setItem(STORAGE_KEY, token);
+      else sessionStorage.removeItem(STORAGE_KEY);
+
+      $("gate").classList.toggle("hidden", Boolean(token));
+      $("app").classList.toggle("unlocked", Boolean(token));
+      $("modeBadge").textContent = token ? "unlocked" : "locked";
+      $("modeBadge").className = "badge " + (token ? "ok" : "warn");
+    }
 
     async function refreshStatus() {
       try {
         const r = await fetch(API_BASE + "/status");
         const s = await r.json();
-        const badge = $("modeBadge");
-        badge.textContent = "mode: " + (s.mode || "unknown");
-        badge.className = "badge " + (s.mode === "anthropic" ? "ok" : "warn");
+        if (accessToken) {
+          $("modeBadge").textContent = "mode: " + (s.mode || "unknown");
+          $("modeBadge").className = "badge " + (s.mode === "anthropic" ? "ok" : "warn");
+        }
       } catch {
-        $("modeBadge").textContent = "api offline";
-        $("modeBadge").className = "badge warn";
+        if (accessToken) {
+          $("modeBadge").textContent = "api offline";
+          $("modeBadge").className = "badge warn";
+        }
       }
     }
+
+    $("unlock").onclick = async () => {
+      $("gateError").hidden = true;
+      $("unlock").disabled = true;
+      try {
+        const password = $("accessCode").value.trim();
+        if (!password) throw new Error("Enter the access code");
+        const r = await fetch(API_BASE + "/auth", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ password }),
+        });
+        const data = await r.json();
+        if (!r.ok) throw new Error(data.error || "Invalid access code");
+        setUnlocked(data.token || password);
+        $("accessCode").value = "";
+        await refreshStatus();
+      } catch (e) {
+        $("gateError").textContent = e.message;
+        $("gateError").hidden = false;
+      } finally {
+        $("unlock").disabled = false;
+      }
+    };
+
+    $("accessCode").addEventListener("keydown", (e) => {
+      if (e.key === "Enter") $("unlock").click();
+    });
+
+    $("lock").onclick = () => {
+      setUnlocked("");
+      $("resultPanel").hidden = true;
+      lastReport = "";
+    };
 
     $("sample").onclick = () => {
       $("chief").value = "Sore throat and low-grade fever for 3 days";
@@ -239,12 +307,19 @@
       $("generate").disabled = true;
       $("generate").textContent = "Generating…";
       try {
+        if (!accessToken) {
+          setUnlocked("");
+          throw new Error("Session locked — enter access code again");
+        }
         const file = $("doc").files[0];
         const doc = await readFileAsText(file);
 
         const r = await fetch(API_BASE + "/generate", {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + accessToken,
+          },
           body: JSON.stringify({
             chiefConcern: $("chief").value,
             freeText: $("history").value,
@@ -253,6 +328,10 @@
           }),
         });
         const data = await r.json();
+        if (r.status === 401) {
+          setUnlocked("");
+          throw new Error("Access expired or invalid — unlock again");
+        }
         if (!r.ok) throw new Error(data.error || "Request failed");
 
         lastReport = data.report;
@@ -284,6 +363,9 @@
       await navigator.clipboard.writeText(lastReport);
     };
 
+    // Restore session for this tab if already unlocked
+    if (accessToken) setUnlocked(accessToken);
+    else setUnlocked("");
     refreshStatus();
   </script>
 </body>

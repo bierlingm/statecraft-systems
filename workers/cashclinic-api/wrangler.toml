@@ -5,5 +5,8 @@ compatibility_date = "2025-09-01"
 [vars]
 ALLOWED_ORIGIN = "https://statecraft.systems"
 
-# Secrets (set with: wrangler secret put ANTHROPIC_API_KEY):
+# Secrets:
+#   wrangler secret put ANTHROPIC_API_KEY
+#   wrangler secret put ACCESS_PASSWORD
 # ANTHROPIC_API_KEY — Claude API key for provisional report generation
+# ACCESS_PASSWORD   — shared access code for authorized parties (MVP gate)
