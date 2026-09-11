@@ -1,0 +1,61 @@
+name: Update Cashclinic frontend
+
+on:
+  schedule:
+    - cron: '*/5 * * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: cashclinic-frontend-sync
+  cancel-in-progress: true
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the Statecraft site
+        uses: actions/checkout@v4
+
+      - name: Check out Cashclinic source
+        uses: actions/checkout@v4
+        with:
+          repository: bierlingm/cashclinic
+          ref: main
+          path: cashclinic-source
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 25
+          cache: npm
+          cache-dependency-path: cashclinic-source/package-lock.json
+
+      - name: Install Cashclinic dependencies
+        working-directory: cashclinic-source
+        run: npm ci
+
+      - name: Build the Cashclinic frontend
+        working-directory: cashclinic-source/packages/web
+        env:
+          VITE_API_BASE_URL: https://cashclinic-shadow.moritzbierling.workers.dev
+          VITE_BASE_PATH: /cashclinic/app/
+        run: npm exec vite -- build
+
+      - name: Replace the published frontend bundle
+        run: rsync --archive --delete cashclinic-source/packages/web/dist/ public/cashclinic/app/
+
+      - name: Commit and push if changed
+        run: |
+          set -euo pipefail
+          git config user.name statecraft-cashclinic-deploy[bot]
+          git config user.email statecraft-cashclinic-deploy[bot]@users.noreply.github.com
+          git add public/cashclinic/app
+          if git diff --cached --quiet; then
+            echo 'Cashclinic frontend unchanged.'
+            exit 0
+          fi
+          git commit -m "Update Cashclinic frontend from cashclinic/main"
+          git push origin HEAD:master
