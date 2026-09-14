@@ -63,11 +63,14 @@
       rating: null,
       comments: answer.title + '\n\n' + answer.answer,
       timestamp: new Date().toISOString(),
-      viewport: { width: window.innerWidth, height: window.innerHeight },
+      viewport: { width: Math.max(1, Math.round(window.innerWidth)), height: Math.max(1, Math.round(window.innerHeight)) },
       resolved: false
     };
-    return fetch(SPIKES_ENDPOINT, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(spike) })
-      .then(function (r) { if (!r.ok) throw new Error('HTTP ' + r.status); });
+    return fetch(SPIKES_ENDPOINT, { method: 'POST', mode: 'cors', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(spike) })
+      .then(function (r) {
+        if (r.ok) return;
+        return r.text().then(function (t) { throw new Error('HTTP ' + r.status + ' ' + t.slice(0, 200)); });
+      });
   }
 
   form.addEventListener('submit', function (event) {
@@ -89,8 +92,10 @@
         submit.textContent = 'Sent ✓';
         remember('prosser-decision-sent', new Date().toISOString());
       })
-      .catch(function () {
-        status.innerHTML = 'That didn’t go through. <a href="' + mailtoFor(answers, name).replace(/"/g, '&quot;') + '">Send the answers by email instead</a>.';
+      .catch(function (err) {
+        console.error('[decisions] send failed', err);
+        var detail = err && err.message ? ' (' + String(err.message).replace(/[<>&]/g, '') + ')' : '';
+        status.innerHTML = 'That didn’t go through' + detail + '. <a href="' + mailtoFor(answers, name).replace(/"/g, '&quot;') + '">Send the answers by email instead</a>.';
         submit.disabled = false; submit.textContent = 'Send these answers ↗';
       });
   });
