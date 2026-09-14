@@ -1,0 +1,123 @@
+/* Listing-led edition: warm paper, forest green, generous photographic layouts. */
+:root { --paper:#f7f6f0; --paper-2:#eaece3; --ink:#263a31; --ink-soft:#4e5a50; --muted:#636c62; --rule:#d8dbcf; --wine:#304c3d; --wine-dark:#20382c; --wine-soft:#e7ecdf; --brass:#9a7142; --white:#fffef9; --max:1360px; --radius:3px; --shadow:0 10px 30px #263a310a; }
+body { font-size:17px; }
+.section.wrap { padding-left:clamp(18px,4vw,40px); padding-right:clamp(18px,4vw,40px); }
+h1,h2,h3 { font-weight:400; letter-spacing:-.045em; }
+h2 { font-size:clamp(2rem,3.5vw,3.2rem); line-height:1.12; }
+em { font-weight:400; }
+.eyebrow { font-size:.69rem; letter-spacing:.17em; }
+.btn { border-radius:3px; padding:15px 23px; font-size:.91rem; }
+.btn span { margin-left:18px; }
+.site-header { background:#f7f6f0f5; }
+.site-header .wrap { min-height:88px; }
+.brand__name { font-size:1.35rem; }
+.brand__sub { font-size:.59rem; letter-spacing:.19em; margin-top:2px; }
+.brand__mark { width:38px; height:38px; }
+.nav a { font-size:.83rem; font-weight:400; }
+.nav .btn { padding:13px 19px; }
+.text-link { display:inline-flex; align-items:center; gap:28px; color:var(--ink); text-decoration:none; border-bottom:1px solid #9ca99a; padding-bottom:6px; font-size:.88rem; }
+.text-link span { font-size:1.25rem; }
+.arrival { padding-top:53px; }
+.arrival__intro { display:grid; grid-template-columns:1.5fr 1fr; column-gap:70px; align-items:end; padding-bottom:34px; }
+.arrival__intro > .eyebrow { grid-column:1/-1; margin-bottom:21px; }
+.arrival h1 { font-size:clamp(3.3rem,5.9vw,5.4rem); line-height:1.03; margin:0; }
+.arrival__summary { max-width:315px; justify-self:end; padding-bottom:7px; }
+.arrival__summary p { font-size:1.1rem; line-height:1.5; }
+.arrival__photo { position:relative; height:clamp(340px,40vw,550px); overflow:hidden; }
+.arrival__photo > img { width:100%; height:100%; object-fit:cover; object-position:center 55%; }
+.photo-label { position:absolute; left:25px; bottom:24px; color:white; font-size:.76rem; background:#20382ce6; padding:8px 13px; }
+.photo-tour { position:absolute; right:25px; bottom:24px; display:flex; align-items:center; gap:10px; color:var(--ink); background:var(--paper); padding:10px 17px; text-decoration:none; font-size:.8rem; }
+.stay-strip { display:flex; align-items:center; gap:40px; border-bottom:1px solid var(--rule); padding:27px 0; }
+.stay-strip > div { display:flex; align-items:baseline; gap:9px; }
+.stay-strip strong { font-family:Fraunces,Georgia,serif; font-weight:400; font-size:1.65rem; }
+.stay-strip span { font-size:.83rem; color:var(--muted); }
+.stay-strip .stay-strip__detail { margin-left:auto; border-left:1px solid var(--rule); padding-left:35px; display:block; }
+.stay-strip__detail strong { display:block; font-size:1.1rem; }
+.stay-strip .btn span { color:inherit; }
+.introduction { display:grid; grid-template-columns:1.1fr 1fr; gap:0 100px; }
+.introduction > .eyebrow { grid-column:1/-1; }
+.introduction > div { max-width:490px; }
+.editorial-heading { display:flex; justify-content:space-between; align-items:end; gap:24px; margin-bottom:38px; }
+.editorial-heading h2 { margin-bottom:0; }
+.home-stories { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:27px; }
+.home-story { color:inherit; text-decoration:none; }
+.home-story__image { position:relative; overflow:hidden; margin-bottom:24px; }
+.home-story img { width:100%; height:auto; aspect-ratio:4/3; object-fit:cover; transition:transform .4s; }
+.home-story:hover img { transform:scale(1.025); }
+.home-story__image > span { position:absolute; bottom:13px; left:13px; background:var(--paper); padding:5px 11px; font-size:.65rem; text-transform:uppercase; letter-spacing:.12em; }
+.home-story h3 { font-size:1.6rem; margin-bottom:12px; }
+.home-story p { font-size:.94rem; color:var(--ink-soft); max-width:36ch; }
+.suite-story { display:grid; grid-template-columns:1.2fr 1fr; align-items:center; gap:90px; }
+.suite-story__photos { display:grid; grid-template-columns:1fr .75fr; align-items:center; gap:18px; }
+.suite-story__photos img { width:100%; height:auto; object-fit:cover; }
+.suite-story__photos img:first-child { aspect-ratio:3/4; }
+.suite-story__photos img:last-child { aspect-ratio:3/4; margin-top:100px; }
+.suite-story > div:last-child { max-width:420px; }
+.local-note { background:#e4e8de; padding:70px 0; }
+.local-note__inner { display:grid; grid-template-columns:.7fr 1.6fr; gap:70px; align-items:center; }
+.local-note__location { border:1px solid #adb7a5; border-radius:50%; width:220px; height:220px; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; }
+.local-note__location > span { font-family:Georgia,serif; font-size:4rem; line-height:1.3; }
+.local-note__location p { line-height:1.9; }
+.stay-notes { display:grid; grid-template-columns:1fr 1.2fr; gap:90px; }
+.stay-notes__list > div { display:flex; gap:26px; border-top:1px solid var(--rule); padding:21px 0; }
+.stay-notes__list > div > span { font-size:.75rem; color:var(--muted); padding-top:4px; }
+.stay-notes__list h3 { font-size:1.3rem; }
+.stay-notes__list p { font-size:.94rem; margin:0; }
+.home-closing { background:#304c3d; color:var(--paper); padding:80px 0; text-align:center; }
+.home-closing h2 { font-size:clamp(3rem,5.5vw,5rem); color:inherit; }
+.home-closing .eyebrow { color:#d8ddc9; }
+.home-closing .btn-row { justify-content:center; margin-top:28px; gap:25px; }
+.closing-link { color:var(--paper); font-size:.9rem; }
+.closing-link:hover { color:white; }
+.site-footer { background:#21362c; }
+.site-footer .brand__sub,.footer-bottom { color:#bac5b7; }
+.card { border:0; background:transparent; }
+.card__body { padding:22px 0; }
+.feature img { border-radius:0; box-shadow:none; }
+.gallery a { border-radius:0; }
+.gallery { grid-auto-rows:220px; gap:10px; }
+.amenities .amenity--special { background:#e8ecdf; padding:10px 12px; border-bottom-color:#abb9a0; }
+.amenities .amenity--special::before { content:'✦'; background:none; width:auto; height:auto; color:#776033; transform:none; }
+.amenity-key { color:#776033; margin-right:7px; }
+.page-hero { padding-top:65px; }
+.skip-link { position:fixed; top:8px; left:8px; z-index:200; background:var(--paper); padding:10px 20px; transform:translateY(-150%); }
+.skip-link:focus { transform:translateY(0); }
+:focus-visible { outline:2px solid #9a7142; outline-offset:5px; }
+[id] { scroll-margin-top:105px; }
+@media(max-width:1100px) { .stay-strip { gap:25px; } .stay-strip .stay-strip__detail { display:none; } .stay-strip > .btn { margin-left:auto; } .introduction,.suite-story,.stay-notes { column-gap:45px; } }
+@media(max-width:760px) {
+  .site-header .wrap { min-height:76px; }
+  .arrival { padding-top:32px; }
+  .arrival__intro { grid-template-columns:1fr; gap:23px; }
+  .arrival__intro > .eyebrow { margin:0; }
+  .arrival__summary { justify-self:start; max-width:340px; }
+  .arrival__summary p { margin-bottom:15px; }
+  .arrival__photo { height:350px; }
+  .photo-label { display:none; }
+  .photo-tour { right:14px; bottom:14px; }
+  .stay-strip { gap:20px; flex-wrap:wrap; justify-content:space-between; }
+  .stay-strip > div { gap:7px; }
+  .stay-strip > .btn { width:100%; text-align:center; }
+  .introduction,.suite-story,.stay-notes { grid-template-columns:1fr; gap:26px; }
+  .editorial-heading { display:block; }
+  .editorial-heading .text-link { margin-top:18px; }
+  .home-stories { grid-template-columns:1fr; gap:30px; }
+  .home-story__image { margin-bottom:17px; }
+  .home-story p { max-width:none; }
+  .suite-story__photos { max-width:550px; }
+  .suite-story__photos img:last-child { margin-top:55px; }
+  .local-note__inner { grid-template-columns:1fr; gap:30px; }
+  .local-note__location { width:150px; height:150px; }
+  .local-note__location > span { font-size:2.5rem; }
+  .local-note__location p { font-size:.6rem; }
+  .gallery { grid-auto-rows:150px; }
+}
+@media(prefers-reduced-motion:reduce) { html { scroll-behavior:auto; } *,*::before,*::after { transition:none!important; } }
+
+/* v0.5: warmer framing for the interior photos (Tyler, 12 Sep). A cream mat, a soft
+   warm tint and a gentle vignette until the house is redecorated and re-shot. */
+.gallery a, .feature img, .home-story__image { background:#f3e9d8; padding:6px; box-sizing:border-box; }
+.gallery img, .feature img, .home-story__image img { filter:sepia(.14) saturate(1.08) brightness(1.03) contrast(.97); }
+.gallery a::after, .home-story__image::after { content:""; position:absolute; inset:6px; pointer-events:none; box-shadow:inset 0 0 60px rgba(84,52,20,.18); }
+.gallery a:hover img { transform:scale(1.02); }
+.lightbox img { filter:sepia(.1) saturate(1.06) brightness(1.02); }
