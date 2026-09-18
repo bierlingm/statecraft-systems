@@ -24,13 +24,13 @@
         <p class="status"><span></span>Ready for you · v0.7</p>
         <h1 id="project-title">The Prosser Home.</h1>
         <p class="intro">Look at the website. Comment on anything that feels off. Then answer the questions we still need before launch.</p>
-        <p>This version puts the calendar on the home page and quotes recent guests (4.9 Guest Favorite from 165 reviews). Your v0.3 comments are still applied. Calendar sync and PayPal stay on sample data until we have your links.</p>
+        <p>New in v0.7: your sleigh-bed bedroom photo is on the home page and in the gallery, and guests can pay you with Venmo (@TJ-SAB) on the Pay page — both live now on the website. Calendar sync stays on sample data until we have your export links.</p>
         <div class="actions">
           <a class="button" href="/prosser/versions/v0-7/">Open the website ↗</a>
           <a href="#need">Answer the questions ↓</a>
         </div>
-        <p class="path">Look → click <strong>/</strong> on the site to comment → send answers → we connect domain, calendars and PayPal → you sign off → launch.</p>
-        <p class="updated">Updated 15 September 2026</p>
+        <p class="path">Look → click <strong>/</strong> on the site to comment → send answers → we connect domain and calendars → you sign off → launch.</p>
+        <p class="updated">Updated 18 September 2026</p>
       </div>
       <img src="/prosser/versions/v0-7/assets/listing/listing-10.jpeg" alt="Exterior of the Prosser rental home" width="1200" height="800" fetchpriority="high">
     </section>
@@ -102,7 +102,7 @@
           <article id="decision-photos" class="wide" data-field="photos"><span class="tag review">Tyler + co-owner</span>
             <h3>Are these the photos we should use?</h3>
             <ul class="act-list">
-              <li><div><strong>Keep the listing photos</strong><span>The ones already on the site.</span></div><div class="votes" role="group" aria-label="Keep listing photos"><button type="button" class="vote yes" data-k="photos.keep" data-v="yes" aria-pressed="true" aria-label="Yes">✓</button><button type="button" class="vote no" data-k="photos.keep" data-v="no" aria-pressed="false" aria-label="No">✕</button></div></li>
+              <li><div><strong>Keep the listing photos</strong><span>The ones already on the site, now with your sleigh-bed bedroom in place of the old “01 / Rest” shot.</span></div><div class="votes" role="group" aria-label="Keep listing photos"><button type="button" class="vote yes" data-k="photos.keep" data-v="yes" aria-pressed="true" aria-label="Yes">✓</button><button type="button" class="vote no" data-k="photos.keep" data-v="no" aria-pressed="false" aria-label="No">✕</button></div></li>
               <li><div><strong>Shoot new daylight of both suites, upstairs living, kitchen, patio</strong><span>Helps guests read the layout.</span></div><div class="votes" role="group" aria-label="New daylight photos"><button type="button" class="vote yes" data-k="photos.new" data-v="yes" aria-pressed="false" aria-label="Yes">✓</button><button type="button" class="vote no" data-k="photos.new" data-v="no" aria-pressed="false" aria-label="No">✕</button></div></li>
             </ul>
             <label class="extra">Photo notes<textarea name="photos_note" placeholder="Replace listing-14, I’ll send a sunset shot…"></textarea></label>
@@ -203,12 +203,15 @@
             <label class="extra">If “something else”<input type="text" name="domain_other" placeholder="example.com"></label>
           </article>
           <article id="decision-booking" data-field="booking"><span class="tag review">Tyler + co-owner</span>
-            <h3>PayPal</h3>
-            <p>Fee is theirs: 3.49% + $0.49. Nothing extra from us. Business means guests see the house name.</p>
+            <h3>Payments</h3>
+            <p><strong>Live now:</strong> the Pay page opens Venmo to <strong>@TJ-SAB</strong> with the amount and dates filled in. Money lands in that Venmo; you move it to the business account. Venmo’s rule: a personal profile may only take payment for a stay if the guest <em>marks it as a purchase</em> (2.99% to you, and the guest gets purchase protection). A free Venmo <strong>business profile</strong> is cheaper (1.9% + $0.10) and every payment counts as a purchase automatically.</p>
             <ul class="act-list">
-              <li><div><strong>Use a Business account</strong><span>✕ = personal account.</span></div><div class="votes" role="group" aria-label="PayPal Business"><button type="button" class="vote yes" data-k="booking.business" data-v="yes" aria-pressed="true" aria-label="Business">✓</button><button type="button" class="vote no" data-k="booking.business" data-v="no" aria-pressed="false" aria-label="Personal">✕</button></div></li>
+              <li><div><strong>Keep your personal Venmo for now</strong><span>✕ = switch to a business profile. Put its handle below and we swap it in.</span></div><div class="votes" role="group" aria-label="Keep personal Venmo"><button type="button" class="vote yes" data-k="booking.venmoPersonal" data-v="yes" aria-pressed="true" aria-label="Keep personal">✓</button><button type="button" class="vote no" data-k="booking.venmoPersonal" data-v="no" aria-pressed="false" aria-label="Business profile">✕</button></div></li>
+              <li><div><strong>Ask guests to mark it as a purchase</strong><span>One line on the Pay page. Keeps the personal Venmo within Venmo’s rules. Not needed with a business profile.</span></div><div class="votes" role="group" aria-label="Ask guests to mark as purchase"><button type="button" class="vote yes" data-k="booking.venmoPurchase" data-v="yes" aria-pressed="true" aria-label="Yes">✓</button><button type="button" class="vote no" data-k="booking.venmoPurchase" data-v="no" aria-pressed="false" aria-label="No">✕</button></div></li>
+              <li><div><strong>Also offer PayPal</strong><span>Your Business account, 3.49% + $0.49. ✕ = Venmo only.</span></div><div class="votes" role="group" aria-label="Also offer PayPal"><button type="button" class="vote yes" data-k="booking.paypal" data-v="yes" aria-pressed="true" aria-label="Yes">✓</button><button type="button" class="vote no" data-k="booking.paypal" data-v="no" aria-pressed="false" aria-label="No">✕</button></div></li>
               <li><div><strong>Show a discount versus Airbnb</strong><span>Amount below if ✓.</span></div><div class="votes" role="group" aria-label="Discount versus Airbnb"><button type="button" class="vote yes" data-k="booking.discount" data-v="yes" aria-pressed="false" aria-label="Yes">✓</button><button type="button" class="vote no" data-k="booking.discount" data-v="no" aria-pressed="true" aria-label="No">✕</button></div></li>
             </ul>
+            <label>Venmo business handle, if you set one up<input type="text" name="venmo_business_handle" placeholder="@ProsserHome" autocomplete="off"></label>
             <label>PayPal.Me handle<input type="text" name="paypal_handle" placeholder="paypal.me/yourname" autocomplete="off"></label>
             <label>Discount, if any<input type="text" name="paypal_discount" placeholder="e.g. 10%"></label>
             <label class="extra">Cancellation terms<textarea name="booking_cancel" placeholder="Free until 5 days before, then…"></textarea></label>
@@ -254,9 +257,16 @@
             <li><strong>“Send requests to both of us, and a text to my mobile.”</strong> Both inboxes are set. SMS is ready to switch on before launch.</li>
           </ul>
         </details>
+        <details open>
+          <summary>Your messages on 18 September — applied</summary>
+          <ul class="settled">
+            <li><strong>“Use this replacement photo in place of the following one.”</strong> Your sleigh-bed bedroom now leads “Room for a slow morning” on Home and replaces the old shot in the gallery.</li>
+            <li><strong>“Is it possible to just embed my personal Venmo link…?”</strong> Yes. The Pay page sends guests to @TJ-SAB with the amount and dates filled in. Two small choices are in <a href="#decision-booking">Payments</a> above.</li>
+          </ul>
+        </details>
         <details>
-          <summary>Calendar and PayPal — built, waiting on your links</summary>
-          <p>The site greys out nights from Airbnb and Vrbo, and a direct booking goes back out as a feed you import once. PayPal is on the Pay page; their fee is the only cost. Sample data until we have the export URLs and PayPal.Me handle from the questions above.</p>
+          <summary>Calendar and payments — built</summary>
+          <p>The site greys out nights from Airbnb and Vrbo, and a direct booking goes back out as a feed you import once. Calendars are on sample data until we have the export URLs above. Venmo is live on the Pay page; PayPal joins it once we have the PayPal.Me handle.</p>
         </details>
       </div>
     </section>

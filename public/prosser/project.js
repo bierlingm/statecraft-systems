@@ -116,7 +116,9 @@
     'local.milbrandt': 'Milbrandt Vineyards',
     'local.redmountain': 'Red Mountain AVA',
     'local.rally': 'Balloon Rally (Explore)',
-    'booking.business': 'PayPal Business account',
+    'booking.venmoPersonal': 'Keep personal Venmo (@TJ-SAB)',
+    'booking.venmoPurchase': 'Ask guests to mark Venmo as a purchase',
+    'booking.paypal': 'Also offer PayPal',
     'booking.discount': 'Discount versus Airbnb',
     'ops.sms': 'SMS at launch',
     domain: 'Domain'
