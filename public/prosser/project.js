@@ -11,8 +11,9 @@
     });
   }
 
-  var SPIKES_ENDPOINT = 'https://spikes.sh/spikes';
-  var SPIKES_PROJECT = 'yvs';
+  // Answers go to Moritz's Zo, which stores them before replying and texts him.
+  // (Spikes is only used for the on-page comment widget.)
+  var INTAKE_ENDPOINT = 'https://bierlingm.zo.space/api/prosser/answers';
   var PICKS_KEY = 'prosser-picks';
   var form = document.getElementById('decision-form');
   var status = document.getElementById('decision-status');
@@ -153,51 +154,43 @@
       + '&body=' + encodeURIComponent(lines.join('\n\n'));
   }
 
-  function postSpike(answer, name) {
-    var spike = {
-      id: (window.crypto && crypto.randomUUID) ? crypto.randomUUID() : 'd' + Date.now().toString(36) + Math.random().toString(36).slice(2, 8),
-      type: 'page',
-      projectKey: SPIKES_PROJECT,
-      page: 'Prosser Home decisions',
-      url: location.origin + '/prosser/#' + answer.id,
-      reviewer: { id: reviewerId, name: name },
-      rating: null,
-      comments: answer.title + '\n\n' + answer.answer,
-      timestamp: new Date().toISOString(),
-      viewport: { width: Math.max(1, Math.round(window.innerWidth)), height: Math.max(1, Math.round(window.innerHeight)) },
-      resolved: false
-    };
-    return fetch(SPIKES_ENDPOINT, { method: 'POST', mode: 'cors', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(spike) })
-      .then(function (r) {
-        if (r.ok) return;
-        return r.text().then(function (t) { throw new Error('HTTP ' + r.status + ' ' + t.slice(0, 200)); });
-      });
-  }
-
-  var delivered = {};
-
-  function wait(ms) { return new Promise(function (resolve) { setTimeout(resolve, ms); }); }
-
-  function postWithRetry(answer, name, attempt) {
-    return postSpike(answer, name).catch(function (err) {
-      if (attempt >= 3) throw err;
-      return wait(700 * attempt).then(function () { return postWithRetry(answer, name, attempt + 1); });
+  function uuid() {
+    if (window.crypto && crypto.randomUUID) return crypto.randomUUID();
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (ch) {
+      var r = Math.random() * 16 | 0;
+      return (ch === 'x' ? r : (r & 0x3 | 0x8)).toString(16);
     });
   }
 
-  // One at a time: parallel posts occasionally came back HTTP 500 from Spikes (18 Sep 2026).
-  // Answers that already arrived unchanged are not sent twice.
-  function sendAll(answers, name) {
-    var failed = [];
-    return answers.reduce(function (chain, answer) {
-      return chain.then(function () {
-        var sig = name + '\n' + answer.answer;
-        if (delivered[answer.id] === sig) return;
-        return postWithRetry(answer, name, 1)
-          .then(function () { delivered[answer.id] = sig; })
-          .catch(function (error) { failed.push({ answer: answer, error: error }); });
+  function wait(ms) { return new Promise(function (resolve) { setTimeout(resolve, ms); }); }
+
+  // One request carries every answer. The submission id is fixed per set of answers,
+  // so a retry after a lost response is recognised by the server and not stored twice.
+  var submissionIds = {};
+  var lastSent = recall('prosser-decision-last-sent');
+
+  function postAnswers(answers, name, attempt) {
+    var sig = JSON.stringify([name, answers]);
+    var id = submissionIds[sig] || (submissionIds[sig] = uuid());
+    var payload = {
+      submission_id: id,
+      reviewer: { id: reviewerId, name: name },
+      page: location.href,
+      answers: answers.map(function (a) { return { id: a.id, title: a.title, answer: a.answer }; })
+    };
+    return fetch(INTAKE_ENDPOINT, { method: 'POST', mode: 'cors', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) })
+      .then(function (r) {
+        if (r.ok) return sig;
+        return r.text().then(function (t) {
+          var err = new Error('HTTP ' + r.status + ' ' + t.slice(0, 200));
+          err.retryable = r.status >= 500 || r.status === 429;
+          throw err;
+        });
+      })
+      .catch(function (err) {
+        if (err.retryable === false || attempt >= 4) throw err;
+        return wait(800 * attempt).then(function () { return postAnswers(answers, name, attempt + 1); });
       });
-    }, Promise.resolve()).then(function () { return failed; });
   }
 
   form.addEventListener('submit', function (event) {
@@ -211,23 +204,27 @@
     if (!name) { status.textContent = 'Add your name so we know who answered.'; if (nameField) nameField.focus(); return; }
     if (!answers.length) { status.textContent = 'Tap a few ✓ / ✕ first.'; return; }
 
+    if (JSON.stringify([name, answers]) === lastSent) {
+      status.textContent = 'Already sent — we have these answers. Change something to send an update.';
+      return;
+    }
+
     submit.disabled = true; submit.textContent = 'Sending…';
     status.textContent = '';
-    sendAll(answers, name).then(function (failed) {
-      var ok = answers.length - failed.length;
-      if (!failed.length) {
+    postAnswers(answers, name, 1)
+      .then(function (sig) {
+        lastSent = sig;
+        remember('prosser-decision-last-sent', sig);
+        remember('prosser-decision-sent', new Date().toISOString());
         status.textContent = 'Sent. ' + answers.length + (answers.length === 1 ? ' answer' : ' answers') + ' reached us.';
         submit.textContent = 'Sent ✓';
         submit.disabled = false;
-        remember('prosser-decision-sent', new Date().toISOString());
-        return;
-      }
-      var err = failed[0].error;
-      console.error('[decisions] send failed', err);
-      var detail = err && err.message ? ' (' + String(err.message).replace(/[<>&]/g, '') + ')' : '';
-      status.innerHTML = ok + ' of ' + answers.length + ' went through; ' + failed.length + ' didn’t' + detail
-        + '. Press send again to retry just those, or <a href="' + mailtoFor(failed.map(function (f) { return f.answer; }), name).replace(/"/g, '&quot;') + '">send them by email</a>.';
-      submit.disabled = false; submit.textContent = 'Send these answers ↗';
-    });
+      })
+      .catch(function (err) {
+        console.error('[decisions] send failed', err);
+        var detail = err && err.message ? ' (' + String(err.message).replace(/[<>&]/g, '') + ')' : '';
+        status.innerHTML = 'That didn’t go through' + detail + '. Press send again, or <a href="' + mailtoFor(answers, name).replace(/"/g, '&quot;') + '">send the answers by email instead</a>.';
+        submit.disabled = false; submit.textContent = 'Send these answers ↗';
+      });
   });
 })();
