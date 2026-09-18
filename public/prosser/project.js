@@ -174,6 +174,32 @@
       });
   }
 
+  var delivered = {};
+
+  function wait(ms) { return new Promise(function (resolve) { setTimeout(resolve, ms); }); }
+
+  function postWithRetry(answer, name, attempt) {
+    return postSpike(answer, name).catch(function (err) {
+      if (attempt >= 3) throw err;
+      return wait(700 * attempt).then(function () { return postWithRetry(answer, name, attempt + 1); });
+    });
+  }
+
+  // One at a time: parallel posts occasionally came back HTTP 500 from Spikes (18 Sep 2026).
+  // Answers that already arrived unchanged are not sent twice.
+  function sendAll(answers, name) {
+    var failed = [];
+    return answers.reduce(function (chain, answer) {
+      return chain.then(function () {
+        var sig = name + '\n' + answer.answer;
+        if (delivered[answer.id] === sig) return;
+        return postWithRetry(answer, name, 1)
+          .then(function () { delivered[answer.id] = sig; })
+          .catch(function (error) { failed.push({ answer: answer, error: error }); });
+      });
+    }, Promise.resolve()).then(function () { return failed; });
+  }
+
   form.addEventListener('submit', function (event) {
     event.preventDefault();
     var name = nameField ? nameField.value.trim() : '';
@@ -187,17 +213,21 @@
 
     submit.disabled = true; submit.textContent = 'Sending…';
     status.textContent = '';
-    Promise.all(answers.map(function (a) { return postSpike(a, name); }))
-      .then(function () {
+    sendAll(answers, name).then(function (failed) {
+      var ok = answers.length - failed.length;
+      if (!failed.length) {
         status.textContent = 'Sent. ' + answers.length + (answers.length === 1 ? ' answer' : ' answers') + ' reached us.';
         submit.textContent = 'Sent ✓';
+        submit.disabled = false;
         remember('prosser-decision-sent', new Date().toISOString());
-      })
-      .catch(function (err) {
-        console.error('[decisions] send failed', err);
-        var detail = err && err.message ? ' (' + String(err.message).replace(/[<>&]/g, '') + ')' : '';
-        status.innerHTML = 'That didn’t go through' + detail + '. <a href="' + mailtoFor(answers, name).replace(/"/g, '&quot;') + '">Send the answers by email instead</a>.';
-        submit.disabled = false; submit.textContent = 'Send these answers ↗';
-      });
+        return;
+      }
+      var err = failed[0].error;
+      console.error('[decisions] send failed', err);
+      var detail = err && err.message ? ' (' + String(err.message).replace(/[<>&]/g, '') + ')' : '';
+      status.innerHTML = ok + ' of ' + answers.length + ' went through; ' + failed.length + ' didn’t' + detail
+        + '. Press send again to retry just those, or <a href="' + mailtoFor(failed.map(function (f) { return f.answer; }), name).replace(/"/g, '&quot;') + '">send them by email</a>.';
+      submit.disabled = false; submit.textContent = 'Send these answers ↗';
+    });
   });
 })();
