@@ -166,8 +166,12 @@
 
   // One request carries every answer. The submission id is fixed per set of answers,
   // so a retry after a lost response is recognised by the server and not stored twice.
+  // Answers send themselves: tapping a choice queues a send, so nobody has to remember
+  // to press the button. The button still works, and still says what state we are in.
   var submissionIds = {};
   var lastSent = recall('prosser-decision-last-sent');
+  var autoTimer = null;
+  var sending = false;
 
   function postAnswers(answers, name, attempt) {
     var sig = JSON.stringify([name, answers]);
@@ -178,7 +182,7 @@
       page: location.href,
       answers: answers.map(function (a) { return { id: a.id, title: a.title, answer: a.answer }; })
     };
-    return fetch(INTAKE_ENDPOINT, { method: 'POST', mode: 'cors', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) })
+    return fetch(INTAKE_ENDPOINT, { method: 'POST', mode: 'cors', keepalive: true, headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) })
       .then(function (r) {
         if (r.ok) return sig;
         return r.text().then(function (t) {
@@ -193,38 +197,105 @@
       });
   }
 
-  form.addEventListener('submit', function (event) {
-    event.preventDefault();
-    var name = nameField ? nameField.value.trim() : '';
-    var answers = Array.prototype.slice.call(form.querySelectorAll('article[data-field]')).map(function (article) {
+  function collectAnswers() {
+    return Array.prototype.slice.call(form.querySelectorAll('article[data-field]')).map(function (article) {
       var h = article.querySelector('h3');
       return { id: article.id, title: h ? h.textContent.trim() : article.id, answer: articleAnswer(article) };
     }).filter(function (a) { return a.answer; });
+  }
 
-    if (!name) { status.textContent = 'Add your name so we know who answered.'; if (nameField) nameField.focus(); return; }
-    if (!answers.length) { status.textContent = 'Tap a few ✓ / ✕ first.'; return; }
+  function reviewerName() { return nameField ? nameField.value.trim() : ''; }
 
-    if (JSON.stringify([name, answers]) === lastSent) {
-      status.textContent = 'Already sent — we have these answers. Change something to send an update.';
-      return;
+  function unsent() {
+    var answers = collectAnswers();
+    if (!answers.length) return null;
+    var name = reviewerName();
+    if (!name) return { answers: answers, name: '' };
+    return JSON.stringify([name, answers]) === lastSent ? null : { answers: answers, name: name };
+  }
+
+  // auto = queued by a tap; manual = they pressed the button.
+  function send(auto) {
+    var pending = unsent();
+    if (!pending) {
+      if (!auto) {
+        status.textContent = collectAnswers().length
+          ? 'Already sent — we have these answers. Change something to send an update.'
+          : 'Tap a few ✓ / ✕ first.';
+      }
+      return Promise.resolve('nothing');
     }
+    if (!pending.name) {
+      status.textContent = 'Add your name at the top of this box — then your answers send themselves.';
+      if (!auto && nameField) nameField.focus();
+      return Promise.resolve('no-name');
+    }
+    if (sending) { queueSend(1500); return Promise.resolve('busy'); }
 
-    submit.disabled = true; submit.textContent = 'Sending…';
-    status.textContent = '';
-    postAnswers(answers, name, 1)
+    sending = true;
+    submit.disabled = true;
+    submit.textContent = 'Sending…';
+    var answers = pending.answers;
+    var name = pending.name;
+    return postAnswers(answers, name, 1)
       .then(function (sig) {
         lastSent = sig;
         remember('prosser-decision-last-sent', sig);
         remember('prosser-decision-sent', new Date().toISOString());
         status.textContent = 'Sent. ' + answers.length + (answers.length === 1 ? ' answer' : ' answers') + ' reached us.';
         submit.textContent = 'Sent ✓';
-        submit.disabled = false;
+        return 'sent';
       })
       .catch(function (err) {
         console.error('[decisions] send failed', err);
         var detail = err && err.message ? ' (' + String(err.message).replace(/[<>&]/g, '') + ')' : '';
-        status.innerHTML = 'That didn’t go through' + detail + '. Press send again, or <a href="' + mailtoFor(answers, name).replace(/"/g, '&quot;') + '">send the answers by email instead</a>.';
-        submit.disabled = false; submit.textContent = 'Send these answers ↗';
+        status.innerHTML = 'Not through yet' + detail + '. It will keep trying — or <a href="' + mailtoFor(answers, name).replace(/"/g, '&quot;') + '">send the answers by email instead</a>.';
+        submit.textContent = 'Send these answers ↗';
+        queueSend(20000);
+        return 'failed';
+      })
+      .then(function (result) {
+        sending = false;
+        submit.disabled = false;
+        return result;
       });
+  }
+
+  function queueSend(delay) {
+    if (autoTimer) clearTimeout(autoTimer);
+    autoTimer = setTimeout(function () { autoTimer = null; send(true); }, delay);
+  }
+
+  // Called whenever an answer changes, so the button never claims "Sent ✓" for
+  // answers we have not actually sent yet.
+  function touched(delay) {
+    if (!unsent()) return;
+    if (submit.textContent !== 'Sending…') submit.textContent = 'Send these answers ↗';
+    if (reviewerName()) status.textContent = 'Saving your answers…';
+    queueSend(delay);
+  }
+
+  form.addEventListener('submit', function (event) {
+    event.preventDefault();
+    if (autoTimer) { clearTimeout(autoTimer); autoTimer = null; }
+    send(false);
   });
+
+  form.addEventListener('click', function (event) {
+    if (event.target.closest('.vote, .pick')) touched(1500);
+  });
+  form.addEventListener('input', function () { touched(3000); });
+
+  // Leaving the page with something queued: send it now rather than lose it.
+  document.addEventListener('visibilitychange', function () {
+    if (document.visibilityState === 'hidden' && autoTimer) {
+      clearTimeout(autoTimer);
+      autoTimer = null;
+      send(true);
+    }
+  });
+
+  // Answers tapped in an earlier visit and never sent are still in this browser.
+  // Send them on load so they cannot sit here unnoticed.
+  if (unsent()) touched(800);
 })();
