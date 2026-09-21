@@ -52,6 +52,6 @@
 .note.taken{color:#c4b8a4}
 .bed-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px 18px;margin-top:18px}
 .bed-grid label,.decision-form label.extra{margin-top:16px}
-.bed-grid input,.decision-form input[type="text"],.decision-form input[type="url"]{display:block;width:100%;margin-top:6px;padding:10px 0;border:0;border-bottom:1px solid #506057;background:transparent;color:var(--text);font:inherit}
-.bed-grid input:focus,.decision-form input[type="text"]:focus,.decision-form input[type="url"]:focus{outline:0;border-bottom-color:var(--accent)}
+.bed-grid input,.decision-form input[type="text"],.decision-form input[type="url"],.decision-form input[type="tel"]{display:block;width:100%;margin-top:6px;padding:10px 0;border:0;border-bottom:1px solid #506057;background:transparent;color:var(--text);font:inherit}
+.bed-grid input:focus,.decision-form input[type="text"]:focus,.decision-form input[type="url"]:focus,.decision-form input[type="tel"]:focus{outline:0;border-bottom-color:var(--accent)}
 @media(max-width:850px){.status-grid.four,.status-grid.pair,.quote-grid,.bed-grid{grid-template-columns:1fr}.decision-list article.wide{grid-column:auto}.act-list li{align-items:flex-start}}

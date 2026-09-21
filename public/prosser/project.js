@@ -122,6 +122,7 @@
     'booking.paypal': 'Also offer PayPal',
     'booking.discount': 'Discount versus Airbnb',
     'ops.sms': 'SMS at launch',
+    'ops.phone': 'Phone',
     domain: 'Domain'
   };
 

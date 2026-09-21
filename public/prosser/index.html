@@ -36,6 +36,7 @@
     </section>
     <nav class="section-nav" aria-label="Project sections">
       <a href="#website">The website</a>
+      <a href="#status">Where things stand</a>
       <a href="#need">Questions</a>
       <a href="#done">Already done</a>
       <a href="#versions">Versions</a>
@@ -72,10 +73,31 @@
       <p class="note">For a real mobile pass, open the full page. v0.1 uses stand-in photos; treat it as a design reference only.</p>
     </section>
 
+    <section id="status">
+      <div class="section-title">
+        <h2>Where things stand.</h2>
+        <p>What’s left before launch, and who it’s waiting on.</p>
+      </div>
+      <div class="settled-questions">
+        <ul>
+          <li><span class="tag done">Done</span><div><h4>The website</h4><p>v0.8, with your 20 September answers applied.</p></div></li>
+          <li><span class="tag done">Done</span><div><h4>Venmo payments</h4><p>The Pay page opens Venmo to @TJ-SAB with the amount and dates filled in.</p></div></li>
+          <li><span class="tag done">Done</span><div><h4>Booking requests are never lost</h4><p>Every request is saved on our side as well as emailed. A guest only sees “sent” once it has really arrived.</p></div></li>
+          <li><span class="tag pending">With us</span><div><h4>Domain: theprosserhome.com</h4><p>We register it and move the site there before launch.</p></div></li>
+          <li><span class="tag pending">With us</span><div><h4>Booking emails</h4><p>Sent from theprosserhome.com as soon as the domain is registered.</p></div></li>
+          <li><span class="tag review">Needs you</span><div><h4>Booking texts</h4><p>Your mobile number and phone type. <a href="#decision-operations">Answer here</a>.</p></div></li>
+          <li><span class="tag review">Needs you</span><div><h4>Calendars</h4><p>The Airbnb and Vrbo export links. Until then the calendar shows sample dates.</p></div></li>
+          <li><span class="tag review">Needs you</span><div><h4>PayPal</h4><p>Your PayPal.Me handle, if you still want PayPal next to Venmo.</p></div></li>
+          <li><span class="tag review">Needs you</span><div><h4>House details</h4><p>Bed sizes, and whether the mattresses, Wi-Fi and dining table still need work.</p></div></li>
+          <li><span class="tag pending">Last step</span><div><h4>Your sign-off, then launch</h4><p>Once the items above are done.</p></div></li>
+        </ul>
+      </div>
+    </section>
+
     <section id="need">
       <div class="section-title">
         <h2>What we need from you.</h2>
-        <p><strong>Got your answers on 20 September — thank you, they’re applied (see <a href="#done">Already done</a>).</strong> Still open, whenever you have a moment: your PayPal.Me handle, the Airbnb and Vrbo calendar export links, bed sizes, and the mattress, Wi-Fi and dining-table questions. Your answers send themselves as you tap. Your Airbnb listing is a <strong>4.9 Guest Favorite from 165 reviews</strong> (50 group trips, 37 with kids). Guests praise the quiet in-town street, space for two households, and the new game room. The asks below already use that.</p>
+        <p><strong>Got your answers on 20 September — thank you, they’re applied (see <a href="#done">Already done</a>).</strong> Still open, whenever you have a moment: your phone type and mobile number for booking texts, your PayPal.Me handle, the Airbnb and Vrbo calendar export links, bed sizes, and the mattress, Wi-Fi and dining-table questions. <a href="#status">Where things stand</a> has the full list. Your answers send themselves as you tap. Your Airbnb listing is a <strong>4.9 Guest Favorite from 165 reviews</strong> (50 group trips, 37 with kids). Guests praise the quiet in-town street, space for two households, and the new game room. The asks below already use that.</p>
       </div>
       <form class="decision-form" id="decision-form">
         <p class="need-label">1. Is this the house?</p>
@@ -218,11 +240,14 @@
             <label class="extra">Cancellation terms<textarea name="booking_cancel" placeholder="Free until 5 days before, then…"></textarea></label>
           </article>
           <article id="decision-operations" data-field="operations"><span class="tag pending">Before launch</span>
-            <h3>Calendars and SMS</h3>
-            <p>Sync is built both ways. Paste the export URLs. For a guest arriving tomorrow, also block by hand — imported calendars lag about 3 hours.</p>
-            <ul class="act-list">
-              <li><div><strong>Turn SMS on at launch</strong><span>About a dollar a month plus a fraction of a cent per text.</span></div><div class="votes" role="group" aria-label="SMS at launch"><button type="button" class="vote yes" data-k="ops.sms" data-v="yes" aria-pressed="true" aria-label="Yes">✓</button><button type="button" class="vote no" data-k="ops.sms" data-v="no" aria-pressed="false" aria-label="No">✕</button></div></li>
-            </ul>
+            <h3>Calendars and booking texts</h3>
+            <p><strong>Texts:</strong> each booking request sends you a short text with the guest’s name, dates and party size. The full request still comes by email. Texts come from our assistant’s number and cost you nothing. Which phone do you use? We’ll send you a one-minute setup so booking emails buzz like texts too.</p>
+            <div class="pick-list" role="radiogroup" aria-label="Your phone">
+              <button type="button" class="pick" data-k="ops.phone" data-v="iPhone" aria-pressed="false"><strong>iPhone</strong></button>
+              <button type="button" class="pick" data-k="ops.phone" data-v="Android" aria-pressed="false"><strong>Android</strong></button>
+            </div>
+            <label>Mobile number for booking texts<input type="tel" name="sms_mobile" placeholder="(509) 555-0123" autocomplete="tel"></label>
+            <p style="margin-top:26px"><strong>Calendars:</strong> sync is built both ways. Paste the export URLs. For a guest arriving tomorrow, also block by hand — imported calendars lag about 3 hours.</p>
             <label>Airbnb calendar export URL<input type="url" name="ical_airbnb" placeholder="https://www.airbnb.com/calendar/ical/…"></label>
             <label>Vrbo calendar export URL<input type="url" name="ical_vrbo" placeholder="https://www.vrbo.com/icalendar/…"></label>
             <p class="note">Airbnb: Calendar → Availability settings → Connect calendars → Export. Vrbo: Calendar → Import &amp; export → Export.</p>
@@ -256,7 +281,7 @@
             <li><strong>“Remove the gas fireplace, we need to get it fixed.”</strong> Removed. Say the word when it’s fixed.</li>
             <li><strong>“There are more attractive photos of Prosser… sunset or from the Horse Heaven Hills.”</strong> Explore now leads with those views. Send a favourite of your own if you have one.</li>
             <li><strong>“Will it sync with Airbnb and Vrbo, and vice versa?”</strong> Yes. The remaining piece is pasting the export links in the questions above.</li>
-            <li><strong>“Send requests to both of us, and a text to my mobile.”</strong> Both inboxes are set. SMS is ready to switch on before launch.</li>
+            <li><strong>“Send requests to both of us, and a text to my mobile.”</strong> Both inboxes are set. Texts come from our assistant’s number instead of a paid SMS service — your mobile number is the one thing we still need (see <a href="#decision-operations">Calendars and booking texts</a>).</li>
           </ul>
         </details>
         <details open>
@@ -269,7 +294,7 @@
             <li><strong>Local places.</strong> Everything on Explore stays. Added Milbrandt in Vintners Village, a Red Mountain day trip (the AVA, Kiona, Fidélitas) and a Balloon Rally card.</li>
             <li><strong>Domain.</strong> theprosserhome.com — we’ll register it and point the site there before launch.</li>
             <li><strong>Payments.</strong> Personal Venmo stays; the Pay page asks guests to turn on Venmo’s Purchase toggle. Direct bookings are 7.5% less than Airbnb — on the site and in your request emails. PayPal goes live once you send the PayPal.Me handle.</li>
-            <li><strong>SMS.</strong> We’ll switch it on at launch.</li>
+            <li><strong>Texts.</strong> Yes at launch. They come free from our assistant’s number. We just need your mobile number and phone type.</li>
           </ul>
         </details>
         <details>
