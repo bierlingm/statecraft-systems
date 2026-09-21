@@ -48,8 +48,11 @@
 
   function setExclusive(btn) {
     var k = btn.getAttribute('data-k');
-    form.querySelectorAll('[data-k="' + k + '"]').forEach(function (other) {
-      other.setAttribute('aria-pressed', other === btn ? 'true' : 'false');
+    var group = form.querySelectorAll('[data-k="' + k + '"]');
+    // A lone option (e.g. "Skip PayPal") toggles off when tapped again.
+    var off = group.length === 1 && btn.getAttribute('aria-pressed') === 'true';
+    group.forEach(function (other) {
+      other.setAttribute('aria-pressed', other === btn && !off ? 'true' : 'false');
     });
     savePicks(currentPicks());
   }
@@ -119,7 +122,7 @@
     'local.rally': 'Balloon Rally (Explore)',
     'booking.venmoPersonal': 'Keep personal Venmo (@TJ-SAB)',
     'booking.venmoPurchase': 'Ask guests to mark Venmo as a purchase',
-    'booking.paypal': 'Also offer PayPal',
+    'booking.paypal': 'Offer PayPal',
     'booking.discount': 'Discount versus Airbnb',
     'ops.sms': 'SMS at launch',
     'ops.phone': 'Phone',
@@ -245,13 +248,14 @@
         remember('prosser-decision-sent', new Date().toISOString());
         status.textContent = 'Sent. ' + answers.length + (answers.length === 1 ? ' answer' : ' answers') + ' reached us.';
         submit.textContent = 'Sent ✓';
+        refreshNeeds();
         return 'sent';
       })
       .catch(function (err) {
         console.error('[decisions] send failed', err);
         var detail = err && err.message ? ' (' + String(err.message).replace(/[<>&]/g, '') + ')' : '';
         status.innerHTML = 'Not through yet' + detail + '. It will keep trying — or <a href="' + mailtoFor(answers, name).replace(/"/g, '&quot;') + '">send the answers by email instead</a>.';
-        submit.textContent = 'Send these answers ↗';
+        submit.textContent = 'Send now';
         queueSend(20000);
         return 'failed';
       })
@@ -271,7 +275,7 @@
   // answers we have not actually sent yet.
   function touched(delay) {
     if (!unsent()) return;
-    if (submit.textContent !== 'Sending…') submit.textContent = 'Send these answers ↗';
+    if (submit.textContent !== 'Sending…') submit.textContent = 'Send now';
     if (reviewerName()) status.textContent = 'Saving your answers…';
     queueSend(delay);
   }
@@ -286,6 +290,53 @@
     if (event.target.closest('.vote, .pick')) touched(1500);
   });
   form.addEventListener('input', function () { touched(3000); });
+
+  // What's still needed from Tyler: each card says when it's complete, and the
+  // counters at the top and in the nav follow.
+  function filled(name) {
+    var f = form.querySelector('[name="' + name + '"]');
+    return !!(f && f.value.trim());
+  }
+  function picked(k) { return !!form.querySelector('[data-k="' + k + '"][aria-pressed="true"]'); }
+  var NEEDS = {
+    'need-texts': function () { return picked('ops.phone') && filled('sms_mobile'); },
+    'need-calendars': function () { return filled('ical_airbnb') && filled('ical_vrbo'); },
+    'need-house': function () {
+      return ['bed_1', 'bed_2', 'bed_3', 'bed_up'].every(filled)
+        && ['facts.mattresses', 'facts.wifi', 'facts.table8'].every(picked);
+    },
+    'need-paypal': function () { return filled('paypal_handle') || picked('booking.paypal'); }
+  };
+  function refreshNeeds() {
+    var left = 0;
+    Object.keys(NEEDS).forEach(function (id) {
+      var article = document.getElementById(id);
+      if (!article) return;
+      var done = NEEDS[id]();
+      if (!done) left++;
+      article.classList.toggle('is-complete', done);
+      var tag = article.querySelector('.item-state .tag');
+      if (tag) tag.textContent = done ? 'Got it ✓' : 'Needs you';
+    });
+    document.querySelectorAll('[data-count]').forEach(function (el) {
+      el.textContent = left;
+      if (left) el.removeAttribute('data-zero'); else el.setAttribute('data-zero', '');
+    });
+    document.querySelectorAll('[data-count-text]').forEach(function (el) {
+      el.textContent = left
+        ? 'Almost ready to launch · ' + left + (left === 1 ? ' thing' : ' things') + ' left'
+        : 'Nothing needed from you right now';
+    });
+    var intro = document.querySelector('.need-intro');
+    var allDone = document.querySelector('.all-done');
+    if (intro) intro.hidden = !left;
+    if (allDone) allDone.hidden = !!left;
+  }
+  form.addEventListener('click', function (event) {
+    if (event.target.closest('.vote, .pick')) refreshNeeds();
+  });
+  form.addEventListener('input', refreshNeeds);
+  refreshNeeds();
 
   // Leaving the page with something queued: send it now rather than lose it.
   document.addEventListener('visibilitychange', function () {

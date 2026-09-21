@@ -4,11 +4,11 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>The Prosser Home — Project room · Statecraft Systems</title>
-  <meta name="description" content="Review The Prosser Home website and send the remaining decisions.">
+  <meta name="description" content="The Prosser Home: the last details before launch.">
   <meta name="robots" content="noindex,nofollow">
   <meta name="theme-color" content="#151c18">
   <meta property="og:title" content="The Prosser Home — Project room">
-  <meta property="og:description" content="Look at the website, comment on it, and answer what’s left before launch.">
+  <meta property="og:description" content="The last details before launch.">
   <meta property="og:image" content="https://statecraft.systems/prosser/versions/v0-8/assets/listing/listing-10.jpeg">
   <meta property="og:url" content="https://statecraft.systems/prosser/">
   <link rel="canonical" href="https://statecraft.systems/prosser/">
@@ -17,35 +17,103 @@
 </head>
 <body>
   <a class="skip" href="#main">Skip to project</a>
-  <header class="topbar"><a href="/">Statecraft Systems</a><a href="#need">Answer the questions</a></header>
+  <header class="topbar"><a href="/">Statecraft Systems</a><a href="#need" class="need-link">What’s left</a></header>
   <main id="main">
     <section class="opening" aria-labelledby="project-title">
       <div>
-        <p class="status"><span></span>Ready for you · v0.8</p>
+        <p class="status"><span></span><span class="need-count" data-count-text>Almost ready to launch · 4 things left</span></p>
         <h1 id="project-title">The Prosser Home.</h1>
-        <p class="intro">Look at the website. Comment on anything that feels off. Then answer the questions we still need before launch.</p>
-        <p>New in v0.8: your answers from 20 September are on the website — the upstairs suite, kids welcome, later check-out on request, soap in each bath, all six guest quotes, the stays you picked, Red Mountain and the Balloon Rally on Explore, and the 7.5% direct-booking discount. A few small things are still open below.</p>
+        <p class="intro">The website is live at <a href="https://theprosserhome.com">theprosserhome.com</a>. A few details from you, then your sign-off, and it launches.</p>
+        <ol class="progress" aria-label="Progress to launch">
+          <li class="is-done">Website</li>
+          <li class="is-done">Domain &amp; email</li>
+          <li class="is-now">Your last details</li>
+          <li>Sign-off</li>
+          <li>Launch</li>
+        </ol>
         <div class="actions">
-          <a class="button" href="/prosser/versions/v0-8/">Open the website ↗</a>
-          <a href="#need">Answer the questions ↓</a>
+          <a class="button" href="#need">Answer the last questions ↓</a>
+          <a href="https://theprosserhome.com">Open the website ↗</a>
         </div>
-        <p class="path">Look → click <strong>/</strong> on the site to comment → send answers → we connect domain and calendars → you sign off → launch.</p>
         <p class="updated">Updated 21 September 2026</p>
       </div>
       <img src="/prosser/versions/v0-8/assets/listing/listing-10.jpeg" alt="Exterior of the Prosser rental home" width="1200" height="800" fetchpriority="high">
     </section>
     <nav class="section-nav" aria-label="Project sections">
-      <a href="#website">The website</a>
-      <a href="#status">Where things stand</a>
-      <a href="#need">Questions</a>
-      <a href="#done">Already done</a>
-      <a href="#versions">Versions</a>
+      <a href="#need">Needs you <span class="count" data-count>4</span></a>
+      <a href="#website">Website</a>
+      <a href="#done">Done &amp; history</a>
     </nav>
+
+    <section id="need">
+      <div class="section-title">
+        <h2>Your last details.</h2>
+        <p class="need-intro">Everything else is done. Your answers send themselves as you type or tap — no need to press anything.</p>
+        <p class="all-done" hidden><strong>Nothing needed from you right now.</strong> We have everything. Next is your sign-off — we’ll message you when it’s ready.</p>
+      </div>
+      <form class="decision-form" id="decision-form">
+        <label class="decision-name">Your name<input type="text" name="reviewer" autocomplete="name" placeholder="Tyler" required></label>
+        <div class="decision-list">
+          <article id="need-texts" data-field="operations">
+            <p class="item-state"><span class="tag review">Needs you</span></p>
+            <h3>Booking texts</h3>
+            <p>Each booking request texts you the guest’s name, dates and party size. Free, from our assistant’s number. Which phone do you have? We’ll send a one-minute setup so booking emails buzz like texts too.</p>
+            <div class="pick-list two" role="radiogroup" aria-label="Your phone">
+              <button type="button" class="pick" data-k="ops.phone" data-v="iPhone" aria-pressed="false"><strong>iPhone</strong></button>
+              <button type="button" class="pick" data-k="ops.phone" data-v="Android" aria-pressed="false"><strong>Android</strong></button>
+            </div>
+            <label>Mobile number<input type="tel" name="sms_mobile" placeholder="(509) 555-0123" autocomplete="tel"></label>
+          </article>
+          <article id="need-calendars" data-field="calendars">
+            <p class="item-state"><span class="tag review">Needs you</span></p>
+            <h3>Calendar links</h3>
+            <p>So the site greys out nights booked on Airbnb and Vrbo. Until then it shows sample dates.</p>
+            <label>Airbnb calendar export link<input type="url" name="ical_airbnb" placeholder="https://www.airbnb.com/calendar/ical/…"></label>
+            <label>Vrbo calendar export link<input type="url" name="ical_vrbo" placeholder="https://www.vrbo.com/icalendar/…"></label>
+            <details class="howto"><summary>Where to find them</summary><p><strong>Airbnb:</strong> Calendar → Availability settings → Connect calendars → Export. <strong>Vrbo:</strong> Calendar → Import &amp; export → Export. For a guest arriving tomorrow, also block the dates by hand — imported calendars lag about 3 hours.</p></details>
+          </article>
+          <article id="need-house" data-field="facts">
+            <p class="item-state"><span class="tag review">Needs you</span></p>
+            <h3>House details</h3>
+            <p>Bed sizes, and three things guests have mentioned.</p>
+            <div class="bed-grid">
+              <label>Main bedroom 1<input type="text" name="bed_1" placeholder="e.g. King"></label>
+              <label>Main bedroom 2<input type="text" name="bed_2" placeholder="e.g. Queen"></label>
+              <label>Main bedroom 3<input type="text" name="bed_3" placeholder="e.g. Queen"></label>
+              <label>Upstairs suite<input type="text" name="bed_up" placeholder="e.g. King"></label>
+            </div>
+            <ul class="act-list">
+              <li><div><strong>Mattresses still need work</strong><span>“Soft beds” came up more than once.</span></div><div class="votes" role="group" aria-label="Mattresses still need work"><button type="button" class="vote yes" data-k="facts.mattresses" data-v="yes" aria-pressed="false" aria-label="Yes, still need work">✓</button><button type="button" class="vote no" data-k="facts.mattresses" data-v="no" aria-pressed="false" aria-label="No, already fine">✕</button></div></li>
+              <li><div><strong>Wi-Fi still a problem</strong><span>From a June 2026 review.</span></div><div class="votes" role="group" aria-label="Wi-Fi still a problem"><button type="button" class="vote yes" data-k="facts.wifi" data-v="yes" aria-pressed="false" aria-label="Yes, still a problem">✓</button><button type="button" class="vote no" data-k="facts.wifi" data-v="no" aria-pressed="false" aria-label="No, fixed">✕</button></div></li>
+              <li><div><strong>Dining table seats 8</strong><span>A 2022 guest said it seats 6.</span></div><div class="votes" role="group" aria-label="Dining table seats 8"><button type="button" class="vote yes" data-k="facts.table8" data-v="yes" aria-pressed="false" aria-label="Yes, seats 8">✓</button><button type="button" class="vote no" data-k="facts.table8" data-v="no" aria-pressed="false" aria-label="No">✕</button></div></li>
+            </ul>
+          </article>
+          <article id="need-paypal" data-field="booking">
+            <p class="item-state"><span class="tag review">Needs you</span></p>
+            <h3>PayPal</h3>
+            <p>Venmo is live on the Pay page. PayPal appears next to it once we have your PayPal.Me handle.</p>
+            <label>PayPal.Me handle<input type="text" name="paypal_handle" placeholder="paypal.me/yourname" autocomplete="off"></label>
+            <div class="pick-list" role="radiogroup" aria-label="PayPal">
+              <button type="button" class="pick small" data-k="booking.paypal" data-v="no" aria-pressed="false"><strong>Skip PayPal — Venmo only is fine</strong></button>
+            </div>
+          </article>
+        </div>
+        <p id="decision-status" class="note" role="status"></p>
+        <button class="button send" type="submit">Send now</button>
+      </form>
+      <div class="heads-up">
+        <h3>Heads-up — nothing to send</h3>
+        <ul>
+          <li><strong>Put out the soap.</strong> The site now tells guests there’s unscented soap in each bathroom.</li>
+          <li><strong>Your first booking email.</strong> The domain is new, so it may land in spam or promotions. Mark it “not spam” and add bookings@theprosserhome.com to your contacts.</li>
+        </ul>
+      </div>
+    </section>
 
     <section id="website">
       <div class="section-title">
         <h2>The website.</h2>
-        <p>v0.8. Open a page, then click the <strong>/</strong> button to comment on a specific element — that’s <a href="https://spikes.sh" target="_blank" rel="noopener">Spikes</a>. Don’t put guest information, passwords or private calendar links in comments. Use the questions below for decisions.</p>
+        <p>Live at <a href="https://theprosserhome.com">theprosserhome.com</a>. To comment on something, open a page below and tap the <strong>/</strong> button, then tap the part you mean. Please don’t put guest details, passwords or calendar links in comments.</p>
       </div>
       <div class="page-links">
         <a href="/prosser/versions/v0-8/">Home ↗</a>
@@ -55,277 +123,84 @@
         <a href="/prosser/versions/v0-8/contact">Contact ↗</a>
         <a href="/prosser/versions/v0-8/pay">Pay ↗</a>
       </div>
-      <div class="preview-toolbar">
-        <label for="preview-version">Preview version</label>
-        <select id="preview-version">
-          <option value="v0-8">v0.8 — Current</option>
-          <option value="v0-7">v0.7 — Bedroom photo and Venmo</option>
-          <option value="v0-6">v0.6 — Stay planner</option>
-          <option value="v0-5">v0.5 — The Prosser Home</option>
-          <option value="v0-4">v0.4 — Booking setup</option>
-          <option value="v0-3">v0.3 — Copy refinement</option>
-          <option value="v0-2">v0.2 — Listing-led redesign</option>
-          <option value="v0-1">v0.1 — Concept only</option>
-        </select>
-        <a id="open-preview" href="/prosser/versions/v0-8/">Open full page ↗</a>
-      </div>
-      <iframe id="site-preview" src="/prosser/versions/v0-8/index.html" title="Prosser Home website preview, version 0.8" loading="lazy"></iframe>
-      <p class="note">For a real mobile pass, open the full page. v0.1 uses stand-in photos; treat it as a design reference only.</p>
-    </section>
-
-    <section id="status">
-      <div class="section-title">
-        <h2>Where things stand.</h2>
-        <p>What’s left before launch, and who it’s waiting on.</p>
-      </div>
-      <div class="settled-questions">
-        <ul>
-          <li><span class="tag done">Done</span><div><h4>The website</h4><p>v0.8, with your 20 September answers applied.</p></div></li>
-          <li><span class="tag done">Done</span><div><h4>Venmo payments</h4><p>The Pay page opens Venmo to @TJ-SAB with the amount and dates filled in.</p></div></li>
-          <li><span class="tag done">Done</span><div><h4>Booking requests are never lost</h4><p>Every request is saved on our side as well as emailed. A guest only sees “sent” once it has really arrived.</p></div></li>
-          <li><span class="tag done">Done</span><div><h4>Domain: theprosserhome.com</h4><p>Registered on 21 September. The site now lives at <a href="https://theprosserhome.com">theprosserhome.com</a>, and the old address forwards there.</p></div></li>
-          <li><span class="tag done">Done</span><div><h4>Booking emails</h4><p>Requests and guest confirmations now come from bookings@theprosserhome.com. Guest replies go straight to you. <strong>One thing to do:</strong> the domain is brand new, so your first booking email may land in spam or promotions. When it arrives, mark it “not spam” and add bookings@theprosserhome.com to your contacts, and the rest will come straight to your inbox.</p></div></li>
-          <li><span class="tag review">Needs you</span><div><h4>Booking texts</h4><p>Your mobile number and phone type. <a href="#decision-operations">Answer here</a>.</p></div></li>
-          <li><span class="tag review">Needs you</span><div><h4>Calendars</h4><p>The Airbnb and Vrbo export links. Until then the calendar shows sample dates.</p></div></li>
-          <li><span class="tag review">Needs you</span><div><h4>PayPal</h4><p>Your PayPal.Me handle, if you still want PayPal next to Venmo.</p></div></li>
-          <li><span class="tag review">Needs you</span><div><h4>House details</h4><p>Bed sizes, and whether the mattresses, Wi-Fi and dining table still need work.</p></div></li>
-          <li><span class="tag pending">Last step</span><div><h4>Your sign-off, then launch</h4><p>Once the items above are done.</p></div></li>
-        </ul>
-      </div>
-    </section>
-
-    <section id="need">
-      <div class="section-title">
-        <h2>What we need from you.</h2>
-        <p><strong>Got your answers on 20 September — thank you, they’re applied (see <a href="#done">Already done</a>).</strong> Still open, whenever you have a moment: your phone type and mobile number for booking texts, your PayPal.Me handle, the Airbnb and Vrbo calendar export links, bed sizes, and the mattress, Wi-Fi and dining-table questions. <a href="#status">Where things stand</a> has the full list. Your answers send themselves as you tap. Your Airbnb listing is a <strong>4.9 Guest Favorite from 165 reviews</strong> (50 group trips, 37 with kids). Guests praise the quiet in-town street, space for two households, and the new game room. The asks below already use that.</p>
-      </div>
-      <form class="decision-form" id="decision-form">
-        <p class="need-label">1. Is this the house?</p>
-        <div class="decision-list">
-          <article id="decision-facts" class="wide" data-field="facts"><span class="tag review">Tyler + co-owner</span>
-            <h3>Is the house described accurately?</h3>
-            <p>✓ means do this. ✕ means no. Bed sizes still need a word if you know them.</p>
-            <ul class="act-list">
-              <li><div><strong>Call the upstairs a suite</strong><span>Sitting room and a separate bath — not a second master.</span></div><div class="votes" role="group" aria-label="Call upstairs a suite"><button type="button" class="vote yes" data-k="facts.suite" data-v="yes" aria-pressed="true" aria-label="Yes">✓</button><button type="button" class="vote no" data-k="facts.suite" data-v="no" aria-pressed="false" aria-label="No">✕</button></div></li>
-              <li><div><strong>Treat it as family-friendly</strong><span>Airbnb says “not suitable for children.” 37 stays were with kids. We’d match the house, not that flag.</span></div><div class="votes" role="group" aria-label="Family-friendly"><button type="button" class="vote yes" data-k="facts.family" data-v="yes" aria-pressed="true" aria-label="Yes">✓</button><button type="button" class="vote no" data-k="facts.family" data-v="no" aria-pressed="false" aria-label="No">✕</button></div></li>
-              <li><div><strong>Mattresses still need work</strong><span>Soft beds / full-size tight for two adults came up more than once.</span></div><div class="votes" role="group" aria-label="Mattresses need work"><button type="button" class="vote yes" data-k="facts.mattresses" data-v="yes" aria-pressed="false" aria-label="Yes">✓</button><button type="button" class="vote no" data-k="facts.mattresses" data-v="no" aria-pressed="false" aria-label="Already fine">✕</button></div></li>
-              <li><div><strong>Wi-Fi still a problem</strong><span>A June 2026 review. ✕ if it’s already fixed.</span></div><div class="votes" role="group" aria-label="Wi-Fi still a problem"><button type="button" class="vote yes" data-k="facts.wifi" data-v="yes" aria-pressed="false" aria-label="Yes">✓</button><button type="button" class="vote no" data-k="facts.wifi" data-v="no" aria-pressed="false" aria-label="Already fine">✕</button></div></li>
-              <li><div><strong>Offer late checkout on request</strong><span>10 am is hard with kids. Turnovers can stay 10 am.</span></div><div class="votes" role="group" aria-label="Late checkout on request"><button type="button" class="vote yes" data-k="facts.lateCheckout" data-v="yes" aria-pressed="true" aria-label="Yes">✓</button><button type="button" class="vote no" data-k="facts.lateCheckout" data-v="no" aria-pressed="false" aria-label="No">✕</button></div></li>
-              <li><div><strong>Put a small unscented soap in each bath</strong><span>Guests still miss “bring your own toiletries.”</span></div><div class="votes" role="group" aria-label="Add unscented soap"><button type="button" class="vote yes" data-k="facts.soap" data-v="yes" aria-pressed="true" aria-label="Yes">✓</button><button type="button" class="vote no" data-k="facts.soap" data-v="no" aria-pressed="false" aria-label="No">✕</button></div></li>
-              <li><div><strong>The dining table already seats 8</strong><span>A 2022 guest said it seats 6. ✓ if that’s been fixed.</span></div><div class="votes" role="group" aria-label="Table seats 8"><button type="button" class="vote yes" data-k="facts.table8" data-v="yes" aria-pressed="false" aria-label="Yes">✓</button><button type="button" class="vote no" data-k="facts.table8" data-v="no" aria-pressed="false" aria-label="No">✕</button></div></li>
-            </ul>
-            <div class="bed-grid">
-              <label>Main bedroom 1<input type="text" name="bed_1" placeholder="e.g. King"></label>
-              <label>Main bedroom 2<input type="text" name="bed_2" placeholder="e.g. Queen"></label>
-              <label>Main bedroom 3<input type="text" name="bed_3" placeholder="e.g. Queen"></label>
-              <label>Upstairs<input type="text" name="bed_up" placeholder="e.g. King"></label>
-            </div>
-            <label class="extra">Anything else<textarea name="facts_note" placeholder="Stairs, pets, quiet hours, amenities…"></textarea></label>
-          </article>
-          <article id="decision-photos" class="wide" data-field="photos"><span class="tag review">Tyler + co-owner</span>
-            <h3>Are these the photos we should use?</h3>
-            <ul class="act-list">
-              <li><div><strong>Keep the listing photos</strong><span>The ones already on the site, now with your sleigh-bed bedroom in place of the old “01 / Rest” shot.</span></div><div class="votes" role="group" aria-label="Keep listing photos"><button type="button" class="vote yes" data-k="photos.keep" data-v="yes" aria-pressed="true" aria-label="Yes">✓</button><button type="button" class="vote no" data-k="photos.keep" data-v="no" aria-pressed="false" aria-label="No">✕</button></div></li>
-              <li><div><strong>Shoot new daylight of both suites, upstairs living, kitchen, patio</strong><span>Helps guests read the layout.</span></div><div class="votes" role="group" aria-label="New daylight photos"><button type="button" class="vote yes" data-k="photos.new" data-v="yes" aria-pressed="false" aria-label="Yes">✓</button><button type="button" class="vote no" data-k="photos.new" data-v="no" aria-pressed="false" aria-label="No">✕</button></div></li>
-            </ul>
-            <label class="extra">Photo notes<textarea name="photos_note" placeholder="Replace listing-14, I’ll send a sunset shot…"></textarea></label>
-          </article>
+      <div class="preview-wrap">
+        <div class="preview-toolbar">
+          <label for="preview-version">Preview</label>
+          <select id="preview-version">
+            <option value="v0-8">v0.8 — Current</option>
+            <option value="v0-7">v0.7 — Bedroom photo and Venmo</option>
+            <option value="v0-6">v0.6 — Stay planner</option>
+            <option value="v0-5">v0.5 — The Prosser Home</option>
+            <option value="v0-4">v0.4 — Booking setup</option>
+            <option value="v0-3">v0.3 — Copy refinement</option>
+            <option value="v0-2">v0.2 — Listing-led redesign</option>
+            <option value="v0-1">v0.1 — Concept only</option>
+          </select>
+          <a id="open-preview" href="/prosser/versions/v0-8/">Open full page ↗</a>
         </div>
-
-        <p class="need-label">2. What should it say?</p>
-        <div class="decision-list">
-          <article id="decision-quotes" class="wide" data-field="quotes"><span class="tag review">Tyler + co-owner</span>
-            <h3>Which guest quotes may we use?</h3>
-            <p>✓ use it. ✕ skip it. First four are on; Hugo and Steve are off unless you tap ✓. We’ll attribute first name, hometown, date, and “From guests on Airbnb.”</p>
-            <div class="quote-grid">
-              <figure>
-                <blockquote>“Wonderful home. Quiet and clean. The pool table and shuffleboard was a big plus!!”</blockquote>
-                <figcaption>Tina, Yakima · Aug 2026 · Home</figcaption>
-                <div class="votes" role="group" aria-label="Use Tina’s quote"><button type="button" class="vote yes" data-k="quotes.tina" data-v="yes" aria-pressed="true" aria-label="Use">✓</button><button type="button" class="vote no" data-k="quotes.tina" data-v="no" aria-pressed="false" aria-label="Skip">✕</button></div>
-              </figure>
-              <figure>
-                <blockquote>“We could literally see them all from the front yard or walk 2 blocks at most to the event and not have to deal with lines to park and exit.”</blockquote>
-                <figcaption>Janine, Seattle · Balloon Rally 2023 · Explore / Home in season</figcaption>
-                <div class="votes" role="group" aria-label="Use Janine’s quote"><button type="button" class="vote yes" data-k="quotes.janine" data-v="yes" aria-pressed="true" aria-label="Use">✓</button><button type="button" class="vote no" data-k="quotes.janine" data-v="no" aria-pressed="false" aria-label="Skip">✕</button></div>
-              </figure>
-              <figure>
-                <blockquote>“Found a house that has 2 master bedrooms which is pretty rare. … 4 bedroom total and 3 full bathroom is perfect.”</blockquote>
-                <figcaption>Esteban, Central Point, OR · Jan 2025 · The House</figcaption>
-                <div class="votes" role="group" aria-label="Use Esteban’s quote"><button type="button" class="vote yes" data-k="quotes.esteban" data-v="yes" aria-pressed="true" aria-label="Use">✓</button><button type="button" class="vote no" data-k="quotes.esteban" data-v="no" aria-pressed="false" aria-label="Skip">✕</button></div>
-              </figure>
-              <figure>
-                <blockquote>“Our group of 8 showed up … we immediately felt such a welcoming and peaceful feeling. … We all agreed that we would come back!”</blockquote>
-                <figcaption>Diane, Seattle · Sep 2024 · Home</figcaption>
-                <div class="votes" role="group" aria-label="Use Diane’s quote"><button type="button" class="vote yes" data-k="quotes.diane" data-v="yes" aria-pressed="true" aria-label="Use">✓</button><button type="button" class="vote no" data-k="quotes.diane" data-v="no" aria-pressed="false" aria-label="Skip">✕</button></div>
-              </figure>
-              <figure>
-                <blockquote>“This place was fantastic, and priced well. The host took care of everything for us and we had booked very last minute.”</blockquote>
-                <figcaption>Hugo, Greeley, CO · Aug 2026 · optional</figcaption>
-                <div class="votes" role="group" aria-label="Use Hugo’s quote"><button type="button" class="vote yes" data-k="quotes.hugo" data-v="yes" aria-pressed="false" aria-label="Use">✓</button><button type="button" class="vote no" data-k="quotes.hugo" data-v="no" aria-pressed="true" aria-label="Skip">✕</button></div>
-              </figure>
-              <figure>
-                <blockquote>“There is a great ‘Vintners Village’ within walking distance (if it’s not too hot) with several local wineries to try and a couple of food options.”</blockquote>
-                <figcaption>Steve · Jul 2024 · optional, Explore</figcaption>
-                <div class="votes" role="group" aria-label="Use Steve’s quote"><button type="button" class="vote yes" data-k="quotes.steve" data-v="yes" aria-pressed="false" aria-label="Use">✓</button><button type="button" class="vote no" data-k="quotes.steve" data-v="no" aria-pressed="true" aria-label="Skip">✕</button></div>
-              </figure>
-            </div>
-          </article>
-          <article id="decision-stories" class="wide" data-field="stories"><span class="tag review">Tyler</span>
-            <h3>Which stays should the homepage speak to?</h3>
-            <p>✓ on the homepage. ✕ leave it off. Wine country and two families are the current lead.</p>
-            <ul class="act-list">
-              <li><div><strong>Wine country</strong><span>Current lead.</span></div><div class="votes" role="group" aria-label="Wine country"><button type="button" class="vote yes" data-k="stories.wine" data-v="yes" aria-pressed="true" aria-label="Yes">✓</button><button type="button" class="vote no" data-k="stories.wine" data-v="no" aria-pressed="false" aria-label="No">✕</button></div></li>
-              <li><div><strong>Two families / two households</strong><span>Current lead.</span></div><div class="votes" role="group" aria-label="Two families"><button type="button" class="vote yes" data-k="stories.families" data-v="yes" aria-pressed="true" aria-label="Yes">✓</button><button type="button" class="vote no" data-k="stories.families" data-v="no" aria-pressed="false" aria-label="No">✕</button></div></li>
-              <li><div><strong>A group of eight</strong><span>Recommended add.</span></div><div class="votes" role="group" aria-label="Group of eight"><button type="button" class="vote yes" data-k="stories.eight" data-v="yes" aria-pressed="true" aria-label="Yes">✓</button><button type="button" class="vote no" data-k="stories.eight" data-v="no" aria-pressed="false" aria-label="No">✕</button></div></li>
-              <li><div><strong>Balloon Rally</strong><span>See them from the yard, walk to the airport. Recommended add.</span></div><div class="votes" role="group" aria-label="Balloon Rally"><button type="button" class="vote yes" data-k="stories.rally" data-v="yes" aria-pressed="true" aria-label="Yes">✓</button><button type="button" class="vote no" data-k="stories.rally" data-v="no" aria-pressed="false" aria-label="No">✕</button></div></li>
-              <li><div><strong>Girls’ weekends</strong></div><div class="votes" role="group" aria-label="Girls’ weekends"><button type="button" class="vote yes" data-k="stories.girls" data-v="yes" aria-pressed="false" aria-label="Yes">✓</button><button type="button" class="vote no" data-k="stories.girls" data-v="no" aria-pressed="true" aria-label="No">✕</button></div></li>
-              <li><div><strong>Wedding overflow</strong></div><div class="votes" role="group" aria-label="Weddings"><button type="button" class="vote yes" data-k="stories.wedding" data-v="yes" aria-pressed="false" aria-label="Yes">✓</button><button type="button" class="vote no" data-k="stories.wedding" data-v="no" aria-pressed="true" aria-label="No">✕</button></div></li>
-              <li><div><strong>Thanksgiving</strong></div><div class="votes" role="group" aria-label="Thanksgiving"><button type="button" class="vote yes" data-k="stories.thanksgiving" data-v="yes" aria-pressed="false" aria-label="Yes">✓</button><button type="button" class="vote no" data-k="stories.thanksgiving" data-v="no" aria-pressed="true" aria-label="No">✕</button></div></li>
-              <li><div><strong>Last-minute stays</strong></div><div class="votes" role="group" aria-label="Last-minute"><button type="button" class="vote yes" data-k="stories.lastminute" data-v="yes" aria-pressed="false" aria-label="Yes">✓</button><button type="button" class="vote no" data-k="stories.lastminute" data-v="no" aria-pressed="true" aria-label="No">✕</button></div></li>
-              <li><div><strong>Conferences</strong><span>Real, but we’d leave this off the homepage.</span></div><div class="votes" role="group" aria-label="Conferences"><button type="button" class="vote yes" data-k="stories.conference" data-v="yes" aria-pressed="false" aria-label="Yes">✓</button><button type="button" class="vote no" data-k="stories.conference" data-v="no" aria-pressed="true" aria-label="No">✕</button></div></li>
-            </ul>
-          </article>
-          <article id="decision-local" class="wide" data-field="local"><span class="tag review">Tyler</span>
-            <h3>Which local places should we list?</h3>
-            <p>✓ keep or add. ✕ drop or skip. Links so you can check each one.</p>
-            <p class="act-heading">Already on Explore</p>
-            <ul class="act-list">
-              <li><div><strong>Vintners Village</strong><span>On the site · guests said it’s walkable.</span><span class="place-links"><a href="https://vintnersvillage.com/" target="_blank" rel="noopener">Site</a><a href="https://www.google.com/maps/search/?api=1&amp;query=Vintners%20Village%20211%20Port%20Avenue%20Prosser%20WA" target="_blank" rel="noopener">Map</a></span></div><div class="votes" role="group" aria-label="Vintners Village"><button type="button" class="vote yes" data-k="local.vintners" data-v="keep" aria-pressed="true" aria-label="Keep">✓</button><button type="button" class="vote no" data-k="local.vintners" data-v="drop" aria-pressed="false" aria-label="Drop">✕</button></div></li>
-              <li><div><strong>Mercer Wine Estates</strong><span class="place-links"><a href="https://mercerwine.com/" target="_blank" rel="noopener">Site</a><a href="https://www.google.com/maps/search/?api=1&amp;query=Mercer%20Wine%20Estates%20Prosser%20WA" target="_blank" rel="noopener">Map</a></span></div><div class="votes" role="group" aria-label="Mercer"><button type="button" class="vote yes" data-k="local.mercer" data-v="keep" aria-pressed="true" aria-label="Keep">✓</button><button type="button" class="vote no" data-k="local.mercer" data-v="drop" aria-pressed="false" aria-label="Drop">✕</button></div></li>
-              <li><div><strong>WIT Cellars</strong><span class="place-links"><a href="https://witcellars.com/locations/prosser/" target="_blank" rel="noopener">Site</a><a href="https://www.google.com/maps/search/?api=1&amp;query=WIT%20Cellars%20Prosser%20WA" target="_blank" rel="noopener">Map</a></span></div><div class="votes" role="group" aria-label="WIT Cellars"><button type="button" class="vote yes" data-k="local.wit" data-v="keep" aria-pressed="true" aria-label="Keep">✓</button><button type="button" class="vote no" data-k="local.wit" data-v="drop" aria-pressed="false" aria-label="Drop">✕</button></div></li>
-              <li><div><strong>Brewminatti</strong><span class="place-links"><a href="https://brewminatti.com/" target="_blank" rel="noopener">Site</a><a href="https://www.google.com/maps/search/?api=1&amp;query=Brewminatti%20713%206th%20Street%20Prosser%20WA" target="_blank" rel="noopener">Map</a></span></div><div class="votes" role="group" aria-label="Brewminatti"><button type="button" class="vote yes" data-k="local.brewminatti" data-v="keep" aria-pressed="true" aria-label="Keep">✓</button><button type="button" class="vote no" data-k="local.brewminatti" data-v="drop" aria-pressed="false" aria-label="Drop">✕</button></div></li>
-              <li><div><strong>Horse Heaven Saloon &amp; Brewery</strong><span class="place-links"><a href="https://www.horseheavensaloonprosser.com/" target="_blank" rel="noopener">Site</a><a href="https://www.google.com/maps/search/?api=1&amp;query=Horse%20Heaven%20Saloon%20Prosser%20WA" target="_blank" rel="noopener">Map</a></span></div><div class="votes" role="group" aria-label="Horse Heaven Saloon"><button type="button" class="vote yes" data-k="local.saloon" data-v="keep" aria-pressed="true" aria-label="Keep">✓</button><button type="button" class="vote no" data-k="local.saloon" data-v="drop" aria-pressed="false" aria-label="Drop">✕</button></div></li>
-              <li><div><strong>Chukar Cherries</strong><span class="place-links"><a href="https://chukar.com/pages/visit-chukar" target="_blank" rel="noopener">Site</a><a href="https://www.google.com/maps/search/?api=1&amp;query=Chukar%20Cherries%20320%20Wine%20Country%20Road%20Prosser%20WA" target="_blank" rel="noopener">Map</a></span></div><div class="votes" role="group" aria-label="Chukar Cherries"><button type="button" class="vote yes" data-k="local.chukar" data-v="keep" aria-pressed="true" aria-label="Keep">✓</button><button type="button" class="vote no" data-k="local.chukar" data-v="drop" aria-pressed="false" aria-label="Drop">✕</button></div></li>
-              <li><div><strong>Prosser Farmers Market</strong><span class="place-links"><a href="https://historicprosser.com/events/prosser-farmers-market/" target="_blank" rel="noopener">Site</a><a href="https://www.google.com/maps/search/?api=1&amp;query=Prosser%20Farmers%20Market%20Prosser%20WA" target="_blank" rel="noopener">Map</a></span></div><div class="votes" role="group" aria-label="Farmers Market"><button type="button" class="vote yes" data-k="local.market" data-v="keep" aria-pressed="true" aria-label="Keep">✓</button><button type="button" class="vote no" data-k="local.market" data-v="drop" aria-pressed="false" aria-label="Drop">✕</button></div></li>
-            </ul>
-            <p class="act-heading">Guest-named — add?</p>
-            <ul class="act-list">
-              <li><div><strong>Kiona Vineyards</strong><span>Red Mountain · Benton City.</span><span class="place-links"><a href="https://kionawine.com/" target="_blank" rel="noopener">Site</a><a href="https://www.google.com/maps/search/?api=1&amp;query=Kiona%20Vineyards%20Benton%20City%20WA" target="_blank" rel="noopener">Map</a></span></div><div class="votes" role="group" aria-label="Add Kiona"><button type="button" class="vote yes" data-k="local.kiona" data-v="add" aria-pressed="true" aria-label="Add">✓</button><button type="button" class="vote no" data-k="local.kiona" data-v="skip" aria-pressed="false" aria-label="Skip">✕</button></div></li>
-              <li><div><strong>Fidélitas</strong><span>Red Mountain estate tasting room.</span><span class="place-links"><a href="https://www.fidelitaswines.com/visit-red-mountain/" target="_blank" rel="noopener">Site</a><a href="https://www.google.com/maps/search/?api=1&amp;query=Fidelitas%20Wines%2051810%20North%20Sunset%20Road%20Benton%20City%20WA" target="_blank" rel="noopener">Map</a></span></div><div class="votes" role="group" aria-label="Add Fidelitas"><button type="button" class="vote yes" data-k="local.fidelitas" data-v="add" aria-pressed="true" aria-label="Add">✓</button><button type="button" class="vote no" data-k="local.fidelitas" data-v="skip" aria-pressed="false" aria-label="Skip">✕</button></div></li>
-              <li><div><strong>Milbrandt Vineyards</strong><span>In Vintners Village, Prosser.</span><span class="place-links"><a href="https://www.milbrandtvineyards.com/" target="_blank" rel="noopener">Site</a><a href="https://www.google.com/maps/search/?api=1&amp;query=Milbrandt%20Vineyards%20508%20Cabernet%20Court%20Prosser%20WA" target="_blank" rel="noopener">Map</a></span></div><div class="votes" role="group" aria-label="Add Milbrandt"><button type="button" class="vote yes" data-k="local.milbrandt" data-v="add" aria-pressed="true" aria-label="Add">✓</button><button type="button" class="vote no" data-k="local.milbrandt" data-v="skip" aria-pressed="false" aria-label="Skip">✕</button></div></li>
-              <li><div><strong>Red Mountain AVA</strong><span>As a day-trip cluster, not one tasting room.</span><span class="place-links"><a href="https://www.redmountainava.com/" target="_blank" rel="noopener">Site</a><a href="https://www.google.com/maps/search/?api=1&amp;query=Red%20Mountain%20AVA%20Benton%20City%20WA" target="_blank" rel="noopener">Map</a></span></div><div class="votes" role="group" aria-label="Add Red Mountain"><button type="button" class="vote yes" data-k="local.redmountain" data-v="add" aria-pressed="true" aria-label="Add">✓</button><button type="button" class="vote no" data-k="local.redmountain" data-v="skip" aria-pressed="false" aria-label="Skip">✕</button></div></li>
-              <li><div><strong>Great Prosser Balloon Rally</strong><span>Walk from the house / watch from the yard.</span><span class="place-links"><a href="https://prosserballoonrally.org/" target="_blank" rel="noopener">Site</a><a href="https://www.google.com/maps/search/?api=1&amp;query=Prosser%20Airport%20WA" target="_blank" rel="noopener">Map</a></span></div><div class="votes" role="group" aria-label="Add Balloon Rally"><button type="button" class="vote yes" data-k="local.rally" data-v="add" aria-pressed="true" aria-label="Add">✓</button><button type="button" class="vote no" data-k="local.rally" data-v="skip" aria-pressed="false" aria-label="Skip">✕</button></div></li>
-            </ul>
-            <label class="extra">Anywhere to add or drop that isn’t listed<textarea name="local_note" placeholder="Add Horse Heaven Hills drive, drop Chukar…"></textarea></label>
-          </article>
-        </div>
-
-        <p class="need-label">3. To go live</p>
-        <div class="decision-list">
-          <article id="decision-domain" class="wide" data-field="domain"><span class="tag review">Tyler + co-owner</span>
-            <h3>Which domain should guests type?</h3>
-            <p>Looked up 14 September 2026 on the <strong>.com registry</strong> (Verisign RDAP) — that’s what Cloudflare Registrar queries before it sells you a name at cost. We could not hit Cloudflare’s Registrar API from this login (no Registrar permission on the token). We would register on <a href="https://developers.cloudflare.com/registrar/" target="_blank" rel="noopener">Cloudflare Registrar</a>, not Squarespace. Squarespace only shows up as the <em>current registrar of two names that are already taken</em>.</p>
-            <div class="pick-list" role="radiogroup" aria-label="Domain">
-              <button type="button" class="pick" data-k="domain" data-v="theprosserhome.com" aria-pressed="true"><strong>theprosserhome.com</strong><span>Not in the .com registry. Matches the house name. This is the one we’d register on Cloudflare.</span></button>
-              <button type="button" class="pick" data-k="domain" data-v="prosserhome.com" aria-pressed="false"><strong>prosserhome.com</strong><span>Also not in the .com registry. Shorter, slightly less exact.</span></button>
-              <button type="button" class="pick" data-k="domain" data-v="theprosser.com" aria-pressed="false"><strong>theprosser.com</strong><span>Not in the .com registry. Broader than the house.</span></button>
-              <button type="button" class="pick" data-k="domain" data-v="stayprosser.com" aria-pressed="false"><strong>stayprosser.com</strong><span>Not in the .com registry.</span></button>
-              <button type="button" class="pick" data-k="domain" data-v="other" aria-pressed="false"><strong>Something else</strong><span>Type it below.</span></button>
-            </div>
-            <p class="note taken">Taken — cannot register: prosserhouse.com and theprosserhouse.com (registered; current registrar happens to be Squarespace Domains II LLC).</p>
-            <label class="extra">If “something else”<input type="text" name="domain_other" placeholder="example.com"></label>
-          </article>
-          <article id="decision-booking" data-field="booking"><span class="tag review">Tyler + co-owner</span>
-            <h3>Payments</h3>
-            <p><strong>Live now:</strong> the Pay page opens Venmo to <strong>@TJ-SAB</strong> with the amount and dates filled in. Money lands in that Venmo; you move it to the business account. Venmo’s rule: a personal profile may only take payment for a stay if the guest <em>marks it as a purchase</em> (2.99% to you, and the guest gets purchase protection). A free Venmo <strong>business profile</strong> is cheaper (1.9% + $0.10) and every payment counts as a purchase automatically.</p>
-            <ul class="act-list">
-              <li><div><strong>Keep your personal Venmo for now</strong><span>✕ = switch to a business profile. Put its handle below and we swap it in.</span></div><div class="votes" role="group" aria-label="Keep personal Venmo"><button type="button" class="vote yes" data-k="booking.venmoPersonal" data-v="yes" aria-pressed="true" aria-label="Keep personal">✓</button><button type="button" class="vote no" data-k="booking.venmoPersonal" data-v="no" aria-pressed="false" aria-label="Business profile">✕</button></div></li>
-              <li><div><strong>Ask guests to mark it as a purchase</strong><span>One line on the Pay page. Keeps the personal Venmo within Venmo’s rules. Not needed with a business profile.</span></div><div class="votes" role="group" aria-label="Ask guests to mark as purchase"><button type="button" class="vote yes" data-k="booking.venmoPurchase" data-v="yes" aria-pressed="true" aria-label="Yes">✓</button><button type="button" class="vote no" data-k="booking.venmoPurchase" data-v="no" aria-pressed="false" aria-label="No">✕</button></div></li>
-              <li><div><strong>Also offer PayPal</strong><span>Your Business account, 3.49% + $0.49. ✕ = Venmo only.</span></div><div class="votes" role="group" aria-label="Also offer PayPal"><button type="button" class="vote yes" data-k="booking.paypal" data-v="yes" aria-pressed="true" aria-label="Yes">✓</button><button type="button" class="vote no" data-k="booking.paypal" data-v="no" aria-pressed="false" aria-label="No">✕</button></div></li>
-              <li><div><strong>Show a discount versus Airbnb</strong><span>Amount below if ✓.</span></div><div class="votes" role="group" aria-label="Discount versus Airbnb"><button type="button" class="vote yes" data-k="booking.discount" data-v="yes" aria-pressed="false" aria-label="Yes">✓</button><button type="button" class="vote no" data-k="booking.discount" data-v="no" aria-pressed="true" aria-label="No">✕</button></div></li>
-            </ul>
-            <label>Venmo business handle, if you set one up<input type="text" name="venmo_business_handle" placeholder="@ProsserHome" autocomplete="off"></label>
-            <label>PayPal.Me handle<input type="text" name="paypal_handle" placeholder="paypal.me/yourname" autocomplete="off"></label>
-            <label>Discount, if any<input type="text" name="paypal_discount" placeholder="e.g. 10%"></label>
-            <label class="extra">Cancellation terms<textarea name="booking_cancel" placeholder="Free until 5 days before, then…"></textarea></label>
-          </article>
-          <article id="decision-operations" data-field="operations"><span class="tag pending">Before launch</span>
-            <h3>Calendars and booking texts</h3>
-            <p><strong>Texts:</strong> each booking request sends you a short text with the guest’s name, dates and party size. The full request still comes by email. Texts come from our assistant’s number and cost you nothing. Which phone do you use? We’ll send you a one-minute setup so booking emails buzz like texts too.</p>
-            <div class="pick-list" role="radiogroup" aria-label="Your phone">
-              <button type="button" class="pick" data-k="ops.phone" data-v="iPhone" aria-pressed="false"><strong>iPhone</strong></button>
-              <button type="button" class="pick" data-k="ops.phone" data-v="Android" aria-pressed="false"><strong>Android</strong></button>
-            </div>
-            <label>Mobile number for booking texts<input type="tel" name="sms_mobile" placeholder="(509) 555-0123" autocomplete="tel"></label>
-            <p style="margin-top:26px"><strong>Calendars:</strong> sync is built both ways. Paste the export URLs. For a guest arriving tomorrow, also block by hand — imported calendars lag about 3 hours.</p>
-            <label>Airbnb calendar export URL<input type="url" name="ical_airbnb" placeholder="https://www.airbnb.com/calendar/ical/…"></label>
-            <label>Vrbo calendar export URL<input type="url" name="ical_vrbo" placeholder="https://www.vrbo.com/icalendar/…"></label>
-            <p class="note">Airbnb: Calendar → Availability settings → Connect calendars → Export. Vrbo: Calendar → Import &amp; export → Export.</p>
-          </article>
-        </div>
-        <div class="decision-actions">
-          <label class="decision-name">Your name<input type="text" name="reviewer" autocomplete="name" placeholder="Tyler" required></label>
-          <button class="button" type="submit">Send these answers ↗</button>
-          <span id="decision-status" class="note" role="status"></span>
-          <p class="note">Your answers send themselves as you tap — the button is just there if you want to be sure.</p>
-        </div>
-      </form>
+        <iframe id="site-preview" src="/prosser/versions/v0-8/index.html" title="Prosser Home website preview, version 0.8" loading="lazy"></iframe>
+      </div>
     </section>
 
     <section id="done">
       <div class="section-title">
-        <h2>Already done.</h2>
-        <p>No action needed unless something here is wrong.</p>
+        <h2>Done &amp; history.</h2>
+        <p>Nothing here needs you. It’s the record of what’s built and what you decided.</p>
       </div>
-      <div class="settled-questions">
-        <ul>
-          <li id="decision-name"><span class="tag done">Decided</span><div><h4>The name is The Prosser Home</h4><p>Your comment on 12 September. A restaurant in town already had the other name. The site, emails and calendar feed use it everywhere.</p></div></li>
-        </ul>
-      </div>
+      <ul class="checklist">
+        <li><strong>Website</strong> — v0.8, with your 20 September answers applied.</li>
+        <li><strong>Domain</strong> — theprosserhome.com, registered 21 September. Old addresses forward to it.</li>
+        <li><strong>Booking emails</strong> — from bookings@theprosserhome.com; guest replies go straight to you.</li>
+        <li><strong>Booking requests</strong> — saved on our side as well as emailed, so none get lost.</li>
+        <li><strong>Venmo</strong> — the Pay page opens @TJ-SAB with the amount and dates filled in.</li>
+        <li><strong>Calendar sync</strong> — built both ways; waiting only on your links.</li>
+      </ul>
       <div class="done-list">
         <details>
-          <summary>Your comments on v0.3 — all applied</summary>
+          <summary>Your answers on 20 September — how we applied them</summary>
           <ul class="settled">
-            <li><strong>“Let's go with The Prosser Home.”</strong> Done everywhere.</li>
-            <li><strong>“Frame these photos so they look a little warmer.”</strong> Interiors sit on a cream mat. New photos can replace them when the redecoration is done.</li>
-            <li><strong>“Remove the gas fireplace, we need to get it fixed.”</strong> Removed. Say the word when it’s fixed.</li>
-            <li><strong>“There are more attractive photos of Prosser… sunset or from the Horse Heaven Hills.”</strong> Explore now leads with those views. Send a favourite of your own if you have one.</li>
-            <li><strong>“Will it sync with Airbnb and Vrbo, and vice versa?”</strong> Yes. The remaining piece is pasting the export links in the questions above.</li>
-            <li><strong>“Send requests to both of us, and a text to my mobile.”</strong> Both inboxes are set. Texts come from our assistant’s number instead of a paid SMS service — your mobile number is the one thing we still need (see <a href="#decision-operations">Calendars and booking texts</a>).</li>
-          </ul>
-        </details>
-        <details open>
-          <summary>Your answers on 20 September — applied</summary>
-          <ul class="settled">
-            <li><strong>The house.</strong> The upstairs is now “a suite with its own sitting room and bathroom”, not a second primary. Families with kids are welcome, later check-out is offered on request, and guests are told there’s unscented soap in each bath — please put it out before the next stay.</li>
+            <li><strong>The house.</strong> The upstairs is “a suite with its own sitting room and bathroom”, not a second primary. Families with kids are welcome, later check-out is on request, and guests are told there’s unscented soap in each bath.</li>
             <li><strong>Photos.</strong> Listing photos kept as they are.</li>
             <li><strong>Guest quotes.</strong> All six are on: Diane and Tina on Home, Janine with the Balloon Rally, Esteban and Hugo on The House, Steve on Explore — each with “From guests on Airbnb.”</li>
-            <li><strong>Homepage stays.</strong> A new “Made for the trips people plan together” section: wine country, two families, a group of eight, Balloon Rally, girls’ weekends, work trips and conferences. Wedding overflow, Thanksgiving and last-minute stays are left off.</li>
+            <li><strong>Homepage stays.</strong> A “Made for the trips people plan together” section: wine country, two families, a group of eight, Balloon Rally, girls’ weekends, work trips and conferences. Wedding overflow, Thanksgiving and last-minute stays are left off.</li>
             <li><strong>Local places.</strong> Everything on Explore stays. Added Milbrandt in Vintners Village, a Red Mountain day trip (the AVA, Kiona, Fidélitas) and a Balloon Rally card.</li>
-            <li><strong>Domain.</strong> theprosserhome.com — registered 21 September; the site is live there.</li>
-            <li><strong>Payments.</strong> Personal Venmo stays; the Pay page asks guests to turn on Venmo’s Purchase toggle. Direct bookings are 7.5% less than Airbnb — on the site and in your request emails. PayPal goes live once you send the PayPal.Me handle.</li>
-            <li><strong>Texts.</strong> Yes at launch. They come free from our assistant’s number. We just need your mobile number and phone type.</li>
+            <li><strong>Domain.</strong> theprosserhome.com.</li>
+            <li><strong>Payments.</strong> Personal Venmo stays; the Pay page asks guests to turn on Venmo’s Purchase toggle. Direct bookings are 7.5% less than Airbnb — on the site and in your request emails.</li>
+            <li><strong>Texts.</strong> Yes at launch, free from our assistant’s number.</li>
           </ul>
         </details>
         <details>
           <summary>Your messages on 18 September — applied</summary>
           <ul class="settled">
-            <li><strong>“Use this replacement photo in place of the following one.”</strong> Your sleigh-bed bedroom now leads “Room for a slow morning” on Home and replaces the old shot in the gallery.</li>
-            <li><strong>“Is it possible to just embed my personal Venmo link…?”</strong> Yes. The Pay page sends guests to @TJ-SAB with the amount and dates filled in. Two small choices are in <a href="#decision-booking">Payments</a> above.</li>
+            <li><strong>“Use this replacement photo in place of the following one.”</strong> Your sleigh-bed bedroom leads “Room for a slow morning” on Home and replaces the old shot in the gallery.</li>
+            <li><strong>“Is it possible to just embed my personal Venmo link…?”</strong> Yes — the Pay page sends guests to @TJ-SAB with the amount and dates filled in.</li>
           </ul>
         </details>
         <details>
-          <summary>Calendar and payments — built</summary>
-          <p>The site greys out nights from Airbnb and Vrbo, and a direct booking goes back out as a feed you import once. Calendars are on sample data until we have the export URLs above. Venmo is live on the Pay page; PayPal joins it once we have the PayPal.Me handle.</p>
+          <summary>Your comments on v0.3 and the name — applied</summary>
+          <ul class="settled">
+            <li><strong>“Let's go with The Prosser Home.”</strong> Done everywhere. A restaurant in town already had the other name.</li>
+            <li><strong>“Frame these photos so they look a little warmer.”</strong> Interiors sit on a cream mat. New photos can replace them after the redecoration.</li>
+            <li><strong>“Remove the gas fireplace, we need to get it fixed.”</strong> Removed. Say the word when it’s fixed.</li>
+            <li><strong>“There are more attractive photos of Prosser… sunset or from the Horse Heaven Hills.”</strong> Explore now leads with those views. Send a favourite of your own if you have one.</li>
+            <li><strong>“Will it sync with Airbnb and Vrbo, and vice versa?”</strong> Yes — it only needs your calendar links.</li>
+            <li><strong>“Send requests to both of us, and a text to my mobile.”</strong> Both inboxes are set. Texts need only your mobile number.</li>
+          </ul>
+        </details>
+        <details id="versions">
+          <summary>Website versions</summary>
+          <ol class="timeline">
+            <li><div class="version-date"><strong>v0.8</strong><time datetime="2026-09-21">21 Sep 2026</time><span class="tag done">Current</span></div><div><h3>Your answers, applied.</h3><p>Upstairs described as a suite, kids welcome, later check-out on request, unscented soap in each bath. All six guest quotes, a “made for” section, Red Mountain and the Balloon Rally on Explore, the Venmo purchase line and 7.5% less than Airbnb for direct bookings.</p><a href="/prosser/versions/v0-8/">View v0.8 ↗</a></div></li>
+            <li><div class="version-date"><strong>v0.7</strong><time datetime="2026-09-18">18 Sep 2026</time></div><div><h3>Your bedroom photo and Venmo.</h3><p>Your sleigh-bed photo on Home and in the gallery. The Pay page takes Venmo (@TJ-SAB) with the amount and dates filled in.</p><a href="/prosser/versions/v0-7/">View v0.7 ↗</a></div></li>
+            <li><div class="version-date"><strong>v0.6</strong><time datetime="2026-09-15">15 Sep 2026</time></div><div><h3>Pick dates on the home page.</h3><p>Live stay planner on Home, guest quotes from the Airbnb listing, same booking flow.</p><a href="/prosser/versions/v0-6/">View v0.6 ↗</a></div></li>
+            <li><div class="version-date"><strong>v0.5</strong><time datetime="2026-09-14">14 Sep 2026</time></div><div><h3>The Prosser Home.</h3><p>Renamed throughout. Warmer interior photos, fireplace removed until it’s fixed, Horse Heaven Hills view on Explore, requests to both owners.</p><a href="/prosser/versions/v0-5/">View v0.5 ↗</a></div></li>
+            <li><div class="version-date"><strong>v0.4</strong><time datetime="2026-09-14">14 Sep 2026</time></div><div><h3>Book direct, without double bookings.</h3><p>Airbnb + Vrbo calendars, request → quote → payment, import feed back to both platforms.</p><a href="/prosser/versions/v0-4/">View v0.4 ↗</a></div></li>
+            <li><div class="version-date"><strong>v0.3</strong><time datetime="2026-09-11">11 Sep 2026</time></div><div><h3>More useful, less repetitive.</h3><p>Distinct room details, kitchenette and game room called out, Maps links, this project room.</p><a href="/prosser/versions/v0-3/">View v0.3 ↗</a></div></li>
+            <li><div class="version-date"><strong>v0.2</strong><time datetime="2026-09-11">11 Sep 2026</time></div><div><h3>The actual house leads.</h3><p>Listing photos, cream-and-green direction.</p><a href="/prosser/versions/v0-2/">View v0.2 ↗</a></div></li>
+            <li><div class="version-date"><strong>v0.1</strong><time datetime="2026-09-07">7 Sep 2026</time><span class="tag pending">Concept only</span></div><div><h3>The initial direction.</h3><p>Stand-in photography and provisional facts. Design reference only.</p><a href="/prosser/versions/v0-1/">View v0.1 ↗</a></div></li>
+          </ol>
         </details>
       </div>
-    </section>
-
-    <section id="versions">
-      <div class="section-title">
-        <h2>Versions.</h2>
-        <p>Saved snapshots so a comment always has a point of reference. Use the switcher on the website above to compare.</p>
-      </div>
-      <ol class="timeline">
-        <li><div class="version-date"><strong>v0.8</strong><time datetime="2026-09-21">21 Sep 2026</time><span class="tag done">Current</span></div><div><h3>Your answers, applied.</h3><p>Upstairs described as a suite, kids welcome, later check-out on request, unscented soap in each bath. All six guest quotes, a “made for” section with the stays you picked, Red Mountain and the Balloon Rally on Explore, the Venmo purchase line and 7.5% less than Airbnb for direct bookings.</p><a href="/prosser/versions/v0-8/">View v0.8 ↗</a></div></li>
-        <li><div class="version-date"><strong>v0.7</strong><time datetime="2026-09-18">18 Sep 2026</time></div><div><h3>Your bedroom photo and Venmo.</h3><p>Your sleigh-bed photo replaces the old bedroom shot on Home (“Room for a slow morning”) and in the gallery. The pay page now takes Venmo (@TJ-SAB) with the amount and dates filled in.</p><a href="/prosser/versions/v0-8/">View v0.7 ↗</a></div></li>
-        <li><div class="version-date"><strong>v0.6</strong><time datetime="2026-09-15">15 Sep 2026</time></div><div><h3>Pick dates on the home page.</h3><p>Live stay planner on Home, guest quotes from the Airbnb listing, same booking flow. The look is locked to the house’s design system so later edits stay on-brand.</p><a href="/prosser/versions/v0-6/">View v0.6 ↗</a></div></li>
-        <li><div class="version-date"><strong>v0.5</strong><time datetime="2026-09-14">14 Sep 2026</time></div><div><h3>The Prosser Home.</h3><p>Renamed throughout. Warmer interior photos, fireplace removed until it’s fixed, Horse Heaven Hills view on Explore, requests to both owners.</p><a href="/prosser/versions/v0-5/">View v0.5 ↗</a></div></li>
-        <li><div class="version-date"><strong>v0.4</strong><time datetime="2026-09-14">14 Sep 2026</time></div><div><h3>Book direct, without double bookings.</h3><p>Airbnb + Vrbo calendars, request → quote → PayPal, owner page, import feed back to both platforms.</p><a href="/prosser/versions/v0-4/">View v0.4 ↗</a></div></li>
-        <li><div class="version-date"><strong>v0.3</strong><time datetime="2026-09-11">11 Sep 2026</time></div><div><h3>More useful, less repetitive.</h3><p>Distinct room details, kitchenette and game room called out, Maps links, this project room.</p><a href="/prosser/versions/v0-3/">View v0.3 ↗</a></div></li>
-        <li><div class="version-date"><strong>v0.2</strong><time datetime="2026-09-11">11 Sep 2026</time></div><div><h3>The actual house leads.</h3><p>Listing photos, cream-and-green direction, no uppercase section labels.</p><a href="/prosser/versions/v0-2/">View v0.2 ↗</a></div></li>
-        <li><div class="version-date"><strong>v0.1</strong><time datetime="2026-09-07">7 Sep 2026</time><span class="tag pending">Concept only</span></div><div><h3>The initial direction.</h3><p>Stand-in photography and provisional facts. Design reference only.</p><a href="/prosser/versions/v0-1/">View v0.1 ↗</a></div></li>
-      </ol>
     </section>
   </main>
   <footer><a href="/">Statecraft Systems</a><span>Project room for Tyler · Updated 21 September 2026</span></footer>
