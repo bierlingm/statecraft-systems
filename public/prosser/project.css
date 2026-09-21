@@ -91,3 +91,7 @@
 @media(max-width:850px){.preview-wrap{display:none}.page-links{display:grid;grid-template-columns:1fr 1fr;gap:12px}.page-links a{padding:12px;border:1px solid var(--line);text-decoration:none}}
 .status .need-count{width:auto;height:auto;background:none;border-radius:0}
 section{scroll-margin-top:72px}
+.house-q{margin-top:22px;padding-top:18px;border-top:1px solid var(--line)}
+.house-q h4{margin:0 0 6px;font-size:16px;font-weight:600;color:var(--text)}
+.house-q>p{margin:0;font-size:14px;color:var(--muted)}
+.house-q .pick-list{margin:12px 0 0}

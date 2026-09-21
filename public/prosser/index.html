@@ -13,7 +13,7 @@
   <meta property="og:url" content="https://statecraft.systems/prosser/">
   <link rel="canonical" href="https://statecraft.systems/prosser/">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="/prosser/project.css?v=20260921b">
+  <link rel="stylesheet" href="/prosser/project.css?v=20260921c">
 </head>
 <body>
   <a class="skip" href="#main">Skip to project</a>
@@ -75,18 +75,38 @@
           <article id="need-house" data-field="facts">
             <p class="item-state"><span class="tag review">Needs you</span></p>
             <h3>House details</h3>
-            <p>Bed sizes, and three things guests have mentioned.</p>
+            <p>Bed sizes, and three things guests raised in reviews. Your answers decide what the site can promise.</p>
             <div class="bed-grid">
               <label>Main bedroom 1<input type="text" name="bed_1" placeholder="e.g. King"></label>
               <label>Main bedroom 2<input type="text" name="bed_2" placeholder="e.g. Queen"></label>
               <label>Main bedroom 3<input type="text" name="bed_3" placeholder="e.g. Queen"></label>
               <label>Upstairs suite<input type="text" name="bed_up" placeholder="e.g. King"></label>
             </div>
-            <ul class="act-list">
-              <li><div><strong>Mattresses still need work</strong><span>“Soft beds” came up more than once.</span></div><div class="votes" role="group" aria-label="Mattresses still need work"><button type="button" class="vote yes" data-k="facts.mattresses" data-v="yes" aria-pressed="false" aria-label="Yes, still need work">✓</button><button type="button" class="vote no" data-k="facts.mattresses" data-v="no" aria-pressed="false" aria-label="No, already fine">✕</button></div></li>
-              <li><div><strong>Wi-Fi still a problem</strong><span>From a June 2026 review.</span></div><div class="votes" role="group" aria-label="Wi-Fi still a problem"><button type="button" class="vote yes" data-k="facts.wifi" data-v="yes" aria-pressed="false" aria-label="Yes, still a problem">✓</button><button type="button" class="vote no" data-k="facts.wifi" data-v="no" aria-pressed="false" aria-label="No, fixed">✕</button></div></li>
-              <li><div><strong>Dining table seats 8</strong><span>A 2022 guest said it seats 6.</span></div><div class="votes" role="group" aria-label="Dining table seats 8"><button type="button" class="vote yes" data-k="facts.table8" data-v="yes" aria-pressed="false" aria-label="Yes, seats 8">✓</button><button type="button" class="vote no" data-k="facts.table8" data-v="no" aria-pressed="false" aria-label="No">✕</button></div></li>
-            </ul>
+            <div class="house-q">
+              <h4>Have the soft mattresses been replaced?</h4>
+              <p>Three guests (2022–2024) said the beds were too soft. The site says nothing about mattresses right now.</p>
+              <div class="pick-list" role="radiogroup" aria-label="Mattresses">
+                <button type="button" class="pick" data-k="house.mattresses" data-v="replaced" aria-pressed="false"><strong>Yes, they’re new or firmer now</strong><span>We’ll mention the new mattresses on the House page.</span></button>
+                <button type="button" class="pick" data-k="house.mattresses" data-v="not yet" aria-pressed="false"><strong>Not yet</strong><span>The site stays quiet about beds. Worth replacing the softest two when you can.</span></button>
+              </div>
+            </div>
+            <div class="house-q">
+              <h4>Is the Wi-Fi fixed?</h4>
+              <p>A guest in June 2026 said the Wi-Fi was poor. The site lists “Wi-Fi &amp; ethernet” and pitches the house for work trips.</p>
+              <div class="pick-list" role="radiogroup" aria-label="Wi-Fi">
+                <button type="button" class="pick" data-k="house.wifi" data-v="fixed" aria-pressed="false"><strong>Yes, it works well in every room</strong><span>The site stays as it is.</span></button>
+                <button type="button" class="pick" data-k="house.wifi" data-v="not fixed or unsure" aria-pressed="false"><strong>Not yet, or not sure</strong><span>We’ll take Wi-Fi out of the work-trip pitch until it’s fixed.</span></button>
+              </div>
+            </div>
+            <div class="house-q">
+              <h4>How many people fit at the dining table?</h4>
+              <p>A 2022 guest said it seats 6. The site tells groups of eight there’s “room at the table.”</p>
+              <div class="pick-list" role="radiogroup" aria-label="Dining table">
+                <button type="button" class="pick small" data-k="house.table" data-v="8" aria-pressed="false"><strong>8 at the table</strong></button>
+                <button type="button" class="pick small" data-k="house.table" data-v="6 plus extra chairs for 8" aria-pressed="false"><strong>6, with extra chairs so 8 fit</strong></button>
+                <button type="button" class="pick small" data-k="house.table" data-v="6" aria-pressed="false"><strong>Only 6</strong><span>We’ll reword the group-of-eight line so it doesn’t overpromise.</span></button>
+              </div>
+            </div>
           </article>
           <article id="need-paypal" data-field="booking">
             <p class="item-state"><span class="tag review">Needs you</span></p>
@@ -204,6 +224,6 @@
     </section>
   </main>
   <footer><a href="/">Statecraft Systems</a><span>Project room for Tyler · Updated 21 September 2026</span></footer>
-  <script src="/prosser/project.js?v=20260921b" defer></script>
+  <script src="/prosser/project.js?v=20260921c" defer></script>
 </body>
 </html>

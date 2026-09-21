@@ -91,6 +91,9 @@
     'facts.lateCheckout': 'Late checkout on request',
     'facts.soap': 'Unscented soap in each bath',
     'facts.table8': 'Dining table already seats 8',
+    'house.mattresses': 'Soft mattresses replaced?',
+    'house.wifi': 'Wi-Fi fixed?',
+    'house.table': 'Dining table seats',
     'photos.keep': 'Keep listing photos',
     'photos.new': 'New daylight of suites / kitchen / patio',
     'quotes.tina': 'Tina (game room)',
@@ -303,7 +306,7 @@
     'need-calendars': function () { return filled('ical_airbnb') && filled('ical_vrbo'); },
     'need-house': function () {
       return ['bed_1', 'bed_2', 'bed_3', 'bed_up'].every(filled)
-        && ['facts.mattresses', 'facts.wifi', 'facts.table8'].every(picked);
+        && ['house.mattresses', 'house.wifi', 'house.table'].every(picked);
     },
     'need-paypal': function () { return filled('paypal_handle') || picked('booking.paypal'); }
   };
