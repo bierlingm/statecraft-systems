@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Cashclinic voice intake (demo) · Statecraft Systems</title>
+<meta name="robots" content="noindex" />
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<style>
+  :root {
+    --bg: #0f1419;
+    --panel: #1a2332;
+    --border: #2d3a4d;
+    --text: #e7ecf3;
+    --muted: #8b9bb4;
+    --accent: #3d8bfd;
+    --accent-soft: rgba(61, 139, 253, 0.12);
+    --warn: #f0b429;
+    --danger: #f06b6b;
+    --font: "IBM Plex Sans", system-ui, -apple-system, sans-serif;
+    --mono: "IBM Plex Mono", ui-monospace, monospace;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: var(--font); background: var(--bg); color: var(--text); line-height: 1.6; min-height: 100vh; }
+  a { color: var(--accent); text-decoration: none; }
+  header { border-bottom: 1px solid var(--border); padding: 1rem 1.5rem; display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+  .brand { font-family: var(--mono); font-size: 0.85rem; color: var(--muted); letter-spacing: 0.04em; }
+  header nav a { margin-left: 1rem; font-size: 0.9rem; }
+  main { max-width: 36rem; margin: 0 auto; padding: 2.5rem 1.25rem 4rem; }
+  .eyebrow { font-family: var(--mono); font-size: 0.75rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; }
+  h1 { font-size: 1.9rem; margin: 0.35rem 0 0.75rem; }
+  .lead { color: var(--muted); margin-bottom: 1.5rem; }
+  .banner { background: rgba(240, 180, 41, 0.1); border: 1px solid rgba(240, 180, 41, 0.35); color: var(--text); padding: 0.85rem 1rem; border-radius: 8px; font-size: 0.9rem; margin-bottom: 1.75rem; }
+  .card { background: var(--panel); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; }
+  label { display: block; font-size: 0.85rem; color: var(--muted); margin-bottom: 0.35rem; }
+  input { width: 100%; font: inherit; color: var(--text); background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 0.7rem 0.8rem; margin-bottom: 1rem; }
+  input:focus { outline: 2px solid var(--accent); outline-offset: 1px; }
+  button { font: inherit; font-weight: 600; border: 0; border-radius: 999px; padding: 0.8rem 1.4rem; cursor: pointer; width: 100%; }
+  .btn-start { background: var(--accent); color: #fff; }
+  .btn-end { background: var(--danger); color: #fff; }
+  button:disabled { opacity: 0.55; cursor: default; }
+  .status { display: flex; align-items: center; gap: 0.75rem; margin: 0.25rem 0 1.25rem; font-size: 1rem; }
+  .dot { width: 14px; height: 14px; border-radius: 50%; background: var(--border); flex: none; transition: transform 0.2s, background 0.2s; }
+  .dot.live { background: #3ecf8e; }
+  .dot.talking { background: var(--accent); animation: pulse 1s ease-in-out infinite; }
+  @keyframes pulse { 50% { transform: scale(1.45); } }
+  .msg { font-size: 0.9rem; margin-top: 1rem; color: var(--muted); }
+  .msg.error { color: var(--danger); }
+  .hidden { display: none; }
+  ul.notes { margin: 1.5rem 0 0 1.1rem; color: var(--muted); font-size: 0.9rem; }
+  ul.notes li { margin-bottom: 0.35rem; }
+</style>
+</head>
+<body>
+  <header>
+    <a class="brand" href="/"><strong>Statecraft Systems</strong> · productions</a>
+    <nav>
+      <a href="/cashclinic/">Cashclinic</a>
+      <a href="/cashclinic/app/review">Physician review</a>
+    </nav>
+  </header>
+
+  <main>
+    <p class="eyebrow">Cashclinic · voice intake demo</p>
+    <h1>Talk through your intake</h1>
+    <p class="lead">
+      The same intake as the typed demo, spoken. The assistant asks one question at a time.
+      When you finish, your answers go to the physician review queue as a provisional report.
+    </p>
+
+    <div class="banner">
+      <strong>Demo only. Use made-up details.</strong> Not for real patients or real symptoms, and not for emergencies.
+      If you have an emergency, call 911.
+    </div>
+
+    <div class="card" id="gate">
+      <form id="gate-form">
+        <label for="code">Access code</label>
+        <input id="code" type="password" autocomplete="current-password" required />
+        <button class="btn-start" id="start" type="submit">Start voice intake</button>
+      </form>
+      <p class="msg" id="gate-msg"></p>
+    </div>
+
+    <div class="card hidden" id="live">
+      <div class="status"><span class="dot" id="dot"></span><span id="status-text">Connecting…</span></div>
+      <button class="btn-end" id="end" type="button">End call</button>
+      <p class="msg" id="live-msg">Allow microphone access when your browser asks.</p>
+    </div>
+
+    <div class="card hidden" id="done">
+      <h2 style="font-size:1.2rem;margin-bottom:0.5rem">Call ended</h2>
+      <p class="msg" style="margin-top:0">
+        If the assistant finished the intake, it's now in the <a href="/cashclinic/app/review">physician review queue</a>.
+      </p>
+      <button class="btn-start" id="again" type="button" style="margin-top:1rem">Start another</button>
+    </div>
+
+    <ul class="notes">
+      <li>Works in Chrome, Safari or Firefox with a microphone. Headphones help.</li>
+      <li>Handles sore throat, sinus infection, cough, red eye and rash. Anything else is politely declined.</li>
+      <li>A call ends by itself after 20 minutes.</li>
+    </ul>
+  </main>
+
+<script type="module">
+  import { RetellWebClient } from "https://esm.sh/retell-client-js-sdk@3.0.1";
+
+  const API = "https://cashclinic-voice.moritzbierling.workers.dev";
+  const $ = (id) => document.getElementById(id);
+  const client = new RetellWebClient();
+  let inCall = false;
+
+  function show(which) {
+    for (const id of ["gate", "live", "done"]) $(id).classList.toggle("hidden", id !== which);
+  }
+  function setStatus(text, dotClass) {
+    $("status-text").textContent = text;
+    $("dot").className = "dot" + (dotClass ? " " + dotClass : "");
+  }
+
+  client.on("call_started", () => { inCall = true; setStatus("Connected. The assistant will speak first.", "live"); $("live-msg").textContent = ""; });
+  client.on("agent_start_talking", () => setStatus("Assistant is speaking…", "talking"));
+  client.on("agent_stop_talking", () => setStatus("Your turn. Just speak.", "live"));
+  client.on("call_ended", () => { inCall = false; show("done"); });
+  client.on("error", (err) => {
+    inCall = false;
+    client.stopCall();
+    show("gate");
+    $("gate-msg").className = "msg error";
+    $("gate-msg").textContent = "The call dropped: " + (err?.message || err || "unknown error") + ". Try again.";
+    $("start").disabled = false;
+  });
+
+  $("gate-form").addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const code = $("code").value.trim();
+    if (!code) return;
+    $("start").disabled = true;
+    $("gate-msg").className = "msg";
+    $("gate-msg").textContent = "Starting…";
+    try {
+      const res = await fetch(API + "/web-call", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify({ code }),
+      });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) throw new Error(data.error || "Couldn't start the call (" + res.status + ").");
+      show("live");
+      setStatus("Connecting…", "");
+      await client.startCall({
+        accessToken: data.access_token,
+        transport: data.transport,
+        callId: data.call_id,
+        iceServers: data.ice_servers && data.ice_servers.length ? data.ice_servers : undefined,
+      });
+      await client.startAudioPlayback().catch(() => {});
+    } catch (err) {
+      show("gate");
+      $("gate-msg").className = "msg error";
+      $("gate-msg").textContent = err.message || String(err);
+    } finally {
+      $("start").disabled = false;
+    }
+  });
+
+  $("end").addEventListener("click", () => {
+    if (inCall) client.stopCall();
+    else { client.stopCall(); show("done"); }
+  });
+  $("again").addEventListener("click", () => { $("gate-msg").textContent = ""; show("gate"); });
+</script>
+</body>
+</html>

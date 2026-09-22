@@ -1,0 +1,12 @@
+name = "cashclinic-voice"
+main = "src/index.ts"
+compatibility_date = "2025-09-01"
+
+[vars]
+ALLOWED_ORIGIN = "https://statecraft.systems"
+SHADOW_API = "https://cashclinic-shadow.moritzbierling.workers.dev/api"
+# Set by scripts/setup-agent.ts output.
+RETELL_AGENT_ID = ""
+
+# Secrets:
+#   wrangler secret put RETELL_API_KEY   — Retell API key (the one with the webhook badge; it signs tool calls)
