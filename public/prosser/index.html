@@ -21,111 +21,64 @@
   <main id="main">
     <section class="opening" aria-labelledby="project-title">
       <div>
-        <p class="status"><span></span><span class="need-count" data-count-text>Almost ready to launch · 4 things left</span></p>
+        <p class="status"><span></span><span class="need-count" data-count-text>Ready to launch · 3 steps left</span></p>
         <h1 id="project-title">The Prosser Home.</h1>
-        <p class="intro">The website is live at <a href="https://theprosserhome.com">theprosserhome.com</a>. A few details from you, then your sign-off, and it launches.</p>
+        <p class="intro">The website is live at <a href="https://theprosserhome.com">theprosserhome.com</a> with all your answers in. Three steps left: connect the calendar on Airbnb and Vrbo, your sign-off, and the second payment at launch.</p>
         <ol class="progress" aria-label="Progress to launch">
           <li class="is-done">Website</li>
           <li class="is-done">Domain &amp; email</li>
-          <li class="is-now">Your last details</li>
-          <li>Sign-off</li>
+          <li class="is-done">Your last details</li>
+          <li class="is-now">Sign-off</li>
           <li>Launch</li>
         </ol>
         <div class="actions">
-          <a class="button" href="#need">Answer the last questions ↓</a>
+          <a class="button" href="#need">See the last steps ↓</a>
           <a href="https://theprosserhome.com">Open the website ↗</a>
         </div>
-        <p class="updated">Updated 21 September 2026</p>
+        <p class="updated">Updated 22 September 2026</p>
       </div>
       <img src="/prosser/versions/v0-8/assets/listing/listing-10.jpeg" alt="Exterior of the Prosser rental home" width="1200" height="800" fetchpriority="high">
     </section>
     <nav class="section-nav" aria-label="Project sections">
-      <a href="#need">Needs you <span class="count" data-count>4</span></a>
+      <a href="#need">Needs you <span class="count" data-count>3</span></a>
       <a href="#website">Website</a>
       <a href="#done">Done &amp; history</a>
     </nav>
 
     <section id="need">
       <div class="section-title">
-        <h2>Your last details.</h2>
-        <p class="need-intro">Everything else is done. Your answers send themselves as you type or tap — no need to press anything.</p>
-        <p class="all-done" hidden><strong>Nothing needed from you right now.</strong> We have everything. Next is your sign-off — we’ll message you when it’s ready.</p>
+        <h2>Three steps to launch.</h2>
+        <p class="need-intro">Everything you answered is on the site. These are the last three things, in order.</p>
       </div>
-      <form class="decision-form" id="decision-form">
-        <label class="decision-name">Your name<input type="text" name="reviewer" autocomplete="name" placeholder="Tyler" required></label>
-        <div class="decision-list">
-          <article id="need-texts" data-field="operations">
-            <p class="item-state"><span class="tag review">Needs you</span></p>
-            <h3>Booking texts</h3>
-            <p>Each booking request texts you the guest’s name, dates and party size. Free, from our assistant’s number. Which phone do you have? We’ll send a one-minute setup so booking emails buzz like texts too.</p>
-            <div class="pick-list two" role="radiogroup" aria-label="Your phone">
-              <button type="button" class="pick" data-k="ops.phone" data-v="iPhone" aria-pressed="false"><strong>iPhone</strong></button>
-              <button type="button" class="pick" data-k="ops.phone" data-v="Android" aria-pressed="false"><strong>Android</strong></button>
-            </div>
-            <label>Mobile number<input type="tel" name="sms_mobile" placeholder="(509) 555-0123" autocomplete="tel"></label>
-          </article>
-          <article id="need-calendars" data-field="calendars">
-            <p class="item-state"><span class="tag review">Needs you</span></p>
-            <h3>Calendar links</h3>
-            <p>So the site greys out nights booked on Airbnb and Vrbo. Until then it shows sample dates.</p>
-            <label>Airbnb calendar export link<input type="url" name="ical_airbnb" placeholder="https://www.airbnb.com/calendar/ical/…"></label>
-            <label>Vrbo calendar export link<input type="url" name="ical_vrbo" placeholder="https://www.vrbo.com/icalendar/…"></label>
-            <details class="howto"><summary>Where to find them</summary><p><strong>Airbnb:</strong> Calendar → Availability settings → Connect calendars → Export. <strong>Vrbo:</strong> Calendar → Import &amp; export → Export. For a guest arriving tomorrow, also block the dates by hand — imported calendars lag about 3 hours.</p></details>
-          </article>
-          <article id="need-house" data-field="facts">
-            <p class="item-state"><span class="tag review">Needs you</span></p>
-            <h3>House details</h3>
-            <p>Bed sizes, and three things guests raised in reviews. Your answers decide what the site can promise.</p>
-            <div class="bed-grid">
-              <label>Main bedroom 1<input type="text" name="bed_1" placeholder="e.g. King"></label>
-              <label>Main bedroom 2<input type="text" name="bed_2" placeholder="e.g. Queen"></label>
-              <label>Main bedroom 3<input type="text" name="bed_3" placeholder="e.g. Queen"></label>
-              <label>Upstairs suite<input type="text" name="bed_up" placeholder="e.g. King"></label>
-            </div>
-            <div class="house-q">
-              <h4>Have the soft mattresses been replaced?</h4>
-              <p>Three guests (2022–2024) said the beds were too soft. The site says nothing about mattresses right now.</p>
-              <div class="pick-list" role="radiogroup" aria-label="Mattresses">
-                <button type="button" class="pick" data-k="house.mattresses" data-v="replaced" aria-pressed="false"><strong>Yes, they’re new or firmer now</strong><span>We’ll mention the new mattresses on the House page.</span></button>
-                <button type="button" class="pick" data-k="house.mattresses" data-v="not yet" aria-pressed="false"><strong>Not yet</strong><span>The site stays quiet about beds. Worth replacing the softest two when you can.</span></button>
-              </div>
-            </div>
-            <div class="house-q">
-              <h4>Is the Wi-Fi fixed?</h4>
-              <p>A guest in June 2026 said the Wi-Fi was poor. The site lists “Wi-Fi &amp; ethernet” and pitches the house for work trips.</p>
-              <div class="pick-list" role="radiogroup" aria-label="Wi-Fi">
-                <button type="button" class="pick" data-k="house.wifi" data-v="fixed" aria-pressed="false"><strong>Yes, it works well in every room</strong><span>The site stays as it is.</span></button>
-                <button type="button" class="pick" data-k="house.wifi" data-v="not fixed or unsure" aria-pressed="false"><strong>Not yet, or not sure</strong><span>We’ll take Wi-Fi out of the work-trip pitch until it’s fixed.</span></button>
-              </div>
-            </div>
-            <div class="house-q">
-              <h4>How many people fit at the dining table?</h4>
-              <p>A 2022 guest said it seats 6. The site tells groups of eight there’s “room at the table.”</p>
-              <div class="pick-list" role="radiogroup" aria-label="Dining table">
-                <button type="button" class="pick small" data-k="house.table" data-v="8" aria-pressed="false"><strong>8 at the table</strong></button>
-                <button type="button" class="pick small" data-k="house.table" data-v="6 plus extra chairs for 8" aria-pressed="false"><strong>6, with extra chairs so 8 fit</strong></button>
-                <button type="button" class="pick small" data-k="house.table" data-v="6" aria-pressed="false"><strong>Only 6</strong><span>We’ll reword the group-of-eight line so it doesn’t overpromise.</span></button>
-              </div>
-            </div>
-          </article>
-          <article id="need-paypal" data-field="booking">
-            <p class="item-state"><span class="tag review">Needs you</span></p>
-            <h3>PayPal</h3>
-            <p>Venmo is live on the Pay page. PayPal appears next to it once we have your PayPal.Me handle.</p>
-            <label>PayPal.Me handle<input type="text" name="paypal_handle" placeholder="paypal.me/yourname" autocomplete="off"></label>
-            <div class="pick-list" role="radiogroup" aria-label="PayPal">
-              <button type="button" class="pick small" data-k="booking.paypal" data-v="no" aria-pressed="false"><strong>Skip PayPal — Venmo only is fine</strong></button>
-            </div>
-          </article>
-        </div>
-        <p id="decision-status" class="note" role="status"></p>
-        <button class="button send" type="submit">Send now</button>
-      </form>
+      <div class="decision-list">
+        <article id="step-calendar">
+          <p class="item-state"><span class="tag review">Step 1 · Needs you</span></p>
+          <h3>Connect the site’s calendar to Airbnb and Vrbo</h3>
+          <p>The site already reads your Airbnb and Vrbo calendars, so booked nights are greyed out. This step is the other direction: when you record a direct booking on the site, Airbnb and Vrbo block those dates too. Paste this link into both, once:</p>
+          <p><code id="feed-link" style="word-break:break-all;user-select:all">https://theprosserhome.com/api/calendar.ics?key=717f3cca9851d461a34905eaba1d67c1b6ad06c4a3ac85da</code></p>
+          <p><button type="button" class="button" onclick="navigator.clipboard.writeText(document.getElementById('feed-link').textContent).then(() =&gt; { this.textContent = 'Copied ✓' })">Copy the link</button></p>
+          <details class="howto" open><summary>Where to paste it</summary><p><strong>Airbnb:</strong> Calendar → Availability settings → Connect calendars → <strong>Import calendar</strong>. Paste the link and name it “The Prosser Home website”. <strong>Vrbo:</strong> Calendar → Import &amp; export → <strong>Import calendar</strong>, same link. Both check it every few hours, so for a guest arriving within a day or two, also block the dates by hand.</p></details>
+          <p class="note">Keep this link private: anyone with it can see which nights are booked directly (no names). If it’s ever shared, tell us and we’ll issue a new one.</p>
+        </article>
+        <article id="step-signoff">
+          <p class="item-state"><span class="tag review">Step 2 · Needs you</span></p>
+          <h3>Your sign-off</h3>
+          <p>Have a last look at <a href="https://theprosserhome.com">theprosserhome.com</a> on your phone. If something’s off, open a page under “The website” below, tap <strong>/</strong> and point at it. When you’re happy, tell Moritz “go” and it launches.</p>
+        </article>
+        <article id="step-payment">
+          <p class="item-state"><span class="tag pending">Step 3 · At launch</span></p>
+          <h3>Second payment: $500</h3>
+          <p>The website is $1,000 in total. Thank you for the first $500, received this weekend. The remaining <strong>$500 is due at launch</strong>, and Moritz will send it through with the launch note.</p>
+        </article>
+      </div>
       <div class="heads-up">
-        <h3>Heads-up — nothing to send</h3>
+        <h3>Heads-up: nothing to send</h3>
         <ul>
-          <li><strong>Put out the soap.</strong> The site now tells guests there’s unscented soap in each bathroom.</li>
+          <li><strong>Booking texts.</strong> Your number, (425) 999-2904, is being set up. Once it’s confirmed you’ll get one test text; after that, every booking request texts you the guest’s name, dates and party size.</li>
+          <li><strong>Put out the soap.</strong> The site tells guests there’s unscented soap in each bathroom.</li>
           <li><strong>Your first booking email.</strong> The domain is new, so it may land in spam or promotions. Mark it “not spam” and add bookings@theprosserhome.com to your contacts.</li>
+          <li><strong>Mattresses.</strong> The site says nothing about how comfortable the beds are. When you replace the soft ones, tell us and we’ll add it.</li>
+          <li><strong>Owner page.</strong> You’ll get the key for <a href="https://theprosserhome.com/manage">theprosserhome.com/manage</a>, where you record direct bookings once they’re paid.</li>
         </ul>
       </div>
     </section>
@@ -136,18 +89,19 @@
         <p>Live at <a href="https://theprosserhome.com">theprosserhome.com</a>. To comment on something, open a page below and tap the <strong>/</strong> button, then tap the part you mean. Please don’t put guest details, passwords or calendar links in comments.</p>
       </div>
       <div class="page-links">
-        <a href="/prosser/versions/v0-8/">Home ↗</a>
-        <a href="/prosser/versions/v0-8/house">The house ↗</a>
-        <a href="/prosser/versions/v0-8/explore">Explore Prosser ↗</a>
-        <a href="/prosser/versions/v0-8/availability">Availability ↗</a>
-        <a href="/prosser/versions/v0-8/contact">Contact ↗</a>
-        <a href="/prosser/versions/v0-8/pay">Pay ↗</a>
+        <a href="/prosser/versions/v0-9/">Home ↗</a>
+        <a href="/prosser/versions/v0-9/house">The house ↗</a>
+        <a href="/prosser/versions/v0-9/explore">Explore Prosser ↗</a>
+        <a href="/prosser/versions/v0-9/availability">Availability ↗</a>
+        <a href="/prosser/versions/v0-9/contact">Contact ↗</a>
+        <a href="/prosser/versions/v0-9/pay">Pay ↗</a>
       </div>
       <div class="preview-wrap">
         <div class="preview-toolbar">
           <label for="preview-version">Preview</label>
           <select id="preview-version">
-            <option value="v0-8">v0.8 — Current</option>
+            <option value="v0-9">v0.9 — Current</option>
+            <option value="v0-8">v0.8 — Your 20 September answers</option>
             <option value="v0-7">v0.7 — Bedroom photo and Venmo</option>
             <option value="v0-6">v0.6 — Stay planner</option>
             <option value="v0-5">v0.5 — The Prosser Home</option>
@@ -156,9 +110,9 @@
             <option value="v0-2">v0.2 — Listing-led redesign</option>
             <option value="v0-1">v0.1 — Concept only</option>
           </select>
-          <a id="open-preview" href="/prosser/versions/v0-8/">Open full page ↗</a>
+          <a id="open-preview" href="/prosser/versions/v0-9/">Open full page ↗</a>
         </div>
-        <iframe id="site-preview" src="/prosser/versions/v0-8/index.html" title="Prosser Home website preview, version 0.8" loading="lazy"></iframe>
+        <iframe id="site-preview" src="/prosser/versions/v0-9/index.html" title="Prosser Home website preview, version 0.9" loading="lazy"></iframe>
       </div>
     </section>
 
@@ -168,14 +122,27 @@
         <p>Nothing here needs you. It’s the record of what’s built and what you decided.</p>
       </div>
       <ul class="checklist">
-        <li><strong>Website</strong> — v0.8, with your 20 September answers applied.</li>
+        <li><strong>Website</strong> — v0.9, with all your answers applied (20 and 21 September).</li>
         <li><strong>Domain</strong> — theprosserhome.com, registered 21 September. Old addresses forward to it.</li>
         <li><strong>Booking emails</strong> — from bookings@theprosserhome.com; guest replies go straight to you.</li>
         <li><strong>Booking requests</strong> — saved on our side as well as emailed, so none get lost.</li>
-        <li><strong>Venmo</strong> — the Pay page opens @TJ-SAB with the amount and dates filled in.</li>
-        <li><strong>Calendar sync</strong> — built both ways; waiting only on your links.</li>
+        <li><strong>Payments</strong> — Venmo only: the Pay page opens @TJ-SAB with the amount and dates filled in. No PayPal.</li>
+        <li><strong>Calendar</strong> — the site reads your Airbnb and Vrbo calendars live. The other direction is Step 1 above.</li>
+        <li><strong>Checked twice over</strong> — before this version went live, two independent AI reviewers (Anthropic’s Fable and OpenAI’s Astra) went through it, and everything they found was fixed: stricter date checks, a warning if a calendar can’t be reached, spam limits on the request form, and booking texts that a guest’s message can’t redirect.</li>
       </ul>
       <div class="done-list">
+        <details open>
+          <summary>Your answers on 21 September — how we applied them</summary>
+          <ul class="settled">
+            <li><strong>Beds.</strong> The House page lists four beds: a queen in the upstairs suite, and a queen and two fulls in the other three bedrooms.</li>
+            <li><strong>Dining table.</strong> “Seats six, with extra chairs for eight”, on the House page and in the house details.</li>
+            <li><strong>Wi-Fi.</strong> Fixed, so Wi-Fi stays in the work-trip pitch.</li>
+            <li><strong>Mattresses.</strong> Not replaced yet, so the site makes no promise about the beds. We also trimmed the one guest quote that mentioned comfortable beds.</li>
+            <li><strong>PayPal.</strong> Skipped. PayPal is gone from the site and your request emails; Venmo only.</li>
+            <li><strong>Calendars.</strong> Your Airbnb and Vrbo links are connected, so the calendar shows real booked nights instead of sample dates.</li>
+            <li><strong>Booking texts.</strong> iPhone, (425) 999-2904 — being set up.</li>
+          </ul>
+        </details>
         <details>
           <summary>Your answers on 20 September — how we applied them</summary>
           <ul class="settled">
@@ -210,7 +177,8 @@
         <details id="versions">
           <summary>Website versions</summary>
           <ol class="timeline">
-            <li><div class="version-date"><strong>v0.8</strong><time datetime="2026-09-21">21 Sep 2026</time><span class="tag done">Current</span></div><div><h3>Your answers, applied.</h3><p>Upstairs described as a suite, kids welcome, later check-out on request, unscented soap in each bath. All six guest quotes, a “made for” section, Red Mountain and the Balloon Rally on Explore, the Venmo purchase line and 7.5% less than Airbnb for direct bookings.</p><a href="/prosser/versions/v0-8/">View v0.8 ↗</a></div></li>
+            <li><div class="version-date"><strong>v0.9</strong><time datetime="2026-09-22">22 Sep 2026</time><span class="tag done">Current</span></div><div><h3>Ready to launch.</h3><p>Bed sizes, dining table for six (chairs for eight), Venmo only, live Airbnb and Vrbo calendars, and the fixes from the two-reviewer check.</p><a href="/prosser/versions/v0-9/">View v0.9 ↗</a></div></li>
+            <li><div class="version-date"><strong>v0.8</strong><time datetime="2026-09-21">21 Sep 2026</time></div><div><h3>Your answers, applied.</h3><p>Upstairs described as a suite, kids welcome, later check-out on request, unscented soap in each bath. All six guest quotes, a “made for” section, Red Mountain and the Balloon Rally on Explore, the Venmo purchase line and 7.5% less than Airbnb for direct bookings.</p><a href="/prosser/versions/v0-8/">View v0.8 ↗</a></div></li>
             <li><div class="version-date"><strong>v0.7</strong><time datetime="2026-09-18">18 Sep 2026</time></div><div><h3>Your bedroom photo and Venmo.</h3><p>Your sleigh-bed photo on Home and in the gallery. The Pay page takes Venmo (@TJ-SAB) with the amount and dates filled in.</p><a href="/prosser/versions/v0-7/">View v0.7 ↗</a></div></li>
             <li><div class="version-date"><strong>v0.6</strong><time datetime="2026-09-15">15 Sep 2026</time></div><div><h3>Pick dates on the home page.</h3><p>Live stay planner on Home, guest quotes from the Airbnb listing, same booking flow.</p><a href="/prosser/versions/v0-6/">View v0.6 ↗</a></div></li>
             <li><div class="version-date"><strong>v0.5</strong><time datetime="2026-09-14">14 Sep 2026</time></div><div><h3>The Prosser Home.</h3><p>Renamed throughout. Warmer interior photos, fireplace removed until it’s fixed, Horse Heaven Hills view on Explore, requests to both owners.</p><a href="/prosser/versions/v0-5/">View v0.5 ↗</a></div></li>
@@ -223,7 +191,7 @@
       </div>
     </section>
   </main>
-  <footer><a href="/">Statecraft Systems</a><span>Project room for Tyler · Updated 21 September 2026</span></footer>
-  <script src="/prosser/project.js?v=20260921c" defer></script>
+  <footer><a href="/">Statecraft Systems</a><span>Project room for Tyler · Updated 22 September 2026</span></footer>
+  <script src="/prosser/project.js?v=20260922a" defer></script>
 </body>
 </html>
