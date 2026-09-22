@@ -302,14 +302,14 @@
   }
   function picked(k) { return !!form.querySelector('[data-k="' + k + '"][aria-pressed="true"]'); }
   var NEEDS = {
-    'need-texts': function () { return picked('ops.phone') && filled('sms_mobile'); },
-    'need-calendars': function () { return filled('ical_airbnb') && filled('ical_vrbo'); },
-    'need-house': function () {
-      return ['bed_1', 'bed_2', 'bed_3', 'bed_up'].every(filled)
-        && ['house.mattresses', 'house.wifi', 'house.table'].every(picked);
-    },
-    'need-paypal': function () { return filled('paypal_handle') || picked('booking.paypal'); }
+    'need-pricing': function () { return filled('nightly_rate') && filled('cleaning_fee'); },
+    'need-hold': function () { return picked('booking.hold'); },
+    'need-instantbook': function () { return picked('booking.instant'); },
+    'need-cards': function () { return picked('booking.cards'); },
+    'need-arrival': function () { return filled('arrival_contact') && filled('arrival_times'); }
   };
+  // These counters belong to the booking form only. The three launch steps at the top
+  // of the page are written by hand and must not be overwritten from here.
   function refreshNeeds() {
     var left = 0;
     Object.keys(NEEDS).forEach(function (id) {
@@ -321,18 +321,17 @@
       var tag = article.querySelector('.item-state .tag');
       if (tag) tag.textContent = done ? 'Got it ✓' : 'Needs you';
     });
-    document.querySelectorAll('[data-count]').forEach(function (el) {
+    document.querySelectorAll('[data-booking-count]').forEach(function (el) {
       el.textContent = left;
       if (left) el.removeAttribute('data-zero'); else el.setAttribute('data-zero', '');
     });
-    document.querySelectorAll('[data-count-text]').forEach(function (el) {
+    document.querySelectorAll('[data-booking-count-text]').forEach(function (el) {
       el.textContent = left
-        ? 'Almost ready to launch · ' + left + (left === 1 ? ' thing' : ' things') + ' left'
-        : 'Nothing needed from you right now';
+        ? left + (left === 1 ? ' answer' : ' answers') + ' left to switch it on'
+        : 'We have everything — it switches on at launch';
     });
-    var intro = document.querySelector('.need-intro');
-    var allDone = document.querySelector('.all-done');
-    if (intro) intro.hidden = !left;
+    var section = document.getElementById('booking');
+    var allDone = section && section.querySelector('.all-done');
     if (allDone) allDone.hidden = !!left;
   }
   form.addEventListener('click', function (event) {

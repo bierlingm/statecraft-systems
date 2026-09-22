@@ -41,6 +41,7 @@
     </section>
     <nav class="section-nav" aria-label="Project sections">
       <a href="#need">Needs you <span class="count" data-count>3</span></a>
+      <a href="#booking">Booking <span class="count" data-booking-count>5</span></a>
       <a href="#website">Website</a>
       <a href="#done">Done &amp; history</a>
     </nav>
@@ -74,13 +75,127 @@
       <div class="heads-up">
         <h3>Heads-up: nothing to send</h3>
         <ul>
-          <li><strong>Booking texts.</strong> Your number, (425) 999-2904, is being set up. Once it’s confirmed you’ll get one test text; after that, every booking request texts you the guest’s name, dates and party size.</li>
+          <li><strong>Booking texts are on.</strong> Your test text arrived on 22 September. From now on every booking request texts you the guest’s name, dates and party size — never their message.</li>
           <li><strong>Put out the soap.</strong> The site tells guests there’s unscented soap in each bathroom.</li>
           <li><strong>Your first booking email.</strong> The domain is new, so it may land in spam or promotions. Mark it “not spam” and add bookings@theprosserhome.com to your contacts.</li>
           <li><strong>Mattresses.</strong> The site says nothing about how comfortable the beds are. When you replace the soft ones, tell us and we’ll add it.</li>
           <li><strong>Owner page.</strong> You’ll get the key for <a href="https://theprosserhome.com/manage">theprosserhome.com/manage</a>, where you record direct bookings once they’re paid.</li>
         </ul>
       </div>
+    </section>
+
+
+    <section id="booking">
+      <div class="section-title">
+        <h2>Booking that runs itself.</h2>
+        <p>You asked for this on 21 September. It’s built and tested. It switches on once you’ve answered the short form at the bottom — <span data-booking-count-text>5 answers left to switch it on</span>. The site launches either way.</p>
+        <p class="all-done" hidden><strong>We have everything for this.</strong> It switches on when the site launches.</p>
+      </div>
+
+      <div class="decision-list">
+        <article id="booking-ask">
+          <p class="item-state"><span class="tag done">Built</span></p>
+          <h3>What you asked for</h3>
+          <blockquote><p>“An accept booking button, that then sends the payment link, blocks the calendar tentatively and notifies the guest would be great. And then an auto message day of the booking with the house information would be awesome.”</p></blockquote>
+          <p>All four, plus the thing underneath them: nothing should depend on you or Ben remembering a step.</p>
+        </article>
+
+        <article id="booking-built">
+          <p class="item-state"><span class="tag done">Built</span></p>
+          <h3>What happens now</h3>
+          <ul>
+            <li><strong>A guest asks.</strong> You both get the email and the text as before — but now with one button: <em>Open this request</em>. No password, no app.</li>
+            <li><strong>That page does your homework.</strong> While you’re looking at it, it checks Airbnb, Vrbo and the website calendar for a clash, and works out the all-in price for those nights.</li>
+            <li><strong>One tap on Accept does all four things.</strong> It takes the dates off the calendar, sends the guest the price and your Venmo link, tells them the dates are held for them and until when, and texts you and Ben what went out.</li>
+            <li><strong>You can’t both reply.</strong> Whoever taps first handles it. The other one opens the link and sees “accepted by Tyler, 10:04”.</li>
+            <li><strong>When they pay,</strong> the guest presses <em>I’ve sent the payment</em>. You get a text with one button — check Venmo, tap it, and the booking is final.</li>
+            <li><strong>If the money never comes,</strong> the guest is reminded a day before the hold runs out, then the dates go back on sale by themselves and you’re told. Nothing sits half-done.</li>
+            <li><strong>If nobody answers a request,</strong> you’re both texted again after 12 hours, and after a day it comes to Moritz too. A guest who waits a day usually books somewhere else.</li>
+            <li><strong>The guest hears from you four more times, automatically:</strong> a week before, <strong>at 9am on the morning they arrive with the door code, Wi-Fi and parking</strong>, a short note on checkout morning, and a thank-you the day after.</li>
+          </ul>
+          <p class="note">One safety rule worth knowing: if it can’t send a complete arrival message — because the door code or Wi-Fi isn’t set — it sends nothing and tells you to do it yourself. It will never email a guest a half-finished set of instructions.</p>
+        </article>
+
+        <article id="booking-limit">
+          <p class="item-state"><span class="tag review">Worth knowing</span></p>
+          <h3>The one thing it can’t do</h3>
+          <p>Airbnb only re-reads our calendar every few hours — about three. So between you accepting a direct booking and Airbnb noticing, there’s a window where an Instant Book guest could still grab those nights. That’s exactly the problem you described, and no calendar link can close it.</p>
+          <p>There’s a free fix, and it’s yours to choose: <strong>turn Instant Book off on Airbnb</strong>. With Request to Book, nobody can take dates without you accepting, and the window stops mattering. The cost is that Airbnb favours Instant Book listings a little in search.</p>
+          <p class="note">Separately, and free today: Airbnb has scheduled messages built into the host app. That gets your <em>Airbnb</em> guests the same day-of house information right now, without waiting for any of this. Most of your bookings are still there.</p>
+        </article>
+
+        <article id="booking-other">
+          <p class="item-state"><span class="tag pending">Your call, later</span></p>
+          <h3>The other way, if you’d rather</h3>
+          <p>There are booking systems that sit behind a site like yours and talk to Airbnb properly, rather than through a calendar link. The best fit is about <strong>$50–65 a month</strong>, no contract. Two things it does that we can’t:</p>
+          <ul>
+            <li><strong>It closes the window above completely.</strong> Airbnb asks it at the moment a guest taps Book, so a clash is refused outright.</li>
+            <li><strong>It messages your Airbnb guests too</strong>, not just the ones who book direct.</li>
+          </ul>
+          <p>The catch is real: it takes <strong>cards through Stripe, not Venmo</strong>. That’s about $29 on a $1,000 booking — set against the roughly $155 you save on that same booking by going direct.</p>
+          <p><strong>What we’d do:</strong> start with what’s built. You haven’t taken a direct booking yet, and paying $600 a year and changing how guests pay before the first one is the wrong order. Nothing is wasted if you move later — the buttons and the emails stay exactly as they are.</p>
+        </article>
+      </div>
+
+      <form class="decision-form" id="decision-form">
+        <label class="decision-name">Your name<input type="text" name="reviewer" autocomplete="name" placeholder="Tyler" required></label>
+        <div class="decision-list">
+          <article id="need-pricing" data-field="pricing">
+            <p class="item-state"><span class="tag review">Needs you</span></p>
+            <h3>Your prices</h3>
+            <p>With these, the decision page works the total out for you and you just tap Accept. Without them it still works — you type the total in each time.</p>
+            <label>Nightly rate<input type="text" name="nightly_rate" placeholder="e.g. $295"></label>
+            <label>Cleaning fee<input type="text" name="cleaning_fee" placeholder="e.g. $150"></label>
+            <p class="note">Washington lodging tax (10.7%) is added on top automatically, and the guest sees one all-in number. You can always change the total before you send it.</p>
+          </article>
+
+          <article id="need-hold" data-field="hold">
+            <p class="item-state"><span class="tag review">Needs you</span></p>
+            <h3>How long should dates stay held?</h3>
+            <p>After you accept, the nights are off sale everywhere while the guest pays. If nothing lands by the deadline they go back on the calendar by themselves.</p>
+            <div class="pick-list" role="radiogroup" aria-label="Hold length">
+              <button type="button" class="pick" data-k="booking.hold" data-v="1 day" aria-pressed="false"><strong>1 day</strong><span>Tight, but nothing sits blocked for long.</span></button>
+              <button type="button" class="pick" data-k="booking.hold" data-v="2 days" aria-pressed="false"><strong>2 days</strong><span>The usual choice. What we’d suggest.</span></button>
+              <button type="button" class="pick" data-k="booking.hold" data-v="3 days" aria-pressed="false"><strong>3 days</strong><span>Generous — good for groups who need to split the cost.</span></button>
+            </div>
+          </article>
+
+          <article id="need-instantbook" data-field="instantbook">
+            <p class="item-state"><span class="tag review">Needs you</span></p>
+            <h3>Airbnb Instant Book: on or off?</h3>
+            <p>See “the one thing it can’t do” above. Off is the free fix for the double-booking risk; on gets you a little more Airbnb traffic.</p>
+            <div class="pick-list two" role="radiogroup" aria-label="Instant Book">
+              <button type="button" class="pick" data-k="booking.instant" data-v="turning it off" aria-pressed="false"><strong>I’ll turn it off</strong><span>No one can take dates without you.</span></button>
+              <button type="button" class="pick" data-k="booking.instant" data-v="leaving it on" aria-pressed="false"><strong>Leave it on</strong><span>You accept the few-hour window.</span></button>
+            </div>
+          </article>
+
+          <article id="need-cards" data-field="cards">
+            <p class="item-state"><span class="tag review">Needs you</span></p>
+            <h3>Cards alongside Venmo?</h3>
+            <p>Venmo works, but somebody has to look and confirm the money arrived. A card payment confirms the booking on its own, the second it goes through — at about 3% of the total.</p>
+            <div class="pick-list" role="radiogroup" aria-label="Card payments">
+              <button type="button" class="pick" data-k="booking.cards" data-v="Venmo only" aria-pressed="false"><strong>Venmo only, as now</strong><span>Nothing changes.</span></button>
+              <button type="button" class="pick" data-k="booking.cards" data-v="add cards" aria-pressed="false"><strong>Add cards too</strong><span>Guests choose; bookings with a card confirm themselves.</span></button>
+              <button type="button" class="pick" data-k="booking.cards" data-v="decide later" aria-pressed="false"><strong>Ask me again after a few bookings</strong></button>
+            </div>
+          </article>
+
+          <article id="need-arrival" data-field="arrival">
+            <p class="item-state"><span class="tag review">Needs you</span></p>
+            <h3>What goes in the arrival message</h3>
+            <p>This is the 9am-on-the-day email you asked for. Everything here is only ever sent to a guest who has paid for that stay.</p>
+            <label>Parking<input type="text" name="arrival_parking" placeholder="e.g. Two cars in the driveway, more on the street"></label>
+            <label>Bins — which day, and where do they go?<input type="text" name="arrival_bins" placeholder="e.g. Kerbside Tuesday morning, bins live by the garage"></label>
+            <label>Best number for a guest to call<input type="tel" name="arrival_contact" placeholder="(425) 999-2904"></label>
+            <label>Check-in and check-out times<input type="text" name="arrival_times" placeholder="e.g. in after 4pm, out before 10am"></label>
+            <label>Anything else you always tell guests<textarea name="arrival_extra" rows="3" placeholder="e.g. the hot tub cover, the tricky back door, the good coffee place"></textarea></label>
+            <p class="note"><strong>Don’t type the door code or the Wi-Fi password here.</strong> Text those to Moritz when you’re ready to launch and they go straight into the system — never onto this page, and never into an email to us.</p>
+          </article>
+        </div>
+        <p id="decision-status" class="note" role="status">Your answers send themselves as you type or tap.</p>
+        <button class="button send" type="submit">Send now</button>
+      </form>
     </section>
 
     <section id="website">
@@ -191,6 +306,6 @@
     </section>
   </main>
   <footer><a href="/">Statecraft Systems</a><span>Project room for Tyler · Updated 22 September 2026</span></footer>
-  <script src="/prosser/project.js?v=20260922a" defer></script>
+  <script src="/prosser/project.js?v=20260922b" defer></script>
 </body>
 </html>
