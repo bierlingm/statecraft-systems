@@ -58,7 +58,7 @@
           <p><code id="feed-link" style="word-break:break-all;user-select:all">https://theprosserhome.com/api/calendar.ics?key=717f3cca9851d461a34905eaba1d67c1b6ad06c4a3ac85da</code></p>
           <p><button type="button" class="button" onclick="navigator.clipboard.writeText(document.getElementById('feed-link').textContent).then(() =&gt; { this.textContent = 'Copied ✓' })">Copy the link</button></p>
           <details class="howto" open><summary>Where to paste it</summary><p><strong>Airbnb:</strong> Calendar → Availability settings → Connect calendars → <strong>Import calendar</strong>. Paste the link and name it “The Prosser Home website”. <strong>Vrbo:</strong> Calendar → Import &amp; export → <strong>Import calendar</strong>, same link. Both check it every few hours, so for a guest arriving within a day or two, also block the dates by hand.</p></details>
-          <p class="note">Keep this link private: anyone with it can see which nights are booked directly (no names). If it’s ever shared, tell us and we’ll issue a new one.</p>
+          <p class="note">Keep this link private. It only shows which nights are booked directly, with no names or guest details, and this page is hidden from search engines. If the link is ever shared, tell us and we’ll issue a new one.</p>
         </article>
         <article id="step-signoff">
           <p class="item-state"><span class="tag review">Step 2 · Needs you</span></p>
@@ -128,7 +128,6 @@
         <li><strong>Booking requests</strong> — saved on our side as well as emailed, so none get lost.</li>
         <li><strong>Payments</strong> — Venmo only: the Pay page opens @TJ-SAB with the amount and dates filled in. No PayPal.</li>
         <li><strong>Calendar</strong> — the site reads your Airbnb and Vrbo calendars live. The other direction is Step 1 above.</li>
-        <li><strong>Checked twice over</strong> — before this version went live, two independent AI reviewers (Anthropic’s Fable and OpenAI’s Astra) went through it, and everything they found was fixed: stricter date checks, a warning if a calendar can’t be reached, spam limits on the request form, and booking texts that a guest’s message can’t redirect.</li>
       </ul>
       <div class="done-list">
         <details open>
@@ -177,7 +176,7 @@
         <details id="versions">
           <summary>Website versions</summary>
           <ol class="timeline">
-            <li><div class="version-date"><strong>v0.9</strong><time datetime="2026-09-22">22 Sep 2026</time><span class="tag done">Current</span></div><div><h3>Ready to launch.</h3><p>Bed sizes, dining table for six (chairs for eight), Venmo only, live Airbnb and Vrbo calendars, and the fixes from the two-reviewer check.</p><a href="/prosser/versions/v0-9/">View v0.9 ↗</a></div></li>
+            <li><div class="version-date"><strong>v0.9</strong><time datetime="2026-09-22">22 Sep 2026</time><span class="tag done">Current</span></div><div><h3>Ready to launch.</h3><p>Bed sizes, dining table for six (chairs for eight), Venmo only, and live Airbnb and Vrbo calendars.</p><a href="/prosser/versions/v0-9/">View v0.9 ↗</a></div></li>
             <li><div class="version-date"><strong>v0.8</strong><time datetime="2026-09-21">21 Sep 2026</time></div><div><h3>Your answers, applied.</h3><p>Upstairs described as a suite, kids welcome, later check-out on request, unscented soap in each bath. All six guest quotes, a “made for” section, Red Mountain and the Balloon Rally on Explore, the Venmo purchase line and 7.5% less than Airbnb for direct bookings.</p><a href="/prosser/versions/v0-8/">View v0.8 ↗</a></div></li>
             <li><div class="version-date"><strong>v0.7</strong><time datetime="2026-09-18">18 Sep 2026</time></div><div><h3>Your bedroom photo and Venmo.</h3><p>Your sleigh-bed photo on Home and in the gallery. The Pay page takes Venmo (@TJ-SAB) with the amount and dates filled in.</p><a href="/prosser/versions/v0-7/">View v0.7 ↗</a></div></li>
             <li><div class="version-date"><strong>v0.6</strong><time datetime="2026-09-15">15 Sep 2026</time></div><div><h3>Pick dates on the home page.</h3><p>Live stay planner on Home, guest quotes from the Airbnb listing, same booking flow.</p><a href="/prosser/versions/v0-6/">View v0.6 ↗</a></div></li>
