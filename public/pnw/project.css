@@ -62,23 +62,32 @@
 .opening-figures strong{font-size:clamp(2.2rem,4vw,3rem);font-weight:400;line-height:1;letter-spacing:-.04em;color:var(--accent);font-variant-numeric:tabular-nums}
 .opening-figures span{font-size:14px;color:var(--muted);line-height:1.5}
 
-/* Where Jev fits */
-.jev-list{list-style:none;counter-reset:jev;margin:28px 0 0;padding:0;display:grid;gap:0}
-.jev-list>li{counter-increment:jev;display:grid;grid-template-columns:52px 1fr;gap:28px;padding:30px 0;border-top:1px solid var(--line)}
-.jev-list>li::before{content:counter(jev);font-size:24px;color:var(--accent);line-height:1.3;font-variant-numeric:tabular-nums}
-.jev-list h3{margin:0 0 10px}
-.jev-list p{max-width:75ch;margin-bottom:0}
-.jev-list p+p{margin-top:12px}
-.jev-list .note{margin-top:12px}
 
 #site .act-heading{margin-bottom:14px}
 
 @media(max-width:850px){
   .opening-figures .figure{padding:18px 20px;gap:16px}
-  .jev-list>li{grid-template-columns:36px 1fr;gap:16px}
 }
 
 .story-quote{margin:22px 0;padding:24px 28px;border-left:2px solid var(--accent);background:var(--surface);color:var(--text);font-size:1.05rem;line-height:1.6;max-width:70ch}
 .story-quote strong{color:var(--accent)}
 #supply .act-list{max-width:900px;margin-bottom:26px}
 #supply h3{margin-top:34px}
+
+/* Emphasis paragraph — wider than .path, which is the opening's short flow line */
+.lede{font-size:1.05rem;color:var(--text);max-width:68ch;margin:26px 0 0}
+.lede strong{color:var(--accent);font-weight:600}
+#supply .lede{margin:0 0 22px}
+
+/* Optional detail block */
+details.mechanism{margin-top:34px;padding:0;border:1px solid var(--line);background:var(--surface)}
+details.mechanism summary{padding:18px 24px;font-size:.95rem;color:var(--accent)}
+details.mechanism[open] summary{border-bottom:1px solid var(--line)}
+details.mechanism p{max-width:78ch;margin:0;padding:0 24px}
+details.mechanism p:first-of-type{padding-top:20px}
+details.mechanism p:last-child{padding-bottom:24px}
+details.mechanism p+p{margin-top:14px}
+
+#better .status-grid.four article p:first-of-type{color:var(--text);font-size:15px}
+#better .note{max-width:78ch}
+@media(max-width:850px){details.mechanism summary,details.mechanism p{padding-left:18px;padding-right:18px}}
