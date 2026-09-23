@@ -1,5 +1,7 @@
 /yvs/* https://yakimavalleysupply.com/:splat 301
 
+/pnw /pnw/index.html 200
+
 /prosser /prosser/index.html 200
 /prosser/versions/v0-1 /prosser/versions/v0-1/index.html 200
 /prosser/versions/v0-2 /prosser/versions/v0-2/index.html 200
