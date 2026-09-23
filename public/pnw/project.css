@@ -41,14 +41,14 @@
 
 /* PNW project room — opening figures replace the hero photo */
 .opening-figures{display:grid;gap:14px;align-content:center}
-.opening-figures .figure{display:grid;grid-template-columns:auto 1fr;gap:20px;align-items:baseline;padding:22px 24px;background:var(--surface);border:1px solid var(--line)}
-.opening-figures strong{font-size:clamp(2.2rem,4vw,3rem);font-weight:400;line-height:1;letter-spacing:-.04em;color:var(--accent);font-variant-numeric:tabular-nums}
-.opening-figures span{font-size:14px;color:var(--muted);line-height:1.5}
+.opening-figures .figure{display:block;padding:22px 24px;background:var(--surface);border:1px solid var(--line)}
+.opening-figures strong{display:block;margin-bottom:9px;font-size:clamp(1.7rem,2.6vw,2.1rem);font-weight:500;line-height:1.1;letter-spacing:-.03em;color:var(--accent);font-variant-numeric:tabular-nums}
+.opening-figures span{display:block;font-size:14px;color:var(--muted);line-height:1.55;max-width:44ch;text-wrap:pretty}
 
 
 
 @media(max-width:850px){
-  .opening-figures .figure{padding:18px 20px;gap:16px}
+  .opening-figures .figure{padding:18px 20px}
 }
 
 .story-quote{margin:22px 0;padding:24px 28px;border-left:2px solid var(--accent);background:var(--surface);color:var(--text);font-size:1.05rem;line-height:1.6;max-width:70ch}
