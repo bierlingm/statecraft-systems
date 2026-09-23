@@ -134,7 +134,6 @@
     'inv.blocked': 'Go back to sellers who hit the paywall',
     'inv.parks': 'Parks and communities list vacant homes',
     demand: 'Who owns demand',
-    jev: 'Jev feature to prove first',
     'start.scope': 'Phase 1 as scoped',
     'start.terms': '$1,500 upfront, one month'
   };
@@ -148,12 +147,7 @@
     location: 'is it near where I need to be',
     ben: 'Ben does it',
     hire: 'Ben brings someone in',
-    later: 'not settled yet',
-    import: 'dealer inventory import',
-    intake: 'five-minute listing intake',
-    gate: 'the quality gate',
-    fit: 'buyer feasibility',
-    routing: 'enquiry routing to advertisers'
+    later: 'not settled yet'
   };
 
   function prettyVal(v) {
