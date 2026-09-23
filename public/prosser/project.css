@@ -64,7 +64,12 @@
 .section-nav{position:sticky;top:0;z-index:20;background:var(--bg)}
 .section-nav .count{display:inline-block;min-width:20px;padding:0 6px;margin-left:4px;border-radius:10px;background:#ecd3a0;color:#152318;font-size:12px;text-align:center;font-weight:600}
 .section-nav .count[data-zero]{background:#527047;color:var(--text)}
-#need .decision-name{max-width:320px;margin:0 0 22px!important}
+.decision-form label.decision-name{max-width:560px;margin:32px 0 28px!important;padding:20px 22px;border:1px solid #746140;border-left:4px solid #ecd3a0;background:var(--surface);color:var(--text);font-size:15px;letter-spacing:0}
+.decision-form .decision-name-title{display:block;font-size:1.1rem;font-weight:600;color:#ecd3a0}
+.decision-form .decision-name input[type="text"]{margin-top:12px;padding:12px 14px;border:1px solid #746140;border-radius:2px;background:var(--bg);font-size:1.1rem}
+.decision-form .decision-name input::placeholder{color:#8a8f86}
+.decision-form .decision-name input[type="text"]:focus{outline:2px solid #ecd3a0;outline-offset:2px;border-color:#ecd3a0}
+.decision-form .decision-name-hint{display:block;margin-top:10px;font-size:13px;color:var(--muted)}
 #need .decision-list article{background:var(--surface)}
 #need .decision-list h3{margin-top:10px}
 .item-state{margin:0!important}
