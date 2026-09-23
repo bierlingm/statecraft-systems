@@ -7,22 +7,12 @@
 .decision-form label{display:block;color:var(--muted);font-size:12px;letter-spacing:.04em;margin-top:23px}.decision-form textarea{display:block;width:100%;min-height:92px;margin-top:8px;padding:12px 0;border:0;border-bottom:1px solid #506057;border-radius:0;background:transparent;color:var(--text);font:inherit;line-height:1.55;resize:vertical;transition:border-color .18s,background .18s}.decision-form textarea::placeholder{color:#728076;font-style:italic}.decision-form textarea:hover{background:#ffffff04}.decision-form textarea:focus{outline:0;border-bottom-color:var(--accent);background:#ffffff08}.decision-actions{display:flex;align-items:center;gap:18px;margin-top:26px;padding-top:22px;border-top:1px solid var(--line)}.decision-actions .note{margin:0}
 .decision-actions{flex-wrap:wrap}.decision-name{margin:0!important;flex:1 1 220px}.decision-name input{display:block;width:100%;margin-top:6px;padding:10px 0;border:0;border-bottom:1px solid #506057;background:transparent;color:var(--text);font:inherit}.decision-name input:focus{outline:0;border-bottom-color:var(--accent)}.decision-actions .button{border:0;cursor:pointer;font:inherit;font-weight:600;font-size:14px}.decision-actions .button:disabled{opacity:.6;cursor:default}
 .status-grid.four,.status-grid.pair{grid-template-columns:repeat(2,1fr)}
-.settled-questions{margin:0 0 20px;max-width:820px}
-.settled-questions ul{list-style:none;margin:0;padding:0;display:grid;gap:10px}
-.settled-questions li{display:grid;grid-template-columns:auto 1fr;gap:12px 14px;align-items:start;padding:12px 16px;border:1px solid var(--line);background:transparent}
-.settled-questions h4{font-size:1rem;margin:0 0 4px;letter-spacing:-.02em}
-.settled-questions p{margin:0;font-size:13px;color:var(--muted)}
-.settled-questions .tag{margin-top:2px}
 .path{font-size:14px;color:var(--muted);max-width:52ch;margin:0 0 18px}
 .path strong{color:var(--text);font-weight:600}
 .need-label{font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin:40px 0 14px}
 .decision-form .need-label:first-child{margin-top:0}
 .decision-list article.wide{grid-column:1/-1}
 .decision-list article p+p{margin-top:12px}
-.quote-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:18px 0 4px}
-.quote-grid figure{margin:0;border:1px solid var(--line);padding:16px 18px}
-.quote-grid blockquote{margin:0;color:var(--text);font-size:.98rem;line-height:1.45}
-.quote-grid figcaption{color:var(--muted);font-size:12px;margin-top:10px}
 .done-list details{padding:14px 0;border-top:1px solid var(--line)}
 .done-list details:first-of-type{border-top:0}
 .done-list summary{font-size:1.05rem}
@@ -41,19 +31,12 @@
 .vote.yes[aria-pressed="true"]{border-color:#6fa86a;color:#c3e3b9;background:#1c2e1e}
 .vote.no[aria-pressed="true"]{border-color:#b56a6a;color:#e3b9b9;background:#2e1c1c}
 .vote:focus-visible,.pick:focus-visible{outline:2px solid #d3b276;outline-offset:3px}
-.quote-grid figure{display:flex;flex-direction:column;gap:10px}
-.quote-grid .votes{margin-top:auto}
 .pick-list{display:grid;gap:10px;margin:16px 0 8px}
 .pick{display:block;width:100%;text-align:left;padding:14px 16px;border:1px solid var(--line);background:transparent;color:var(--text)}
 .pick strong{display:block;font-weight:600}
 .pick span{display:block;margin-top:4px;font-size:13px;color:var(--muted)}
 .pick[aria-pressed="true"]{border-color:var(--accent);background:#1c2a20}
 .pick[aria-pressed="true"] strong{color:var(--accent)}
-.note.taken{color:#c4b8a4}
-.bed-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px 18px;margin-top:18px}
-.bed-grid label,.decision-form label.extra{margin-top:16px}
-.bed-grid input,.decision-form input[type="text"],.decision-form input[type="url"]{display:block;width:100%;margin-top:6px;padding:10px 0;border:0;border-bottom:1px solid #506057;background:transparent;color:var(--text);font:inherit}
-.bed-grid input:focus,.decision-form input[type="text"]:focus,.decision-form input[type="url"]:focus{outline:0;border-bottom-color:var(--accent)}
 @media(max-width:850px){.status-grid.four,.status-grid.pair,.quote-grid,.bed-grid{grid-template-columns:1fr}.decision-list article.wide{grid-column:auto}.act-list li{align-items:flex-start}}
 
 /* PNW project room — opening figures replace the hero photo */
@@ -63,7 +46,6 @@
 .opening-figures span{font-size:14px;color:var(--muted);line-height:1.5}
 
 
-#site .act-heading{margin-bottom:14px}
 
 @media(max-width:850px){
   .opening-figures .figure{padding:18px 20px;gap:16px}
@@ -91,3 +73,62 @@ details.mechanism p+p{margin-top:14px}
 #better .status-grid.four article p:first-of-type{color:var(--text);font-size:15px}
 #better .note{max-width:78ch}
 @media(max-width:850px){details.mechanism summary,details.mechanism p{padding-left:18px;padding-right:18px}}
+
+/* --- answer bar: name first, progress visible --- */
+.answer-bar{display:flex;flex-wrap:wrap;align-items:end;gap:18px 28px;padding:22px 24px;margin-bottom:34px;background:var(--surface);border:1px solid var(--line)}
+.answer-bar .decision-name{flex:1 1 240px;margin:0!important}
+.answer-bar .note{flex:2 1 320px;margin:0}
+[data-progress]{display:inline-block;padding:2px 10px;border:1px solid var(--line);border-radius:3px;color:var(--text);font-variant-numeric:tabular-nums}
+[data-progress][data-complete]{border-color:#527047;color:#c3e3b9}
+article[data-field].is-answered>h3::after{content:" ✓";color:#7fae78;font-size:.8em}
+
+/* --- ranked picks and compact option grids --- */
+.rank-label{font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin:30px 0 10px}
+.pick-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:0 0 6px}
+.pick.pick-compact{padding:10px 12px;font-size:14px}
+.pick.pick-compact strong{font-weight:500}
+.pick.pick-compact[aria-pressed="true"] strong{font-weight:600}
+
+/* --- three-way rows --- */
+.act-list-three li{align-items:center}
+.votes.three{display:flex;gap:6px;flex-shrink:0}
+.pick.pick-inline{width:auto;padding:9px 12px;font-size:13px;text-align:center;white-space:nowrap;color:var(--muted)}
+.pick.pick-inline[aria-pressed="true"]{border-color:var(--accent);background:#1c2a20;color:var(--accent)}
+
+/* --- number / short-text field rows --- */
+.field-row{display:grid;grid-template-columns:repeat(2,1fr);gap:14px 22px;margin-top:18px}
+.field-row label{margin-top:0}
+.decision-form input[type="number"]{display:block;width:100%;margin-top:6px;padding:10px 0;border:0;border-bottom:1px solid #506057;background:transparent;color:var(--text);font:inherit}
+.decision-form input[type="number"]:focus{outline:0;border-bottom-color:var(--accent)}
+
+/* Questions were smaller than the body copy; textareas read as decoration */
+.decision-form label{font-size:14px;letter-spacing:0;color:var(--text)}
+.decision-form textarea{border:1px solid #46544b;border-radius:2px;padding:12px 14px;background:#ffffff05}
+.decision-form textarea:focus{border-color:var(--accent);background:#ffffff0a}
+
+/* --- fallback + next steps --- */
+.fallback{margin-top:24px;padding:22px 24px;border:1px solid #746140;background:var(--surface)}
+.fallback textarea{width:100%;margin-top:12px;padding:12px;border:1px solid var(--line);background:var(--bg);color:var(--text);font:13px/1.5 ui-monospace,monospace}
+.next-steps{margin-top:34px;padding-top:22px;border-top:1px solid var(--line);color:var(--muted);max-width:70ch;font-size:14px}
+.next-steps strong{color:var(--text)}
+
+/* The preview is evidence, not a workspace */
+.preview-wrap .note{margin-top:10px}
+
+@media(max-width:850px){
+  .pick-grid{grid-template-columns:repeat(2,1fr)}
+  .field-row{grid-template-columns:1fr}
+}
+@media(max-width:560px){
+  /* 52 vote rows at phone width: stack the buttons under the label */
+  .act-list li{flex-direction:column;align-items:stretch;gap:10px}
+  .votes,.votes.three{justify-content:flex-start}
+  .vote{width:52px;height:44px}
+  .pick.pick-inline{flex:1 1 0}
+  .pick-grid{grid-template-columns:1fr}
+  .answer-bar{padding:18px}
+  /* a desktop site in a 335px column is unreadable — link out instead */
+  #site-preview{display:none}
+}
+h3.need-label{font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:500;margin:40px 0 14px}
+.decision-form h3.need-label:first-child{margin-top:0}
