@@ -75,12 +75,18 @@
   }
 
   var LABELS = {
+    'rank.beds': 'BUYERS ASK ABOUT: bedrooms',
+    'rank.baths': 'BUYERS ASK ABOUT: bathrooms',
+    'rank.sqft': 'BUYERS ASK ABOUT: square footage',
+    'rank.width': 'BUYERS ASK ABOUT: single / double / triple wide',
+    'rank.year': 'BUYERS ASK ABOUT: year built',
+    'rank.moved': 'BUYERS ASK ABOUT: must be moved',
+    'rank.park': 'BUYERS ASK ABOUT: park or community name',
+    'rank.county': 'BUYERS ASK ABOUT: county',
+    'rank.lotrent': 'BUYERS ASK ABOUT: lot rent',
     'asm.paywall': 'ASSESSMENT: the paywall and contradicting price lists',
     'asm.identity': 'ASSESSMENT: dealership shows as seller on every listing',
     'asm.seo': 'ASSESSMENT: the search-engine problems',
-    'filters.first': 'BUYERS ASK ABOUT FIRST',
-    'filters.second': 'BUYERS ASK ABOUT SECOND',
-    'filters.third': 'BUYERS ASK ABOUT THIRD',
     'have.year': 'DEALERS HAVE ON RECORD: year built',
     'have.sqft': 'DEALERS HAVE ON RECORD: square footage',
     'have.moved': 'DEALERS HAVE ON RECORD: must be moved',
@@ -151,6 +157,7 @@
   };
 
   var VALUES = {
+    first: '1st', second: '2nd', third: '3rd',
     beds: 'bedrooms', baths: 'bathrooms', sqft: 'square footage',
     width: 'single / double / triple wide', year: 'year built',
     moved: 'must be moved or stays in place', park: 'park or community name',

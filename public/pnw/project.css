@@ -132,3 +132,12 @@ article[data-field].is-answered>h3::after{content:" ✓";color:#7fae78;font-size
 }
 h3.need-label{font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:500;margin:40px 0 14px}
 .decision-form h3.need-label:first-child{margin-top:0}
+
+/* Restored: text inputs inside labels must be block, or the field sits inline with its question. */
+.decision-form input[type="text"],.decision-form input[type="url"],.decision-form input[type="number"]{
+  display:block;width:100%;margin-top:6px;padding:10px 0;border:0;border-bottom:1px solid #506057;
+  background:transparent;color:var(--text);font:inherit}
+.decision-form input[type="text"]:focus,.decision-form input[type="url"]:focus,.decision-form input[type="number"]:focus{
+  outline:0;border-bottom-color:var(--accent)}
+.decision-form h4.rank-label{font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:500;margin:34px 0 10px}
+.act-list-three .pick-inline{min-width:56px}
