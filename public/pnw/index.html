@@ -43,6 +43,8 @@
       <a href="#understood">What we understood</a>
       <a href="#assessed">What we assessed</a>
       <a href="#jev">Where Jev fits</a>
+      <a href="#supply">Effortless listing</a>
+      <a href="#story">The story</a>
       <a href="#scope">Who does what</a>
       <a href="#questions">Open questions</a>
       <a href="#versions">Versions</a>
@@ -118,9 +120,16 @@
 
       <div class="done-list">
         <details open>
-          <summary>What we concluded: the platform stays</summary>
-          <p>We would not rebuild. The bottleneck is not technical — two listings and no buyer traffic is a pricing and inventory problem, and no amount of custom code changes that. Brilliant Directories already does what the proving phase needs: free plans, self-serve listings, dealer accounts, a banner ad manager, sitemaps, schema. Nothing we found is blocked by it. Rebuilding now would be exactly the overbuilding you said you wanted to avoid.</p>
-          <p>Its real ceiling, so you know where it is before you meet it: no code export, the data model cannot be restructured, no arbitrary API integrations, a listing cap somewhere between 500 and 2,500 depending on plan, theme-level design changes only, and roughly $40–120 a month per site if you replicate to other regions. We revisit when one of those actually binds — most likely when automation or a second region becomes the priority.</p>
+          <summary>What we concluded: build on what is there now, but do not marry it</summary>
+          <p>The bottleneck today is not technical. Two listings and no buyer traffic is a pricing and inventory problem, and no amount of custom code fixes that. So month one happens on Brilliant Directories: paywall down, funnel fixed, SEO foundations repaired, inventory seeded. None of that is wasted whatever we decide later, because the value is listings and traffic, and both of those move.</p>
+          <p>But we are not pretending the platform is fine. It is the most constrained option available. The data model cannot be changed, so the things that actually matter in your industry — must be moved, park approval, age rules, transport distance, lot rent — can never be proper fields. There are no custom integrations, so the two ideas below that would genuinely beat MHVillage cannot be built inside it. There is no code export, so the site is not an asset you could ever sell on its own.</p>
+          <p><strong>So we hedge, and the hedge is nearly free.</strong> We build the dealer import outside Brilliant Directories from the first day. It writes finished listings into your site, but the code and the structured listing data are ours — which means when we move, the pipeline and everything it has collected move with us. Then we decide the platform at day 30 on evidence: if dealers are sending inventory, we build the real thing and migrate. If they are not, the platform was never the problem and we have saved ourselves a rebuild.</p>
+          <p>The mistake we are avoiding is rebuilding first and finding out afterwards whether dealers will send inventory. That is the one path that wastes months instead of weeks.</p>
+        </details>
+        <details>
+          <summary>What we looked at: what we would build instead</summary>
+          <p>We researched this properly rather than assuming. There is no maintained, modern, open-source marketplace built for property — that category aged out years ago. The real off-the-shelf options are hosted products or WordPress with a purpose-built real-estate theme, and the honest finding there is that WordPress would be <em>less</em> constrained than what you have now, not more: real source access, any fields you like, proper export.</p>
+          <p>Building it ourselves is also cheaper to run than Brilliant Directories — on the order of $0 to $50 a month against your current $40 to $120 — because the site is not big. A regional marketplace at the point where it is clearly winning is a few thousand listings. Nothing about this is technically hard at that size. The cost is entirely build time, which is the honest trade.</p>
         </details>
         <details>
           <summary>What we concluded: the $1,000 milestone is close enough to touch</summary>
@@ -161,7 +170,7 @@
           <p>You know things about this site that we cannot see from the outside.</p>
           <ul class="act-list">
             <li><div><strong>The findings above are accurate</strong><span>✕ if something here is wrong or already fixed.</span></div><div class="votes" role="group" aria-label="Findings accurate"><button type="button" class="vote yes" data-k="asm.accurate" data-v="yes" aria-pressed="false" aria-label="Right">✓</button><button type="button" class="vote no" data-k="asm.accurate" data-v="no" aria-pressed="false" aria-label="Wrong">✕</button></div></li>
-            <li><div><strong>Staying on Brilliant Directories is the right call</strong><span>✕ if you would rather we looked at rebuilding now.</span></div><div class="votes" role="group" aria-label="Stay on BD"><button type="button" class="vote yes" data-k="asm.platform" data-v="yes" aria-pressed="false" aria-label="Right">✓</button><button type="button" class="vote no" data-k="asm.platform" data-v="no" aria-pressed="false" aria-label="Wrong">✕</button></div></li>
+            <li><div><strong>Month one on the current platform, decide properly at day 30</strong><span>✕ if you would rather we started building the real thing now.</span></div><div class="votes" role="group" aria-label="Platform approach"><button type="button" class="vote yes" data-k="asm.platform" data-v="yes" aria-pressed="false" aria-label="Right">✓</button><button type="button" class="vote no" data-k="asm.platform" data-v="no" aria-pressed="false" aria-label="Wrong">✕</button></div></li>
             <li><div><strong>Nobody is currently paying for a listing</strong><span>If anyone is, we need to handle them before the paywall comes down.</span></div><div class="votes" role="group" aria-label="No paying sellers"><button type="button" class="vote yes" data-k="asm.nopayers" data-v="yes" aria-pressed="false" aria-label="Right">✓</button><button type="button" class="vote no" data-k="asm.nopayers" data-v="no" aria-pressed="false" aria-label="Wrong">✕</button></div></li>
           </ul>
           <label class="extra">What we got wrong<textarea name="assessment_correction" placeholder="Something already fixed, something we misread, something we could not see from outside…"></textarea></label>
@@ -209,6 +218,47 @@
       <p class="note">One honest limit: Brilliant Directories does not open its data model or let us integrate arbitrary APIs. The first three of these can run alongside it — work happens outside, finished listings go in. The last three want more room, and they are a good part of the answer to “when would we outgrow this platform.” Not on a feeling: when four, five and six are worth building.</p>
     </section>
 
+    <section id="supply">
+      <div class="section-title">
+        <h2>Making it effortless to list.</h2>
+        <p>This is where we think the real strategy is, and it comes straight from your own advantage. You have the relationships. So the product's whole job is to turn a relationship into inventory with no more friction than sending a text.</p>
+      </div>
+
+      <p class="path">Every marketplace dies of a supply problem, and the supply problem is almost always <strong>the form</strong>. A dealer with forty homes will not fill in forty forms. A private seller looking at a photo uploader closes the tab.</p>
+
+      <p>So: no form. A dealer sends us whatever they already have, however they already have it, and a listing appears.</p>
+
+      <ul class="act-list" aria-label="Ways to list">
+        <li><div><strong>Text or WhatsApp us the photos</strong><span>Dealers already send inventory this way. No new habit to learn.</span></div></li>
+        <li><div><strong>Forward an email</strong><span>Whatever they already emailed someone else about the home.</span></div></li>
+        <li><div><strong>Paste a link</strong><span>Their listing on another site, or a page on their own website.</span></div></li>
+        <li><div><strong>Drop a spreadsheet, a PDF or a folder of photos</strong><span>Forty homes in one go, in whatever shape they keep them.</span></div></li>
+        <li><div><strong>Snap photos on a phone</strong><span>For the seller standing in the home right now. No account needed to start.</span></div></li>
+      </ul>
+
+      <p>Behind all of those, the model reads the inputs and works out which value is the year, the make, the size, the price, the location — what each photo shows, whether the condition described matches them, whether two submissions are the same home. Then a listing page appears for them to correct rather than compose. Nothing is published until they say so.</p>
+
+      <h3>The one that changes the conversation</h3>
+      <p><strong>Give us one link and we keep it in sync.</strong> A dealer points us at their profile elsewhere or their own inventory page. A new home appears there, it appears here. Sold there, it comes down here. Their ongoing effort is zero, because they already maintain that page for other reasons.</p>
+      <p class="note">That turns your ask to a dealer from “please do some work for me” into “I will do work for you, for free, permanently.” For someone deciding whether to bother with a new regional site, that is a completely different question. One caution: mirroring a dealer’s listings from someone else’s platform needs their written permission and still touches that platform’s rules — their own website or a file they send us is cleaner, and we would start there.</p>
+
+      <h3>Why it should feel good, not just be quick</h3>
+      <p>They see a listing, not a form. It looks better than what they would have made themselves — photos straightened and ordered, a hero image chosen, the description in clean English. It is fast enough to feel like a trick. And they get a link they actually want to send to buyers, which is how the site spreads without anyone marketing it.</p>
+      <p class="note">If their listing on your site is the best-looking version of their home anywhere, and it took ninety seconds, the supply problem solves itself. That is the bet.</p>
+    </section>
+
+    <section id="story">
+      <div class="section-title">
+        <h2>The story.</h2>
+        <p>We think this matters more here than on most projects, and we cannot write it without you.</p>
+      </div>
+      <p>Your supply side is a relationship business — the pitch to a dealer is not “we have better filters,” it is “I am building the thing our industry should have had.” And your buyers are frightened; this is a corner of housing where people genuinely get cheated, and a site with a clear human reason for existing converts better than a tidier one without a point of view.</p>
+      <p>Here is our first draft of it, to be corrected rather than accepted:</p>
+      <blockquote class="story-quote">A manufactured home is how a lot of people actually get to own where they live — a young couple who would otherwise rent for another decade, a retiree who sells the big house and finally has money to travel on, a family who gets a place near the mountains. The homes are affordable. The market for them is not: opaque, fragmented, and thick with people taking a cut.<br><br><strong>Ben was the middleman. He is removing the middleman, starting with himself.</strong></blockquote>
+      <p>That last line is the part with real force, and it is the reason this is yours to build rather than anyone’s. You are not disrupting someone else’s business — you are dismantling your own position on purpose and giving away the thing you used to charge for. It is the most credible version of “free listings” anyone in this industry can offer, because it costs you personally rather than being a platform buying market share.</p>
+      <p class="note">One thing to be aware of: a story like this is also a constraint. “No commissions, ever” becomes a problem the day a commission appears, and “every listing checked” is a promise the site then has to keep. We think those are the right constraints — but they are constraints, and you should agree to them knowingly.</p>
+    </section>
+
     <section id="scope">
       <div class="section-title">
         <h2>Who does what.</h2>
@@ -230,7 +280,7 @@
     <section id="questions">
       <div class="section-title">
         <h2>Open questions.</h2>
-        <p>Six things we genuinely do not know, and cannot work out from the outside. Answers stay in this browser until you press send, so you can do a few now and come back.</p>
+        <p>Eight things we genuinely do not know, and cannot work out from the outside. Answers stay in this browser until you press send, so you can do a few now and come back.</p>
       </div>
 
         <p class="need-label">1. The model</p>
@@ -347,7 +397,39 @@
           </article>
         </div>
 
-        <p class="need-label">6. Getting started</p>
+        <p class="need-label">6. The story, and getting the word out</p>
+        <div class="decision-list">
+          <article id="decision-story" class="wide" data-field="story">
+            <h3>Is that your story, and do you want to front it?</h3>
+            <p>Both options below work. The first converts better and is much harder for anyone to copy. The second is easier to sell or step back from later. Worth deciding on purpose rather than by drift, because it changes the design, the copy and the outreach.</p>
+            <div class="pick-list">
+              <button type="button" class="pick" data-k="story.front" data-v="ben_front" aria-pressed="false"><strong>The site is visibly yours</strong><span>Your name, your face, your decade in the industry. The dealer who removed the middleman, starting with himself.</span></button>
+              <button type="button" class="pick" data-k="story.front" data-v="neutral" aria-pressed="false"><strong>A neutral marketplace brand</strong><span>You stand behind it but do not front it.</span></button>
+            </div>
+            <ul class="act-list">
+              <li><div><strong>The draft above is roughly right</strong><span>✕ if we have put words in your mouth.</span></div><div class="votes" role="group" aria-label="Story draft accurate"><button type="button" class="vote yes" data-k="story.draft" data-v="yes" aria-pressed="false" aria-label="Right">✓</button><button type="button" class="vote no" data-k="story.draft" data-v="no" aria-pressed="false" aria-label="Wrong">✕</button></div></li>
+              <li><div><strong>You will sit for a half-hour recorded conversation</strong><span>How you got into this, the seller you could not help, the buyer whose life changed, what people get wrong about mobile homes. That interview becomes the homepage, the about page, and the articles that bring in search traffic.</span></div><div class="votes" role="group" aria-label="Interview"><button type="button" class="vote yes" data-k="story.interview" data-v="yes" aria-pressed="false" aria-label="Yes">✓</button><button type="button" class="vote no" data-k="story.interview" data-v="no" aria-pressed="false" aria-label="No">✕</button></div></li>
+              <li><div><strong>“No commissions, ever” is a promise you want to be held to</strong><span>It is the strongest thing you can say. It also closes a door.</span></div><div class="votes" role="group" aria-label="No commissions promise"><button type="button" class="vote yes" data-k="story.nocommission" data-v="yes" aria-pressed="false" aria-label="Yes">✓</button><button type="button" class="vote no" data-k="story.nocommission" data-v="no" aria-pressed="false" aria-label="No">✕</button></div></li>
+            </ul>
+            <label class="extra">In your own words — why does this site need to exist?<textarea name="story_why" placeholder="However it comes out. We will do the shaping."></textarea></label>
+          </article>
+
+          <article id="decision-outreach" class="wide" data-field="outreach">
+            <h3>How do we get in front of people?</h3>
+            <p>Demand is your side, not ours — but what we build decides how easy it is. The strongest idea we have depends on the listing engine above: <strong>we build someone’s listing before we contact them.</strong> “Saw your double-wide in Yakima. I made you a free listing — here it is. One click and it is live, one click and it is gone.” The outreach is the demo, because the work is already done.</p>
+            <ul class="act-list">
+              <li><div><strong>Pre-built listings, sent one at a time by you personally</strong><span>One message per person, easy delete, your name not a platform’s. At a hundred a week by someone who knows the market it is respectful. At ten thousand by a script it is spam and it would burn the brand.</span></div><div class="votes" role="group" aria-label="Pre-built listing outreach"><button type="button" class="vote yes" data-k="out.prebuilt" data-v="yes" aria-pressed="false" aria-label="Yes">✓</button><button type="button" class="vote no" data-k="out.prebuilt" data-v="no" aria-pressed="false" aria-label="No">✕</button></div></li>
+              <li><div><strong>Transporters, lenders and installers as distribution before advertisers</strong><span>Give them referrals and a free profile page first; ask for money once they have received something.</span></div><div class="votes" role="group" aria-label="Trades as distribution"><button type="button" class="vote yes" data-k="out.trades" data-v="yes" aria-pressed="false" aria-label="Yes">✓</button><button type="button" class="vote no" data-k="out.trades" data-v="no" aria-pressed="false" aria-label="No">✕</button></div></li>
+              <li><div><strong>A free page per park or community</strong><span>Their vacant homes, lot rent, age and pet rules. Empty lots cost park managers money every month, so they are motivated and nobody markets to them well.</span></div><div class="votes" role="group" aria-label="Park pages"><button type="button" class="vote yes" data-k="out.parks" data-v="yes" aria-pressed="false" aria-label="Yes">✓</button><button type="button" class="vote no" data-k="out.parks" data-v="no" aria-pressed="false" aria-label="No">✕</button></div></li>
+              <li><div><strong>Printed flyers on park notice boards</strong><span>Unfashionable and effective. A good share of sellers here are not on Facebook Marketplace.</span></div><div class="votes" role="group" aria-label="Flyers"><button type="button" class="vote yes" data-k="out.flyers" data-v="yes" aria-pressed="false" aria-label="Yes">✓</button><button type="button" class="vote no" data-k="out.flyers" data-v="no" aria-pressed="false" aria-label="No">✕</button></div></li>
+              <li><div><strong>Articles only you could write</strong><span>What it really costs to move a home in WA/OR/ID. Why 1976 decides whether a home can be financed. Which parks take older homes, by county. High-intent searches with genuinely bad answers online — and a national site cannot answer them credibly.</span></div><div class="votes" role="group" aria-label="Content"><button type="button" class="vote yes" data-k="out.content" data-v="yes" aria-pressed="false" aria-label="Yes">✓</button><button type="button" class="vote no" data-k="out.content" data-v="no" aria-pressed="false" aria-label="No">✕</button></div></li>
+              <li><div><strong>You answering questions in Facebook groups</strong><span>Where PNW mobile home buying and selling already happens. Being useful there is the marketing.</span></div><div class="votes" role="group" aria-label="Facebook groups"><button type="button" class="vote yes" data-k="out.groups" data-v="yes" aria-pressed="false" aria-label="Yes">✓</button><button type="button" class="vote no" data-k="out.groups" data-v="no" aria-pressed="false" aria-label="No">✕</button></div></li>
+            </ul>
+            <label class="extra">Which of these would you actually enjoy? The ones you dread will not happen, and that is fine — better to know now<textarea name="outreach_note" placeholder="Also: is there a group, a publication or a local contact where this audience really lives?"></textarea></label>
+          </article>
+        </div>
+
+        <p class="need-label">7. Getting started</p>
         <div class="decision-list">
           <article id="decision-start" class="wide" data-field="start">
             <h3>A first month, and what we need to begin</h3>

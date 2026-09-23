@@ -77,3 +77,8 @@
   .opening-figures .figure{padding:18px 20px;gap:16px}
   .jev-list>li{grid-template-columns:36px 1fr;gap:16px}
 }
+
+.story-quote{margin:22px 0;padding:24px 28px;border-left:2px solid var(--accent);background:var(--surface);color:var(--text);font-size:1.05rem;line-height:1.6;max-width:70ch}
+.story-quote strong{color:var(--accent)}
+#supply .act-list{max-width:900px;margin-bottom:26px}
+#supply h3{margin-top:34px}

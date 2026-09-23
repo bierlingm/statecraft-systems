@@ -81,6 +81,16 @@
   }
 
   var LABELS = {
+    'story.front': 'STORY: who fronts the site',
+    'story.draft': 'STORY: our draft is roughly right',
+    'story.interview': 'STORY: will sit for a recorded interview',
+    'story.nocommission': 'STORY: "no commissions, ever" as a promise',
+    'out.prebuilt': 'OUTREACH: pre-built listings sent personally',
+    'out.trades': 'OUTREACH: trades as distribution before advertisers',
+    'out.parks': 'OUTREACH: a free page per park',
+    'out.flyers': 'OUTREACH: printed flyers on park boards',
+    'out.content': 'OUTREACH: articles only Ben could write',
+    'out.groups': 'OUTREACH: answering questions in Facebook groups',
     'und.dealer': 'UNDERSTOOD: stepping out of dealer of record',
     'und.venue': 'UNDERSTOOD: the venue, not the seller',
     'und.dealflow': 'UNDERSTOOD: marketplace also stays deal flow',
@@ -130,6 +140,8 @@
   };
 
   var VALUES = {
+    ben_front: 'the site is visibly Ben\u2019s',
+    neutral: 'a neutral marketplace brand',
     afford: 'can I afford this, all-in',
     place: 'can I put it where I need it',
     condition: 'is it in decent shape',
