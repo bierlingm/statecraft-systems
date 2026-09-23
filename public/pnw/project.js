@@ -296,7 +296,7 @@
     if (!pending) {
       if (!auto) {
         status.textContent = collectAnswers().length
-          ? 'Already sent — we have these. Change something to send an update.'
+          ? 'Already sent — I have these. Change something to send an update.'
           : 'Answer a few first.';
       }
       return Promise.resolve('nothing');
@@ -313,7 +313,7 @@
         lastSent = sig;
         remember('pnw-decision-last-sent', sig);
         remember('pnw-decision-sent', new Date().toISOString());
-        status.textContent = 'Sent. We have your answers.';
+        status.textContent = 'Sent. I have your answers.';
         submit.textContent = 'Sent ✓';
         return 'sent';
       })

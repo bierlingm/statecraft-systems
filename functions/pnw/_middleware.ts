@@ -29,6 +29,11 @@ padding:14px 26px;background:#b3d0af;color:#152318}
 button:disabled{opacity:.6;cursor:default}
 a{color:#b3d0af}
 .err{color:#e3b9b9}
+form{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin:24px 0 8px}
+input{font:inherit;padding:13px 14px;min-width:15rem;flex:1 1 15rem;border:1px solid #34443a;border-radius:2px;
+background:#1e2822;color:#eeeede}
+input:focus{outline:0;border-color:#b3d0af}
+.msg{font-size:14px}
 </style></head><body><main>${body}</main></body></html>`, { status, headers });
 };
 
@@ -75,6 +80,30 @@ export const onRequest: PagesFunction<RoomEnv> = async (ctx) => {
 
   return page('Private', `
     <h1>This page is private.</h1>
-    <p>It opens from the link you were sent. If you have it on another device, open it there — or ask Moritz for a new one.</p>
-    <p><a href="/">Statecraft Systems</a></p>`, 401);
+    <p>It opens from the link you were sent. If your address is on the list, send yourself a fresh one.</p>
+    <form id="f" autocomplete="on">
+      <input id="e" type="email" name="email" placeholder="you@example.com" autocomplete="email" required aria-label="Your email address">
+      <button type="submit">Send me a link</button>
+    </form>
+    <p id="m" class="msg" hidden></p>
+    <p><a href="/">Statecraft Systems</a></p>
+    <script>
+      var f=document.getElementById('f'), e=document.getElementById('e'), m=document.getElementById('m');
+      f.addEventListener('submit', function(ev){
+        ev.preventDefault();
+        var b=f.querySelector('button'); b.disabled=true; b.textContent='Sending…';
+        fetch('/api/pnw-session',{method:'POST',headers:{'Content-Type':'application/json'},
+          body:JSON.stringify({action:'link',email:e.value})})
+          .then(function(r){return r.json().then(function(j){return {ok:r.ok,j:j};});})
+          .then(function(o){
+            m.hidden=false;
+            m.textContent = o.ok
+              ? 'If that address is on the list, a link is on its way. It works for 30 minutes.'
+              : (o.j.error || 'That did not work.');
+            m.className = o.ok ? 'msg' : 'msg err';
+            b.disabled=false; b.textContent='Send me a link';
+          })
+          .catch(function(){ m.hidden=false; m.className='msg err'; m.textContent='Something went wrong.'; b.disabled=false; b.textContent='Send me a link'; });
+      });
+    </script>`, 401);
 };

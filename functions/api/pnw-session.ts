@@ -9,7 +9,10 @@
  * JSON content type is required: a cross-site form cannot send it without a preflight,
  * which this endpoint never grants.
  */
-import { RoomEnv, clearedCookie, guestFrom, ready, redeemInvite, sessionCookie } from '../lib/room';
+import {
+  EMAIL_TTL, RoomEnv, clearedCookie, guestFrom, inviteLink, isAllowedEmail, mailReady, nameFor,
+  normalEmail, ready, redeemInvite, sendLinkEmail, sessionCookie,
+} from '../lib/room';
 
 const json = (data: unknown, status = 200, cookie?: string) => {
   const headers: Record<string, string> = { 'Content-Type': 'application/json; charset=utf-8', 'Cache-Control': 'no-store' };
@@ -35,6 +38,22 @@ export const onRequestPost: PagesFunction<RoomEnv> = async (ctx) => {
     const who = await redeemInvite(ctx.env, String(raw.token ?? '').slice(0, 800));
     if (!who) return json({ error: 'That link has expired or is not valid. Ask Moritz for a new one.' }, 401);
     return json({ ok: true, who }, 200, await sessionCookie(ctx.env, who, ctx.request.url));
+  }
+
+  if (raw.action === 'link') {
+    if (!mailReady(ctx.env)) return json({ error: 'Emailed links are not switched on yet. Ask Moritz for a link.' }, 503);
+    const email = normalEmail(raw.email);
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return json({ error: "That doesn't look like an email address." }, 400);
+    // Same answer either way, so this cannot be used to discover who has access.
+    if (isAllowedEmail(ctx.env, email)) {
+      try {
+        await sendLinkEmail(ctx.env, email, await inviteLink(ctx.env, nameFor(ctx.env, email), new URL(ctx.request.url).origin, EMAIL_TTL));
+      } catch (e) {
+        console.error('[room] link email failed', e);
+        return json({ error: 'The email did not go out. Ask Moritz for a link instead.' }, 502);
+      }
+    }
+    return json({ ok: true, sent: true });
   }
 
   return json({ error: 'Unknown action' }, 400);
