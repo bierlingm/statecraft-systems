@@ -35,3 +35,6 @@ tensions.json
 .spikes/
 
 public/yvs/
+
+# Local secrets for wrangler pages dev (never commit)
+.dev.vars
