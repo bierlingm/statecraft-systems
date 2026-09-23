@@ -19,7 +19,6 @@
   var status = document.getElementById('decision-status');
   if (!form) return;
 
-  var nameField = form.querySelector('input[name="reviewer"]');
   var submit = form.querySelector('button[type="submit"]');
 
   function remember(key, value) { try { localStorage.setItem(key, value); } catch (e) { /* private mode */ } }
@@ -64,16 +63,11 @@
   applyPicks(loadPicks());
 
   Array.prototype.slice.call(form.querySelectorAll('input, textarea')).forEach(function (field) {
-    if (!field.name || field.name === 'reviewer') return;
+    if (!field.name) return;
     var saved = recall('pnw-decision-' + field.name);
     if (saved) field.value = saved;
     field.addEventListener('input', function () { remember('pnw-decision-' + field.name, field.value); });
   });
-  if (nameField) {
-    nameField.value = recall('pnw-decision-reviewer');
-    nameField.addEventListener('input', function () { remember('pnw-decision-reviewer', nameField.value); });
-  }
-
   var reviewerId = recall('pnw-decision-reviewer-id');
   if (!reviewerId) {
     reviewerId = 'r' + Math.random().toString(36).slice(2, 12) + Date.now().toString(36);
@@ -194,7 +188,7 @@
       lines.push(label + ': ' + prettyVal(btn.getAttribute('data-v')));
     });
     article.querySelectorAll('input, textarea').forEach(function (field) {
-      if (!field.name || field.name === 'reviewer' || !field.value.trim()) return;
+      if (!field.name || !field.value.trim()) return;
       lines.push(field.name.replace(/_/g, ' ') + ': ' + field.value.trim());
     });
     return lines.join('\n');
@@ -261,7 +255,15 @@
     }).filter(function (a) { return a.answer; });
   }
 
-  function reviewerName() { return nameField ? nameField.value.trim() : ''; }
+  // The room is behind a sign-in, so we already know who this is. /api/pnw-session
+  // tells us; until it answers we fall back to the room name rather than blocking.
+  var whoAmI = 'Ben';
+  fetch('/api/pnw-session', { headers: { 'Accept': 'application/json' } })
+    .then(function (r) { return r.ok ? r.json() : null; })
+    .then(function (j) { if (j && j.who) whoAmI = j.who; })
+    .catch(function () {});
+
+  function reviewerName() { return whoAmI; }
 
   function unsent() {
     var answers = collectAnswers();
@@ -291,11 +293,6 @@
           : 'Answer a few first.';
       }
       return Promise.resolve('nothing');
-    }
-    if (!pending.name) {
-      status.textContent = 'Put your name at the top of the questions — then your answers send themselves.';
-      if (!auto && nameField) nameField.focus();
-      return Promise.resolve('no-name');
     }
     if (sending) { queueSend(1500); return Promise.resolve('busy'); }
 
