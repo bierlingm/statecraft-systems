@@ -37,28 +37,45 @@
     return picks;
   }
 
+  function press(btn, on) {
+    btn.setAttribute('aria-pressed', on ? 'true' : 'false');
+    // These are toggle buttons, not radios. Carrying aria-checked as well kept
+    // screen readers reading every option as unchecked; drop it where it exists.
+    if (btn.hasAttribute('aria-checked')) btn.removeAttribute('aria-checked');
+  }
+
   function applyPicks(picks) {
     Object.keys(picks).forEach(function (k) {
       form.querySelectorAll('[data-k="' + k + '"]').forEach(function (btn) {
-        btn.setAttribute('aria-pressed', btn.getAttribute('data-v') === picks[k] ? 'true' : 'false');
+        press(btn, btn.getAttribute('data-v') === picks[k]);
       });
     });
   }
 
+  // Tapping the answer that is already chosen clears the group. Without this
+  // there is no way back to "unanswered": a mistap on a phone sends a wrong
+  // answer that can only be swapped for a different wrong answer, never undone.
   function setExclusive(btn) {
     var k = btn.getAttribute('data-k');
+    var undo = btn.getAttribute('aria-pressed') === 'true';
     form.querySelectorAll('[data-k="' + k + '"]').forEach(function (other) {
-      other.setAttribute('aria-pressed', other === btn ? 'true' : 'false');
+      press(other, !undo && other === btn);
     });
-    savePicks(currentPicks());
+    var picks = currentPicks();
+    if (undo) delete picks[k];
+    savePicks(picks);
+    return undo;
   }
 
   form.addEventListener('click', function (event) {
     var btn = event.target.closest('.vote, .pick');
     if (!btn || !form.contains(btn)) return;
     event.preventDefault();
-    setExclusive(btn);
+    if (setExclusive(btn) && status) status.textContent = 'Cleared that one.';
   });
+
+  form.querySelectorAll('[aria-checked]').forEach(function (btn) { btn.removeAttribute('aria-checked'); });
+  form.querySelectorAll('[role="radio"]').forEach(function (btn) { btn.removeAttribute('role'); });
 
   applyPicks(loadPicks());
 
@@ -152,6 +169,8 @@
   }
 
   var LABELS = {
+    speed: 'BUILD COST: does the argument land',
+    'claims.article': 'THE $500 SPONSORED ARTICLE',
     'idea.mirror': 'WOULD TRY: mirror every home in the three states',
     'idea.guide': 'WOULD TRY: the buyer and seller guide',
     'idea.parkmap': 'WOULD TRY: the park and community map',
@@ -160,21 +179,15 @@
     after: 'AFTER THE FIRST MONTH: the structure',
     'asm.paywall': 'ASSESSMENT: the paywall and contradicting price lists',
     'asm.identity': 'ASSESSMENT: dealership shows as seller on every listing',
-    'asm.seo': 'ASSESSMENT: the search-engine problems',
     'have.year': 'DEALERS HAVE ON RECORD: year built',
     'have.sqft': 'DEALERS HAVE ON RECORD: square footage',
     'have.moved': 'DEALERS HAVE ON RECORD: must be moved',
     'have.lotrent': 'DEALERS HAVE ON RECORD: lot rent',
-    'scope.paywall': 'FIRST MONTH: take the paywall down',
-    'scope.seo': 'FIRST MONTH: fix the search-engine foundations',
-    'scope.identity': 'FIRST MONTH: separate marketplace from dealership',
-    'scope.import': 'FIRST MONTH: build the dealer inventory import',
-    'scope.analytics': 'FIRST MONTH: put real analytics in place',
     terms: 'COMMERCIAL TERMS',
     'access.bd': 'ACCESS: Brilliant Directories',
     'access.dns': 'ACCESS: the domain at Namecheap',
     'story.front': 'STORY: who fronts the site',
-    'story.draft': 'STORY: our draft is roughly right',
+    'story.draft': 'STORY: the draft is roughly right',
     'story.interview': 'STORY: will sit for a recorded interview',
     'story.nocommission': 'STORY: "no commissions, ever" as a promise',
     'out.prebuilt': 'OUTREACH: pre-built listings sent personally',
@@ -186,7 +199,6 @@
     'und.dealer': 'UNDERSTOOD: stepping out of dealer of record',
     'und.venue': 'UNDERSTOOD: the venue, not the seller',
     'und.dealflow': 'UNDERSTOOD: marketplace also stays deal flow',
-    'und.decade': 'UNDERSTOOD: ten years a dealer, hundreds of homes',
     'und.free': 'UNDERSTOOD: listings free for sellers and dealers',
     'und.audience': 'UNDERSTOOD: the audience is the product',
     'und.selfserve': 'UNDERSTOOD: dealers run their own inventory',
@@ -196,9 +208,6 @@
     'und.open': 'UNDERSTOOD: not married to what is already built',
     'und.nooverbuild': 'UNDERSTOOD: do not overbuild before proving it',
     'und.previous': 'UNDERSTOOD: previous help was fee-per-task',
-    'und.stack': 'UNDERSTOOD: Namecheap domain, rest Brilliant Directories',
-    'und.hours': 'UNDERSTOOD: nine hours apart, 08:30-20:00 CEST',
-    'asm.accurate': 'ASSESSMENT: the findings are accurate',
     'asm.platform': 'ASSESSMENT: month one on the current platform, platform question by evidence',
     'asm.nopayers': 'ASSESSMENT: nobody is currently paying to list',
     'paywall.free': 'Free listings for private sellers',
@@ -211,14 +220,6 @@
     'claims.visitors': 'Soften the 3,000 visitor claim',
     'claims.sellers': 'Remove “join hundreds of sellers”',
     'claims.article': 'Pause the $500 sponsored article',
-    'filters.beds': 'Filter: bedrooms and bathrooms',
-    'filters.sqft': 'Filter: square footage',
-    'filters.width': 'Filter: single / double / triple wide',
-    'filters.year': 'Filter: year built',
-    'filters.moved': 'Filter: must be moved or stays in place',
-    'filters.park': 'Filter: park or community name',
-    'filters.county': 'Filter: county',
-    'filters.lotrent': 'Filter: lot rent',
     buyerq: 'The buyer’s real question',
     'inv.dealers': 'Ben calls dealers he knows',
     'inv.import': 'Import dealer inventory from their own files',
@@ -226,7 +227,6 @@
     'inv.blocked': 'Go back to sellers who hit the paywall',
     'inv.parks': 'Parks and communities list vacant homes',
     demand: 'Who owns demand',
-    'start.scope': 'The first month as scoped',
     'start.terms': '$500 upfront, one month'
   };
 
@@ -256,7 +256,12 @@
     none: 'none of them yet \u2014 homes on the site first',
     direction: 'the direction works, numbers later',
     share: 'right idea, wants to talk about the share',
-    flat: 'would rather pay a flat monthly'
+    flat: 'would rather pay a flat monthly',
+    changes: 'that changes how I would think about it',
+    prove: 'hears it, but would rather prove it first',
+    doubt: 'not convinced building is that cheap',
+    pause: 'pause it until the numbers are real',
+    keep: 'keep selling it'
   };
 
   function prettyVal(v) {
@@ -278,6 +283,7 @@
     });
     article.querySelectorAll('input, textarea').forEach(function (field) {
       if (!field.name || !field.value.trim()) return;
+      if (field.value.trim() === (field.getAttribute('data-default') || '\u0000')) return;
       lines.push(field.name.replace(/_/g, ' ') + ': ' + field.value.trim());
     });
     return lines.join('\n');
@@ -397,11 +403,13 @@
         remember('pnw-decision-sent', new Date().toISOString());
         status.textContent = 'Sent. I have your answers.';
         submit.textContent = 'Sent ✓';
+        flash('Saved ✓');
         return 'sent';
       })
       .catch(function (err) {
         console.error('[decisions] send failed', err);
         status.textContent = 'Not through yet. It will keep trying — or copy your answers from the box below and email them to contact@statecraft.systems.';
+        flash('Not sent yet — still trying', true);
         submit.textContent = 'Send now';
         showFallback(answers);
         queueSend(20000);
@@ -415,6 +423,19 @@
       });
   }
 
+  // The page's whole promise is "no submit button". The only feedback used to be
+  // at the very bottom of a long page, so answering anything above the fold gave
+  // no signal at all — indistinguishable from broken.
+  var pill = document.getElementById('save-pill');
+  var pillTimer = null;
+  function flash(text, sticky) {
+    if (!pill) return;
+    pill.textContent = text;
+    pill.setAttribute('data-show', '');
+    if (pillTimer) clearTimeout(pillTimer);
+    if (!sticky) pillTimer = setTimeout(function () { pill.removeAttribute('data-show'); }, 2600);
+  }
+
   function queueSend(delay) {
     if (autoTimer) clearTimeout(autoTimer);
     autoTimer = setTimeout(function () { autoTimer = null; send(true); }, delay);
@@ -424,7 +445,7 @@
     refreshProgress();
     if (!unsent()) return;
     if (submit.textContent !== 'Sending…') submit.textContent = 'Send now';
-    if (reviewerName()) status.textContent = 'Saving your answers…';
+    if (reviewerName()) { status.textContent = 'Saving your answers…'; flash('Saving…', true); }
     queueSend(delay);
   }
 
@@ -436,7 +457,11 @@
   form.addEventListener('click', function (event) {
     if (event.target.closest('.vote, .pick')) touched(1500);
   });
-  form.addEventListener('input', function () { touched(3000); });
+  form.addEventListener('input', function (event) {
+    // The preview picker lives inside the form but is not an answer.
+    if (event.target && event.target.id === 'preview-page') return;
+    touched(3000);
+  });
 
   // Closing the tab or switching away should not lose what is already answered.
   document.addEventListener('visibilitychange', function () {

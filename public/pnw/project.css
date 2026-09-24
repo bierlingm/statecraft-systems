@@ -120,7 +120,7 @@ article[data-field].is-answered>h3::after{content:" ✓";color:#7fae78;font-size
   .field-row{grid-template-columns:1fr}
 }
 @media(max-width:560px){
-  /* 52 vote rows at phone width: stack the buttons under the label */
+  /* dozens of vote rows at phone width: stack the buttons under the label */
   .act-list li{flex-direction:column;align-items:stretch;gap:10px}
   .votes,.votes.three{justify-content:flex-start}
   .vote{width:52px;height:44px}
@@ -166,3 +166,33 @@ h3.need-label{font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:
 #scope>p,#scope>.lede{max-width:78ch}
 #scope h3{margin-top:42px}
 .decision-list article>p,.decision-list article>.note{max-width:78ch}
+
+/* --- category tags are labels, not warnings; amber is reserved for findings --- */
+.tag.kind{color:var(--muted);border-color:var(--line);background:#ffffff06}
+
+/* --- save confirmation, where the taps are rather than 20,000px below them --- */
+.save-pill{position:fixed;right:18px;bottom:18px;z-index:400;padding:10px 16px;
+  border:1px solid var(--line);border-radius:2px;background:var(--surface);color:var(--text);
+  font-size:13px;box-shadow:0 6px 24px #0007;
+  opacity:0;transform:translateY(8px);pointer-events:none;transition:opacity .18s,transform .18s}
+.save-pill[data-show]{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){.save-pill{transition:none}}
+
+/* --- the auto-save promise, stated once at the top where answering starts --- */
+.answer-note{font-size:13px;color:var(--muted);max-width:52ch;margin:18px 0 0;
+  padding:14px 16px;background:var(--surface);border:1px solid var(--line);line-height:1.6}
+.answer-note strong{color:var(--text)}
+.answer-note [data-progress]{margin-top:8px}
+
+/* --- below 560px the preview is hidden, so its picker and caption must go too --- */
+@media(max-width:560px){.preview-toolbar,.preview-wrap{display:none}}
+
+/* One reading measure inside a full-width card, so prose and options share an
+   edge instead of the text stopping halfway across an empty row. */
+.decision-list article.wide>p,
+.decision-list article.wide>.lede,
+.decision-list article.wide>.note,
+.decision-list article.wide>.pick-list,
+.decision-list article.wide>.act-list,
+.decision-list article.wide>label,
+.decision-list article.wide>.field-row{max-width:78ch}
