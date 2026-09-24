@@ -36,11 +36,17 @@
      staggered down the page. This way everything shares an edge, and the
      character count lands between 61 and 71 depending on size — all of it
      inside a comfortable range. */
-  --measure:40rem;
+  --measure:44rem;
+  /* Past roughly seventy-five characters a line gets hard to track, so the
+     measure cannot simply be stretched to fill a wide page. Instead the reading
+     column is centred and the things that genuinely want width — the finding
+     grids, the site preview, the opening — run the full container. Margins are
+     then symmetric and read as deliberate, rather than all the slack piling up
+     on the right. */
+
   /* Answer groups carry no box. A box needs horizontal padding, which pushed
-     their contents 26px off the section prose above them — a stagger you could
-     see. A form separates field groups with a rule, not a frame, so they do the
-     same and everything on the page shares one right edge. */
+     their contents off the section prose above them — a stagger you could see.
+     A form separates field groups with a rule, not a frame, so they do too. */
 }
 
 *{box-sizing:border-box}
@@ -49,7 +55,19 @@ body{margin:0;background:var(--paper);color:var(--ink);
   font:17px/1.62 var(--sans);font-variant-numeric:tabular-nums;
   -webkit-font-smoothing:antialiased}
 
-main{max-width:1060px;margin:auto;padding:0 32px}
+main{max-width:1120px;margin:auto;padding:0 32px}
+
+/* Everything that flows as prose sits in a centred column. */
+.section-title,.decision-list,.done-list,.act-heading,.page-links,
+section>p,section>.lede,section>.note,section>.section-note,section>h3,
+section>.act-list,section>details.mechanism,section>.story-quote,
+section>blockquote,.next-steps,.decision-actions,#answers-fallback,
+section>noscript{margin-left:auto;margin-right:auto}
+.section-title,.decision-list,.done-list,.next-steps,.decision-actions,
+#answers-fallback,section>h3,section>h4{max-width:var(--measure)}
+
+/* The things that earn the full width. */
+.opening,.status-grid,.preview-toolbar,.preview-wrap{max-width:none}
 section{padding:66px 0;border-top:3px solid var(--ink);scroll-margin-top:24px}
 main>section:first-of-type{border-top:0}
 
@@ -99,7 +117,7 @@ p.path{font-size:14px;line-height:1.5;color:var(--muted);max-width:54ch;margin:0
 
 /* ---------- chrome ---------------------------------------------------------- */
 .topbar,footer{display:flex;justify-content:space-between;gap:20px;
-  max-width:1060px;margin:auto;padding:20px 32px}
+  max-width:1120px;margin:auto;padding:20px 32px}
 .topbar{border-bottom:2px solid var(--ink)}
 .topbar a{text-decoration:none;color:var(--ink)}
 .topbar a:hover,.section-nav a:hover{color:var(--signal-ink)}
@@ -182,7 +200,7 @@ iframe{width:100%;height:720px;display:block;background:#fff;
 .story-quote strong{color:var(--signal-ink)}
 
 /* ---------- answer cards: the checklist spine -------------------------------- */
-.decision-list{display:grid;grid-template-columns:1fr;gap:0;max-width:var(--measure)}
+.decision-list{display:grid;grid-template-columns:1fr;gap:0}
 .decision-list article{padding:24px 0 30px;border:0;border-top:1px solid var(--ink);background:none}
 .decision-list article+article{margin-top:4px}
 .decision-list article.wide{grid-column:auto}
