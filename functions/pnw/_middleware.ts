@@ -18,22 +18,28 @@ const page = (title: string, body: string, status: number, cookie?: string) => {
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex,nofollow"><title>${title}</title>
 <style>
-:root{color-scheme:dark}
+/* Same identity as the room itself: warm stone, oxblood, Berkeley Mono. */
+@font-face{font-family:Berkeley;src:url('/fonts/BerkeleyMono-Regular.otf') format('opentype');font-weight:400;font-display:swap}
+@font-face{font-family:Berkeley;src:url('/fonts/BerkeleyMono-Bold.otf') format('opentype');font-weight:700;font-display:swap}
+:root{color-scheme:light}
 body{margin:0;min-height:100vh;display:grid;place-items:center;padding:24px;
-background:#151c18;color:#eeeede;font:16px/1.7 system-ui,sans-serif}
+background:#f5f0e6;color:#2b2824;font:17px/1.65 Charter,Georgia,'Times New Roman',serif}
 main{max-width:34rem;text-align:center}
-h1{font-size:clamp(1.8rem,4vw,2.6rem);font-weight:500;letter-spacing:-.04em;line-height:1.15;margin:0 0 18px}
-p{color:#b4c0b5;margin:0 0 18px}
-button{font:inherit;font-weight:600;font-size:15px;cursor:pointer;border:0;border-radius:2px;
-padding:14px 26px;background:#b3d0af;color:#152318}
+h1{font-family:Berkeley,ui-monospace,monospace;font-size:clamp(1.7rem,4vw,2.4rem);
+font-weight:400;letter-spacing:-.035em;line-height:1.15;margin:0 0 18px}
+p{color:#5c554c;margin:0 0 18px}
+button{font-family:Berkeley,ui-monospace,monospace;font-size:13px;font-weight:700;
+letter-spacing:.06em;text-transform:uppercase;cursor:pointer;border:1px solid #8c2a1a;
+padding:13px 24px;background:#8c2a1a;color:#f5f0e6}
+button:hover:not(:disabled){background:#6d1f13}
 button:disabled{opacity:.6;cursor:default}
-a{color:#b3d0af}
-.err{color:#e3b9b9}
+a{color:#8c2a1a;text-underline-offset:4px}
+.err{color:#8c2a1a}
 form{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin:24px 0 8px}
-input{font:inherit;padding:13px 14px;min-width:15rem;flex:1 1 15rem;border:1px solid #34443a;border-radius:2px;
-background:#1e2822;color:#eeeede}
-input:focus{outline:0;border-color:#b3d0af}
-.msg{font-size:14px}
+input{font:inherit;padding:12px 14px;min-width:15rem;flex:1 1 15rem;
+border:1px solid #b8b1a3;background:#ebe5d9;color:#2b2824}
+input:focus{outline:2px solid #8c2a1a;outline-offset:2px;border-color:#8c2a1a}
+.msg{font-size:15px;color:#5c554c}
 </style></head><body><main>${body}</main></body></html>`, { status, headers });
 };
 
