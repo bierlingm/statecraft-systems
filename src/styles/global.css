@@ -166,13 +166,13 @@ a:hover { color: var(--accent); }
   display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 24px; row-gap: 32px;
 }
 .hero-foot .lede { grid-column: 1 / span 6; }
-.hero-foot .office { grid-column: 9 / span 4; align-self: end; }
+.hero-foot .practice { grid-column: 9 / span 4; align-self: end; }
 .lede { font-size: clamp(1.25rem, 1.9vw, 1.625rem); line-height: 1.45; color: var(--ink-2); max-width: var(--measure); }
-.office { font-family: var(--mono); font-size: 0.8125rem; line-height: 1.9; color: var(--muted); }
-.office a { color: var(--ink); border-bottom: 1px solid var(--accent); }
+.practice { font-family: var(--mono); font-size: 0.8125rem; line-height: 1.9; color: var(--muted); }
+.practice a { color: var(--ink); border-bottom: 1px solid var(--accent); }
 
 @media (max-width: 860px) {
-  .hero-foot .lede, .hero-foot .office { grid-column: 1 / -1; }
+  .hero-foot .lede, .hero-foot .practice { grid-column: 1 / -1; }
 }
 
 /* ——— Section heads ——— */
