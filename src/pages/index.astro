@@ -1,114 +1,47 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import PlateCard from '../components/PlateCard.astro';
+import DetailA from '../components/DetailA.astro';
+import ThesisBand from '../components/ThesisBand.astro';
+import ContactBlock from '../components/ContactBlock.astro';
+import { plates } from '../data/work';
+
+const [feature, ...rest] = plates;
 ---
 
 <BaseLayout title="Statecraft Systems">
-  <div class="manifesto-header">
-    <div class="meta-row">
-      <div class="meta-cell">ENTITY: STATECRAFT SYSTEMS</div>
-      <div class="meta-cell text-center">FOCUS: STRUCTURES OF PERSISTENCE</div>
-      <div class="meta-cell text-right">OP-TRADITION / 01</div>
+  <section class="wrap hero">
+    <h1>We build the <em>working parts</em> of small institutions.</h1>
+    <div class="hero-foot">
+      <p class="lede">Intake for a clinic. Booking for a house. Enquiries for a supplier. Designed with the people who run the place, reviewed on the real thing, and built to keep working after we step back.</p>
+      <p class="office">The office of Moritz Bierling<br />Barcelona, working anywhere<br /><a href="mailto:contact@statecraft.systems">contact@statecraft.systems</a></p>
     </div>
-    <h1 class="canonical-statement">Good rule is the foundation of all human flourishing, and it endures only through structures worthy of it.</h1>
-  </div>
+  </section>
 
-  <div class="dossier-grid">
-    <!-- Section I -->
-    <div class="dossier-row">
-      <div class="dossier-label">
-        <span class="num">I</span>
-        <span class="title">The Situation</span>
-      </div>
-      <div class="dossier-content long-form">
-        <p>AI has restructured the operative environment. Every workflow, role, and form of cooperation is being reorganized.</p>
-        <p>The distinction between AI-native and AI-naive is a distinction in sovereignty. Meanwhile, the structures built for the twentieth century cannot withstand what is happening now.</p>
-        <div class="highlight-block">The technological transformation and the structural crisis are the same event.</div>
-      </div>
+  <section class="wrap plates" aria-labelledby="plates-h">
+    <div class="section-head">
+      <h2 id="plates-h">Plates · recent work</h2>
+      <span class="note">Clients are described, not named.</span>
     </div>
+    <PlateCard plate={feature} feature />
+    <div class="plate-row">
+      {rest.map((plate) => <PlateCard plate={plate} />)}
+    </div>
+  </section>
 
-    <!-- Section II -->
-    <div class="dossier-row">
-      <div class="dossier-label">
-        <span class="num">II</span>
-        <span class="title">What We Do</span>
-      </div>
-      <div class="dossier-content">
-        <div class="capability-split">
-          <div class="cap-col">
-            <div class="cap-header">Technical Capacity</div>
-            <p class="long-form">We make people AI-native by building real tools on real workflows, on their devices, with their challenges. Not training. Not consulting. Formation through direct work.</p>
-          </div>
-          <div class="cap-col">
-            <div class="cap-header">Structural Capacity</div>
-            <p class="long-form">We help people see the structures they are in, understand why those structures produce the results they produce, and build new ones that advance toward what they want.</p>
-          </div>
-        </div>
-        <div class="dossier-note mt-lg">
-          Structural tension is established. Current reality is assessed. The path forward is designed and built.
-        </div>
-      </div>
-    </div>
+  <DetailA />
 
-    <!-- Section III -->
-    <div class="dossier-row">
-      <div class="dossier-label">
-        <span class="num">III</span>
-        <span class="title">Engagement</span>
-      </div>
-      <div class="dossier-content">
-        <div class="path-table">
-          <div class="path-col">
-            <div class="path-target">Individual Track</div>
-            <div class="path-notes">Personal capability first.</div>
-            <div class="sequence">
-              <div class="seq-step"><span class="seq-name">Entry</span><span class="seq-meta">~3hrs</span></div>
-              <div class="seq-step"><span class="seq-name">Infrastructure</span><span class="seq-meta">2wks</span></div>
-              <div class="seq-step"><span class="seq-name">Spar</span><span class="seq-meta">Monthly</span></div>
-            </div>
-          </div>
-          <div class="path-col">
-            <div class="path-target">Team Track</div>
-            <div class="path-notes">Systematic implementation.</div>
-            <div class="sequence">
-              <div class="seq-step"><span class="seq-name">Survey</span><span class="seq-meta">Assess</span></div>
-              <div class="seq-step"><span class="seq-name">Construction</span><span class="seq-meta">Build</span></div>
-              <div class="seq-step"><span class="seq-name">Drill</span><span class="seq-meta">Form</span></div>
-              <div class="seq-step"><span class="seq-name">Continuity</span><span class="seq-meta">Maintain</span></div>
-            </div>
-          </div>
-        </div>
-        <a href="/services" class="production-link mt-lg">View Service Details</a>
-      </div>
+  <section class="wrap split" aria-labelledby="instruments-h">
+    <div class="left">
+      <span class="eyebrow">Instruments</span>
+      <h2 id="instruments-h">Tools we built for our own work, and publish.</h2>
     </div>
+    <div class="right ledger">
+      <a href="/instruments#spikes"><span class="name">spikes</span><span class="meta">v0.5 · open source</span><span class="desc">Comments left on the real page, handed to the building agent as precise notes. Every plate above was reviewed with it.</span></a>
+      <a href="/werk"><span class="name">werk</span><span class="meta">v1.6 · Rust</span><span class="desc">Holds what you want against what is true, and keeps the gap in view until it closes. Structural dynamics, as an instrument.</span></a>
+    </div>
+  </section>
 
-    <!-- Section IV -->
-    <div class="dossier-row">
-      <div class="dossier-label">
-        <span class="num">IV</span>
-        <span class="title">Alignment</span>
-      </div>
-      <div class="dossier-content long-form">
-        <p><strong>This work is for:</strong> Decision-makers willing to do the work. People who will build, have hard conversations about what is real, and commit to advance rather than cosmetic change.</p>
-        <p><strong>It is not for:</strong> Those who want to automate without understanding, treat transformation as procurement, or seek to extract without reciprocating.</p>
-      </div>
-    </div>
-
-    <!-- Section V -->
-    <div class="dossier-row border-bottom-0">
-      <div class="dossier-label">
-        <span class="num">V</span>
-        <span class="title">The Web</span>
-      </div>
-      <div class="dossier-content">
-        <p class="long-form mb-0">What we are building is young, but it has the structure of persistence: content, practice, transmission, community, and the institutions to carry it forward. An operative tradition.</p>
-        <div class="manifesto-links">
-          <a href="https://modernminuteman.net" target="_blank" rel="noopener noreferrer">Modern Minuteman</a>
-          <span class="sep">/</span>
-          <a href="https://fieldcompany.org" target="_blank" rel="noopener noreferrer">The Field Company</a>
-          <span class="sep">/</span>
-          <a href="/work">Productions</a>
-        </div>
-      </div>
-    </div>
-  </div>
+  <ThesisBand />
+  <ContactBlock />
 </BaseLayout>

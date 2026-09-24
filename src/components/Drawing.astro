@@ -1,0 +1,77 @@
+---
+// Line drawings for the plates. One stroke weight, ink for structure,
+// accent only for the path that matters. Colours come from global.css.
+interface Props {
+  kind: 'direct-booking' | 'clinical-intake' | 'trade-enquiries' | 'one-page-one-ask';
+  label: string;
+}
+const { kind, label } = Astro.props;
+---
+
+<svg class="drawing" role="img" aria-label={label} viewBox={kind === 'direct-booking' ? '0 0 700 380' : '0 0 360 220'} fill="none">
+  {kind === 'direct-booking' && (
+    <>
+      <text x="0" y="84">listing site A</text>
+      <text x="0" y="194">listing site B</text>
+      <text x="0" y="304" class="t-ink">guest, direct</text>
+      <path d="M110 80 C200 80 200 130 280 130" />
+      <path d="M110 190 L280 190" />
+      <path class="a" d="M112 300 C200 300 200 250 280 250" />
+      <rect x="280" y="60" width="300" height="260" />
+      <path d="M323 60v260M366 60v260M409 60v260M452 60v260M495 60v260M538 60v260" />
+      <path d="M280 112h300M280 164h300M280 216h300M280 268h300" />
+      <rect class="shade" x="366" y="112" width="129" height="52" />
+      <rect class="shade-a" x="452" y="216" width="128" height="52" />
+      <path d="M580 242 L640 242" stroke-dasharray="4 4" />
+      <rect x="640" y="210" width="40" height="64" rx="7" />
+      <path d="M652 262h16" />
+      <text x="690" y="300" text-anchor="end">owner, by text</text>
+    </>
+  )}
+  {kind === 'clinical-intake' && (
+    <>
+      <rect x="10" y="70" width="44" height="72" rx="7" />
+      <path d="M24 132h16" />
+      <path d="M66 106 q7 -20 14 0 t14 0 t14 0" />
+      <rect x="120" y="60" width="70" height="92" />
+      <path d="M130 80h50M130 96h40M130 112h50" />
+      <text x="120" y="176">protocol</text>
+      <path d="M190 106 L222 106" stroke-dasharray="3 3" />
+      <rect x="222" y="50" width="70" height="112" />
+      <path class="w2" d="M232 70h50" />
+      <path d="M232 90h40M232 106h50M232 122h30" />
+      <text x="222" y="186">draft report</text>
+      <circle cx="326" cy="106" r="20" />
+      <path class="a" d="M316 107 l7 7 l13 -14" />
+      <text x="304" y="150">physician</text>
+    </>
+  )}
+  {kind === 'trade-enquiries' && (
+    <>
+      <rect x="10" y="30" width="130" height="160" />
+      <path class="w2" d="M24 56h102" />
+      <rect x="24" y="72" width="102" height="18" />
+      <rect x="24" y="100" width="102" height="18" />
+      <rect x="24" y="128" width="102" height="30" />
+      <rect class="shade-a" x="24" y="166" width="46" height="14" />
+      <path class="a" d="M140 110 L220 110" />
+      <rect x="220" y="50" width="130" height="120" />
+      <path d="M220 80h130M220 110h130M220 140h130" />
+      <circle class="dot-a" cx="234" cy="65" r="4" />
+      <text x="220" y="196">counter inbox</text>
+    </>
+  )}
+  {kind === 'one-page-one-ask' && (
+    <>
+      <path d="M10 60 H170 V90 a14 14 0 0 0 0 28 V160 H10 Z" />
+      <path d="M120 64 V156" stroke-dasharray="4 4" />
+      <path class="w2" d="M24 84h76" />
+      <path d="M24 104h60M24 124h72M24 144h46" />
+      <path d="M142 100 l12 -4 l-4 12 M132 118 L152 98" />
+      <path class="a" d="M170 110 L260 110" />
+      <circle cx="300" cy="110" r="40" />
+      <path class="heart" d="M300 126 C278 112 280 94 292 94 C298 94 300 100 300 100 C300 100 302 94 308 94 C320 94 322 112 300 126 Z" />
+      <text x="258" y="176">a family, home</text>
+    </>
+  )}
+</svg>

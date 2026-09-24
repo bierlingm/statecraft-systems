@@ -1,0 +1,71 @@
+---
+// "Detail A": how a build runs, drawn as four steps on a datum line.
+// The reasoning layer (notes in drafting blue) is hidden until asked for.
+interface Props {
+  heading?: string;
+}
+const { heading = 'You review the real thing, from the first week.' } = Astro.props;
+---
+
+<section class="detail-a" data-reasoning="off" aria-labelledby="detail-a-h">
+  <div class="wrap">
+    <div class="detail-head">
+      <div>
+        <span class="eyebrow">Detail A · How a build runs</span>
+        <h2 id="detail-a-h">{heading}</h2>
+      </div>
+      <button class="reason-toggle" type="button" aria-pressed="false" hidden>Show the reasoning</button>
+    </div>
+
+    <ol class="steps">
+      <li class="step">
+        <p class="note">Current reality first. What is wanted second. The gap between them is the brief.</p>
+        <div class="box">
+          <span class="num">01</span>
+          <h3>See what is there</h3>
+          <p>One conversation with the person who does the work.</p>
+        </div>
+      </li>
+      <li class="step">
+        <p class="note empty" aria-hidden="true"></p>
+        <div class="loop" aria-hidden="true"><span>v0.1 → v0.9</span></div>
+        <div class="box">
+          <span class="num">02</span>
+          <h3>Build, in rounds</h3>
+          <p>A working version at a real address. Notes land on the page they are about.</p>
+        </div>
+      </li>
+      <li class="step">
+        <p class="note">The threshold. A structure that depends on one person has not been finished.</p>
+        <div class="box">
+          <span class="num">03</span>
+          <h3>Launch</h3>
+          <p>Written down so that someone else could carry it.</p>
+        </div>
+      </li>
+      <li class="step optional">
+        <p class="note empty" aria-hidden="true"></p>
+        <div class="box">
+          <span class="num">04 · your choice</span>
+          <h3>Run it, or we do</h3>
+          <p>Take it over, or leave it with us and hear only when it matters.</p>
+        </div>
+      </li>
+      <li class="dimension" aria-label="Duration"><span>a small site: one to three weeks, end to end</span></li>
+    </ol>
+  </div>
+</section>
+
+<script>
+  document.querySelectorAll<HTMLElement>('.detail-a').forEach((section) => {
+    const button = section.querySelector<HTMLButtonElement>('.reason-toggle');
+    if (!button) return;
+    button.hidden = false;
+    button.addEventListener('click', () => {
+      const on = section.dataset.reasoning !== 'on';
+      section.dataset.reasoning = on ? 'on' : 'off';
+      button.setAttribute('aria-pressed', String(on));
+      button.textContent = on ? 'Hide the reasoning' : 'Show the reasoning';
+    });
+  });
+</script>

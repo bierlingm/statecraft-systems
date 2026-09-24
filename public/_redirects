@@ -1,3 +1,7 @@
+/approach /thesis 301
+/services /method 301
+/about /contact 301
+
 /yvs/* https://yakimavalleysupply.com/:splat 301
 
 /pnw /pnw/index.html 200

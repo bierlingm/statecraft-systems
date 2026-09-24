@@ -4,8 +4,8 @@ Website for [statecraft.systems](https://statecraft.systems). A static site buil
 
 ## Tech Stack
 
-- [Astro](https://astro.build/) v5 — static output, zero client-side JavaScript
-- [Berkeley Mono](https://berkeleygraphics.com/typefaces/berkeley-mono/) — primary typeface
+- [Astro](https://astro.build/) v5 — static output; one small script (the Detail A reasoning toggle)
+- Newsreader + [Berkeley Mono](https://usgraphics.com/products/berkeley-mono)
 
 ## Setup
 
@@ -41,15 +41,21 @@ Serves the production build locally for review.
 
 | Path | File | Description |
 |------|------|-------------|
-| `/` | `src/pages/index.astro` | Home |
-| `/work` | `src/pages/work.astro` | Work and productions |
-| `/approach` | `src/pages/approach.astro` | Methodology and disciplines |
-| `/services` | `src/pages/services.astro` | Service offerings |
-| `/about` | `src/pages/about.astro` | Founder and lineage |
+| `/` | `src/pages/index.astro` | Home: headline, plates, Detail A, instruments |
+| `/work`, `/work/:slug` | `src/pages/work/` | Plates (anonymized client work) from `src/data/work.ts` |
+| `/method` | `src/pages/method.astro` | How a build runs |
+| `/instruments` | `src/pages/instruments.astro` | spikes, werk |
+| `/werk` | `src/pages/werk.astro` | werk (linked from the werk repo; keep the URL) |
+| `/thesis` | `src/pages/thesis.astro` | Renders `src/content/thesis.md` |
 | `/contact` | `src/pages/contact.astro` | Contact |
+
+Old routes `/approach`, `/services`, `/about` redirect via `public/_redirects`.
+Client rooms and demos under `public/` (`prosser/`, `cashclinic/`, `pnw/`, …) are standalone and untouched by the site design.
 
 ## Content Sources
 
+- `src/data/work.ts` — the plates. Clients are described, not named; every claim must be defensible (see `brand.md`).
+- `src/components/Drawing.astro` — the line drawing for each plate.
 - `src/content/thesis.md` — thesis document
 - `src/content/brand.md` — brand voice and visual principles
 
@@ -59,7 +65,7 @@ Serves the production build locally for review.
 
 ## Fonts
 
-Berkeley Mono font files are in `public/fonts/`. Four weights: Regular, Bold, Oblique, Bold Oblique.
+Self-hosted in `public/fonts/`: Newsreader (variable, OFL) for reading text, Berkeley Mono (licensed) for labels. The `.otf` Berkeley Mono files are still used by `public/prosser/project.css`.
 
 ## Project Structure
 

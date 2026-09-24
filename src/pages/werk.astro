@@ -136,46 +136,51 @@ werk init && werk</code></pre>
 
   .werk-glyph {
     font-size: 3rem;
-    color: var(--accent-primary, #8b7355);
+    color: var(--accent);
     margin-bottom: 1rem;
-    font-family: 'Berkeley Mono', monospace;
+    font-family: var(--mono);
   }
 
   .werk-hero h1 {
-    font-family: 'Berkeley Mono', monospace;
+    font-family: var(--mono);
     font-size: 2.5rem;
     font-weight: 400;
     letter-spacing: 0.15em;
     margin: 0;
-    color: var(--text-primary, #2c2416);
+    color: var(--ink);
   }
 
   .werk-subtitle {
-    font-family: 'Charter', Georgia, serif;
+    font-family: var(--serif);
     font-style: italic;
     font-size: 1.1rem;
-    color: var(--text-secondary, #6b5d4f);
+    color: var(--muted);
     margin-top: 0.5rem;
   }
 
   .werk-body {
-    font-family: 'Charter', Georgia, serif;
-    line-height: 1.7;
-    color: var(--text-primary, #2c2416);
+    font-family: var(--serif);
+    line-height: 1.6;
+    font-size: 1.1875rem;
+    color: var(--ink);
   }
 
   .werk-section {
     margin-bottom: 3rem;
   }
 
+  .werk-section p + p, .werk-section p + pre, .werk-section pre + p {
+    margin-top: 1em;
+  }
+
   .werk-section h2 {
-    font-family: 'Berkeley Mono', monospace;
+    font-family: var(--mono);
     font-size: 1rem;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.1em;
     margin-bottom: 1rem;
-    color: var(--text-primary, #2c2416);
+    color: var(--ink);
   }
 
   .werk-lead {
@@ -190,7 +195,7 @@ werk init && werk</code></pre>
     padding: 1.5rem;
     border-radius: 4px;
     overflow-x: auto;
-    font-family: 'Berkeley Mono', 'Menlo', monospace;
+    font-family: var(--mono);
     font-size: 0.85rem;
     line-height: 1.6;
     margin: 1.5rem 0;
@@ -214,24 +219,24 @@ werk init && werk</code></pre>
     display: flex;
     gap: 1rem;
     padding: 0.4rem 0;
-    border-bottom: 1px solid var(--border-light, #d9d0c3);
+    border-bottom: 1px solid var(--rule);
     font-size: 0.95rem;
   }
 
   .werk-dynamic strong {
-    font-family: 'Berkeley Mono', monospace;
+    font-family: var(--mono);
     font-size: 0.85rem;
     min-width: 180px;
     flex-shrink: 0;
   }
 
   .werk-dynamic span {
-    color: var(--text-secondary, #6b5d4f);
+    color: var(--muted);
   }
 
   .werk-section code {
-    font-family: 'Berkeley Mono', monospace;
-    background: var(--bg-secondary, #ebe5d9);
+    font-family: var(--mono);
+    background: var(--paper-2);
     padding: 0.15rem 0.4rem;
     border-radius: 2px;
     font-size: 0.9em;
@@ -239,7 +244,7 @@ werk init && werk</code></pre>
 
   .werk-note {
     font-size: 0.9rem;
-    color: var(--text-secondary, #6b5d4f);
+    color: var(--muted);
     font-style: italic;
   }
 
@@ -247,14 +252,14 @@ werk init && werk</code></pre>
     text-align: center;
     margin-top: 4rem;
     padding-top: 2rem;
-    border-top: 1px solid var(--border-light, #d9d0c3);
-    font-family: 'Berkeley Mono', monospace;
+    border-top: 1px solid var(--rule);
+    font-family: var(--mono);
     font-size: 0.85rem;
-    color: var(--text-secondary, #6b5d4f);
+    color: var(--muted);
   }
 
   .werk-footer a {
-    color: var(--accent-primary, #8b7355);
+    color: var(--accent);
     text-decoration: none;
   }
 

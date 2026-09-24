@@ -1,0 +1,33 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import DetailA from '../components/DetailA.astro';
+import ContactBlock from '../components/ContactBlock.astro';
+---
+
+<BaseLayout title="Method" description="How a Statecraft Systems build runs: a working version first, review on the real page, and a launch someone else could carry.">
+  <section class="wrap page-head">
+    <span class="eyebrow">Method</span>
+    <h1>Small, working, and reviewed where it will live.</h1>
+  </section>
+
+  <DetailA heading="Four steps. The second one repeats until it is right." />
+
+  <section class="wrap split">
+    <div class="left">
+      <span class="eyebrow">In practice</span>
+    </div>
+    <div class="right prose">
+      <h2>A working version first</h2>
+      <p>The first thing you see is a working version at a real address, not a proposal. It is usually rough. It is also real, which makes it much easier to say what is wrong with it.</p>
+      <h2>Review on the page</h2>
+      <p>Every version lives at a private address you can open on your phone. You leave a note on the exact thing you mean, and it reaches the build as a precise instruction.</p>
+      <p>When something needs your decision, it is written as a plain question with answers to tap. The next version applies your answers and says what changed.</p>
+      <h2>Built from few, well-understood parts</h2>
+      <p>Pages, small functions, a place for requests to land, and alerts that carry only fixed wording. Nothing that needs a team to keep it alive.</p>
+      <h2>After launch</h2>
+      <p>Everything is written down so that someone else could carry it. Take it over, or leave it with us: we keep it running, and you hear only when something needs you.</p>
+    </div>
+  </section>
+
+  <ContactBlock />
+</BaseLayout>

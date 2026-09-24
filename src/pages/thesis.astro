@@ -1,0 +1,17 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { Content } from '../content/thesis.md';
+---
+
+<BaseLayout title="Thesis" description="The Statecraft thesis: good rule is the foundation of all human flourishing, and it endures only through structures worthy of it.">
+  <section class="wrap page-head">
+    <span class="eyebrow">Thesis</span>
+    <h1>Why it is built this way.</h1>
+    <p class="lede">The reasoning behind the work, at full conviction. It is not required reading for hiring us.</p>
+  </section>
+  <article class="wrap thesis">
+    <div class="prose">
+      <Content />
+    </div>
+  </article>
+</BaseLayout>

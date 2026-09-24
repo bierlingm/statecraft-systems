@@ -2,18 +2,21 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 ---
 
-<BaseLayout title="Contact" narrow={true}>
-  <section class="intro">
-    <h1>Contact</h1>
-    <p class="long-form">
-      Reaching out is a question of structural alignment. We work with decision-makers who will build, have hard conversations about what is real, and commit to advance. If the principles and the work resonate, we can determine if there is a fit.
-    </p>
-    <div class="rule"></div>
+<BaseLayout title="Contact" description="Write to Statecraft Systems. The reply comes from the person who would build it.">
+  <section class="wrap page-head">
+    <span class="eyebrow">Contact</span>
+    <h1>Describe what you need.</h1>
+    <p class="lede">What happens now, what should happen, and who does the work today. A few sentences is enough. The reply comes from the person who would build it.</p>
+    <a class="link-rule" style="font-size: 1.125rem; border-bottom-width: 2px;" href="mailto:contact@statecraft.systems">contact@statecraft.systems</a>
   </section>
 
-  <section class="section">
-    <div class="contact-block">
-      <p><strong>Email:</strong> <a href="mailto:contact@statecraft.systems">contact@statecraft.systems</a></p>
+  <section class="wrap split" style="padding-top: 0;">
+    <div class="left">
+      <span class="eyebrow">Who you will be writing to</span>
+    </div>
+    <div class="right ledger">
+      <div><span class="name">Moritz Bierling</span><span class="meta">Principal</span><span class="desc">Barcelona, working anywhere. <a href="https://moritzbierling.com" rel="noopener" style="border-bottom: 1px solid var(--accent);">moritzbierling.com</a></span></div>
+      <div><span class="name muted">Entity</span><span class="meta"></span><span class="desc">Statecraft Systems LLC</span></div>
     </div>
   </section>
 </BaseLayout>

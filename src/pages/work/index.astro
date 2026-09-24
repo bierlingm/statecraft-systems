@@ -1,0 +1,23 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PlateCard from '../../components/PlateCard.astro';
+import ContactBlock from '../../components/ContactBlock.astro';
+import { plates } from '../../data/work';
+
+const [feature, ...rest] = plates;
+---
+
+<BaseLayout title="Work" description="Recent builds by Statecraft Systems: booking, clinical intake, trade enquiries and a nonprofit's single ask.">
+  <section class="wrap page-head">
+    <span class="eyebrow">Work</span>
+    <h1>Plates from recent builds.</h1>
+    <p class="lede">Each one is a working part of somebody’s practice, business or cause. Clients are described, not named; every line is something we can stand behind in conversation.</p>
+  </section>
+  <section class="wrap plates" aria-label="Plates">
+    <PlateCard plate={feature} feature />
+    <div class="plate-row">
+      {rest.map((plate) => <PlateCard plate={plate} />)}
+    </div>
+  </section>
+  <ContactBlock />
+</BaseLayout>

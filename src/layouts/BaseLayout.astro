@@ -4,14 +4,13 @@ import '../styles/global.css';
 interface Props {
   title: string;
   description?: string;
-  narrow?: boolean;
   image?: string;
 }
 
-const { title, description, narrow = false, image } = Astro.props;
+const { title, description, image } = Astro.props;
 
 const SITE = 'Statecraft Systems';
-const DEFAULT_DESCRIPTION = 'Statecraft Systems designs and operates systems of cooperation and sovereignty.';
+const DEFAULT_DESCRIPTION = 'Statecraft Systems builds the working parts of small institutions: intake, booking, enquiries and the systems behind them.';
 const SITE_URL = 'https://statecraft.systems';
 
 const pageTitle = title === SITE ? SITE : `${title} — ${SITE}`;
@@ -19,8 +18,14 @@ const metaDescription = description || DEFAULT_DESCRIPTION;
 const canonicalUrl = new URL(Astro.url.pathname, SITE_URL).href;
 const ogImage = new URL(image || '/og-default.png', SITE_URL).href;
 
-const pathname = Astro.url.pathname;
-const currentPath = pathname.slice(1).replace(/\/$/, "");
+const path = Astro.url.pathname.replace(/\/$/, '') || '/';
+const nav = [
+  { href: '/work', label: 'Work' },
+  { href: '/method', label: 'Method' },
+  { href: '/instruments', label: 'Instruments' },
+  { href: '/thesis', label: 'Thesis' },
+];
+const isCurrent = (href: string) => (path === href || path.startsWith(href + '/') ? 'page' : undefined);
 ---
 
 <!DOCTYPE html>
@@ -30,8 +35,10 @@ const currentPath = pathname.slice(1).replace(/\/$/, "");
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{pageTitle}</title>
     <meta name="description" content={metaDescription} />
+    <meta name="theme-color" content="#f6f1e7" />
     <link rel="canonical" href={canonicalUrl} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preload" href="/fonts/newsreader-latin-opsz-normal.woff2" as="font" type="font/woff2" crossorigin />
 
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content={SITE} />
@@ -48,86 +55,41 @@ const currentPath = pathname.slice(1).replace(/\/$/, "");
     <meta name="twitter:image" content={ogImage} />
   </head>
   <body>
-    <div class="site-wrapper">
-      <header>
-        <div class="header-inner">
-          <div class="logo">
-            <a href="/">Statecraft Systems</a>
-          </div>
-          
-          <button class="mobile-nav-toggle" aria-expanded="false" aria-controls="main-nav">
-            Menu
-          </button>
+    <a class="skip" href="#main">Skip to content</a>
+    <header class="site-header">
+      <div class="wrap">
+        <a class="mark" href="/" aria-label="Statecraft Systems, home">
+          <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><rect x="0.5" y="0.5" width="15" height="15" fill="none" stroke="currentColor"></rect><rect class="sq" x="5" y="5" width="6" height="6"></rect></svg>
+          Statecraft Systems
+        </a>
+        <nav class="nav" aria-label="Main">
+          {nav.map((item) => <a href={item.href} aria-current={isCurrent(item.href)}>{item.label}</a>)}
+          <a class="write" href="/contact" aria-current={isCurrent('/contact')}>Write to us</a>
+        </nav>
+        <details class="menu">
+          <summary>Menu</summary>
+          <ul>
+            {nav.map((item) => <li><a href={item.href} aria-current={isCurrent(item.href)}>{item.label}</a></li>)}
+            <li><a href="/contact">Write to us</a></li>
+          </ul>
+        </details>
+      </div>
+    </header>
 
-          <nav id="main-nav">
-            <ul class="nav-links">
-              <li><a href="/" class={currentPath === "" ? "active" : ""}>Home</a></li>
-              <li><a href="/work" class={currentPath === "work" ? "active" : ""}>Work</a></li>
-              <li><a href="/approach" class={currentPath === "approach" ? "active" : ""}>Approach</a></li>
-              <li><a href="/services" class={currentPath === "services" ? "active" : ""}>Services</a></li>
-              <li><a href="/about" class={currentPath === "about" ? "active" : ""}>About</a></li>
-              <li><a href="/contact" class={currentPath === "contact" ? "active" : ""}>Contact</a></li>
-            </ul>
-          </nav>
-        </div>
-      </header>
+    <main id="main">
+      <slot />
+    </main>
 
-      <main class={narrow ? "narrow" : ""}>
-        <slot />
-      </main>
-
-      <footer>
-        <div class="footer-inner">
-          <div class="footer-col">
-            <h4>Network</h4>
-            <ul>
-              <li><a href="https://modernminuteman.net" target="_blank" rel="noopener noreferrer">Modern Minuteman</a></li>
-              <li><a href="https://hayescanon.org" target="_blank" rel="noopener noreferrer">Hayes Canon</a></li>
-              <li><a href="https://capablefew.com" target="_blank" rel="noopener noreferrer">Capable Few</a></li>
-            </ul>
-          </div>
-          <div class="footer-col">
-            <h4>Tools</h4>
-            <ul>
-              <li>sd-core</li>
-              <li>spikes.sh</li>
-              <li>beats</li>
-              <li>werk-cli</li>
-            </ul>
-          </div>
-          <div class="footer-col">
-            <h4>Contact</h4>
-            <ul>
-              <li><a href="mailto:contact@statecraft.systems">contact@statecraft.systems</a></li>
-              <li><a href="https://moritzbierling.com" target="_blank" rel="noopener noreferrer">moritzbierling.com</a></li>
-            </ul>
-          </div>
-        </div>
-        <div class="footer-bottom">
-          <span>&copy; {new Date().getFullYear()} Statecraft Systems</span>
-          <span>Operative Tradition</span>
-        </div>
-      </footer>
-    </div>
+    <footer class="site-footer">
+      <div class="wrap">
+        <span>Statecraft Systems LLC · Barcelona</span>
+        <a href="mailto:contact@statecraft.systems">contact@statecraft.systems</a>
+        <a href="https://moritzbierling.com" rel="noopener">moritzbierling.com</a>
+        <span>Rev. 2026-09</span>
+      </div>
+    </footer>
 
     <!-- Spikes feedback widget · one project per site for unified inbox -->
-    <script is:inline src="https://spikes.sh/widget.js" data-project="statecraft-systems" data-endpoint="https://spikes.sh/spikes" data-theme="dark" data-position="bottom-right" data-color="#e85a2d"></script>
-
-    <script>
-      // Mobile navigation toggle
-      const mobileNavToggle = document.querySelector('.mobile-nav-toggle');
-      const navLinks = document.querySelector('.nav-links');
-
-      if (mobileNavToggle && navLinks) {
-        mobileNavToggle.addEventListener('click', () => {
-          const isExpanded = mobileNavToggle.getAttribute('aria-expanded') === 'true';
-          mobileNavToggle.setAttribute('aria-expanded', String(!isExpanded));
-          navLinks.classList.toggle('is-open');
-          
-          // Update button text
-          mobileNavToggle.textContent = isExpanded ? 'Menu' : 'Close';
-        });
-      }
-    </script>
+    <script is:inline src="https://spikes.sh/widget.js" data-project="statecraft-systems" data-endpoint="https://spikes.sh/spikes" data-position="bottom-right" data-color="#7a2418"></script>
   </body>
 </html>
