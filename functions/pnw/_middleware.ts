@@ -18,28 +18,26 @@ const page = (title: string, body: string, status: number, cookie?: string) => {
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex,nofollow"><title>${title}</title>
 <style>
-/* Same identity as the room itself: warm stone, oxblood, Berkeley Mono. */
-@font-face{font-family:Berkeley;src:url('/fonts/BerkeleyMono-Regular.otf') format('opentype');font-weight:400;font-display:swap}
-@font-face{font-family:Berkeley;src:url('/fonts/BerkeleyMono-Bold.otf') format('opentype');font-weight:700;font-display:swap}
+/* Same identity as the room: overcast ground, graphite ink, oversize-load orange. */
 :root{color-scheme:light}
 body{margin:0;min-height:100vh;display:grid;place-items:center;padding:24px;
-background:#f5f0e6;color:#2b2824;font:17px/1.65 Charter,Georgia,'Times New Roman',serif}
+background:#eef0ee;color:#1b1f1d;
+font:17px/1.62 system-ui,-apple-system,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif}
 main{max-width:34rem;text-align:center}
-h1{font-family:Berkeley,ui-monospace,monospace;font-size:clamp(1.7rem,4vw,2.4rem);
-font-weight:400;letter-spacing:-.035em;line-height:1.15;margin:0 0 18px}
-p{color:#5c554c;margin:0 0 18px}
-button{font-family:Berkeley,ui-monospace,monospace;font-size:13px;font-weight:700;
-letter-spacing:.06em;text-transform:uppercase;cursor:pointer;border:1px solid #8c2a1a;
-padding:13px 24px;background:#8c2a1a;color:#f5f0e6}
-button:hover:not(:disabled){background:#6d1f13}
-button:disabled{opacity:.6;cursor:default}
-a{color:#8c2a1a;text-underline-offset:4px}
-.err{color:#8c2a1a}
+h1{font-size:clamp(1.8rem,4.4vw,2.6rem);font-weight:700;letter-spacing:-.035em;
+line-height:1.12;margin:0 0 18px}
+p{color:#535a55;margin:0 0 18px}
+button{font:inherit;font-size:12px;font-weight:700;letter-spacing:.11em;text-transform:uppercase;
+cursor:pointer;border:2px solid #c2410c;padding:13px 24px;background:#c2410c;color:#eef0ee}
+button:hover:not(:disabled){background:#9c3409;border-color:#9c3409}
+button:disabled{opacity:.55;cursor:default}
+a{color:#c2410c;text-underline-offset:4px}
+.err{color:#c2410c}
 form{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin:24px 0 8px}
 input{font:inherit;padding:12px 14px;min-width:15rem;flex:1 1 15rem;
-border:1px solid #b8b1a3;background:#ebe5d9;color:#2b2824}
-input:focus{outline:2px solid #8c2a1a;outline-offset:2px;border-color:#8c2a1a}
-.msg{font-size:15px;color:#5c554c}
+border:1px solid #9ba39c;background:#e4e7e4;color:#1b1f1d}
+input:focus{outline:2px solid #c2410c;outline-offset:2px;border-color:#c2410c}
+.msg{font-size:15px;color:#535a55}
 </style></head><body><main>${body}</main></body></html>`, { status, headers });
 };
 

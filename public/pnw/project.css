@@ -1,279 +1,292 @@
 /* PNW Mobile Homes — project room.
-   Built from the Statecraft brand rather than cloned from the Prosser room:
-   warm stone, oxblood, Berkeley Mono for structure and a serif for the long
-   read. The accent marks thresholds, actions and distinctions — never relief. */
 
-@font-face{font-family:Berkeley;src:url('/fonts/BerkeleyMono-Regular.otf') format('opentype');font-weight:400;font-display:swap}
-@font-face{font-family:Berkeley;src:url('/fonts/BerkeleyMono-Bold.otf') format('opentype');font-weight:700;font-display:swap}
+   The identity comes from the project, not from my company and not from the
+   Brilliant Directories theme we are replacing (whose palette is mostly
+   Bootstrap defaults anyway).
+
+   Two things about this project are specific enough to design from. Every one
+   of these homes travels behind an OVERSIZE LOAD banner, and "must be moved" is
+   the most consequential fact in the whole document — so the signal colour is
+   the one off that banner, and it is spent only where a mark has been made.
+   And the room is a document of record: a checklist against a business, with
+   fields to fill and claims to verify, the way a home carries a stamped data
+   plate and a title. Hence the ground of Pacific Northwest overcast light,
+   graphite ink, hairline rules, tabular figures and stamped uppercase labels. */
 
 :root{
   color-scheme:light;
-  --bg:#f5f0e6;          /* warm stone, not sterile white */
-  --surface:#ebe5d9;     /* structure, one step down */
-  --sunk:#e2dbcc;        /* inputs and wells */
-  --line:#d6d0c4;
-  --line-firm:#b8b1a3;
-  --text:#2b2824;        /* dense, warm near-black */
-  --muted:#5c554c;       /* readable secondary, heavy — not a whisper */
-  --accent:#8c2a1a;      /* oxblood: thresholds, actions, distinctions */
-  --accent-wash:#8c2a1a0f;
-  --caution:#7d5a0f;
-  --affirm:#3c5a30;
+  --paper:#eef0ee;       /* overcast light, the actual quality of it */
+  --surface:#e4e7e4;
+  --sunk:#dadedb;
+  --line:#c7ccc7;
+  --line-firm:#9ba39c;
+  --ink:#1b1f1d;         /* graphite, not black */
+  --muted:#535a55;
+  --signal:#b23c0a;      /* oversize load — fills */
+  --signal-ink:#963006;  /* the same, dark enough to set 12px type in */
+  --signal-wash:#b23c0a12;
+  --affirm:#2f6b3f;
+  --caution:#8a5a0f;
 
-  --mono:Berkeley,ui-monospace,SFMono-Regular,Menlo,monospace;
-  --serif:Charter,Georgia,'Times New Roman',serif;
+  --sans:system-ui,-apple-system,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;
 
-  /* One reading measure for every piece of flowing prose on the page. The
-     absence of this was why text ran anywhere between 46 and 179 characters. */
-  --measure:68ch;
+  /* One reading measure for every piece of flowing prose on the page. Set in a
+     fixed unit, not in ch: a ch-based measure scales with font size, so a lede
+     and the paragraph beneath it ended ninety pixels apart and the right edge
+     staggered down the page. This way everything shares an edge, and the
+     character count lands between 61 and 71 depending on size — all of it
+     inside a comfortable range. */
+  --measure:40rem;
 }
 
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
-body{margin:0;background:var(--bg);color:var(--text);
-  font:17px/1.65 var(--serif);
-  -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+body{margin:0;background:var(--paper);color:var(--ink);
+  font:17px/1.62 var(--sans);font-variant-numeric:tabular-nums;
+  -webkit-font-smoothing:antialiased}
 
 main{max-width:1060px;margin:auto;padding:0 32px}
-section{padding:68px 0;border-top:1px solid var(--line);scroll-margin-top:24px}
+section{padding:66px 0;border-top:1px solid var(--line-firm);scroll-margin-top:24px}
 main>section:first-of-type{border-top:0}
 
 /* ---------- type scale -----------------------------------------------------
    Four sizes, each with a job. Anything substantive is 16px or larger; 12px is
-   reserved for structural micro-labels, which are read as marks, not as prose. */
-h1,h2,h3,h4{font-family:var(--mono);font-weight:400;letter-spacing:-.02em;line-height:1.15;color:var(--text)}
-h1{font-size:clamp(2.1rem,5vw,3.4rem);margin:20px 0 24px;letter-spacing:-.035em}
-h2{font-size:clamp(1.5rem,2.6vw,2rem);margin:0 0 14px}
-h3{font-size:1.18rem;margin:26px 0 12px;font-weight:700}
-h4{font-size:.95rem;margin:26px 0 8px;font-weight:700}
+   reserved for stamped micro-labels, which are read as marks, not as prose. */
+h1,h2,h3,h4{font-weight:700;letter-spacing:-.022em;line-height:1.12;color:var(--ink)}
+h1{font-size:clamp(2.2rem,5.4vw,3.6rem);margin:18px 0 22px;letter-spacing:-.035em}
+h2{font-size:clamp(1.55rem,2.7vw,2.1rem);margin:0 0 14px}
+h3{font-size:1.16rem;margin:26px 0 12px}
+h4{font-size:.98rem;margin:26px 0 8px}
 p{margin:0 0 18px;max-width:var(--measure)}
-a{color:var(--accent);text-underline-offset:4px;text-decoration-thickness:1px}
-a:hover{color:#6d1f13}
+a{color:var(--signal-ink);text-underline-offset:4px;text-decoration-thickness:1px}
+a:hover{color:#7a2705}
 strong{font-weight:700}
 
-.lede{font-size:1.18rem;line-height:1.55;color:var(--text);max-width:var(--measure);margin:24px 0 20px}
-.lede strong{color:var(--accent)}
-.intro{font-size:1.3rem;line-height:1.45;color:var(--text);max-width:42ch;margin-bottom:20px}
+.lede,.decision-list article p.lede{font-size:1.16rem;line-height:1.5;color:var(--ink);
+  max-width:var(--measure);margin:24px 0 20px}
+.lede strong{color:var(--signal-ink)}
+.intro{font-size:1.32rem;line-height:1.38;color:var(--ink);max-width:40ch;
+  margin-bottom:20px;letter-spacing:-.012em}
 
 /* Secondary prose: muted in colour, not shrunk in size. It is still read. */
 .note,.section-note,.next-steps,.answer-note,.section-title p,.status-grid article p,
 .done-list details p,.decision-list article p,.act-list span,.pick span,.p3-note{
   font-size:16px;color:var(--muted)}
 .note{margin-top:14px;max-width:var(--measure)}
-.section-note{max-width:var(--measure);margin:24px 0 0;padding:2px 0 2px 18px;border-left:2px solid var(--line-firm)}
+.section-note{max-width:var(--measure);margin:24px 0 0;padding:2px 0 2px 18px;
+  border-left:3px solid var(--line-firm)}
 
-/* Structural micro-type: marks, not sentences. */
+/* Stamped micro-type. Marks, not sentences. */
 .status,.updated,.tag,.rank-label,.act-heading,.section-nav,.topbar,footer,
-[data-progress],.save-pill,.preview-toolbar,.button,.pick-inline,.pick3-hint,.path{
-  font-family:var(--mono)}
-.status,.updated,.tag,.rank-label,.act-heading{font-size:12px;letter-spacing:.04em}
+[data-progress],.save-pill,.preview-toolbar,.button,.pick-inline,.figure-label{
+  font-size:12px;letter-spacing:.11em;text-transform:uppercase;font-weight:600}
 .status,.updated{color:var(--muted)}
-.status{display:flex;align-items:center;gap:8px;text-transform:uppercase;letter-spacing:.1em}
-.status span{width:7px;height:7px;background:var(--accent);border-radius:50%}
+.status{display:flex;align-items:center;gap:9px}
+.status span{width:8px;height:8px;background:var(--signal)}
 .decision-list article p.rank-label,.decision-list article p.act-heading,
 p.rank-label,p.act-heading,h3.act-heading,h4.rank-label{
-  font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;
-  color:var(--muted);font-weight:700;margin:32px 0 10px;max-width:none}
-.decision-list article p.pick3-hint{font-size:15px;letter-spacing:0;margin-top:12px}
-p.pick3-hint{font-size:15px;letter-spacing:0;margin-top:12px}
-p.path{font-size:14px;line-height:1.5;color:var(--muted);max-width:56ch;margin:0 0 16px}
+  font-size:12px;letter-spacing:.11em;text-transform:uppercase;font-weight:700;
+  color:var(--ink);margin:34px 0 10px;max-width:none;
+  padding-bottom:7px;border-bottom:1px solid var(--line-firm)}
+.decision-list article p.pick3-hint,p.pick3-hint{
+  font-size:15px;letter-spacing:0;text-transform:none;font-weight:400;
+  color:var(--muted);margin-top:12px;border:0;padding:0}
+p.path{font-size:14px;line-height:1.5;color:var(--muted);max-width:54ch;margin:0 0 16px}
 
 /* ---------- chrome ---------------------------------------------------------- */
 .topbar,footer{display:flex;justify-content:space-between;gap:20px;
-  max-width:1060px;margin:auto;padding:22px 32px;font-size:12px;
-  letter-spacing:.04em;text-transform:uppercase}
-.topbar{border-bottom:1px solid var(--line)}
-.topbar a{text-decoration:none}
-footer{border-top:1px solid var(--line);padding-top:28px;padding-bottom:44px;color:var(--muted)}
+  max-width:1060px;margin:auto;padding:20px 32px}
+.topbar{border-bottom:2px solid var(--ink)}
+.topbar a{text-decoration:none;color:var(--ink)}
+.topbar a:hover,.section-nav a:hover{color:var(--signal-ink)}
+footer{border-top:1px solid var(--line-firm);padding-top:26px;padding-bottom:44px;color:var(--muted)}
 .skip{position:fixed;top:-100px;left:15px;z-index:500;padding:10px 14px;
-  background:var(--bg);border:1px solid var(--accent);font-family:var(--mono);font-size:13px}
+  background:var(--paper);border:2px solid var(--signal);font-size:13px}
 .skip:focus{top:10px}
 a:focus-visible,button:focus-visible,select:focus-visible,summary:focus-visible,
-input:focus-visible,textarea:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+input:focus-visible,textarea:focus-visible{outline:2px solid var(--signal);outline-offset:3px}
 
-.section-nav{display:flex;flex-wrap:wrap;gap:12px 26px;padding:20px 0;
-  border-bottom:1px solid var(--line);font-size:12px;
-  letter-spacing:.06em;text-transform:uppercase}
+.section-nav{display:flex;flex-wrap:wrap;gap:11px 24px;padding:18px 0;
+  border-bottom:1px solid var(--line-firm)}
 .section-nav a{text-decoration:none;color:var(--muted);padding:4px 0}
-.section-nav a:hover{color:var(--accent)}
 
 .section-title{max-width:var(--measure);margin-bottom:28px}
-.button{display:inline-block;padding:12px 20px;background:var(--accent);color:var(--bg);
-  border:1px solid var(--accent);text-decoration:none;font-size:13px;font-weight:700;
-  letter-spacing:.06em;text-transform:uppercase;cursor:pointer}
-.button:hover{background:#6d1f13;color:var(--bg)}
+.button{display:inline-block;padding:13px 22px;background:var(--signal);color:var(--paper);
+  border:2px solid var(--signal);text-decoration:none;cursor:pointer;font-family:inherit}
+.button:hover{background:#8f3008;border-color:#8f3008;color:var(--paper)}
 .actions{display:flex;gap:22px;align-items:center;flex-wrap:wrap;margin:26px 0 20px}
 
-/* ---------- opening --------------------------------------------------------- */
-.opening{display:grid;grid-template-columns:1.15fr .85fr;gap:56px;align-items:start;
-  padding-top:48px}
-.opening-figures{display:grid;gap:12px;align-content:start;margin-top:8px}
-.opening-figures .figure{padding:20px 22px;background:var(--surface);border:1px solid var(--line)}
-.opening-figures strong{display:block;margin-bottom:8px;font-family:var(--mono);
-  font-size:clamp(1.5rem,2.4vw,1.9rem);font-weight:400;line-height:1.1;
-  letter-spacing:-.03em;color:var(--accent);font-variant-numeric:tabular-nums}
-.opening-figures span{display:block;font-size:15px;color:var(--muted);line-height:1.5;text-wrap:pretty}
+/* ---------- opening: the figures read as a data plate ----------------------- */
+.opening{display:grid;grid-template-columns:1.15fr .85fr;gap:54px;align-items:start;padding-top:44px}
+.opening-figures{display:grid;gap:0;align-content:start;margin-top:6px;
+  border:2px solid var(--ink);background:var(--surface)}
+.opening-figures .figure{padding:18px 20px;border-top:1px solid var(--line-firm)}
+.opening-figures .figure:first-child{border-top:0}
+.opening-figures strong{display:block;margin-bottom:7px;
+  font-size:clamp(1.55rem,2.5vw,2rem);font-weight:700;line-height:1.05;
+  letter-spacing:-.035em;color:var(--ink)}
+.opening-figures span{display:block;font-size:15px;color:var(--muted);line-height:1.45;text-wrap:pretty}
 .answer-note{max-width:var(--measure);margin:20px 0 0;padding:16px 18px;
-  background:var(--surface);border:1px solid var(--line);line-height:1.55}
-.answer-note strong{color:var(--text)}
+  background:var(--surface);border-left:3px solid var(--signal);line-height:1.5}
+.answer-note strong{color:var(--ink)}
 
 /* ---------- finding cards --------------------------------------------------- */
-.status-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.status-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
 .status-grid.four{grid-template-columns:repeat(2,1fr)}
-.status-grid article{background:var(--surface);border:1px solid var(--line);padding:22px}
+.status-grid article{background:var(--surface);border:1px solid var(--line-firm);padding:20px}
 .status-grid article p{margin:0 0 12px;max-width:none}
 .status-grid article p:last-child{margin-bottom:0}
-.status-grid article p:first-of-type{color:var(--text)}
-.status-grid article p:first-of-type strong{font-family:var(--mono);font-size:15px;
-  font-weight:700;line-height:1.35;letter-spacing:-.01em}
-/* The tag is a mark above the claim; it needs air under it, not none. */
-.status-grid article .tag{margin-bottom:16px}
-.tag{display:inline-block;padding:3px 8px;border:1px solid var(--line-firm);
-  color:var(--muted);text-transform:uppercase;letter-spacing:.08em;background:#0000}
-.tag.review{color:var(--caution);border-color:#b99a4d;background:#7d5a0f0d}
+.status-grid article p:first-of-type{color:var(--ink)}
+.status-grid article p:first-of-type strong{font-size:15.5px;font-weight:700;
+  line-height:1.3;letter-spacing:-.012em}
+/* The tag is a stamp above the claim; it needs air under it, not none. */
+.status-grid article .tag{margin-bottom:15px}
+.tag{display:inline-block;padding:3px 8px;border:1px solid var(--line-firm);color:var(--muted)}
+.tag.review{color:var(--signal-ink);border-color:var(--signal);background:var(--signal-wash)}
 .tag.kind{color:var(--muted);border-color:var(--line-firm)}
 
-.done-list details{padding:16px 0;border-top:1px solid var(--line)}
+.done-list details{padding:15px 0;border-top:1px solid var(--line)}
 .done-list details:first-of-type{border-top:0}
-.done-list summary{cursor:pointer;font-family:var(--mono);font-size:15px;font-weight:700;color:var(--text)}
-.done-list summary:hover{color:var(--accent)}
+.done-list summary{cursor:pointer;font-size:15.5px;font-weight:700;color:var(--ink);letter-spacing:-.01em}
+.done-list summary:hover{color:var(--signal-ink)}
 .done-list details p{max-width:var(--measure);margin-top:12px}
 
-details.mechanism{margin-top:30px;border:1px solid var(--line);background:var(--surface)}
-details.mechanism summary{padding:16px 22px;font-family:var(--mono);font-size:14px;
-  font-weight:700;color:var(--accent);cursor:pointer}
-details.mechanism[open] summary{border-bottom:1px solid var(--line)}
-details.mechanism p{max-width:var(--measure);margin:0;padding:0 22px;color:var(--muted)}
+details.mechanism{margin-top:30px;border:1px solid var(--line-firm);background:var(--surface)}
+details.mechanism summary{padding:15px 20px;font-size:12px;letter-spacing:.11em;
+  text-transform:uppercase;font-weight:700;color:var(--signal-ink);cursor:pointer}
+details.mechanism[open] summary{border-bottom:1px solid var(--line-firm)}
+details.mechanism p{max-width:var(--measure);margin:0;padding:0 20px;color:var(--muted)}
 details.mechanism p:first-of-type{padding-top:18px}
-details.mechanism p:last-child{padding-bottom:22px}
+details.mechanism p:last-child{padding-bottom:20px}
 details.mechanism p+p{margin-top:14px}
 
 /* ---------- the live-site evidence ------------------------------------------ */
-.page-links{display:flex;flex-wrap:wrap;gap:18px;font-size:14px;margin-bottom:20px}
-.preview-toolbar{display:flex;align-items:center;gap:14px;padding:14px 16px;
-  background:var(--surface);border:1px solid var(--line);font-size:12px;
-  letter-spacing:.06em;text-transform:uppercase}
-.preview-toolbar a{margin-left:auto;text-transform:none;letter-spacing:0}
-select{font:inherit;font-family:var(--mono);font-size:12px;color:var(--text);
-  background:var(--bg);padding:8px;border:1px solid var(--line-firm);max-width:100%}
+.page-links{display:flex;flex-wrap:wrap;gap:18px;font-size:15px;margin-bottom:18px}
+.preview-toolbar{display:flex;align-items:center;gap:14px;padding:13px 16px;
+  background:var(--surface);border:1px solid var(--line-firm)}
+.preview-toolbar a{margin-left:auto;text-transform:none;letter-spacing:0;font-size:13px}
+select{font:inherit;font-size:12px;letter-spacing:.06em;text-transform:uppercase;
+  color:var(--ink);background:var(--paper);padding:8px;border:1px solid var(--line-firm);max-width:100%}
 iframe{width:100%;height:720px;display:block;background:#fff;
-  border:1px solid var(--line);border-top:0}
+  border:1px solid var(--line-firm);border-top:0}
 .preview-wrap .note{margin-top:10px}
 
 /* ---------- the story ------------------------------------------------------- */
 .story-quote{margin:22px 0;padding:22px 26px;background:var(--surface);
-  border-left:3px solid var(--accent);color:var(--text);
-  font-size:1.1rem;line-height:1.55;max-width:var(--measure)}
-.story-quote strong{color:var(--accent)}
+  border-left:4px solid var(--signal);color:var(--ink);
+  font-size:1.1rem;line-height:1.5;max-width:var(--measure)}
+.story-quote strong{color:var(--signal-ink)}
 
-/* ---------- answer cards ---------------------------------------------------- */
-.decision-list{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-.decision-list article{padding:24px;border:1px solid var(--line-firm);background:var(--bg)}
+/* ---------- answer cards: the checklist spine -------------------------------- */
+.decision-list{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.decision-list article{padding:22px 24px;border:1px solid var(--line-firm);
+  border-top:3px solid var(--ink);background:var(--paper)}
 .decision-list article.wide{grid-column:1/-1}
 .decision-list article p{max-width:var(--measure)}
 .decision-list article p+p{margin-top:12px}
 .decision-list article>h3:first-child,.decision-list article>.tag+h3{margin-top:0}
-.decision-list article .tag{margin-bottom:14px}
+.decision-list article .tag{margin-bottom:13px}
+article[data-field].is-answered{border-top-color:var(--affirm)}
 article[data-field].is-answered>h3::after{content:" ✓";color:var(--affirm);font-size:.8em}
 
-.decision-form label{display:block;margin-top:22px;font-family:var(--mono);
-  font-size:13px;font-weight:700;letter-spacing:.02em;color:var(--text)}
+.decision-form label{display:block;margin-top:22px;font-size:12px;letter-spacing:.09em;
+  text-transform:uppercase;font-weight:700;color:var(--ink)}
 .decision-form textarea{display:block;width:100%;max-width:var(--measure);min-height:88px;
   margin-top:8px;padding:12px 14px;border:1px solid var(--line-firm);border-radius:0;
-  background:var(--sunk);color:var(--text);font:16px/1.5 var(--serif);resize:vertical}
-.decision-form textarea::placeholder{color:#8a8377;font-style:italic}
-.decision-form textarea:focus{outline:0;border-color:var(--accent);background:var(--bg)}
+  background:var(--sunk);color:var(--ink);font:16px/1.5 var(--sans);resize:vertical}
+.decision-form textarea::placeholder,.decision-form input::placeholder{
+  color:#7d847e;text-transform:none;letter-spacing:0}
+.decision-form textarea:focus{outline:0;border-color:var(--signal);background:var(--paper)}
 .decision-form input[type="text"],.decision-form input[type="number"]{
   display:block;width:100%;max-width:var(--measure);margin-top:6px;padding:9px 0;border:0;
   border-bottom:1px solid var(--line-firm);background:transparent;
-  color:var(--text);font:16px/1.5 var(--serif)}
-.decision-form input::placeholder{color:#8a8377;font-style:italic}
+  color:var(--ink);font:16px/1.5 var(--sans)}
 .decision-form input[type="text"]:focus,.decision-form input[type="number"]:focus{
-  outline:0;border-bottom-color:var(--accent)}
-.field-row{display:grid;grid-template-columns:repeat(2,1fr);gap:12px 22px;margin-top:18px;max-width:var(--measure)}
+  outline:0;border-bottom-color:var(--signal)}
+.field-row{display:grid;grid-template-columns:repeat(2,1fr);gap:12px 22px;
+  margin-top:18px;max-width:var(--measure)}
 .field-row label{margin-top:0}
 
 /* ---------- ✓ / ✕ rows -------------------------------------------------------
-   Every one of these spans its container, so the controls line up on a single
+   Every one of these spans its container, so the marks line up on a single
    right edge throughout the page rather than stopping at arbitrary widths. */
-.act-list{list-style:none;margin:18px 0 0;padding:0;max-width:none}
+.act-list{list-style:none;margin:16px 0 0;padding:0;max-width:none;
+  border-top:1px solid var(--line-firm)}
 .act-list li{display:flex;justify-content:space-between;gap:24px;align-items:center;
-  padding:13px 0;border-top:1px solid var(--line)}
+  padding:12px 0;border-bottom:1px solid var(--line)}
+.act-list li:last-child{border-bottom:1px solid var(--line-firm)}
 .act-list li>div:first-child{min-width:0;max-width:var(--measure)}
-.act-list strong{display:block;color:var(--text);font-family:var(--mono);
-  font-size:15px;font-weight:700;line-height:1.35}
-.act-list span{display:block;margin-top:2px;line-height:1.45}
+.act-list strong{display:block;color:var(--ink);font-size:15.5px;font-weight:700;
+  line-height:1.3;letter-spacing:-.012em}
+.act-list span{display:block;margin-top:2px;line-height:1.42}
 
-.votes{display:flex;gap:8px;flex-shrink:0}
-.vote{width:44px;height:44px;border:1px solid var(--line-firm);background:var(--bg);
-  color:var(--muted);font-size:17px;line-height:1;cursor:pointer;font-family:var(--mono)}
-.vote:hover{border-color:var(--accent);color:var(--accent)}
-.vote.yes[aria-pressed="true"]{border-color:var(--affirm);color:#fff;background:var(--affirm)}
-.vote.no[aria-pressed="true"]{border-color:var(--accent);color:#fff;background:var(--accent)}
+.votes{display:flex;gap:7px;flex-shrink:0}
+.vote{width:44px;height:42px;border:1px solid var(--line-firm);background:var(--paper);
+  color:var(--muted);font-size:16px;line-height:1;cursor:pointer;font-family:inherit}
+.vote:hover{border-color:var(--ink);color:var(--ink)}
+.vote.yes[aria-pressed="true"]{border-color:var(--affirm);color:var(--paper);background:var(--affirm)}
+.vote.no[aria-pressed="true"]{border-color:var(--signal);color:var(--paper);background:var(--signal)}
 
-.pick-list{display:grid;gap:9px;margin:16px 0 8px;max-width:none}
-.pick{display:block;width:100%;text-align:left;padding:14px 16px;cursor:pointer;
-  border:1px solid var(--line-firm);background:var(--bg);color:var(--text);font:inherit}
-.pick:hover{border-color:var(--accent)}
-.pick strong{display:block;font-family:var(--mono);font-size:15px;font-weight:700;line-height:1.35}
-.pick span{display:block;margin-top:3px;line-height:1.45}
-.pick[aria-pressed="true"]{border-color:var(--accent);background:var(--accent-wash);
-  box-shadow:inset 2px 0 0 var(--accent)}
-.pick[aria-pressed="true"] strong{color:var(--accent)}
+.pick-list{display:grid;gap:7px;margin:14px 0 8px;max-width:none}
+.pick{display:block;width:100%;text-align:left;padding:13px 16px;cursor:pointer;
+  border:1px solid var(--line-firm);background:var(--paper);color:var(--ink);font:inherit}
+.pick:hover{border-color:var(--ink)}
+.pick strong{display:block;font-size:15.5px;font-weight:700;line-height:1.3;letter-spacing:-.012em}
+.pick span{display:block;margin-top:3px;line-height:1.42}
+.pick[aria-pressed="true"]{border-color:var(--signal);background:var(--signal-wash);
+  box-shadow:inset 4px 0 0 var(--signal)}
+.pick[aria-pressed="true"] strong{color:var(--signal-ink)}
 
 .act-list-three li{align-items:center}
-.votes.three{display:flex;gap:6px;flex-shrink:0}
-.pick.pick-inline{width:auto;min-width:78px;padding:10px 12px;text-align:center;
-  white-space:nowrap;font-size:12px;font-weight:700;letter-spacing:.04em;
-  text-transform:uppercase;color:var(--muted);box-shadow:none}
-.pick.pick-inline[aria-pressed="true"]{background:var(--accent);
-  border-color:var(--accent);color:var(--bg);box-shadow:none}
+.votes.three{display:flex;gap:5px;flex-shrink:0}
+.pick.pick-inline{width:auto;min-width:80px;padding:10px 11px;text-align:center;
+  white-space:nowrap;font-size:11px;letter-spacing:.07em;text-transform:uppercase;
+  font-weight:700;color:var(--muted);box-shadow:none}
+.pick.pick-inline[aria-pressed="true"]{background:var(--signal);
+  border-color:var(--signal);color:var(--paper);box-shadow:none}
 
 /* ---------- tap-to-rank ------------------------------------------------------ */
-.pick3{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;list-style:none;margin:18px 0 0;padding:0}
+.pick3{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;list-style:none;margin:16px 0 0;padding:0}
 .pick3 li{display:block;margin:0;padding:0;border:0}
 .p3{position:relative;display:flex;flex-direction:column;align-items:flex-start;
   justify-content:flex-start;width:100%;height:100%;text-align:left;
-  padding:13px 15px 13px 46px;border:1px solid var(--line-firm);background:var(--bg);
-  color:var(--text);font:inherit;cursor:pointer}
-.p3:hover{border-color:var(--accent)}
-.p3 strong{display:block;font-family:var(--mono);font-size:14px;font-weight:700;line-height:1.35}
-.p3 .p3-note{display:block;margin-top:3px;font-size:14px;line-height:1.4}
-.p3 .p3-n{position:absolute;left:13px;top:13px;display:flex;align-items:center;
+  padding:12px 14px 12px 46px;border:1px solid var(--line-firm);background:var(--paper);
+  color:var(--ink);font:inherit;cursor:pointer}
+.p3:hover{border-color:var(--ink)}
+.p3 strong{display:block;font-size:14.5px;font-weight:700;line-height:1.3;letter-spacing:-.012em}
+.p3 .p3-note{display:block;margin-top:3px;font-size:14px;line-height:1.38}
+.p3 .p3-n{position:absolute;left:12px;top:12px;display:flex;align-items:center;
   justify-content:center;width:22px;height:22px;border:1px solid var(--line-firm);
-  border-radius:50%;font-family:var(--mono);font-size:11px;line-height:1;
-  color:var(--muted);font-variant-numeric:tabular-nums}
-.p3[aria-pressed="true"]{border-color:var(--accent);background:var(--accent-wash)}
-.p3[aria-pressed="true"] strong{color:var(--accent)}
-.p3[aria-pressed="true"] .p3-n{border-color:var(--accent);background:var(--accent);color:var(--bg);font-weight:700}
-.pick3-hint{margin-top:12px;font-size:12px;letter-spacing:.04em;color:var(--muted)}
+  font-size:11px;line-height:1;color:var(--muted);font-weight:700}
+.p3[aria-pressed="true"]{border-color:var(--signal);background:var(--signal-wash)}
+.p3[aria-pressed="true"] strong{color:var(--signal-ink)}
+.p3[aria-pressed="true"] .p3-n{border-color:var(--signal);background:var(--signal);color:var(--paper)}
 
 /* ---------- sending ---------------------------------------------------------- */
 .decision-actions{display:flex;align-items:center;flex-wrap:wrap;gap:18px;
-  margin-top:26px;padding-top:22px;border-top:1px solid var(--line-firm)}
-.decision-actions .button{border:1px solid var(--accent)}
-.decision-actions .button:disabled{opacity:.6;cursor:default}
+  margin-top:26px;padding-top:22px;border-top:2px solid var(--ink)}
+.decision-actions .button:disabled{opacity:.55;cursor:default}
 .decision-actions .note{margin:0}
-[data-progress]{display:inline-block;padding:3px 10px;border:1px solid var(--line-firm);
-  font-size:12px;letter-spacing:.04em;color:var(--text);font-variant-numeric:tabular-nums}
-[data-progress][data-complete]{border-color:var(--affirm);color:var(--affirm)}
+[data-progress]{display:inline-block;padding:4px 10px;border:1px solid var(--ink);color:var(--ink)}
+[data-progress][data-complete]{border-color:var(--affirm);background:var(--affirm);color:var(--paper)}
 
-.save-pill{position:fixed;right:18px;bottom:18px;z-index:400;padding:10px 16px;
-  border:1px solid var(--line-firm);background:var(--bg);color:var(--text);
-  font-size:12px;letter-spacing:.04em;box-shadow:0 4px 18px #2b282422;
+.save-pill{position:fixed;right:18px;bottom:18px;z-index:400;padding:11px 16px;
+  border:2px solid var(--ink);background:var(--paper);color:var(--ink);
+  box-shadow:0 4px 16px #1b1f1d26;
   opacity:0;transform:translateY(8px);pointer-events:none;
   transition:opacity .18s,transform .18s}
 .save-pill[data-show]{opacity:1;transform:none}
 
-.fallback{margin-top:24px;padding:20px 22px;border:1px solid var(--caution);background:#7d5a0f0d}
+.fallback{margin-top:24px;padding:18px 20px;border:1px solid var(--signal);background:var(--signal-wash)}
 .fallback textarea{width:100%;max-width:none;margin-top:12px;padding:12px;
-  border:1px solid var(--line-firm);background:var(--bg);color:var(--text);font:13px/1.5 var(--mono)}
-.next-steps{margin-top:32px;padding-top:22px;border-top:1px solid var(--line);max-width:var(--measure)}
-.next-steps strong{color:var(--text)}
+  border:1px solid var(--line-firm);background:var(--paper);color:var(--ink);
+  font:13px/1.5 ui-monospace,SFMono-Regular,Menlo,monospace}
+.next-steps{margin-top:32px;padding-top:20px;border-top:1px solid var(--line-firm);max-width:var(--measure)}
+.next-steps strong{color:var(--ink)}
 
 /* ---------- narrower ---------------------------------------------------------- */
 @media(max-width:900px){
-  .opening{grid-template-columns:1fr;gap:28px}
+  .opening{grid-template-columns:1fr;gap:26px}
   .status-grid,.status-grid.four{grid-template-columns:1fr}
   .decision-list{grid-template-columns:1fr}
   .decision-list article.wide{grid-column:auto}
@@ -285,12 +298,12 @@ article[data-field].is-answered>h3::after{content:" ✓";color:var(--affirm);fon
 }
 @media(max-width:560px){
   main{padding:0 20px}
-  section{padding:44px 0}
-  .topbar,footer{padding:18px 20px}
+  section{padding:42px 0}
+  .topbar,footer{padding:16px 20px}
   footer{flex-direction:column;gap:8px}
-  .opening{padding-top:26px}
+  .opening{padding-top:24px}
   .pick3{grid-template-columns:1fr}
-  /* dozens of vote rows at phone width: stack the buttons under the label */
+  /* dozens of vote rows at phone width: stack the marks under the label */
   .act-list li{flex-direction:column;align-items:stretch;gap:10px}
   .act-list li>div:first-child{max-width:none}
   .votes,.votes.three{justify-content:flex-start}
@@ -302,3 +315,6 @@ article[data-field].is-answered>h3::after{content:" ✓";color:var(--affirm);fon
   .preview-toolbar,.preview-wrap{display:none}
 }
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.save-pill{transition:none}}
+
+/* The plate states the field, then the value. */
+.opening-figures .figure-label{display:block;margin-bottom:5px;color:var(--muted)}
