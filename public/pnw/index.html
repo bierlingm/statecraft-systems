@@ -12,7 +12,7 @@
   <meta property="og:url" content="https://statecraft.systems/pnw/">
   <link rel="canonical" href="https://statecraft.systems/pnw/">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="/pnw/project.css?v=2">
+  <link rel="stylesheet" href="/pnw/project.css?v=3">
 </head>
 <body>
   <a class="skip" href="#main">Skip to project</a>
@@ -45,6 +45,7 @@
       <a href="#assessed">What I assessed</a>
       <a href="#supply">Effortless listing</a>
       <a href="#better">What makes it better</a>
+      <a href="#ideas">Things I’d try</a>
       <a href="#story">The story</a>
       <a href="#scope">Who does what</a>
       <a href="#questions">Open questions</a>
@@ -86,7 +87,7 @@
               <label>Then, per month<input type="text" name="target_then" placeholder="$5,000"></label>
               <label>By when<input type="text" name="target_then_when" placeholder="2 years"></label>
             </div>
-            <label class="extra">What I have wrong here<textarea name="model_correction" placeholder="Wrong emphasis, wrong numbers, a revenue line we have missed…"></textarea></label>
+            <label class="extra">What I have wrong here<textarea name="model_correction" placeholder="Wrong emphasis, wrong numbers, a revenue line I have missed…"></textarea></label>
         </article>
 
         <article id="decision-working" class="wide" data-field="working">
@@ -132,8 +133,14 @@
           <summary>What I concluded: build on what is there now, but do not marry it</summary>
           <p>The bottleneck today is not technical. Two listings and no buyer traffic is a pricing and inventory problem, and no amount of custom code fixes that. So month one happens on Brilliant Directories: paywall down, funnel fixed, SEO foundations repaired, inventory seeded. None of that is wasted whatever we decide later, because the value is listings and traffic, and both of those move.</p>
           <p>But I am not pretending the platform is fine. It is the most constrained option available. The data model cannot be changed, so the things that actually matter in your industry — must be moved, park approval, age rules, transport distance, lot rent — can never be proper fields. There are no custom integrations, so three of the four ideas further down — answering the buyer’s real question, routing enquiries to businesses that will pay for them, and keeping listings honest — cannot be built inside it. There is no code export, so the site is not an asset you could ever sell on its own.</p>
-          <p><strong>So I hedge, and the hedge is nearly free.</strong> I build the dealer import outside Brilliant Directories from the first day. It writes finished listings into your site, but the code and the listing data are <strong>yours</strong> — not locked inside Brilliant Directories — which means if we move, the pipeline and everything it has collected move with you. Then we decide the platform at day 30 on evidence: if dealers are sending inventory, I build the real thing and migrate. If they are not, the platform was never the problem and we have saved ourselves a rebuild.</p>
-          <p>The mistake we are avoiding is rebuilding first and finding out afterwards whether dealers will send inventory. That is the one path that wastes months instead of weeks.</p>
+          <p><strong>So I hedge, and the hedge is nearly free.</strong> I build the dealer import outside Brilliant Directories from the first day. It writes finished listings into your site, but the code and the listing data are <strong>yours</strong> — not locked inside Brilliant Directories — which means if we move, the pipeline and everything it has collected move with it.</p>
+          <p>I want to be precise about why, because the usual version of this argument is not the one I am making. It is not that rebuilding is slow or expensive — see the next section. It is that a platform built away from real demand is guesswork, however good the guesser. Build it while dealers are actually sending you homes and the details come to you instead of being invented. That is the whole reason to start on what exists.</p>
+        </details>
+        <details>
+          <summary>What I should say plainly: building is not the bottleneck it used to be</summary>
+          <p>With the tools I work with now, a working version of this marketplace — listings, search, photos, accounts, enquiries — is days of work. Not a polished one. A working one. That is a genuinely new fact about the world, it is roughly two years old, and there is no reason you would have priced it in.</p>
+          <p>It matters because it moves the risk. “Do not overbuild before it is proven” was excellent advice when building meant a quarter and forty thousand dollars. When building means a week, overbuilding is no longer the expensive mistake — building the wrong thing is, because nobody was watching real demand while it was built. Same caution, different reason, and the different reason changes what we should actually do.</p>
+          <p>So none of what I have proposed is me economising on effort, and you should not read the first month as me testing the water before committing. I would rather build something genuinely excellent here than something minimal, and I think we can. The constraint I am respecting is not my time — it is staying in contact with what dealers and buyers actually do, continuously, while it gets built.</p>
         </details>
         <details>
           <summary>What I looked at: what I would build instead</summary>
@@ -184,10 +191,10 @@
             <li><div><strong>The paywall and the contradicting price lists</strong><span>✕ if this is wrong or already fixed.</span></div><div class="votes" role="group" aria-label="Paywall finding"><button type="button" class="vote yes" data-k="asm.paywall" data-v="yes" aria-pressed="false" aria-label="Right">✓</button><button type="button" class="vote no" data-k="asm.paywall" data-v="no" aria-pressed="false" aria-label="Wrong">✕</button></div></li>
               <li><div><strong>The dealership showing as seller on every listing</strong><span>✕ if this is intentional or already handled.</span></div><div class="votes" role="group" aria-label="Dealership identity finding"><button type="button" class="vote yes" data-k="asm.identity" data-v="yes" aria-pressed="false" aria-label="Right">✓</button><button type="button" class="vote no" data-k="asm.identity" data-v="no" aria-pressed="false" aria-label="Wrong">✕</button></div></li>
               <li><div><strong>The search-engine problems</strong><span>Missing sitemap, repeated descriptions, photo labels.</span></div><div class="votes" role="group" aria-label="SEO finding"><button type="button" class="vote yes" data-k="asm.seo" data-v="yes" aria-pressed="false" aria-label="Right">✓</button><button type="button" class="vote no" data-k="asm.seo" data-v="no" aria-pressed="false" aria-label="Wrong">✕</button></div></li>
-            <li><div><strong>Month one on the current platform, decide properly at day 30</strong><span>✕ if you would rather I started building the real thing now.</span></div><div class="votes" role="group" aria-label="Platform approach"><button type="button" class="vote yes" data-k="asm.platform" data-v="yes" aria-pressed="false" aria-label="Right">✓</button><button type="button" class="vote no" data-k="asm.platform" data-v="no" aria-pressed="false" aria-label="Wrong">✕</button></div></li>
+            <li><div><strong>Month one on the current platform, and the platform question answered by evidence</strong><span>✕ if you would rather I started building the real thing now — it is a reasonable answer, and not a slow one.</span></div><div class="votes" role="group" aria-label="Platform approach"><button type="button" class="vote yes" data-k="asm.platform" data-v="yes" aria-pressed="false" aria-label="Right">✓</button><button type="button" class="vote no" data-k="asm.platform" data-v="no" aria-pressed="false" aria-label="Wrong">✕</button></div></li>
             <li><div><strong>Nobody is currently paying for a listing</strong><span>If anyone is, I need to handle them before the paywall comes down.</span></div><div class="votes" role="group" aria-label="No paying sellers"><button type="button" class="vote yes" data-k="asm.nopayers" data-v="yes" aria-pressed="false" aria-label="Right">✓</button><button type="button" class="vote no" data-k="asm.nopayers" data-v="no" aria-pressed="false" aria-label="Wrong">✕</button></div></li>
           </ul>
-          <label class="extra">What I got wrong<textarea name="assessment_correction" placeholder="Something already fixed, something we misread, something we could not see from outside…"></textarea></label>
+          <label class="extra">What I got wrong<textarea name="assessment_correction" placeholder="Something already fixed, something I misread, something I could not see from outside…"></textarea></label>
         </article>
       </div>
     </section>
@@ -200,10 +207,10 @@
 
       <p class="lede">Every marketplace dies of a supply problem, and the supply problem is almost always <strong>the form</strong>. A dealer with forty homes will not fill in forty forms. A private seller looking at a photo uploader closes the tab.</p>
 
-      <p>So: no form. A dealer sends me whatever they already have, however they already have it, and a listing appears.</p>
+      <p>So: no form. A dealer sends whatever they already have, in whatever shape they already have it, and a listing appears.</p>
 
       <ul class="act-list" aria-label="Ways to list">
-        <li><div><strong>Text or WhatsApp me the photos</strong><span>Dealers already send inventory this way. No new habit to learn.</span></div></li>
+        <li><div><strong>Text or WhatsApp the photos in</strong><span>Dealers already send inventory this way. No new habit to learn.</span></div></li>
         <li><div><strong>Forward an email</strong><span>Whatever they already emailed someone else about the home.</span></div></li>
         <li><div><strong>Paste a link</strong><span>Their listing on another site, or a page on their own website.</span></div></li>
         <li><div><strong>Drop a spreadsheet, a PDF or a folder of photos</strong><span>Forty homes in one go, in whatever shape they keep them.</span></div></li>
@@ -213,8 +220,8 @@
       <p>Behind all of those, the model reads the inputs and works out which value is the year, the make, the size, the price, the location — what each photo shows, whether the condition described matches them, whether two submissions are the same home. Then a listing page appears for them to correct rather than compose. Nothing is published until they say so.</p>
 
       <h3>The one that changes the conversation</h3>
-      <p><strong>Give me one link and I keep it in sync.</strong> A dealer points me at their profile elsewhere or their own inventory page. A new home appears there, it appears here. Sold there, it comes down here. Their ongoing effort is zero, because they already maintain that page for other reasons.</p>
-      <p class="note">That turns your ask to a dealer from “please do some work for me” into “I will do work for you, for free, permanently.” For someone deciding whether to bother with a new regional site, that is a completely different question. One caution: mirroring a dealer’s listings from someone else’s platform needs their written permission and still touches that platform’s rules — their own website or a file they send me is cleaner, and I would start there.</p>
+      <p><strong>Give the site one link and it keeps itself in sync.</strong> A dealer points it at their own inventory page, or their profile elsewhere. A new home appears there, it appears here. Sold there, it comes down here. Their ongoing effort is zero, because they already maintain that page for other reasons.</p>
+      <p class="note">That turns your ask to a dealer from “please do some work for me” into “we will do the work for you, for free, permanently.” For someone deciding whether to bother with a new regional site, that is a completely different question. One caution: mirroring a dealer’s listings from someone else’s platform needs their written permission and still touches that platform’s rules — their own website or a file they send over is cleaner, and I would start there.</p>
 
       <h3>Why it should feel good, not just be quick</h3>
       <p>They see a listing, not a form. It looks better than what they would have made themselves — photos straightened and ordered, a hero image chosen, the description in clean English. It is fast enough to feel like a trick. And they get a link they actually want to send to buyers, which is how the site spreads without anyone marketing it.</p>
@@ -232,6 +239,7 @@
           <p><strong>Answer the question buyers are really asking.</strong></p>
           <p>Nobody is really searching for “three beds under $80,000.” They are asking whether they can put this home where they need it, and what it actually costs once it is there — transport, park approval, lot rent, age rules, whether anyone will finance it at all.</p>
           <p>A buyer describes their situation in their own words, and each home comes back as feasible, feasible if something changes, or blocked and why. Not a list of near-misses they have to phone around about.</p>
+          <p>The same thing is the search box. Somebody types what actually matters to them — “something I can move onto my land in Kitsap County, under $90k, that a bank will lend on” — and the homes that fit come back in about a second. No filters to translate their life into, and no filter menu that has to anticipate every situation in advance.</p>
           <p>This is the one MHVillage cannot copy, because the rules are different in every county.</p>
         </article>
 
@@ -268,6 +276,66 @@
       <p class="note">One honest limit: your current platform cannot do three of these four — answering the buyer’s real question, routing enquiries, and keeping listings honest. It does not open its data model or allow the integrations they need. Checking every listing can run alongside it, and so can the listing engine above. The rest is what the platform decision is really about.</p>
     </section>
 
+    <section id="ideas">
+      <div class="section-title">
+        <h2>Things I would try.</h2>
+        <p>Deliberately separate from the plan. These are cheap enough now that not trying them would be the strange choice — but none of them is a substitute for homes on the site and people looking at them. Read them as options I want your instinct on, not as commitments.</p>
+      </div>
+
+      <div class="status-grid four">
+        <article><span class="tag review">Be where people start</span>
+          <p><strong>Show every home for sale in the three states — including the ones that are not on your site.</strong></p>
+          <p>Mirror what is listed nationally and locally, and send the buyer on to whoever actually holds the home. It sounds like doing free work for competitors. What it actually does is make this the page a Pacific Northwest buyer opens first, and being where people start is the one position in a marketplace that compounds.</p>
+          <p>It also flatters your own listings by comparison, because they are the complete ones: checked, current, and answering the questions the others leave hanging.</p>
+          <p class="note" style="margin-top:8px">Same caveat as before — pulling listings off another platform touches its terms. Public records, syndication feeds and dealers’ own websites are the clean version, and there is more of that available than people assume.</p>
+        </article>
+
+        <article><span class="tag review">Search traffic and trust at once</span>
+          <p><strong>Write the guide nobody has written.</strong></p>
+          <p>How to choose, evaluate, buy, move and sell a manufactured home — for an ordinary person, in this region, with real numbers. What 1976 actually means for financing. What a move really costs, by distance and by width. How to read a park’s rules before falling in love with a home.</p>
+          <p>Every one of those is something a person searches for months before they ever search for a listing, and there is no good answer to any of them online. It is also the most credible possible use of your decade.</p>
+        </article>
+
+        <article><span class="tag review">Nobody has this</span>
+          <p><strong>A map of everywhere you can put one.</strong></p>
+          <p>Every park and community across Washington, Oregon and Idaho: lot rent, age rules, pet rules, whether they are accepting homes in at all. Buyers need this constantly and it does not exist in one place.</p>
+          <p>Building it is also how you end up knowing every park manager in three states — which is the same list as your vacant-home supply and a good share of your future advertisers.</p>
+        </article>
+
+        <article><span class="tag review">The advertiser list, built as a service</span>
+          <p><strong>An index of everyone who serves this market.</strong></p>
+          <p>Transporters, set-up crews, skirting and roofing, inspectors, insurers, lenders, park managers. A free page each, kept accurate, useful to a buyer from day one.</p>
+          <p>That index is the advertiser pipeline. Built first as something genuinely useful, it earns the right to be sold into later — which is a far better conversation than a cold one.</p>
+        </article>
+      </div>
+
+      <p class="note">The honest risk with all four: they are interesting enough to eat a month, and none of them matters on a site with no homes on it. So they sit behind the first month unless you tell me one of them is the wedge.</p>
+
+      <div class="decision-list" style="margin-top:34px">
+        <article id="decision-ideas" class="wide" data-field="ideas">
+          <h3>Which of these are worth doing?</h3>
+          <p>✓ worth doing at some point, ✕ not for this site. No wrong answers — I want your instinct on which ones deserve to exist.</p>
+          <ul class="act-list">
+            <li><div><strong>Mirror every home in the three states</strong><span>Even the ones we send straight back out to someone else.</span></div><div class="votes" role="group" aria-label="Mirror every home"><button type="button" class="vote yes" data-k="idea.mirror" data-v="yes" aria-pressed="false" aria-label="Worth doing">✓</button><button type="button" class="vote no" data-k="idea.mirror" data-v="no" aria-pressed="false" aria-label="Not for this site">✕</button></div></li>
+            <li><div><strong>The buyer’s and seller’s guide</strong><span>Written from your knowledge, published as the reference for the region.</span></div><div class="votes" role="group" aria-label="The guide"><button type="button" class="vote yes" data-k="idea.guide" data-v="yes" aria-pressed="false" aria-label="Worth doing">✓</button><button type="button" class="vote no" data-k="idea.guide" data-v="no" aria-pressed="false" aria-label="Not for this site">✕</button></div></li>
+            <li><div><strong>The park and community map</strong><span>Lot rent, age rules, pet rules, vacancies, by county.</span></div><div class="votes" role="group" aria-label="Park map"><button type="button" class="vote yes" data-k="idea.parkmap" data-v="yes" aria-pressed="false" aria-label="Worth doing">✓</button><button type="button" class="vote no" data-k="idea.parkmap" data-v="no" aria-pressed="false" aria-label="Not for this site">✕</button></div></li>
+            <li><div><strong>The index of businesses serving the market</strong><span>Transporters, installers, inspectors, insurers, parks.</span></div><div class="votes" role="group" aria-label="Business index"><button type="button" class="vote yes" data-k="idea.directory" data-v="yes" aria-pressed="false" aria-label="Worth doing">✓</button><button type="button" class="vote no" data-k="idea.directory" data-v="no" aria-pressed="false" aria-label="Not for this site">✕</button></div></li>
+          </ul>
+
+          <p class="rank-label">If one of them had to come first</p>
+          <div class="pick-list" role="radiogroup" aria-label="Which idea comes first">
+            <button type="button" class="pick" role="radio" data-k="idea.first" data-v="mirror" aria-pressed="false" aria-checked="false"><strong>Mirror everything</strong><span>Fastest route to looking like the place to start.</span></button>
+            <button type="button" class="pick" role="radio" data-k="idea.first" data-v="guide" aria-pressed="false" aria-checked="false"><strong>The guide</strong><span>Slowest to pay off, longest-lasting.</span></button>
+            <button type="button" class="pick" role="radio" data-k="idea.first" data-v="parkmap" aria-pressed="false" aria-checked="false"><strong>The park map</strong><span>Also how we meet every park manager in three states.</span></button>
+            <button type="button" class="pick" role="radio" data-k="idea.first" data-v="directory" aria-pressed="false" aria-checked="false"><strong>The business index</strong><span>Closest to revenue, since it is the advertiser list.</span></button>
+            <button type="button" class="pick" role="radio" data-k="idea.first" data-v="none" aria-pressed="false" aria-checked="false"><strong>None of them yet</strong><span>Homes on the site first. Entirely defensible.</span></button>
+          </div>
+
+          <label class="extra">Something I have not thought of<textarea name="ideas_note" placeholder="Anything you have wanted to exist in this industry and nobody has built."></textarea></label>
+        </article>
+      </div>
+    </section>
+
     <section id="story">
       <div class="section-title">
         <h2>The story.</h2>
@@ -291,11 +359,15 @@
           <p>The platform, the listing data, the SEO foundations, the automation, the analytics. Making it easy to list a home and easy to find one. Building the things above.</p>
         </article>
         <article>
-          <h3>Not Moritz — demand</h3>
-          <p>Dealer recruitment, advertiser sales, marketing campaigns, outreach. I will build whatever makes that work easier and I will support whoever does it, but I am not the person making those calls. That needs to be you, or someone you bring in.</p>
+          <h3>Not Moritz — the final call on demand</h3>
+          <p>To be exact about this, because “not my department” would be the wrong read. I can do plenty here and I intend to: automate outreach, build the lists, write the articles, put together whatever makes a call easier to make. What I do not want is final responsibility for whether the homes and the advertisers actually arrive. That needs an owner who is accountable for the number, and that has to be you or someone you bring in.</p>
         </article>
       </div>
       <p class="note">This matters more here than on most projects. I can build the easiest listing flow in the Pacific Northwest and it stays empty if nobody puts homes on it. Your ten years of dealer relationships are the part of this plan I cannot do for you.</p>
+      <h3>The question everything turns on</h3>
+      <p class="lede">Not what to build. <strong>How anyone finds out this exists.</strong> That is the only question in this document I would call genuinely hard, and I do not think either of us can answer it alone.</p>
+      <p>My honest proposal is a split along the grain of what each of us is good at. You do the things that do not scale — the calls, the relationships, ten years of goodwill, the conversations nobody can automate and nobody should. I try the things that do scale, because trying them has become cheap: pre-built listings, the guides, the park map, the directory, and whatever else we think of next. Most of what I try will not work. That is fine — they cost days, not quarters, and we will know quickly.</p>
+      <p>What neither half survives is a site that is not yet good enough to send anyone to. So there is a shape we have to agree before either of us starts pushing people at it — what the site has to be and have before it is worth someone’s attention. I do not think that shape is settled yet, and the answers below are how I would settle it.</p>
     </section>
 
     <section id="questions">
@@ -305,7 +377,7 @@
       </div>
 
       <div class="answer-bar">
-        <p class="note"><strong>Everything you tap sends itself.</strong> No button to remember, nothing to submit at the end — answer what you like, close the tab, come back to the rest. <span data-progress>0 of 14 answered</span></p>
+        <p class="note"><strong>Everything you tap sends itself.</strong> No button to remember, nothing to submit at the end — answer what you like, close the tab, come back to the rest. <span data-progress>0 of 15 answered</span></p>
       </div>
 
         <h3 class="need-label">1. The model</h3>
@@ -316,7 +388,7 @@
             <ul class="act-list">
               <li><div><strong>Free listings for private sellers</strong><span>The default path. No card, no plan, list and go.</span></div><div class="votes" role="group" aria-label="Free listings for private sellers"><button type="button" class="vote yes" data-k="paywall.free" data-v="yes" aria-pressed="false" aria-label="Yes">✓</button><button type="button" class="vote no" data-k="paywall.free" data-v="no" aria-pressed="false" aria-label="No">✕</button></div></li>
               <li><div><strong>Free for dealer inventory too</strong><span>You said you were open to it. It is the fastest way to inventory.</span></div><div class="votes" role="group" aria-label="Free for dealers"><button type="button" class="vote yes" data-k="paywall.dealers" data-v="yes" aria-pressed="false" aria-label="Yes">✓</button><button type="button" class="vote no" data-k="paywall.dealers" data-v="no" aria-pressed="false" aria-label="No">✕</button></div></li>
-              <li><div><strong>Keep a paid featured tier in the background</strong><span>Built but not advertised, for later. I stop leading with it.</span></div><div class="votes" role="group" aria-label="Keep featured tier"><button type="button" class="vote yes" data-k="paywall.featured" data-v="yes" aria-pressed="false" aria-label="Yes">✓</button><button type="button" class="vote no" data-k="paywall.featured" data-v="no" aria-pressed="false" aria-label="No">✕</button></div></li>
+              <li><div><strong>Keep a paid featured tier in the background</strong><span>Built but not advertised, for later. The site stops leading with it.</span></div><div class="votes" role="group" aria-label="Keep featured tier"><button type="button" class="vote yes" data-k="paywall.featured" data-v="yes" aria-pressed="false" aria-label="Yes">✓</button><button type="button" class="vote no" data-k="paywall.featured" data-v="no" aria-pressed="false" aria-label="No">✕</button></div></li>
               <li><div><strong>Retire the old pricing page</strong><span>The $49 / $89 / $139 one. It matches nothing else on the site.</span></div><div class="votes" role="group" aria-label="Retire pricing page"><button type="button" class="vote yes" data-k="paywall.retire" data-v="yes" aria-pressed="false" aria-label="Yes">✓</button><button type="button" class="vote no" data-k="paywall.retire" data-v="no" aria-pressed="false" aria-label="No">✕</button></div></li>
             </ul>
             <label class="extra">Anything I should know<textarea name="paywall_note" placeholder="Anything already promised to a seller?"></textarea></label>
@@ -350,18 +422,20 @@
         <div class="decision-list">
           <article id="decision-filters" class="wide" data-field="filters">
             <h3>What do buyers ask about first?</h3>
-            <p>Today the site offers keyword, location and price. Nothing else. Rather than asking whether each of these matters — they all do — <strong>mark the three buyers ask about first.</strong> Those three decide what the search page leads with; the rest can live behind “more filters”.</p>
-            <ul class="act-list act-list-three">
-              <li><div><strong>Bedrooms</strong></div><div class="votes three" role="radiogroup" aria-label="Bedrooms rank"><button type="button" class="pick pick-inline" role="radio" data-k="rank.beds" data-v="first" aria-pressed="false" aria-checked="false">1st</button><button type="button" class="pick pick-inline" role="radio" data-k="rank.beds" data-v="second" aria-pressed="false" aria-checked="false">2nd</button><button type="button" class="pick pick-inline" role="radio" data-k="rank.beds" data-v="third" aria-pressed="false" aria-checked="false">3rd</button></div></li>
-              <li><div><strong>Bathrooms</strong></div><div class="votes three" role="radiogroup" aria-label="Bathrooms rank"><button type="button" class="pick pick-inline" role="radio" data-k="rank.baths" data-v="first" aria-pressed="false" aria-checked="false">1st</button><button type="button" class="pick pick-inline" role="radio" data-k="rank.baths" data-v="second" aria-pressed="false" aria-checked="false">2nd</button><button type="button" class="pick pick-inline" role="radio" data-k="rank.baths" data-v="third" aria-pressed="false" aria-checked="false">3rd</button></div></li>
-              <li><div><strong>Square footage</strong></div><div class="votes three" role="radiogroup" aria-label="Square footage rank"><button type="button" class="pick pick-inline" role="radio" data-k="rank.sqft" data-v="first" aria-pressed="false" aria-checked="false">1st</button><button type="button" class="pick pick-inline" role="radio" data-k="rank.sqft" data-v="second" aria-pressed="false" aria-checked="false">2nd</button><button type="button" class="pick pick-inline" role="radio" data-k="rank.sqft" data-v="third" aria-pressed="false" aria-checked="false">3rd</button></div></li>
-              <li><div><strong>Single / double / triple wide</strong></div><div class="votes three" role="radiogroup" aria-label="Single / double / triple wide rank"><button type="button" class="pick pick-inline" role="radio" data-k="rank.width" data-v="first" aria-pressed="false" aria-checked="false">1st</button><button type="button" class="pick pick-inline" role="radio" data-k="rank.width" data-v="second" aria-pressed="false" aria-checked="false">2nd</button><button type="button" class="pick pick-inline" role="radio" data-k="rank.width" data-v="third" aria-pressed="false" aria-checked="false">3rd</button></div></li>
-              <li><div><strong>Year built</strong><span>Decides financing and park eligibility.</span></div><div class="votes three" role="radiogroup" aria-label="Year built rank"><button type="button" class="pick pick-inline" role="radio" data-k="rank.year" data-v="first" aria-pressed="false" aria-checked="false">1st</button><button type="button" class="pick pick-inline" role="radio" data-k="rank.year" data-v="second" aria-pressed="false" aria-checked="false">2nd</button><button type="button" class="pick pick-inline" role="radio" data-k="rank.year" data-v="third" aria-pressed="false" aria-checked="false">3rd</button></div></li>
-              <li><div><strong>Must be moved, or stays in place</strong><span>I suspect this is the big one.</span></div><div class="votes three" role="radiogroup" aria-label="Must be moved, or stays in place rank"><button type="button" class="pick pick-inline" role="radio" data-k="rank.moved" data-v="first" aria-pressed="false" aria-checked="false">1st</button><button type="button" class="pick pick-inline" role="radio" data-k="rank.moved" data-v="second" aria-pressed="false" aria-checked="false">2nd</button><button type="button" class="pick pick-inline" role="radio" data-k="rank.moved" data-v="third" aria-pressed="false" aria-checked="false">3rd</button></div></li>
-              <li><div><strong>Park or community name</strong></div><div class="votes three" role="radiogroup" aria-label="Park or community name rank"><button type="button" class="pick pick-inline" role="radio" data-k="rank.park" data-v="first" aria-pressed="false" aria-checked="false">1st</button><button type="button" class="pick pick-inline" role="radio" data-k="rank.park" data-v="second" aria-pressed="false" aria-checked="false">2nd</button><button type="button" class="pick pick-inline" role="radio" data-k="rank.park" data-v="third" aria-pressed="false" aria-checked="false">3rd</button></div></li>
-              <li><div><strong>County</strong><span>Rather than just city.</span></div><div class="votes three" role="radiogroup" aria-label="County rank"><button type="button" class="pick pick-inline" role="radio" data-k="rank.county" data-v="first" aria-pressed="false" aria-checked="false">1st</button><button type="button" class="pick pick-inline" role="radio" data-k="rank.county" data-v="second" aria-pressed="false" aria-checked="false">2nd</button><button type="button" class="pick pick-inline" role="radio" data-k="rank.county" data-v="third" aria-pressed="false" aria-checked="false">3rd</button></div></li>
-              <li><div><strong>Lot rent</strong><span>If it stays where it is.</span></div><div class="votes three" role="radiogroup" aria-label="Lot rent rank"><button type="button" class="pick pick-inline" role="radio" data-k="rank.lotrent" data-v="first" aria-pressed="false" aria-checked="false">1st</button><button type="button" class="pick pick-inline" role="radio" data-k="rank.lotrent" data-v="second" aria-pressed="false" aria-checked="false">2nd</button><button type="button" class="pick pick-inline" role="radio" data-k="rank.lotrent" data-v="third" aria-pressed="false" aria-checked="false">3rd</button></div></li>
+            <p>Today the site offers keyword, location and price. Nothing else. Rather than asking whether each of these matters — they all do — <strong>tap the three buyers ask about first, in that order.</strong> Those three decide what the search page leads with; the rest can live behind “more filters”.</p>
+            <ul class="pick3" data-pick3="buyers-ask-first" data-max="3" aria-label="What buyers ask about first">
+              <li><button type="button" class="p3" data-v="beds" aria-pressed="false"><span class="p3-n" aria-hidden="true"></span><strong>Bedrooms</strong></button></li>
+              <li><button type="button" class="p3" data-v="baths" aria-pressed="false"><span class="p3-n" aria-hidden="true"></span><strong>Bathrooms</strong></button></li>
+              <li><button type="button" class="p3" data-v="sqft" aria-pressed="false"><span class="p3-n" aria-hidden="true"></span><strong>Square footage</strong></button></li>
+              <li><button type="button" class="p3" data-v="width" aria-pressed="false"><span class="p3-n" aria-hidden="true"></span><strong>Single / double / triple wide</strong></button></li>
+              <li><button type="button" class="p3" data-v="year" aria-pressed="false"><span class="p3-n" aria-hidden="true"></span><strong>Year built</strong><span class="p3-note">Decides financing and park eligibility.</span></button></li>
+              <li><button type="button" class="p3" data-v="moved" aria-pressed="false"><span class="p3-n" aria-hidden="true"></span><strong>Must be moved, or stays in place</strong><span class="p3-note">I suspect this is the big one.</span></button></li>
+              <li><button type="button" class="p3" data-v="park" aria-pressed="false"><span class="p3-n" aria-hidden="true"></span><strong>Park or community name</strong></button></li>
+              <li><button type="button" class="p3" data-v="county" aria-pressed="false"><span class="p3-n" aria-hidden="true"></span><strong>County</strong><span class="p3-note">Rather than just city.</span></button></li>
+              <li><button type="button" class="p3" data-v="lotrent" aria-pressed="false"><span class="p3-n" aria-hidden="true"></span><strong>Lot rent</strong><span class="p3-note">If it stays where it is.</span></button></li>
             </ul>
+            <p class="note pick3-hint" data-pick3-hint role="status" aria-live="polite">Tap up to three. Tap again to release one.</p>
+            <input type="hidden" id="buyers-ask-first" name="buyers_ask_first">
 
             <h4 class="rank-label">Which of these do dealers actually have on record?</h4>
             <p class="note" style="margin-top:0">A filter I cannot fill is worse than no filter at all, so this matters as much as the order above.</p>
@@ -386,6 +460,7 @@
               <button type="button" class="pick" role="radio" data-k="buyerq" data-v="place" aria-pressed="false" aria-checked="false"><strong>Can I put it where I need it?</strong><span>Must-be-moved, park approval, age rules, county rules.</span></button>
               <button type="button" class="pick" role="radio" data-k="buyerq" data-v="condition" aria-pressed="false" aria-checked="false"><strong>Is it in decent shape?</strong><span>Condition, age, what will need fixing.</span></button>
               <button type="button" class="pick" role="radio" data-k="buyerq" data-v="location" aria-pressed="false" aria-checked="false"><strong>Is it near where I need to be?</strong><span>Plain location, everything else secondary.</span></button>
+              <button type="button" class="pick" role="radio" data-k="buyerq" data-v="other" aria-pressed="false" aria-checked="false"><strong>Something else</strong><span>None of these is it. Say what it is in the box below.</span></button>
             </div>
             <label class="extra">Say more if you like<textarea name="buyerq_note" placeholder="The question you got asked most often as a dealer."></textarea></label>
           </article>
@@ -415,8 +490,8 @@
         <h3 class="need-label">4. Who owns demand</h3>
         <div class="decision-list">
           <article id="decision-demand" class="wide" data-field="demand">
-            <h3>Who does the selling?</h3>
-            <p>Following on from “Who does what” above — pick the closest.</p>
+            <h3>Who is accountable for demand?</h3>
+            <p>Not who does the work — I will do a good deal of it. Who owns the outcome. Pick the closest.</p>
             <div class="pick-list" role="radiogroup">
               <button type="button" class="pick" role="radio" data-k="demand" data-v="ben" aria-pressed="false" aria-checked="false"><strong>You do it</strong><span>You call the dealers and sell the advertising. I build what makes that easier.</span></button>
               <button type="button" class="pick" role="radio" data-k="demand" data-v="hire" aria-pressed="false" aria-checked="false"><strong>You bring someone in</strong><span>A third person owns marketing and sales. I support them.</span></button>
@@ -449,7 +524,7 @@
           <article id="decision-outreach" class="wide" data-field="outreach">
             <h3>How do we get in front of people?</h3>
             <p>Demand is your side, not mine — so the question is not whether these are good ideas. It is which ones you would actually do. The ones you dread will not happen, and it is much better to know that now than in week three.</p>
-            <p>The strongest idea depends on the listing engine above: <strong>I build someone’s listing before I contact them.</strong> “Saw your double-wide in Yakima. I made you a free listing — here it is. One click and it is live, one click and it is gone.” The outreach is the demonstration, because the work is already done.</p>
+            <p>The strongest idea depends on the listing engine above: <strong>the listing is already built before the person is approached.</strong> “Saw your double-wide in Yakima. I made you a free listing — here it is. One click and it is live, one click and it is gone.” The outreach is the demonstration, because the work is already done.</p>
             <ul class="act-list act-list-three">
               <li><div><strong>Send pre-built listings, one at a time, personally</strong><span>One message per person, easy to delete, your name not a platform’s. At a hundred a week by someone who knows the market it is respectful. At ten thousand by a script it is spam and would burn the brand.</span></div><div class="votes three" role="radiogroup" aria-label="Send pre-built listings, one at a time, personally"><button type="button" class="pick pick-inline" role="radio" data-k="out.prebuilt" data-v="will" aria-pressed="false" aria-checked="false" title="I will do this">I’ll do it</button><button type="button" class="pick pick-inline" role="radio" data-k="out.prebuilt" data-v="setup" aria-pressed="false" aria-checked="false" title="I would if you set it up">If set up</button><button type="button" class="pick pick-inline" role="radio" data-k="out.prebuilt" data-v="not" aria-pressed="false" aria-checked="false" title="Not me">Not me</button></div></li>
               <li><div><strong>Sign up transporters, installers and parks as partners</strong><span>Give them referrals and a free profile page first; ask for money once they have received something.</span></div><div class="votes three" role="radiogroup" aria-label="Sign up transporters, lenders and installers as partners"><button type="button" class="pick pick-inline" role="radio" data-k="out.trades" data-v="will" aria-pressed="false" aria-checked="false" title="I will do this">I’ll do it</button><button type="button" class="pick pick-inline" role="radio" data-k="out.trades" data-v="setup" aria-pressed="false" aria-checked="false" title="I would if you set it up">If set up</button><button type="button" class="pick pick-inline" role="radio" data-k="out.trades" data-v="not" aria-pressed="false" aria-checked="false" title="Not me">Not me</button></div></li>
@@ -477,13 +552,26 @@
             </ul>
 
             <p class="rank-label">$500 for the first month</p>
-            <p class="note" style="margin-top:0">Covers the AI spend and part of the time. Small on purpose — the first month is about finding out whether this works and how we work together, not about the money, and the intention is that there is a second month in some form.</p>
+            <p class="note" style="margin-top:0">It covers the AI spend and part of the time, and it is deliberately not priced as work delivered. I am not charging you per feature — not this month and probably not after — because paying by the feature pays me to build things rather than to build the right things, and those are different jobs. What I am actually doing here is nearer to a fractional CTO: deciding what is worth building, building it, and being answerable for whether it worked.</p>
             <div class="pick-list" role="radiogroup" aria-label="Commercial terms">
               <button type="button" class="pick" role="radio" data-k="terms" data-v="ok" aria-pressed="false" aria-checked="false"><strong>That works — let’s start</strong></button>
               <button type="button" class="pick" role="radio" data-k="terms" data-v="talk" aria-pressed="false" aria-checked="false"><strong>I’d like to talk about how it is set up</strong><span>Not the number — the structure.</span></button>
               <button type="button" class="pick" role="radio" data-k="terms" data-v="number" aria-pressed="false" aria-checked="false"><strong>I’d like to talk about the number</strong></button>
               <button type="button" class="pick" role="radio" data-k="terms" data-v="notnow" aria-pressed="false" aria-checked="false"><strong>Not right now</strong><span>Entirely fine, and worth saying plainly. Tap this and I leave it there — no follow-up, no hard feelings.</span></button>
             </div>
+
+            <p class="rank-label">What I think comes after it</p>
+            <p class="note" style="margin-top:0">Nothing to agree today — I would rather sketch the shape now than negotiate it in week five. Two parts. A small fixed monthly amount that covers the AI spend and the running costs, so the work is never held up by me watching a meter. Then a share of what the site earns, capped somehow — by time, or by a total, or both. I am open on every number in that; the part I care about is the shape, because a share is the only arrangement where my judgment about what to build is worth trusting. If I am paid by the feature I will build features. If I am paid when it earns, I will build whatever makes it earn, and tell you honestly when something is not worth building at all.</p>
+            <div class="pick-list" role="radiogroup" aria-label="What comes after the first month">
+              <button type="button" class="pick" role="radio" data-k="after" data-v="direction" aria-pressed="false" aria-checked="false"><strong>That direction works</strong><span>Numbers later, shape agreed.</span></button>
+              <button type="button" class="pick" role="radio" data-k="after" data-v="share" aria-pressed="false" aria-checked="false"><strong>Right idea — but let’s talk about the share</strong><span>The part worth talking through properly.</span></button>
+              <button type="button" class="pick" role="radio" data-k="after" data-v="flat" aria-pressed="false" aria-checked="false"><strong>I’d rather just pay a flat monthly</strong><span>Simpler, and a completely reasonable preference.</span></button>
+              <button type="button" class="pick" role="radio" data-k="after" data-v="later" aria-pressed="false" aria-checked="false"><strong>Let’s settle it at the end of month one</strong><span>When we both know more.</span></button>
+            </div>
+            <label class="extra">Anything about the structure you would want different<textarea name="after_note" placeholder="What feels right or wrong about it, and anything you have done before that worked."></textarea></label>
+
+            <p class="rank-label">And a review at the end of the month</p>
+            <p class="note" style="margin-top:0">Worth saying what it is a review of. Not the platform — that question gets answered along the way by what actually happens, and probably before day thirty. The review is of <strong>this</strong>: what got built, what it produced, whether working together is any good, and what the next shape should be. I am going into it expecting there to be a next shape.</p>
 
             <p class="rank-label">Getting me access to Brilliant Directories</p>
             <div class="pick-list" role="radiogroup" aria-label="Brilliant Directories access">
@@ -497,14 +585,14 @@
               <button type="button" class="pick" role="radio" data-k="access.dns" data-v="call" aria-pressed="false" aria-checked="false"><strong>On the same call</strong></button>
             </div>
 
-            <label class="extra">Anything else before we start<textarea name="start_note" placeholder="Timing, budget, something we have misread…"></textarea></label>
+            <label class="extra">Anything else before we start<textarea name="start_note" placeholder="Timing, budget, something I have misread…"></textarea></label>
           </article>
         </div>
 
         <div class="decision-actions">
           <button type="submit" class="button">Send now ↗</button>
           <p class="note" id="decision-status" role="status" aria-live="polite"></p>
-          <p class="note"><span data-progress>0 of 14 answered</span></p>
+          <p class="note"><span data-progress>0 of 15 answered</span></p>
         </div>
         <div id="answers-fallback" class="fallback" hidden>
           <p>If sending keeps failing, copy everything below and email it to <a href="mailto:contact@statecraft.systems">contact@statecraft.systems</a>.</p>
@@ -518,6 +606,6 @@
 
   </main>
   <footer><a href="/">Statecraft Systems</a><span>Project room for Ben · Updated 23 September 2026</span></footer>
-  <script src="/pnw/project.js?v=2" defer></script>
+  <script src="/pnw/project.js?v=3" defer></script>
 </body>
 </html>

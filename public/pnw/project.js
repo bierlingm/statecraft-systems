@@ -68,6 +68,83 @@
     if (saved) field.value = saved;
     field.addEventListener('input', function () { remember('pnw-decision-' + field.name, field.value); });
   });
+
+  // "Tap three, in order." The previous version put nine options against three
+  // radio columns, which asked for nine answers to a three-answer question and
+  // could never be undone. Here a tap adds, a second tap removes, and the order
+  // of tapping is the ranking. The result lives in a hidden field, so it saves,
+  // sends and restores through exactly the same path as every other answer.
+  Array.prototype.slice.call(form.querySelectorAll('[data-pick3]')).forEach(function (list) {
+    var max = parseInt(list.getAttribute('data-max'), 10) || 3;
+    var out = document.getElementById(list.getAttribute('data-pick3'));
+    var hint = list.parentNode.querySelector('[data-pick3-hint]');
+    var buttons = Array.prototype.slice.call(list.querySelectorAll('.p3'));
+    var order = [];
+    var SEP = ' \u00b7 ';
+
+    function labelOf(btn) {
+      var strong = btn.querySelector('strong');
+      return strong ? strong.textContent.trim() : btn.getAttribute('data-v');
+    }
+    function byValue(v) {
+      for (var i = 0; i < buttons.length; i++) {
+        if (buttons[i].getAttribute('data-v') === v) return buttons[i];
+      }
+      return null;
+    }
+    function paint() {
+      buttons.forEach(function (btn) {
+        var at = order.indexOf(btn.getAttribute('data-v'));
+        btn.setAttribute('aria-pressed', at >= 0 ? 'true' : 'false');
+        var badge = btn.querySelector('.p3-n');
+        if (badge) badge.textContent = at >= 0 ? String(at + 1) : '';
+      });
+      if (out) {
+        out.value = order.map(function (v, i) {
+          var btn = byValue(v);
+          return (i + 1) + '. ' + (btn ? labelOf(btn) : v);
+        }).join(SEP);
+      }
+    }
+    function say(text) { if (hint) hint.textContent = text; }
+    function tally() {
+      if (!order.length) return say('Tap up to ' + max + '. Tap again to release one.');
+      if (order.length < max) return say(order.length + ' of ' + max + ' chosen.');
+      say('All ' + max + ' chosen. Tap one again to swap it out.');
+    }
+
+    // Restore from the value the field loop above already pulled out of storage.
+    if (out && out.value) {
+      out.value.split(SEP).forEach(function (part) {
+        var name = part.replace(/^\s*\d+\.\s*/, '').trim().toLowerCase();
+        buttons.forEach(function (btn) {
+          if (labelOf(btn).toLowerCase() === name && order.indexOf(btn.getAttribute('data-v')) < 0) {
+            order.push(btn.getAttribute('data-v'));
+          }
+        });
+      });
+    }
+
+    list.addEventListener('click', function (event) {
+      var btn = event.target.closest('.p3');
+      if (!btn || !list.contains(btn)) return;
+      event.preventDefault();
+      var v = btn.getAttribute('data-v');
+      var at = order.indexOf(v);
+      if (at >= 0) order.splice(at, 1);
+      else if (order.length >= max) {
+        say('That is ' + max + ' already \u2014 tap one of the chosen to release it first.');
+        return;
+      } else order.push(v);
+      paint();
+      tally();
+      if (out) out.dispatchEvent(new Event('input', { bubbles: true }));
+    });
+
+    paint();
+    tally();
+  });
+
   var reviewerId = recall('pnw-decision-reviewer-id');
   if (!reviewerId) {
     reviewerId = 'r' + Math.random().toString(36).slice(2, 12) + Date.now().toString(36);
@@ -75,15 +152,12 @@
   }
 
   var LABELS = {
-    'rank.beds': 'BUYERS ASK ABOUT: bedrooms',
-    'rank.baths': 'BUYERS ASK ABOUT: bathrooms',
-    'rank.sqft': 'BUYERS ASK ABOUT: square footage',
-    'rank.width': 'BUYERS ASK ABOUT: single / double / triple wide',
-    'rank.year': 'BUYERS ASK ABOUT: year built',
-    'rank.moved': 'BUYERS ASK ABOUT: must be moved',
-    'rank.park': 'BUYERS ASK ABOUT: park or community name',
-    'rank.county': 'BUYERS ASK ABOUT: county',
-    'rank.lotrent': 'BUYERS ASK ABOUT: lot rent',
+    'idea.mirror': 'WOULD TRY: mirror every home in the three states',
+    'idea.guide': 'WOULD TRY: the buyer and seller guide',
+    'idea.parkmap': 'WOULD TRY: the park and community map',
+    'idea.directory': 'WOULD TRY: the index of businesses serving the market',
+    'idea.first': 'WOULD TRY: which one comes first',
+    after: 'AFTER THE FIRST MONTH: the structure',
     'asm.paywall': 'ASSESSMENT: the paywall and contradicting price lists',
     'asm.identity': 'ASSESSMENT: dealership shows as seller on every listing',
     'asm.seo': 'ASSESSMENT: the search-engine problems',
@@ -125,7 +199,7 @@
     'und.stack': 'UNDERSTOOD: Namecheap domain, rest Brilliant Directories',
     'und.hours': 'UNDERSTOOD: nine hours apart, 08:30-20:00 CEST',
     'asm.accurate': 'ASSESSMENT: the findings are accurate',
-    'asm.platform': 'ASSESSMENT: month one on the current platform, decide at day 30',
+    'asm.platform': 'ASSESSMENT: month one on the current platform, platform question by evidence',
     'asm.nopayers': 'ASSESSMENT: nobody is currently paying to list',
     'paywall.free': 'Free listings for private sellers',
     'paywall.dealers': 'Free for dealer inventory',
@@ -157,7 +231,6 @@
   };
 
   var VALUES = {
-    first: '1st', second: '2nd', third: '3rd',
     beds: 'bedrooms', baths: 'bathrooms', sqft: 'square footage',
     width: 'single / double / triple wide', year: 'year built',
     moved: 'must be moved or stays in place', park: 'park or community name',
@@ -174,7 +247,16 @@
     location: 'is it near where I need to be',
     ben: 'Ben does it',
     hire: 'Ben brings someone in',
-    later: 'not settled yet'
+    later: 'not settled yet / settle it at the end of month one',
+    other: 'something else \u2014 see the note',
+    mirror: 'mirror every home in the three states',
+    guide: 'the buyer and seller guide',
+    parkmap: 'the park and community map',
+    directory: 'the index of businesses serving the market',
+    none: 'none of them yet \u2014 homes on the site first',
+    direction: 'the direction works, numbers later',
+    share: 'right idea, wants to talk about the share',
+    flat: 'would rather pay a flat monthly'
   };
 
   function prettyVal(v) {
