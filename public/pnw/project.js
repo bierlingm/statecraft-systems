@@ -12,6 +12,10 @@
     });
   }
 
+  // Answers go to Moritz's Zo, which stores them before replying and texts him once a
+  // sitting goes quiet. Spikes stays as a best-effort mirror so the record Ben started
+  // on 2026-09-24 keeps running in one place; a Spikes failure never blocks the room.
+  var INTAKE_ENDPOINT = 'https://bierlingm.zo.space/api/pnw/answers';
   var SPIKES_ENDPOINT = 'https://spikes.sh/spikes';
   var SPIKES_PROJECT = 'pnw';
   var PICKS_KEY = 'pnw-picks';
@@ -312,6 +316,37 @@
   var autoTimer = null;
   var sending = false;
 
+  // What the text message reports: how far through he is, and how much he wrote.
+  // One question is one data-k group, plus each pick-three list as a single question.
+  function progressCounts() {
+    var total = {};
+    var done = {};
+    form.querySelectorAll('[data-k]').forEach(function (btn) {
+      var k = btn.getAttribute('data-k');
+      total[k] = true;
+      if (btn.getAttribute('aria-pressed') === 'true') done[k] = true;
+    });
+    form.querySelectorAll('[data-pick3]').forEach(function (list) {
+      var k = 'pick3:' + list.getAttribute('data-pick3');
+      total[k] = true;
+      if (list.querySelector('.p3[aria-pressed="true"]')) done[k] = true;
+    });
+    var notes = 0;
+    form.querySelectorAll('textarea, input:not([type="hidden"])').forEach(function (field) {
+      if (!field.name || !field.value.trim()) return;
+      if (field.value.trim() === (field.getAttribute('data-default') || '\u0000')) return;
+      notes++;
+    });
+    return { answered: Object.keys(done).length, total: Object.keys(total).length, notes: notes };
+  }
+
+  function mirrorToSpikes(spike) {
+    try {
+      fetch(SPIKES_ENDPOINT, { method: 'POST', mode: 'cors', keepalive: true, headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(spike) })
+        .catch(function () { /* best effort only */ });
+    } catch (e) { /* best effort only */ }
+  }
+
   function postAnswers(answers, name, attempt) {
     var sig = JSON.stringify([name, answers]);
     var id = submissionIds[sig] || (submissionIds[sig] = uuid());
@@ -328,7 +363,15 @@
       viewport: { width: Math.max(1, Math.round(window.innerWidth)), height: Math.max(1, Math.round(window.innerHeight)) },
       resolved: false
     };
-    return fetch(SPIKES_ENDPOINT, { method: 'POST', mode: 'cors', keepalive: true, headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(spike) })
+    var payload = {
+      submission_id: id,
+      reviewer: { id: reviewerId, name: name },
+      page: location.href,
+      progress: progressCounts(),
+      answers: answers.map(function (a) { return { id: a.id, title: a.title, answer: a.answer }; })
+    };
+    if (attempt === 1) mirrorToSpikes(spike);
+    return fetch(INTAKE_ENDPOINT, { method: 'POST', mode: 'cors', keepalive: true, headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) })
       .then(function (r) {
         if (r.ok) return sig;
         return r.text().then(function (t) {

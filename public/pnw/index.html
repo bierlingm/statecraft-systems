@@ -22,16 +22,16 @@
 
     <section class="opening" aria-labelledby="project-title">
       <div>
-        <p class="status"><span></span>For your review · v0.1</p>
+        <p class="status"><span></span>For your review · v0.2</p>
         <h1 id="project-title">PNW Mobile Homes.</h1>
         <p class="intro">Here is what I understood from our conversation, and what I found when I went through your site. Tell me where I have it wrong.</p>
         <p>Nothing has been changed on your site. This is the read before the work.</p>
         <div class="actions">
-          <a class="button" href="#understood">Start here ↓</a>
-          <a href="#start">Straight to the first month ↓</a>
+          <a class="button" href="#resume">Pick up where you left off ↓</a>
+          <a href="#understood">Back to the beginning ↓</a>
         </div>
         <p class="answer-note">Each part ends with the questions it raises, so you can correct me as you go. <strong>Everything you tap saves itself</strong> — no button to remember, nothing to submit at the end. Answer what you like, close the tab, come back to the rest on this device; tap a chosen answer again to clear it. Half an hour to read, and the questions take as long as you want to give them. <span data-progress>0 of 16 answered</span></p>
-        <p class="updated">Updated 24 September 2026</p>
+        <p class="updated">Updated 25 September 2026</p>
       </div>
       <div class="opening-figures">
         <div class="figure"><span class="figure-label">Listing fee</span><strong>Free</strong><span>if you decide to take the paywall down. That is the first question on this page, and most of the rest follows from it.</span></div>
@@ -44,11 +44,13 @@
       <a href="#understood">Understood</a>
       <a href="#assessed">Assessed</a>
       <a href="#supply">Effortless listing</a>
+      <a href="#resume">Where you left off</a>
+      <a href="#start">Getting started</a>
+      <a href="#ownership">Who owns demand</a>
       <a href="#better">What’s better</a>
       <a href="#ideas">Things I’d try</a>
       <a href="#story">The story</a>
       <a href="#scope">Who does what</a>
-      <a href="#start">Getting started</a>
     </nav>
 
     <form class="decision-form" id="decision-form">
@@ -296,44 +298,132 @@
       </div>
     </section>
 
+    <section id="resume">
+      <div class="section-title">
+        <h2>Where you left off.</h2>
+        <p>You answered everything down to here on Thursday morning and stopped. That is a natural place to stop — so I have reordered what follows rather than asking you to wade back in.</p>
+      </div>
+      <p>What your answers already settled, so none of it is still hanging: the paywall comes down, the dealership comes off the listings once your attorney has looked at the wording, the traffic claims get softened and the $500 article waits until the numbers are real, and month one’s inventory is your thirty dealers, your own homes, the sellers who hit the paywall, and the parks. I am not asking any of that again.</p>
+      <p>Two corrections you made are worth repeating back, because they change what I think. <strong>Brilliant Directories is a licence you own, not a subscription</strong> — so there is no monthly bill to escape, and cost is no longer any part of the argument. And the <strong>four thousand newsletter addresses</strong> are the largest piece of distribution this project has; nothing else on this page comes close. I want to know where that list physically lives and what people originally signed up to, before anyone mails it.</p>
+
+      <h3>You asked me a direct question, so here is a direct answer</h3>
+      <p class="lede">No, I am not proposing we move off Brilliant Directories now — and yes, I expect we will leave it eventually. Those are not in tension.</p>
+      <p>Month one stays where you are. You own the licence outright, so staying costs nothing, and the work that matters this month — paywall down, funnel fixed, the dealership off the listings, foundations repaired, homes loaded — all of it is work inside your current site. None of it is wasted if we move later, because what carries forward is listings, traffic and an audience, not the software.</p>
+      <p>What would eventually make us leave is not cost and not longevity. It is three specific things you cannot build there: answering a buyer’s real question instead of matching filters, routing an enquiry to the transporter or installer who will pay for it, and keeping listings honest as they age. Those need a data model and integrations the platform does not open up. They are also the three things that would make this better than MHVillage rather than a smaller copy of it.</p>
+      <p>So the honest sequence is: prove homes arrive, then build the site that deserves them. If dealers send inventory in month one, we build the real thing and migrate. If they do not, the platform was never the problem and you have saved yourself a rebuild. Either way you will know inside thirty days, and I will tell you which it is rather than asking you to decide it cold. <strong>You do not need to answer the platform question on this page.</strong></p>
+      <p class="section-note">What is left below: two questions that decide whether we start, then everything else — which is genuinely optional and can wait until there are homes on the site.</p>
+    </section>
+
+    <section id="start">
+      <div class="section-title">
+        <h2>Getting started.</h2>
+        <p>What the first month is, what it costs, and the two logins I need.</p>
+      </div>
+
+      <div class="decision-list">
+        <article id="decision-start" class="wide" data-field="start">
+            <h3>The first month, and what I need to begin</h3>
+            <p class="lede">Five things, all of them already decided by your answers above: the paywall comes down and the funnel stops contradicting itself, the search-engine foundations get fixed, the marketplace stops reading as your dealership, the dealer import gets built outside the platform, and real analytics go in so the traffic number becomes something you can show. Nothing in the list is new — if you have changed your mind on any of it, change the answer where it was asked.</p>
+
+            <p class="rank-label">$500 for the first month</p>
+            <p class="note" style="margin-top:0">It covers the AI spend and part of the time, and it is deliberately not priced as work delivered. I am not charging you per feature — not this month and probably not after — because paying by the feature pays me to build things rather than to build the right things, and those are different jobs. What I am actually doing here is nearer to a fractional CTO: deciding what is worth building, building it, and being answerable for whether it worked.</p>
+            <div class="pick-list" role="radiogroup" aria-label="Commercial terms">
+              <button type="button" class="pick" data-k="terms" data-v="ok" aria-pressed="false"><strong>That works — let’s start</strong></button>
+              <button type="button" class="pick" data-k="terms" data-v="talk" aria-pressed="false"><strong>I’d like to talk about how it is set up</strong><span>Not the number — the structure.</span></button>
+              <button type="button" class="pick" data-k="terms" data-v="number" aria-pressed="false"><strong>I’d like to talk about the number</strong></button>
+              <button type="button" class="pick" data-k="terms" data-v="notnow" aria-pressed="false"><strong>Not right now</strong><span>Entirely fine, and worth saying plainly. Tap this and I leave it there — no follow-up, no hard feelings.</span></button>
+            </div>
+
+            <p class="rank-label">What I think comes after it</p>
+            <p class="note" style="margin-top:0">Nothing to agree today — better to sketch the shape now than negotiate it in week five. Two parts. A fixed monthly of roughly <strong>$200</strong>, covering the AI spend and the running costs so the work is never held up by me watching a meter; less than the first month, because it is buying costs rather than time. Then a <strong>share of what the site earns</strong> — I would start the conversation in the low tens of percent, running until a total we agree rather than forever. Every one of those numbers is movable and I would expect them to move. The part I care about is the shape: a share is the only arrangement where my judgment about what to build is worth trusting. Paid by the feature, I build features. Paid when it earns, I build whatever makes it earn — and say so when something is not worth building at all.</p>
+            <div class="pick-list" role="radiogroup" aria-label="What comes after the first month">
+              <button type="button" class="pick" data-k="after" data-v="direction" aria-pressed="false"><strong>That direction works</strong><span>Numbers later, shape agreed.</span></button>
+              <button type="button" class="pick" data-k="after" data-v="share" aria-pressed="false"><strong>Right idea — but let’s talk about the share</strong><span>The part worth talking through properly.</span></button>
+              <button type="button" class="pick" data-k="after" data-v="flat" aria-pressed="false"><strong>I’d rather just pay a flat monthly</strong><span>Simpler, and a completely reasonable preference.</span></button>
+              <button type="button" class="pick" data-k="after" data-v="later" aria-pressed="false"><strong>Let’s settle it at the end of month one</strong><span>When we both know more.</span></button>
+            </div>
+            <label class="extra">Anything about the structure you would want different<textarea name="after_note" placeholder="What feels right or wrong about it, and anything you have done before that worked."></textarea></label>
+
+            <p class="rank-label">And a review at the end of the month</p>
+            <p class="note" style="margin-top:0">Not the platform — that question gets answered along the way by what actually happens, and probably before day thirty. The review is of <strong>this</strong>: what got built, what it produced, whether working together is any good, and what the next shape should be. I am going into it expecting there to be a next shape.</p>
+
+            <p class="rank-label">Getting me access to Brilliant Directories</p>
+            <div class="pick-list" role="radiogroup" aria-label="Brilliant Directories access">
+              <button type="button" class="pick" data-k="access.bd" data-v="steps" aria-pressed="false"><strong>Send me the steps and I’ll do it</strong></button>
+              <button type="button" class="pick" data-k="access.bd" data-v="call" aria-pressed="false"><strong>Let’s do it together on a call</strong><span>Fifteen minutes, screen shared.</span></button>
+            </div>
+
+            <p class="rank-label">And the domain, at Namecheap</p>
+            <div class="pick-list" role="radiogroup" aria-label="Domain access">
+              <button type="button" class="pick" data-k="access.dns" data-v="steps" aria-pressed="false"><strong>Send me the steps</strong></button>
+              <button type="button" class="pick" data-k="access.dns" data-v="call" aria-pressed="false"><strong>On the same call</strong></button>
+            </div>
+
+            <label class="extra">Anything else before we start<textarea name="start_note" placeholder="Timing, budget, something I have misread…"></textarea></label>
+          </article>
+      </div>
+    </section>
+
+    <section id="ownership">
+      <div class="section-title">
+        <h2>And the one everything turns on.</h2>
+        <p>Not what to build. <strong>How anyone finds out this exists.</strong> It is the question I have least to offer on, and it decides whether the first month can work at all.</p>
+      </div>
+      <div class="decision-list">
+        <article id="decision-demand" class="wide" data-field="demand">
+            <h3>Who is accountable for demand?</h3>
+            <p>Not who does the work — I will do a good deal of it. Who owns the outcome. Pick the closest.</p>
+            <div class="pick-list" role="radiogroup">
+              <button type="button" class="pick" data-k="demand" data-v="ben" aria-pressed="false"><strong>You do it</strong><span>You call the dealers and sell the advertising. I build what makes that easier.</span></button>
+              <button type="button" class="pick" data-k="demand" data-v="hire" aria-pressed="false"><strong>You bring someone in</strong><span>A third person owns marketing and sales. I support them.</span></button>
+              <button type="button" class="pick" data-k="demand" data-v="later" aria-pressed="false"><strong>Not settled yet</strong><span>Fine for now — worth naming before the first month ends.</span></button>
+            </div>
+            <label class="extra">Notes<textarea name="demand_note" placeholder="Anyone you already have in mind?"></textarea></label>
+          </article>
+      </div>
+    </section>
+
+    <section id="rest">
+      <div class="section-title">
+        <h2>The rest, when you have time.</h2>
+        <p>Nothing below blocks the first month. It is what I would want your instinct on once homes are arriving — the buyer’s side, the ideas worth trying, the story, and which outreach you would actually do. Answer any of it, in any order, or none of it. Partial is useful.</p>
+      </div>
+    </section>
+
     <section id="better">
       <div class="section-title">
         <h2>What would make it better than MHVillage.</h2>
-        <p>Being regional is a start, but it is not a reason for anyone to switch. The listing experience above comes first: none of what follows matters until there are homes on the site. These four are what would make people choose it once there are.</p>
+        <p>Being regional is not itself a reason to switch. None of this matters until there are homes on the site — but these four are what would make people choose it once there are.</p>
       </div>
 
       <div class="status-grid four">
         <article><span class="tag kind">For buyers</span>
           <p><strong>Answer the question buyers are really asking.</strong></p>
-          <p>Nobody is really searching for “three beds under $80,000.” They are asking whether they can put this home where they need it, and what it actually costs once it is there — transport, park approval, lot rent, age rules, whether anyone will finance it at all.</p>
-          <p>A buyer describes their situation in their own words, and each home comes back as feasible, feasible if something changes, or blocked and why. Not a list of near-misses they have to phone around about.</p>
-          <p>The same thing is the search box. Somebody types what actually matters to them — “something I can move onto my land in Kitsap County, under $90k, that a bank will lend on” — and the homes that fit come back in about a second. No filters to translate their life into, and no filter menu that has to anticipate every situation in advance.</p>
+          <p>Nobody is really searching for “three beds under $80,000.” They are asking whether they can put this home where they need it, and what it costs once it is there — transport, park approval, lot rent, age rules, whether anyone will finance it at all.</p>
+          <p>So the search box takes that instead: “something I can move onto my land in Kitsap County, under $90k, that a bank will lend on.” Each home comes back feasible, feasible if something changes, or blocked and why — not a list of near-misses to phone around about.</p>
           <p>This is the one MHVillage cannot copy, because the rules are different in every county.</p>
         </article>
 
         <article><span class="tag kind">For revenue</span> <span class="tag review">Worth a lawyer</span>
           <p><strong>Turn every enquiry into something a business will pay for.</strong></p>
-          <p>Almost every buyer enquiry carries a second need behind it: moving the home, somewhere to put it, a crew to set it up, insurance.</p>
-          <p>Spot which, and send that person — with their permission — to the business that wants them. A transporter will pay far more for ten people who genuinely need a home moved than for a month of banner space. It also earns money from enquiries rather than page views, which matters while page views are the thing you do not yet have.</p>
-          <p><strong>One caution, and it is a real one.</strong> Paid referral of a buyer to a <em>lender</em> is regulated in a way that referring them to a transporter is not — referral-fee rules and state licensing both bite, and manufactured-home lending has its own wrinkles. Getting their permission is not the answer to it. So: transporters, installers, parks and insurers first, and lenders only after your attorney has told me how.</p>
+          <p>Almost every buyer enquiry carries a second need behind it: moving the home, somewhere to put it, a crew to set it up, insurance. Spot which, and send that person — with their permission — to the business that wants them. A transporter will pay far more for ten people who genuinely need a home moved than for a month of banner space. It also earns from enquiries rather than page views, which matters while page views are the thing you do not yet have.</p>
+          <p><strong>One real caution.</strong> Paid referral to a <em>lender</em> is regulated in a way that referral to a transporter is not, and permission is not the answer to it. Transporters, installers, parks and insurers first; lenders only after your attorney has told me how.</p>
         </article>
 
         <article><span class="tag kind">For trust</span>
           <p><strong>Every listing checked before it appears.</strong></p>
-          <p>The day listings become free, the junk arrives: duplicates, dealers posing as private sellers, and the scam patterns this industry knows too well. Unmoderated junk is what kills a young marketplace’s reputation, usually before anyone notices.</p>
-          <p>So every submission gets checked — publish, hold for you, or refuse. You see a short queue, not an inbox.</p>
-          <p>And “every listing on this site is checked” becomes something you can say out loud in a market where buyers are genuinely afraid of being cheated. That is worth more here than more inventory.</p>
+          <p>The day listings become free, the junk arrives: duplicates, dealers posing as private sellers, and the scam patterns this industry knows too well. So every submission gets checked — publish, hold for you, or refuse. You see a short queue, not an inbox.</p>
+          <p>And “every listing on this site is checked” becomes something you can say out loud in a market where buyers are afraid of being cheated. Worth more here than more inventory.</p>
         </article>
 
         <article><span class="tag kind">For quality</span>
           <p><strong>Inventory that stays honest by itself.</strong></p>
-          <p>Free listings rot. Homes sell and nobody comes back to take the listing down, and a buyer who calls about three sold homes in a row does not call a fourth.</p>
-          <p>Listings that look sold, stale, or priced far from comparable homes get flagged and the seller gets a nudge. Nothing disappears silently.</p>
+          <p>Free listings rot. Homes sell and nobody takes the listing down, and a buyer who calls about three sold homes in a row does not call a fourth. So listings that look sold, stale or oddly priced get flagged and the seller gets a nudge. Nothing disappears silently.</p>
         </article>
       </div>
 
       
-<p class="section-note">The limit: your current platform cannot do three of these four — answering the buyer’s real question, routing enquiries, and keeping listings honest. It does not open its data model or allow the integrations they need. Checking every listing can run alongside it, and so can the listing engine above. The rest is what the platform decision is really about.</p>
+<p class="section-note">These three are the answer to the question you asked me — see <a href="#resume">above</a>. Your current platform cannot do them, because it does not open its data model or allow the integrations they need. Checking every listing can run alongside it, and so can the listing engine. That is the whole of the case for eventually moving, and none of it is urgent this month.</p>
 
       <details class="mechanism">
         <summary>How these actually work, if you want the detail</summary>
@@ -394,33 +484,30 @@
     <section id="ideas">
       <div class="section-title">
         <h2>Things I would try.</h2>
-        <p>Deliberately separate from the plan. These are cheap enough now that not trying them would be the strange choice — but none of them is a substitute for homes on the site and people looking at them. Read them as options I want your instinct on, not as commitments.</p>
+        <p>Separate from the plan, and none of them a substitute for homes on the site. Options I want your instinct on, not commitments.</p>
       </div>
 
       <div class="status-grid four">
         <article><span class="tag kind">Be where people start</span>
           <p><strong>Show every home for sale in the three states — including the ones that are not on your site.</strong></p>
-          <p>Mirror what is listed nationally and locally, and send the buyer on to whoever actually holds the home. It sounds like doing free work for competitors. What it actually does is make this the page a Pacific Northwest buyer opens first, and being where people start is the one position in a marketplace that compounds.</p>
-          <p>It also flatters your own listings by comparison, because they are the complete ones: checked, current, and answering the questions the others leave hanging.</p>
+          <p>Mirror what is listed nationally and locally, and send the buyer on to whoever holds the home. It sounds like free work for competitors. What it does is make this the page a PNW buyer opens first — the one position in a marketplace that compounds. It also flatters your own listings, because they are the complete ones.</p>
           <p class="note" style="margin-top:8px">Same caveat as before — pulling listings off another platform touches its terms. Public records, syndication feeds and dealers’ own websites are the clean version, and there is more of that available than people assume.</p>
         </article>
 
         <article><span class="tag kind">Search traffic and trust at once</span>
           <p><strong>Write the guide nobody has written.</strong></p>
-          <p>How to choose, evaluate, buy, move and sell a manufactured home — for an ordinary person, in this region, with real numbers. What 1976 actually means for financing. What a move really costs, by distance and by width. How to read a park’s rules before falling in love with a home.</p>
-          <p>Every one of those is something a person searches for months before they ever search for a listing, and there is no good answer to any of them online. It is also the most credible possible use of your decade.</p>
+          <p>How to choose, buy, move and sell a manufactured home — ordinary person, this region, real numbers. What 1976 means for financing. What a move costs, by distance and width. How to read a park’s rules before falling in love with a home.</p>
+          <p>People search all of that months before they search for a listing, and there is no good answer online. The most credible possible use of your decade.</p>
         </article>
 
         <article><span class="tag kind">Nobody has this</span>
           <p><strong>A map of everywhere you can put one.</strong></p>
-          <p>Every park and community across Washington, Oregon and Idaho: lot rent, age rules, pet rules, whether they are accepting homes in at all. Buyers need this constantly and it does not exist in one place.</p>
-          <p>Building it is also how you end up knowing every park manager in three states — which is the same list as your vacant-home supply and a good share of your future advertisers.</p>
+          <p>Every park across Washington, Oregon and Idaho: lot rent, age rules, pet rules, whether they are taking homes in at all. Buyers need this constantly and it exists nowhere in one place. Building it is also how you end up knowing every park manager in three states — the same list as your vacant-home supply and a good share of your future advertisers.</p>
         </article>
 
         <article><span class="tag kind">The advertiser list, built as a service</span>
           <p><strong>An index of everyone who serves this market.</strong></p>
-          <p>Transporters, set-up crews, skirting and roofing, inspectors, insurers, lenders, park managers. A free page each, kept accurate, useful to a buyer from day one.</p>
-          <p>That index is the advertiser pipeline. Built first as something useful, it earns the right to be sold into later — which is a far better conversation than a cold one.</p>
+          <p>Transporters, set-up crews, skirting and roofing, inspectors, insurers, lenders, park managers. A free page each, kept accurate, useful to a buyer from day one. That index is the advertiser pipeline — built as something useful first, it earns the right to be sold into later, which is a far better conversation than a cold one.</p>
         </article>
       </div>
 
@@ -449,7 +536,7 @@
           <label class="extra">Something I have not thought of<textarea name="ideas_note" placeholder="Anything you have wanted to exist in this industry and nobody has built."></textarea></label>
 
           <p class="rank-label">Now the unreasonable version</p>
-          <p class="note" style="margin-top:0">The four above are mine, and mine are limited by not having spent ten years in this industry. So: <strong>what would make somebody actively want to use this site</strong> — not tolerate it, want it, and tell someone else about it? Ignore whether it sounds buildable. That used to be the binding constraint and largely is not any more, and I would rather talk you down from something ambitious than up from something safe.</p>
+          <p class="note" style="margin-top:0">Mine are limited by not having spent ten years in this industry. So: <strong>what would make somebody actively want to use this site</strong> — not tolerate it, want it, and tell someone else about it? Ignore whether it sounds buildable; I would rather talk you down from something ambitious than up from something safe.</p>
           <label class="extra">The one that would make people talk about it<textarea name="wild_idea" placeholder="However far-fetched. The version with no budget and no technical limit."></textarea></label>
           <label class="extra">And what you have watched frustrate people, over and over<textarea name="wild_frustration" placeholder="The thing buyers or sellers always get wrong, always ask, or always give up on."></textarea></label>
         </article>
@@ -461,10 +548,10 @@
         <h2>The story.</h2>
         <p>I think this matters more here than on most projects, and I cannot write it without you.</p>
       </div>
-      <p>Your supply side is a relationship business — the pitch to a dealer is not “we have better filters,” it is “I am building the thing our industry should have had.” And your buyers are frightened; this is a corner of housing where people genuinely get cheated, and a site with a clear human reason for existing converts better than a tidier one without a point of view.</p>
-      <p>Here is my first draft of it, to be corrected rather than accepted:</p>
+      <p>Your supply side is a relationship business — the pitch to a dealer is not “we have better filters,” it is “I am building the thing our industry should have had.” And your buyers are frightened. A site with a clear human reason for existing converts better than a tidier one without a point of view.</p>
+      <p>My first draft of it, to be corrected rather than accepted:</p>
       <blockquote class="story-quote">A manufactured home is how a lot of people actually get to own where they live — a young couple who would otherwise rent for another decade, a retiree who sells the big house and finally has money to travel on, a family who gets a place near the mountains. The homes are affordable. The market for them is not: opaque, fragmented, and thick with people taking a cut.<br><br><strong>Ben was the middleman. He is removing the middleman, starting with himself.</strong></blockquote>
-      <p>That is the reason this is yours to build rather than anyone’s. You are not disrupting someone else’s business; you are dismantling your own position on purpose. It is the most credible version of “free listings” anyone in this industry can offer, because it costs you personally rather than being a platform buying market share.</p>
+      <p>That is why this is yours to build rather than anyone’s. You are not disrupting someone else’s business; you are dismantling your own position on purpose — the most credible version of “free listings” anyone in this industry can offer, because it costs you personally rather than being a platform buying market share.</p>
       <p class="note">One thing to be aware of: a story like this is also a constraint. “No commissions, ever” becomes a problem the day a commission appears, and “every listing checked” is a promise the site then has to keep. I think those are the right constraints — but they are constraints, and you should agree to them knowingly.</p>
 
       <div class="decision-list" style="margin-top:34px">
@@ -505,22 +592,9 @@
       </div>
       <h3>The question everything turns on</h3>
       <p class="lede">Not what to build. <strong>How anyone finds out this exists.</strong> It is the question I have least to offer on, and I do not think either of us answers it alone.</p>
-      <p>My proposal is a split along the grain of what each of us is good at. You do the things that do not scale — the calls, the relationships, ten years of goodwill, the conversations nobody can automate and nobody should. I try the things that do scale, because trying them has become cheap: pre-built listings, the guides, the park map, the directory, and whatever else we think of next. Most of what I try will not work. That is fine — they cost days, not quarters, and we will know quickly.</p>
-      <p>Neither half survives a site that is not yet worth sending anyone to. So before either of us starts pushing people at it, we have to agree what it needs to be and have. That shape is not settled yet, and the answers on this page are how I would settle it.</p>
-    </section>
-
+      <p>A split along the grain of what each of us is good at. You do the things that do not scale — the calls, the relationships, ten years of goodwill. I try the things that do, because trying them has become cheap: pre-built listings, the guides, the park map, the directory. Most of what I try will not work, which is fine; they cost days, not quarters.</p>
+      <p>Neither half survives a site that is not worth sending anyone to yet. That is what the first month is for.</p>
       <div class="decision-list" style="margin-top:34px">
-        <article id="decision-demand" class="wide" data-field="demand">
-            <h3>Who is accountable for demand?</h3>
-            <p>Not who does the work — I will do a good deal of it. Who owns the outcome. Pick the closest.</p>
-            <div class="pick-list" role="radiogroup">
-              <button type="button" class="pick" data-k="demand" data-v="ben" aria-pressed="false"><strong>You do it</strong><span>You call the dealers and sell the advertising. I build what makes that easier.</span></button>
-              <button type="button" class="pick" data-k="demand" data-v="hire" aria-pressed="false"><strong>You bring someone in</strong><span>A third person owns marketing and sales. I support them.</span></button>
-              <button type="button" class="pick" data-k="demand" data-v="later" aria-pressed="false"><strong>Not settled yet</strong><span>Fine for now — worth naming before the first month ends.</span></button>
-            </div>
-            <label class="extra">Notes<textarea name="demand_note" placeholder="Anyone you already have in mind?"></textarea></label>
-          </article>
-
         <article id="decision-outreach" class="wide" data-field="outreach">
             <h3>How do we get in front of people?</h3>
             <p>Demand is your side, not mine — so the question is not whether these are good ideas. It is which ones you would actually do. The ones you dread will not happen, and it is much better to know that now than in week three.</p>
@@ -538,55 +612,7 @@
       </div>
     </section>
 
-    <section id="start">
-      <div class="section-title">
-        <h2>Getting started.</h2>
-        <p>What the first month is, what it costs, and the two logins I need.</p>
-      </div>
-
-      <div class="decision-list">
-        <article id="decision-start" class="wide" data-field="start">
-            <h3>The first month, and what I need to begin</h3>
-            <p class="lede">Five things, all of them already decided by your answers above: the paywall comes down and the funnel stops contradicting itself, the search-engine foundations get fixed, the marketplace stops reading as your dealership, the dealer import gets built outside the platform, and real analytics go in so the traffic number becomes something you can show. Nothing in the list is new — if you have changed your mind on any of it, change the answer where it was asked.</p>
-
-            <p class="rank-label">$500 for the first month</p>
-            <p class="note" style="margin-top:0">It covers the AI spend and part of the time, and it is deliberately not priced as work delivered. I am not charging you per feature — not this month and probably not after — because paying by the feature pays me to build things rather than to build the right things, and those are different jobs. What I am actually doing here is nearer to a fractional CTO: deciding what is worth building, building it, and being answerable for whether it worked.</p>
-            <div class="pick-list" role="radiogroup" aria-label="Commercial terms">
-              <button type="button" class="pick" data-k="terms" data-v="ok" aria-pressed="false"><strong>That works — let’s start</strong></button>
-              <button type="button" class="pick" data-k="terms" data-v="talk" aria-pressed="false"><strong>I’d like to talk about how it is set up</strong><span>Not the number — the structure.</span></button>
-              <button type="button" class="pick" data-k="terms" data-v="number" aria-pressed="false"><strong>I’d like to talk about the number</strong></button>
-              <button type="button" class="pick" data-k="terms" data-v="notnow" aria-pressed="false"><strong>Not right now</strong><span>Entirely fine, and worth saying plainly. Tap this and I leave it there — no follow-up, no hard feelings.</span></button>
-            </div>
-
-            <p class="rank-label">What I think comes after it</p>
-            <p class="note" style="margin-top:0">Nothing to agree today — better to sketch the shape now than negotiate it in week five. Two parts. A fixed monthly of roughly <strong>$200</strong>, covering the AI spend and the running costs so the work is never held up by me watching a meter; less than the first month, because it is buying costs rather than time. Then a <strong>share of what the site earns</strong> — I would start the conversation in the low tens of percent, running until a total we agree rather than forever. Every one of those numbers is movable and I would expect them to move. The part I care about is the shape: a share is the only arrangement where my judgment about what to build is worth trusting. Paid by the feature, I build features. Paid when it earns, I build whatever makes it earn — and say so when something is not worth building at all.</p>
-            <div class="pick-list" role="radiogroup" aria-label="What comes after the first month">
-              <button type="button" class="pick" data-k="after" data-v="direction" aria-pressed="false"><strong>That direction works</strong><span>Numbers later, shape agreed.</span></button>
-              <button type="button" class="pick" data-k="after" data-v="share" aria-pressed="false"><strong>Right idea — but let’s talk about the share</strong><span>The part worth talking through properly.</span></button>
-              <button type="button" class="pick" data-k="after" data-v="flat" aria-pressed="false"><strong>I’d rather just pay a flat monthly</strong><span>Simpler, and a completely reasonable preference.</span></button>
-              <button type="button" class="pick" data-k="after" data-v="later" aria-pressed="false"><strong>Let’s settle it at the end of month one</strong><span>When we both know more.</span></button>
-            </div>
-            <label class="extra">Anything about the structure you would want different<textarea name="after_note" placeholder="What feels right or wrong about it, and anything you have done before that worked."></textarea></label>
-
-            <p class="rank-label">And a review at the end of the month</p>
-            <p class="note" style="margin-top:0">Not the platform — that question gets answered along the way by what actually happens, and probably before day thirty. The review is of <strong>this</strong>: what got built, what it produced, whether working together is any good, and what the next shape should be. I am going into it expecting there to be a next shape.</p>
-
-            <p class="rank-label">Getting me access to Brilliant Directories</p>
-            <div class="pick-list" role="radiogroup" aria-label="Brilliant Directories access">
-              <button type="button" class="pick" data-k="access.bd" data-v="steps" aria-pressed="false"><strong>Send me the steps and I’ll do it</strong></button>
-              <button type="button" class="pick" data-k="access.bd" data-v="call" aria-pressed="false"><strong>Let’s do it together on a call</strong><span>Fifteen minutes, screen shared.</span></button>
-            </div>
-
-            <p class="rank-label">And the domain, at Namecheap</p>
-            <div class="pick-list" role="radiogroup" aria-label="Domain access">
-              <button type="button" class="pick" data-k="access.dns" data-v="steps" aria-pressed="false"><strong>Send me the steps</strong></button>
-              <button type="button" class="pick" data-k="access.dns" data-v="call" aria-pressed="false"><strong>On the same call</strong></button>
-            </div>
-
-            <label class="extra">Anything else before we start<textarea name="start_note" placeholder="Timing, budget, something I have misread…"></textarea></label>
-          </article>
-      </div>
-
+    <section id="send">
       <div class="decision-actions">
         <button type="submit" class="button">Send now ↗</button>
         <p class="note" id="decision-status" role="status" aria-live="polite"></p>
@@ -604,11 +630,12 @@
       <p class="next-steps"><strong>What happens next.</strong> Answer what you can — there is no deadline, and partial answers are useful. I will read them the same day and come back with what changes. If you would rather talk it through than type, say so in any box and we will get on a call instead.</p>
     </section>
 
+
     </form>
 
 
   </main>
-  <footer><a href="/">Statecraft Systems</a><span>Project room for Ben · Updated 23 September 2026</span></footer>
-  <script src="/pnw/project.js?v=9" defer></script>
+  <footer><a href="/">Statecraft Systems</a><span>Project room for Ben · Updated 25 September 2026</span></footer>
+  <script src="/pnw/project.js?v=10" defer></script>
 </body>
 </html>
