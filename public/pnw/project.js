@@ -48,6 +48,16 @@
     if (btn.hasAttribute('aria-checked')) btn.removeAttribute('aria-checked');
   }
 
+  function currentFields() {
+    var out = {};
+    form.querySelectorAll('textarea, input:not([type="hidden"])').forEach(function (field) {
+      if (!field.name || !field.value.trim()) return;
+      if (field.value.trim() === (field.getAttribute('data-default') || '\u0000')) return;
+      out[field.name] = field.value.trim();
+    });
+    return out;
+  }
+
   function applyPicks(picks) {
     Object.keys(picks).forEach(function (k) {
       form.querySelectorAll('[data-k="' + k + '"]').forEach(function (btn) {
@@ -368,6 +378,8 @@
       reviewer: { id: reviewerId, name: name },
       page: location.href,
       progress: progressCounts(),
+      picks: currentPicks(),
+      fields: currentFields(),
       answers: answers.map(function (a) { return { id: a.id, title: a.title, answer: a.answer }; })
     };
     if (attempt === 1) mirrorToSpikes(spike);
@@ -530,4 +542,120 @@
   refreshProgress();
   // Answers left over from a previous visit that never reached us.
   if (unsent() && reviewerName()) queueSend(2000);
+
+  // ---------------------------------------------------------------------------
+  // What has already been answered, from the record rather than from this device.
+  //
+  // Picks used to live only in localStorage, so the room looked blank to anyone but
+  // the person who filled it in — and blank to that person on a second device. The
+  // gated /api/pnw-answers returns the stored set. Your own answers are restored into
+  // the form; somebody else's are shown beside each question, and never pressed, so
+  // nobody overwrites anyone by tapping.
+  // ---------------------------------------------------------------------------
+
+  function dayMonth(iso) {
+    var d = new Date(iso);
+    if (isNaN(d)) return '';
+    return d.getDate() + ' ' + ['January', 'February', 'March', 'April', 'May', 'June', 'July',
+      'August', 'September', 'October', 'November', 'December'][d.getMonth()];
+  }
+
+  // Keys and field names come off the wire, so they are escaped before going into a selector.
+  function attr(value) {
+    return String(value).replace(/\\/g, '\\\\').replace(/"/g, '\\"');
+  }
+
+  function groupFor(btn) {
+    return btn.closest('.votes, .pick-list, .act-list li, .decision-list article') || btn.parentElement;
+  }
+
+  function markTheirPicks(picks, who) {
+    var marked = 0;
+    Object.keys(picks).forEach(function (k) {
+      var chosen = form.querySelector('[data-k="' + attr(k) + '"][data-v="' + attr(picks[k]) + '"]');
+      if (!chosen) return;
+      chosen.classList.add('is-theirs');
+      var group = groupFor(chosen);
+      if (!group || group.querySelector(':scope > .by-them')) return;
+      var badge = document.createElement('span');
+      badge.className = 'by-them';
+      badge.textContent = who + ': ' + prettyVal(picks[k]);
+      group.appendChild(badge);
+      marked++;
+    });
+    return marked;
+  }
+
+  function markTheirFields(fields, who) {
+    Object.keys(fields).forEach(function (name) {
+      var field = form.querySelector('[name="' + attr(name) + '"]');
+      if (!field) return;
+      var label = field.closest('label, .field-row') || field.parentElement;
+      if (!label || label.querySelector(':scope > .note-them')) return;
+      var note = document.createElement('div');
+      note.className = 'note-them';
+      var head = document.createElement('span');
+      head.className = 'note-them-who';
+      head.textContent = who + ' wrote';
+      var body = document.createElement('p');
+      body.textContent = fields[name];
+      note.appendChild(head);
+      note.appendChild(body);
+      label.insertAdjacentElement('afterend', note);
+    });
+  }
+
+  function restoreOwn(record) {
+    var picks = loadPicks();
+    var added = 0;
+    Object.keys(record.picks || {}).forEach(function (k) {
+      if (picks[k] === undefined) { picks[k] = record.picks[k]; added++; }
+    });
+    if (added) { savePicks(picks); applyPicks(picks); }
+    Object.keys(record.fields || {}).forEach(function (name) {
+      var field = form.querySelector('[name="' + attr(name) + '"]');
+      if (field && !field.value.trim()) {
+        field.value = record.fields[name];
+        remember('pnw-decision-' + name, field.value);
+        added++;
+      }
+    });
+    if (added) refreshProgress();
+    return added;
+  }
+
+  function announce(text) {
+    var bar = document.getElementById('answers-on-record');
+    if (!bar) {
+      bar = document.createElement('p');
+      bar.id = 'answers-on-record';
+      bar.className = 'on-record';
+      form.insertBefore(bar, form.firstChild);
+    }
+    bar.textContent = text;
+  }
+
+  fetch('/api/pnw-answers', { headers: { Accept: 'application/json' } })
+    .then(function (r) { return r.ok ? r.json() : null; })
+    .then(function (data) {
+      if (!data || !data.latest || !data.latest.length) return;
+      data.latest.forEach(function (record) {
+        var them = (record.reviewer && record.reviewer.name) || 'someone';
+        var when = dayMonth(record.received_at);
+        var count = Object.keys(record.picks || {}).length;
+        if (!count && !Object.keys(record.fields || {}).length) return;
+        if (data.who && them.toLowerCase() === String(data.who).toLowerCase()) {
+          restoreOwn(record);
+          announce('Your answers from ' + when + ' are on record — ' + count
+            + (record.progress && record.progress.total ? ' of ' + record.progress.total : '') + ' answered.');
+        } else {
+          markTheirPicks(record.picks || {}, them);
+          markTheirFields(record.fields || {}, them);
+          announce(them + ' answered ' + count
+            + (record.progress && record.progress.total ? ' of ' + record.progress.total : '')
+            + ' on ' + when + '. Their answers are marked below.');
+        }
+      });
+    })
+    .catch(function () { /* the room works without it */ });
 })();

@@ -348,3 +348,40 @@ article[data-field].is-answered>h3::after{content:" ✓";color:var(--affirm);fon
 /* The one block explaining how the page works. The progress mark sits on its
    own line beneath, not inline at the end of a sentence. */
 .answer-note [data-progress]{display:block;width:max-content;margin-top:12px}
+
+/* ---------------------------------------------------------------------------
+   Answers already on record.
+
+   Picks used to live only in this browser, so the room read as blank to anyone
+   but the person who filled it in. These mark what the record holds. Somebody
+   else's answer is never pressed — it is annotated, so a tap cannot be mistaken
+   for agreement and nobody overwrites anyone.
+   --------------------------------------------------------------------------- */
+
+.on-record{margin:0 0 26px;padding:11px 15px;background:var(--signal-wash);
+  border-left:3px solid var(--signal);color:var(--signal-ink);
+  font-size:13.5px;font-weight:600;letter-spacing:-.005em;max-width:var(--measure)}
+
+.by-them{display:inline-block;margin:6px 0 0;padding:3px 8px;
+  border:1px dashed var(--line-firm);background:var(--paper);
+  color:var(--muted);font-size:11.5px;font-weight:700;
+  letter-spacing:.055em;text-transform:uppercase;white-space:nowrap}
+
+.votes .by-them{margin:0 0 0 8px;align-self:center}
+.act-list li .by-them{margin-top:8px}
+
+/* The control they chose, shown as chosen without being pressed. */
+.is-theirs{border-color:var(--signal-ink) !important;
+  box-shadow:inset 0 0 0 1px var(--signal-ink)}
+
+.note-them{margin:8px 0 4px;padding:10px 14px;background:var(--surface);
+  border-left:3px solid var(--line-firm);max-width:var(--measure)}
+.note-them-who{display:block;color:var(--signal-ink);font-size:11px;font-weight:700;
+  letter-spacing:.09em;text-transform:uppercase}
+.note-them p{margin:5px 0 0;color:var(--ink);font-size:14.5px;line-height:1.5;
+  white-space:pre-wrap}
+
+@media (max-width:640px){
+  .votes .by-them{margin:6px 0 0}
+  .votes{flex-wrap:wrap}
+}
