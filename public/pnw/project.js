@@ -1,4 +1,60 @@
 (function () {
+  // The record ships closed. A shared question link opens its chapter before scrolling.
+  function reveal(target) {
+    if (!target) return;
+    for (var node = target; node; node = node.parentElement) {
+      if (node.tagName === 'DETAILS') node.open = true;
+    }
+  }
+  function followHash() {
+    var id;
+    try { id = decodeURIComponent(location.hash.slice(1)); } catch (e) { return; }
+    var target = document.getElementById(id);
+    if (!target) return;
+    reveal(target);
+    requestAnimationFrame(function () { target.scrollIntoView({ behavior: 'instant', block: 'start' }); });
+  }
+  document.addEventListener('DOMContentLoaded', followHash);
+  window.addEventListener('hashchange', followHash);
+  if (document.readyState !== 'loading') followHash();
+  // Repeated clicks on the same hash still reopen a chapter the reader has closed.
+  document.addEventListener('click', function (event) {
+    var anchor = event.target.closest('a[href^="#"]');
+    if (anchor && anchor.hash === location.hash) followHash();
+  });
+
+  var navLinks = Array.from(document.querySelectorAll('.section-nav a[href^="#"]'));
+  var roomSections = [];
+  navLinks = navLinks.filter(function (a) {
+    var section = a.hash && a.hash.length > 1 ? document.getElementById(a.hash.slice(1)) : null;
+    if (!section) return false;   // a link to a section that no longer exists must not crash the nav
+    roomSections.push(section);
+    return true;
+  });
+  if (roomSections.length && 'IntersectionObserver' in window) {
+    var observer = new IntersectionObserver(function () {
+      var current = roomSections[0];
+      roomSections.forEach(function (section) {
+        if (section.getBoundingClientRect().top <= window.innerHeight * 0.3) current = section;
+      });
+      navLinks.forEach(function (a) {
+        if (a.hash === '#' + current.id) a.setAttribute('aria-current', 'location');
+        else a.removeAttribute('aria-current');
+      });
+    }, { rootMargin: '-10% 0px -65% 0px', threshold: 0 });
+    roomSections.forEach(function (section) { observer.observe(section); });
+  }
+
+  var printClosed = [];
+  window.addEventListener('beforeprint', function () {
+    printClosed = Array.from(document.querySelectorAll('details:not([open])'));
+    printClosed.forEach(function (details) { details.open = true; });
+  });
+  window.addEventListener('afterprint', function () {
+    printClosed.forEach(function (details) { details.open = false; });
+    printClosed = [];
+  });
+
   var SITE = 'https://www.pnwmobilehomes.com';
   var select = document.getElementById('preview-page');
   var preview = document.getElementById('site-preview');
@@ -22,6 +78,47 @@
   var form = document.getElementById('decision-form');
   var status = document.getElementById('decision-status');
   if (!form) return;
+
+  var benTaskPicks = {};
+  var taskItems = Array.from(form.querySelectorAll('[data-task]'));
+  var liveTasks = document.getElementById('live-tasks');
+  var doneTasks = document.getElementById('done-tasks');
+
+  function refreshTasks() {
+    var picks = Object.assign({}, benTaskPicks, currentPicks());
+    taskItems.forEach(function (item) {
+      var key = item.getAttribute('data-task');
+      var complete = picks[key] === 'done';
+      var destination = complete ? doneTasks : liveTasks;
+      var active = item.contains(document.activeElement);
+      item.classList.toggle('task-complete', complete);
+      var label = item.querySelector('.task-label');
+      if (!item.hasAttribute('data-live-label')) item.setAttribute('data-live-label', label.textContent);
+      label.textContent = '';
+      if (complete) {
+        var strike = document.createElement('s');
+        strike.textContent = item.getAttribute('data-done-label');
+        label.appendChild(strike);
+      } else label.textContent = item.getAttribute('data-live-label');
+      var button = item.querySelector('.task-toggle');
+      if (button) {
+        var own = button.getAttribute('aria-pressed') === 'true';
+        // Someone else's completed task is visible, never pressed on their behalf.
+        button.hidden = complete && !own;
+        button.textContent = complete ? 'Undo' : button.getAttribute('data-action-label');
+        button.setAttribute('aria-label', (complete ? 'Undo: ' : button.getAttribute('data-action-label') + ': ') + item.querySelector('.task-label').textContent);
+      }
+      if (item.parentElement !== destination) {
+        destination.appendChild(item);
+        if (active) {
+          var next = liveTasks.querySelector('button:not([hidden]), a');
+          (next || document.querySelector('#tasks-done summary')).focus();
+        }
+      }
+    });
+    document.getElementById('tasks-empty').hidden = !!liveTasks.children.length;
+    document.getElementById('done-empty').hidden = !!doneTasks.children.length;
+  }
 
   var submit = form.querySelector('button[type="submit"]');
 
@@ -183,21 +280,21 @@
   }
 
   var LABELS = {
-    speed: 'BUILD COST: does the argument land',
+    'speed': 'BUILD COST: does the argument land',
     'claims.article': 'THE $500 SPONSORED ARTICLE',
     'idea.mirror': 'WOULD TRY: mirror every home in the three states',
     'idea.guide': 'WOULD TRY: the buyer and seller guide',
     'idea.parkmap': 'WOULD TRY: the park and community map',
     'idea.directory': 'WOULD TRY: the index of businesses serving the market',
     'idea.first': 'WOULD TRY: which one comes first',
-    after: 'AFTER THE FIRST MONTH: the structure',
+    'after': 'AFTER THE FIRST MONTH: the structure',
     'asm.paywall': 'ASSESSMENT: the paywall and contradicting price lists',
     'asm.identity': 'ASSESSMENT: dealership shows as seller on every listing',
     'have.year': 'DEALERS HAVE ON RECORD: year built',
     'have.sqft': 'DEALERS HAVE ON RECORD: square footage',
     'have.moved': 'DEALERS HAVE ON RECORD: must be moved',
     'have.lotrent': 'DEALERS HAVE ON RECORD: lot rent',
-    terms: 'COMMERCIAL TERMS',
+    'terms': 'COMMERCIAL TERMS',
     'access.bd': 'ACCESS: Brilliant Directories',
     'access.dns': 'ACCESS: the domain at Namecheap',
     'story.front': 'STORY: who fronts the site',
@@ -234,18 +331,24 @@
     'claims.visitors': 'Soften the 3,000 visitor claim',
     'claims.sellers': 'Remove “join hundreds of sellers”',
     'claims.article': 'Pause the $500 sponsored article',
-    buyerq: 'The buyer’s real question',
+    'buyerq': 'The buyer’s real question',
     'inv.dealers': 'Ben calls dealers he knows',
     'inv.import': 'Import dealer inventory from their own files',
     'inv.own': 'Load Ben’s own past and current listings',
     'inv.blocked': 'Go back to sellers who hit the paywall',
     'inv.parks': 'Parks and communities list vacant homes',
-    demand: 'Who owns demand',
+    'demand': 'Who owns demand',
     'start.terms': '$500 upfront, one month',
     'plan.build': 'MONTH ONE: build the new platform rather than repair the old',
     'plan.schema': 'MONTH ONE: the model-and-dealer-offer database from day one',
     'plan.mirror': 'MONTH ONE: mirror the three states first',
-    'plan.bd': 'MONTH ONE: leave Brilliant Directories untouched'
+    'plan.bd': 'MONTH ONE: leave Brilliant Directories untouched',
+    'identity.revisit': 'IDENTITY REOPENED: remove dealership after research',
+    'task.bd': 'NEXT STEP: Brilliant Directories invitation sent',
+    'task.dns': 'NEXT STEP: Namecheap domain access shared',
+    'task.newsletter': 'NEXT STEP: newsletter location and consent answered',
+    'task.attorney': 'NEXT STEP: attorney appointment booked',
+    'task.interview': 'NEXT STEP: interview date sent'
   };
 
   var VALUES = {
@@ -279,7 +382,9 @@
     prove: 'hears it, but would rather prove it first',
     doubt: 'not convinced building is that cheap',
     pause: 'pause it until the numbers are real',
-    keep: 'keep selling it'
+    keep: 'keep selling it',
+    done: 'done',
+    researching: 'still researching'
   };
 
   function prettyVal(v) {
@@ -345,6 +450,9 @@
       total[k] = true;
       if (list.querySelector('.p3[aria-pressed="true"]')) done[k] = true;
     });
+    // A written answer counts without fabricating the yes/no tap that never happened.
+    var lotrent = form.querySelector('[name="lotrent_bands"]');
+    if (lotrent && lotrent.value.trim()) done['have.lotrent'] = true;
     var notes = 0;
     form.querySelectorAll('textarea, input:not([type="hidden"])').forEach(function (field) {
       if (!field.name || !field.value.trim()) return;
@@ -434,6 +542,7 @@
     var box = document.getElementById('answers-fallback');
     if (!box) return;
     box.hidden = false;
+    reveal(box);
     var ta = box.querySelector('textarea');
     if (ta) ta.value = answersText(answers);
   }
@@ -529,9 +638,11 @@
 
   // How far through they are. Counts a card as answered once anything in it is set.
   function refreshProgress() {
+    refreshTasks();
     var articles = form.querySelectorAll('article[data-field]');
-    var total = articles.length;
-    var done = collectAnswers().length;
+    var counts = progressCounts();
+    var total = counts.total;
+    var done = counts.answered;
     articles.forEach(function (article) {
       article.classList.toggle('is-answered', !!articleAnswer(article));
     });
@@ -648,6 +759,13 @@
         var when = dayMonth(record.received_at);
         var picked = Object.keys(record.picks || {}).length;
         var count = (record.progress && record.progress.answered) || picked;
+        // Lot rent was answered in prose, never tapped, so the stored count is one short.
+        // Stated as the rule rather than pinned to one submission's totals.
+        var proseLotrent = !!(record.fields && record.fields.lotrent_bands) && !(record.picks || {})['have.lotrent'];
+        if (proseLotrent && record.progress && count < record.progress.total) count++;
+        if (them.toLowerCase() === 'ben' && String(data.who).toLowerCase() !== 'ben') {
+          benTaskPicks = record.picks || {};
+        }
         if (!picked && !Object.keys(record.fields || {}).length) return;
         if (data.who && them.toLowerCase() === String(data.who).toLowerCase()) {
           restoreOwn(record);
@@ -661,6 +779,7 @@
             + ' on ' + when + '. Their answers are marked below.');
         }
       });
+      refreshTasks();
     })
     .catch(function () { /* the room works without it */ });
 })();
