@@ -419,6 +419,22 @@ summary{cursor:pointer;color:var(--ink);font-weight:600}
 #done-tasks li{font-size:14px;margin:8px 0}
 .task-complete .task-label{text-decoration:line-through;color:var(--muted)}
 #done-tasks .task-toggle{min-height:44px;font-size:12px;padding:4px 8px}
+/* Payment sits inside the letter, not in a billing panel: the same rules as the
+   status figures, so it reads as one more agreed fact rather than a demand. */
+.pay-block{margin:28px 0}
+.pay-details{margin:16px 0 22px;border-top:1px solid var(--line-firm)}
+.pay-details>div{display:flex;gap:18px;align-items:baseline;padding:10px 0;
+  border-bottom:1px solid var(--line)}
+.pay-details dt{flex:0 0 108px;font-size:12px;letter-spacing:.11em;text-transform:uppercase;
+  font-weight:600;color:var(--muted)}
+.pay-details dd{margin:0;min-width:0;font-size:16px;color:var(--ink);overflow-wrap:anywhere}
+/* Account numbers are read digit by digit and copied by hand: give them their own line
+   and a fixed-width face so a transposed digit is visible. */
+.pay-line{display:block;margin-top:4px;font-size:15px;color:var(--muted)}
+.pay-line b{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:16px;
+  color:var(--ink);letter-spacing:.04em;font-weight:600}
+.pay-sub{display:block;margin-top:7px;font-size:14px;color:var(--muted);line-height:1.45}
+.pay-sub b{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--ink)}
 .access-steps{margin:28px 0}
 .access-steps li{margin-bottom:12px;font-size:16px}
 .access-steps ol,.foundations{padding-left:24px}

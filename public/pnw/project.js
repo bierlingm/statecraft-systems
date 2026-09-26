@@ -339,6 +339,8 @@
     'inv.parks': 'Parks and communities list vacant homes',
     'demand': 'Who owns demand',
     'start.terms': '$500 upfront, one month',
+    'pay.how': 'MONEY: how you would like to pay the first month',
+    'task.pay': 'TASK: first month paid',
     'plan.build': 'MONTH ONE: build the new platform rather than repair the old',
     'plan.schema': 'MONTH ONE: the model-and-dealer-offer database from day one',
     'plan.mirror': 'MONTH ONE: mirror the three states first',
