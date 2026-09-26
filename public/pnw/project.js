@@ -241,7 +241,11 @@
     'inv.blocked': 'Go back to sellers who hit the paywall',
     'inv.parks': 'Parks and communities list vacant homes',
     demand: 'Who owns demand',
-    'start.terms': '$500 upfront, one month'
+    'start.terms': '$500 upfront, one month',
+    'plan.build': 'MONTH ONE: build the new platform rather than repair the old',
+    'plan.schema': 'MONTH ONE: the model-and-dealer-offer database from day one',
+    'plan.mirror': 'MONTH ONE: mirror the three states first',
+    'plan.bd': 'MONTH ONE: leave Brilliant Directories untouched'
   };
 
   var VALUES = {
@@ -642,8 +646,9 @@
       data.latest.forEach(function (record) {
         var them = (record.reviewer && record.reviewer.name) || 'someone';
         var when = dayMonth(record.received_at);
-        var count = Object.keys(record.picks || {}).length;
-        if (!count && !Object.keys(record.fields || {}).length) return;
+        var picked = Object.keys(record.picks || {}).length;
+        var count = (record.progress && record.progress.answered) || picked;
+        if (!picked && !Object.keys(record.fields || {}).length) return;
         if (data.who && them.toLowerCase() === String(data.who).toLowerCase()) {
           restoreOwn(record);
           announce('Your answers from ' + when + ' are on record — ' + count
