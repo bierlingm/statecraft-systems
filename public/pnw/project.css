@@ -435,6 +435,10 @@ summary{cursor:pointer;color:var(--ink);font-weight:600}
   color:var(--ink);letter-spacing:.04em;font-weight:600}
 .pay-sub{display:block;margin-top:7px;font-size:14px;color:var(--muted);line-height:1.45}
 .pay-sub b{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--ink)}
+.pay-block .rank-label{margin:22px 0 0}
+.pay-details{margin-top:10px}
+.pay-foot{margin:16px 0 0;font-size:14px;color:var(--muted);line-height:1.45;max-width:var(--measure)}
+.pay-foot b{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--ink)}
 .access-steps{margin:28px 0}
 .access-steps li{margin-bottom:12px;font-size:16px}
 .access-steps ol,.foundations{padding-left:24px}
