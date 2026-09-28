@@ -1,0 +1,4 @@
+
+.review-banner { background:#20382c; color:#fff; padding:10px 24px; font:13px/1.6 system-ui,sans-serif; position:relative; z-index:60; }
+.review-banner a { color:#fff; text-underline-offset:3px; margin-left:8px; }
+.review-banner span { display:block; color:#d9e3d9; font-size:12px; }

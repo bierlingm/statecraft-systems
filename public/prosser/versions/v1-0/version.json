@@ -1,0 +1,7 @@
+{
+  "version": "v1.0",
+  "base": "/prosser/versions/v1-0",
+  "mode": "static-review",
+  "feedbackProject": "yvs",
+  "feedbackNote": "Shared Tyler workspace; filter by Prosser page URL."
+}
