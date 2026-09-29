@@ -1,0 +1,1940 @@
+<!doctype html>
+<!-- Generated from pnwmobilehomes/docs/architecture-plan.md. Do not edit this copy.
+Source SHA-256: 3c736fe646b51ef74fb6a2e3e73ecf4e45eaedb866e0bbe5db96a7b8d2e936e6 -->
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>PNW Mobile Homes — Platform architecture</title>
+<meta name="description" content="Whole-platform architecture for PNW Mobile Homes: data model, supply engine, comparison, total cost and feasibility, revenue, measurement, and the roadmap from three states to national.">
+<meta name="robots" content="noindex,nofollow"><meta name="referrer" content="no-referrer"><meta name="theme-color" content="#eef0ee">
+<style>
+:root{color-scheme:light;--paper:#eef0ee;--surface:#e4e7e4;--ink:#1b1f1d;--muted:#535a55;--line:#c7ccc7;--signal:#963006}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--paper);color:var(--ink);font:17px/1.65 system-ui,sans-serif}
+main,header,footer{max-width:1040px;margin:auto;padding:28px}header{border-bottom:3px solid var(--ink)}main{padding-top:0}
+p,ul,ol{max-width:76ch}h1,h2,h3,h4{line-height:1.2;letter-spacing:-.025em}h1{font-size:clamp(2rem,5vw,3rem);margin:40px 0 24px}h2{font-size:1.7rem;border-top:3px solid var(--ink);padding-top:32px;margin-top:52px;scroll-margin-top:24px}h3{margin-top:32px}
+a{color:var(--signal);text-underline-offset:4px}a:focus-visible,summary:focus-visible,[tabindex]:focus-visible{outline:3px solid var(--signal);outline-offset:4px}
+.eyebrow{font-size:13px;letter-spacing:.08em;text-transform:uppercase}.toc{margin:28px 0}.toc ol{columns:2;column-gap:40px}.toc li{break-inside:avoid;margin-bottom:7px}
+.table-scroll{overflow:auto;margin:24px 0}table{border-collapse:collapse;width:100%;font-size:15px}th,td{text-align:left;vertical-align:top;border-bottom:1px solid var(--line);padding:12px;min-width:150px}th{background:var(--surface)}
+code{font-size:.9em;overflow-wrap:anywhere}pre{padding:20px;background:var(--surface);overflow:auto;font-size:14px;line-height:1.5}pre code{overflow-wrap:normal}li{margin-bottom:8px}
+details{border:1px solid var(--line);padding:14px 18px;margin:20px 0}summary{cursor:pointer;font-weight:650}.diagram{margin:28px 0}.diagram svg{display:block;width:100%;height:auto}.diagram path{fill:none;stroke:var(--muted);stroke-width:1.5}.diagram .arrow{fill:var(--muted);stroke:none}.diagram rect{fill:var(--surface);stroke:var(--line);stroke-width:1.5}.diagram text{font:15px system-ui,sans-serif;fill:var(--ink)}figcaption,footer{font-size:14px;color:var(--muted)}footer{border-top:1px solid var(--line);overflow-wrap:anywhere}
+.skip{position:absolute;left:-9999px}.skip:focus{left:16px;top:16px;padding:12px;background:var(--paper)}
+@media(max-width:680px){main,header,footer{padding:20px}.toc ol{columns:1}body{font-size:16px}.diagram{overflow:auto}.diagram svg{min-width:700px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}@media print{body{background:white;font-size:11pt}header,.toc,.skip,details{display:none}main{max-width:none;padding:0}h2{break-after:avoid}.table-scroll{overflow:visible}table{font-size:9pt}tr{break-inside:avoid}}
+</style></head><body><a class="skip" href="#plan">Skip to architecture plan</a>
+<header><p class="eyebrow">PNW Mobile Homes · Technical appendix · 29 September 2026</p><a href="/pnw/#plan-summary">← Back to the project room</a>
+<nav class="toc" aria-label="Architecture plan contents"><ol><li><a href="#1-the-short-version">1. The short version</a></li>
+<li><a href="#2-what-the-platform-is-at-full-scale">2. What the platform is at full scale</a></li>
+<li><a href="#3-commitments-that-are-expensive-to-reverse">3. Commitments that are expensive to reverse</a></li>
+<li><a href="#4-system-architecture">4. System architecture</a></li>
+<li><a href="#5-domain-model">5. Domain model</a></li>
+<li><a href="#6-the-supply-engine">6. The supply engine</a></li>
+<li><a href="#7-discovery-and-comparison">7. Discovery and comparison</a></li>
+<li><a href="#8-total-cost-and-feasibility">8. Total cost and feasibility</a></li>
+<li><a href="#9-places-and-the-services-network">9. Places and the services network</a></li>
+<li><a href="#10-engagement-click-outs-enquiries-and-leads">10. Engagement: click-outs, enquiries and leads</a></li>
+<li><a href="#11-revenue-architecture">11. Revenue architecture</a></li>
+<li><a href="#12-measurement">12. Measurement</a></li>
+<li><a href="#13-regions-brands-and-national-expansion">13. Regions, brands and national expansion</a></li>
+<li><a href="#14-pages-search-engines-and-content">14. Pages, search engines and content</a></li>
+<li><a href="#15-trust-safety-and-legal-posture">15. Trust, safety and legal posture</a></li>
+<li><a href="#16-operations-a-business-that-runs-without-ben">16. Operations: a business that runs without Ben</a></li>
+<li><a href="#17-roadmap">17. Roadmap</a></li>
+<li><a href="#18-costs-by-stage">18. Costs by stage</a></li>
+<li><a href="#19-risks-and-open-decisions">19. Risks and open decisions</a></li></ol></nav></header>
+<main id="plan"><h1 id="pnw-mobile-homes--platform-architecture">PNW Mobile Homes — platform architecture</h1>
+<p><strong>Date:</strong> 29 September 2026 (third revision: Rails, and version 1.0 this week)<br>
+<strong>Status:</strong> Proposed architecture for the whole platform, from the first release in Washington, Oregon and Idaho to national operation. Nothing is implemented yet.<br>
+<strong>Planning authority:</strong> The <a href="https://statecraft.systems/pnw/">project room</a> and Ben’s recorded decisions. This document covers the technical design. A proposal here is not a client approval, and the commercial scope of month one stays as agreed in the room until Ben and Moritz change it.</p>
+<h2 id="1-the-short-version">1. The short version</h2>
+<p><strong>What we are building.</strong> The system of record for the manufactured-home market, starting in three states. It covers every home for sale, every model and every dealer who offers it, every place a home can go, every business needed to get it there, and an honest total price. Ben’s own words set the bar: <em>“Build PNW Mobile Homes today as the first region of the company we may want ten years from now.”</em> The buyer he describes should eventually get answers to <em>“Show me 3+ bedroom, 2-bath homes under $180,000 within 200 miles of my ZIP”</em> and to <em>“Can I actually buy this home, put it where I want it, and what will the entire project cost?”</em> This plan designs for both questions now. The first release answers the first, and the second becomes answerable one county at a time.</p>
+<p><strong>How it is built.</strong> One Ruby on Rails 8 application: server-rendered pages with Hotwire, PostgreSQL with PostGIS on the same small server, Solid Queue for background work in that same database, and Active Storage keeping photos and evidence on Cloudflare R2. Kamal deploys it behind Cloudflare, which also provides DNS, caching, email routing, and Browser Rendering for the dealer websites that need it. Schema-constrained AI extraction feeds the supply engine. Stripe handles billing. Measurement has two layers: PostHog for product analytics, and our own counts for the audience figures that get sold. <strong>Version 1.0</strong>, the slice that lets Ben sign dealers up, goes live this week on this same foundation (§17).</p>
+<p><strong>Five choices that shape the build:</strong></p>
+<ol>
+<li><strong>Aggregate first.</strong> Every home a participating dealer already advertises gets onto the site from that dealer’s own website, at a permission tier the dealer chose. Dealers then upgrade to managing the listing themselves. This is the room’s <em>“mirror every home in the three states”</em>, which Ben picked to come first, and it is how Kayak works.</li>
+<li><strong>The domain model covers the whole vision today.</strong> It includes manufacturer plants and options, the identity of a physical home through its HUD labels and serial number, organizations with several roles each, parks and destination sites, sourced rules, a single cost vocabulary, buyer projects, leads and billing. Tables are created as features land. Their keys and relationships are decided now, so nothing built later forces a rewrite of what exists.</li>
+<li><strong>AI sits inside the supply pipeline from the first day</strong>, behind an evaluation set, typed outputs and approval rules. Hand-written parsers for 65 differently built dealer websites are what does not scale, and Ben’s vision says so: <em>“cannot depend on Ben or staff manually maintaining thousands of listings.”</em></li>
+<li><strong>Revenue and audience evidence are designed in</strong>, including enquiries through a relay, seller performance reports, entitlements, placements and billable counters. They are how $1,000 and then $5,000 a month get earned, and they are cheap to build now and expensive to retrofit.</li>
+<li><strong>The roadmap runs to national operation.</strong> Phases are gated on business outcomes that decide where effort goes next, not on permission to write code. Code is cheap. Data coverage, dealer permission and trust take calendar time, so those start on day one.</li>
+</ol>
+<h3 id="decisions-at-a-glance">Decisions at a glance</h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-scroll" role="region" aria-label="Plan table" tabindex="0"><table><thead><tr><th>Area</th><th>Decision</th><th>Reason</th></tr></thead><tbody><tr><td>Application shape</td><td>One Rails 8 app (public pages, seller workspace, operator console, jobs) on one small server, deployed with Kamal behind Cloudflare</td><td>One framework covers accounts, forms, jobs, email and uploads; one domain model and one deployment</td></tr><tr><td>Public rendering</td><td>Server-rendered HTML with Hotwire (Turbo, Stimulus); fragment caching; Cloudflare caches public pages and images</td><td>Indexable, fast on phones, little JavaScript</td></tr><tr><td>Database</td><td>PostgreSQL + PostGIS on the same server at first; managed Postgres when load or uptime calls for it</td><td>Relations, transactions, radius and polygon queries, portable data; no network hop and no cold starts</td></tr><tr><td>Durable work</td><td>Solid Queue jobs in the same Postgres, enqueued in the same transaction as the change; a recurring schedule for source runs, digests and backups</td><td>Retries and per-source concurrency limits, with no separate outbox, dispatcher or queue service</td></tr><tr><td>Supply</td><td>Source adapters by website vendor, a generic AI extractor for the long tail, Browser Rendering for JavaScript sites</td><td>Covers 65 dealers now and thousands later without one parser per dealer</td></tr><tr><td>Presence tiers</td><td>Indexed → mirrored → managed, each needing recorded permission</td><td>Complete coverage without publishing anyone’s listing on their behalf</td></tr><tr><td>Catalogue</td><td>Staff-curated canonical models; AI-proposed matches; manufacturer feeds when available</td><td>Comparison depends on a model existing once</td></tr><tr><td>Search</td><td>PostgreSQL filters, full-text search and PostGIS; a projection updated inside the publishing transaction</td><td>Handles regional and national volume without a second system to keep in sync</td></tr><tr><td>Total cost and feasibility</td><td>Deterministic evaluator over versioned, sourced rules and rate cards; Jev for needs and fit judgments</td><td>Hard gates are rules, and only judgment calls go to a model</td></tr><tr><td>Engagement</td><td>Tracked click-outs, enquiry forms and a masked email relay (Action Mailbox, fed by a Cloudflare Email Worker); masked phone numbers later</td><td>Measurable leads, safer private sellers, scam screening</td></tr><tr><td>Revenue</td><td>Stripe Billing; plans → entitlements in Postgres; labelled placements; first-party billable counters</td><td>Self-serve purchase that needs neither Ben nor Moritz</td></tr><tr><td>Measurement</td><td>Our own cookieless counters, rolled up daily in Postgres; PostHog Cloud (US) for behaviour, errors, flags and experiments</td><td>The audience number has to be complete to be sold, and behaviour data has to be rich to learn from</td></tr><tr><td>Maps</td><td>MapLibre GL with Protomaps tiles on R2</td><td>No charge per map view</td></tr><tr><td>Authentication</td><td>Rails 8 authentication with emailed sign-in links (passkeys later); organizations and memberships in our own tables</td><td>Built into the framework; ownership enforced by our domain code</td></tr><tr><td>Content</td><td>Content stored in the database with revisions and a Markdown editor in the operator console</td><td>Ben and writers publish without a developer</td></tr><tr><td>Transactions</td><td>Direct contact and enquiries at launch; deposits and escrow only through a licensed partner, later</td><td>The platform is the venue, not the seller</td></tr></tbody></table></div>
+<h2 id="2-what-the-platform-is-at-full-scale">2. What the platform is at full scale</h2>
+<p>Every capability below answers a question Ben has written down. The phase column refers to §17.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-scroll" role="region" aria-label="Plan table" tabindex="0"><table><thead><tr><th>The question</th><th>Capability</th><th>Data it depends on</th><th>Phase</th></tr></thead><tbody><tr><td>“What is for sale near me?”</td><td><strong>Find:</strong> one search across every participating dealer, private seller and park</td><td>Offers in every tier, geography, freshness</td><td>1</td></tr><tr><td>“Who sells this model, and for how much once delivered?”</td><td><strong>Compare:</strong> model pages that list every offer against a model, in a row-by-row comparison</td><td>Catalogue, offer terms, cost vocabulary, transport rates</td><td>2</td></tr><tr><td>“Can I put it where I want it?”</td><td><strong>Place:</strong> park, county and site feasibility</td><td>Park policies, jurisdiction rules, HUD zones, sites</td><td>2–4</td></tr><tr><td>“What will the entire project cost?”</td><td><strong>Total cost:</strong> a sourced range covering every component</td><td>Rate cards, quotes, permits, taxes, park fees</td><td>3–4</td></tr><tr><td>“Who will move it, set it up and insure it, and can I get financing?”</td><td><strong>Complete:</strong> the services network, with introductions the buyer consents to</td><td>Providers, service areas, licences, consent</td><td>2–4</td></tr><tr><td>“What is my home worth, and how do I sell it?”</td><td><strong>Sell:</strong> the private-seller flow and valuation</td><td>Market history across all tiers, outcomes</td><td>1 / 4</td></tr><tr><td>“Can I buy it here?”</td><td><strong>Transact:</strong> deposits and document workflows through licensed partners</td><td>Deals, parties, partner integrations</td><td>5</td></tr></tbody></table></div>
+<p>Businesses get what they will pay for. <strong>Dealers</strong> get one place to keep inventory, leads they can see arriving, and demand data. <strong>Parks</strong> fill vacancies. <strong>Transporters, installers and contractors</strong> get quote requests. <strong>Manufacturers</strong> get model pages and routing to their retailers. <strong>Advertisers</strong> get an audience that is measured rather than claimed.</p>
+<p>Underneath all of it is a business that runs without Ben. Owners maintain their own records, sources stay in sync by themselves, and any remaining human work lands in short queues that one operator can clear from written playbooks. There is no assistant in the plan, so automation has to keep those queues small.</p>
+<h2 id="3-commitments-that-are-expensive-to-reverse">3. Commitments that are expensive to reverse</h2>
+<p>Everything else in this document can change cheaply. These ten choices cannot, so they are made now.</p>
+<ol>
+<li><strong>Model, physical home and offer are separate records, and a model exists once.</strong> Two dealers offering one model are not duplicates. A used home built to that design is a third thing. This comes from Ben: <em>“I don’t want us to build every dealer listing as an isolated item.”</em></li>
+<li><strong>A physical home has an identity.</strong> Every transportable section of a HUD-code home carries a certification label, and the home has a manufacturer serial number. When those are known, they are the home’s private key. They let us deduplicate one home across several sources and follow the same home through resales for years, which becomes the provenance record nobody in this market has. They are never shown publicly.</li>
+<li><strong>Presence tiers with recorded permission.</strong> Every public offer is <em>indexed</em>, <em>mirrored</em> or <em>managed</em>, and no offer is shown at a higher tier than the recorded permission for its source allows. The platform never appears as the seller.</li>
+<li><strong>Every fact carries its provenance:</strong> its source, when it was observed, who verified it and when it expires. An AI judgment is stored as a judgment. It becomes a fact only through a rule or a person.</li>
+<li><strong>Market history is append-only from the first crawl.</strong> Asking prices, availability, first-seen and last-seen dates, and outcomes are recorded as observations across all tiers. Valuation, market reports and the <em>“proprietary database”</em> in Ben’s ten-year goal depend on history that cannot be backfilled later.</li>
+<li><strong>One cost vocabulary</strong> is shared by dealer offer inclusions, provider rate cards, quotes and buyer estimates. Without it, comparison and total cost measure different things.</li>
+<li><strong>Organizations have roles.</strong> One business record can be a dealer, a transporter and an installer, with memberships, locations, service areas and licences. Separate account types per trade would have to be merged later.</li>
+<li><strong>Region and brand are data, and URLs are national from the start.</strong> Brands are resolved from the hostname, and each public resource has exactly one canonical host. Changing URL paths later costs search rankings.</li>
+<li><strong>The numbers that get billed come from our own records.</strong> Impressions, click-outs, enquiries and leads are written to our own store. PostHog analyses them but is never the ledger.</li>
+<li><strong>The business owns its assets.</strong> Ben’s entity holds the domain, the data, the provider accounts and a copy of the repository it can take away, with portable exports. Infrastructure may start in Moritz’s accounts, but only with a written handover path.</li>
+</ol>
+<p><strong>Kept cheap to change on purpose:</strong> screens and visual design, search ranking, source adapters, the AI provider and model, prices and plans, email and SMS vendors, and which county is researched next.</p>
+<h2 id="4-system-architecture">4. System architecture</h2>
+<figure class="diagram"><svg viewBox="0 0 910 350" role="img" aria-labelledby="diagram-title-0 diagram-desc-0" xmlns="http://www.w3.org/2000/svg"><title id="diagram-title-0">Platform architecture overview</title><desc id="diagram-desc-0">Buyers, sellers and businesses reach one Rails 8 application behind Cloudflare, resolved by brand host and region. Domain modules own the rules and write to Postgres with PostGIS and to R2. Background work runs as Solid Queue jobs in the same database, driving the crawlers and AI extraction and delivering email, SMS, billing and analytics.</desc><defs><marker id="arrow-0" markerWidth="9" markerHeight="9" refX="8" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8 Z" class="arrow"/></marker></defs><path d="M285 49 L320 49" marker-end="url(#arrow-0)"/><path d="M625 49 L590 49" marker-end="url(#arrow-0)"/><path d="M455 78 L455 140" marker-end="url(#arrow-0)"/><path d="M320 169 L285 169" marker-end="url(#arrow-0)"/><path d="M590 169 L625 169" marker-end="url(#arrow-0)"/><path d="M455 198 L455 260" marker-end="url(#arrow-0)"/><path d="M320 289 L285 289" marker-end="url(#arrow-0)"/><path d="M590 289 L625 289" marker-end="url(#arrow-0)"/><g><rect x="15" y="20" width="270" height="58" rx="4"/><text x="150" y="54" text-anchor="middle">Buyers · sellers · businesses</text></g><g><rect x="320" y="20" width="270" height="58" rx="4"/><text x="455" y="54" text-anchor="middle">Rails 8 app behind Cloudflare</text></g><g><rect x="625" y="20" width="270" height="58" rx="4"/><text x="760" y="54" text-anchor="middle">Brand hosts · regions</text></g><g><rect x="320" y="140" width="270" height="58" rx="4"/><text x="455" y="174" text-anchor="middle">Domain modules</text></g><g><rect x="15" y="140" width="270" height="58" rx="4"/><text x="150" y="174" text-anchor="middle">R2 evidence and photos</text></g><g><rect x="625" y="140" width="270" height="58" rx="4"/><text x="760" y="174" text-anchor="middle">PostgreSQL + PostGIS</text></g><g><rect x="320" y="260" width="270" height="58" rx="4"/><text x="455" y="294" text-anchor="middle">Solid Queue jobs · schedule</text></g><g><rect x="15" y="260" width="270" height="58" rx="4"/><text x="150" y="294" text-anchor="middle">Crawlers · extractors · AI</text></g><g><rect x="625" y="260" width="270" height="58" rx="4"/><text x="760" y="294" text-anchor="middle">Email · SMS · Stripe · PostHog</text></g></svg><figcaption>Buyers, sellers and businesses reach one Rails 8 application behind Cloudflare, resolved by brand host and region. Domain modules own the rules and write to Postgres with PostGIS and to R2. Background work runs as Solid Queue jobs in the same database, driving the crawlers and AI extraction and delivering email, SMS, billing and analytics.</figcaption></figure><details><summary>Detailed diagram specification</summary><pre><code class="language-mermaid">flowchart TD
+  Users[Buyers, sellers and businesses] --> App[Rails 8 app behind Cloudflare]
+  Hosts[Brand hosts and regions] --> App
+  App --> Domain[Domain modules and authorization]
+  Domain --> R2[(R2: evidence snapshots and photos)]
+  Domain --> DB[(PostgreSQL + PostGIS)]
+  Domain --> Jobs[Solid Queue jobs and schedule]
+  Jobs --> Crawl[Fetch · Browser Rendering · AI extraction]
+  Crawl --> Sources[Dealer sites, feeds, catalogues]
+  Jobs --> Out[Email · SMS · Stripe · PostHog]
+  Inbound[Cloudflare Email Worker] --> Domain
+</code></pre></details>
+<h3 id="runtime-and-services">Runtime and services</h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-scroll" role="region" aria-label="Plan table" tabindex="0"><table><thead><tr><th>Concern</th><th>Choice</th><th>Notes</th></tr></thead><tbody><tr><td>Application</td><td>Rails 8 on current Ruby; Hotwire; Propshaft; one codebase for public pages, the seller workspace and the operator console (<code>/ops</code>)</td><td>Pin versions at scaffolding</td></tr><tr><td>Server</td><td>One small VPS in the US West (for example Hetzner’s Hillsboro, Oregon location), deployed with Kamal 2, kamal-proxy and Thruster; Cloudflare proxies in front with Full (strict) TLS</td><td>Add a separate jobs server only if crawling competes with page requests</td></tr><tr><td>Database</td><td>PostgreSQL + PostGIS as a Kamal accessory on the same server; separate runtime and migration roles</td><td>Move to managed Postgres (for example Neon) when uptime or size calls for it; nothing in the app depends on where it runs</td></tr><tr><td>Background work</td><td>Solid Queue in Postgres. Jobs are enqueued in the same transaction as the change that causes them. <code>config/recurring.yml</code> schedules source runs, digests, roll-ups and backups; Mission Control shows what is running</td><td>Postgres is the state of record, and there is no separate outbox</td></tr><tr><td>Cache</td><td>Solid Cache in Postgres; Cloudflare caches public pages with an explicit freshness policy, and never sessions, accounts or drafts</td><td></td></tr><tr><td>Files</td><td>Active Storage on R2 (S3-compatible): a private evidence bucket, private originals, and public variants made with libvips and cached by Cloudflare</td><td>Media appears only after the offer is published</td></tr><tr><td>Fetching and rendering</td><td>An HTTP client with SSRF guards (§15); Cloudflare Browser Rendering’s REST endpoints (<code>/markdown</code>, <code>/json</code>) only for dealer sites built in JavaScript</td><td>Rate-limited per host and scheduled politely</td></tr><tr><td>AI</td><td>The official Anthropic Ruby SDK for structured extraction; Jev/TypeSafe for typed judgments; calls go through AI Gateway for logs, caching and limits</td><td>The model is chosen by evaluation (§6.5) and every call records its version</td></tr><tr><td>Email out</td><td>Action Mailer through a transactional provider on <code>mail.pnwmobilehomes.com</code>; marketing mail from a separate subdomain</td><td>Keeps sending reputation isolated</td></tr><tr><td>Email in</td><td>Cloudflare Email Routing forwards <code>ops@</code>, <code>hello@</code> and <code>dealers@</code> to Moritz. Later, an Email Worker posts relay mail to Action Mailbox</td><td>Mail is parsed into records and never trusted as instructions</td></tr><tr><td>Billing</td><td>Stripe Billing, Checkout, Customer Portal and Stripe Tax</td><td>Webhooks feed an idempotent ledger</td></tr><tr><td>Maps and distance</td><td>MapLibre and Protomaps; a precomputed road-distance matrix between county centroids (39 + 36 + 44 counties)</td><td>Refined per quote later</td></tr><tr><td>Measurement</td><td>Our own counters in Postgres; PostHog JS and <code>posthog-ruby</code></td><td>§12</td></tr></tbody></table></div>
+<h3 id="modules">Modules</h3>
+<p>Each module is a namespace that owns its tables and exposes services. Controllers validate input, establish the actor and call services. Imports, operators and sellers all go through the same services, so there is one set of rules for publishing and ownership.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-scroll" role="region" aria-label="Plan table" tabindex="0"><table><thead><tr><th>Module</th><th>Owns</th></tr></thead><tbody><tr><td>Identity &#x26; organizations</td><td>Users, sessions, organizations, roles, memberships, licences, verification</td></tr><tr><td>Catalogue</td><td>Manufacturers, brands, plants, models, variants, options, aliases, match decisions</td></tr><tr><td>Homes</td><td>Physical homes, sections, data-plate facts, title status, condition, siting, identity keys</td></tr><tr><td>Market</td><td>Offers, revisions, terms, observations, outcomes, availability, publication</td></tr><tr><td>Supply</td><td>Sources, permissions, runs, snapshots, extraction, matching, change sets, claims, outreach</td></tr><tr><td>Places</td><td>Regions, jurisdictions, parks, park spaces, policies, sites</td></tr><tr><td>Knowledge</td><td>Rules, cost components, rate cards, quotes, research tasks</td></tr><tr><td>Discovery</td><td>Search projection, facets, comparison, public pages, sitemaps</td></tr><tr><td>Buyer</td><td>Saved searches, alerts, favourites, comparisons, projects, evaluations</td></tr><tr><td>Engagement</td><td>Enquiries, relay conversations, leads, routing, consent, notifications</td></tr><tr><td>Revenue</td><td>Plans, subscriptions, entitlements, placements, campaigns, billing ledger, reports</td></tr><tr><td>Trust</td><td>Moderation, reports, fraud signals, takedowns, audit</td></tr><tr><td>Measurement</td><td>Event registry, counters, privacy filters, PostHog delivery</td></tr><tr><td>Content</td><td>Guides, regional copy, page blocks, revisions</td></tr><tr><td>Operations</td><td>Queues, playbooks, SLAs, source health, operator metrics</td></tr></tbody></table></div>
+<p>There is no separate HTTP API service for the website. A public partner API (feeds for dealers, syndication) arrives in phase 4 as another entry point over the same services.</p>
+<h3 id="why-this-stack-briefly">Why this stack, briefly</h3>
+<ul>
+<li><strong>Rails rather than Astro on Workers:</strong> most of this product is accounts, forms, review screens, background jobs, uploads and email, and Rails 8 ships all of them as one system. Jobs living in the same database remove the plumbing the previous revision needed (outbox, dispatcher, Queues, Workflows, Hyperdrive). The price is one server to run and patch, at about $5–10 a month; Cloudflare stays in front for everything it is good at.</li>
+<li><strong>Postgres and PostGIS rather than SQLite or D1:</strong> polygon service areas, radius search, relational constraints and familiar transactions. The dataset stays well within Postgres at national scale; on the order of 100,000 active offers and tens of millions of observations still fits one well-indexed database with time-partitioned history. PostGIS is used through plain SQL in a few query scopes, so no adapter gem is on the critical path.</li>
+<li><strong>A purpose-built operator console rather than a CMS:</strong> the operator work is claims, match decisions, source failures, rule research and moderation, and no generic admin panel models any of it. Rails makes these screens cheap to build, and under Ben’s <em>“runs without the founder”</em> goal they are the product.</li>
+<li><strong>Source runs as Solid Queue jobs:</strong> a run fetches, renders, snapshots, extracts, matches and applies, backs off politely, and must never overlap a newer run for the same source. Persisted steps plus a per-source concurrency limit give exactly that.</li>
+<li><strong>No search cluster:</strong> measure query plans first. A derived index (ParadeDB or Meilisearch) is a projection that can be rebuilt, and it is added only if relevance or load demands it.</li>
+</ul>
+<h2 id="5-domain-model">5. Domain model</h2>
+<p>Every entity is designed now. Tables are created when the capability that uses them is built, and phase 1 creates most of them (§17). Later tables attach through keys that already exist, so no existing identity has to be migrated.</p>
+<h3 id="51-catalogue">5.1 Catalogue</h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-scroll" role="region" aria-label="Plan table" tabindex="0"><table><thead><tr><th>Entity</th><th>Key fields and relationships</th></tr></thead><tbody><tr><td><code>manufacturer</code></td><td>Canonical name, parent group, website, status</td></tr><tr><td><code>manufacturer_brand</code></td><td>Brand or series line under a manufacturer</td></tr><tr><td><code>plant</code></td><td>Manufacturer, location point, the plant identity printed on data plates. Factory-order delivery is measured from here</td></tr><tr><td><code>model</code></td><td>Manufacturer, brand, canonical name and code, catalogue status (<code>provisional</code> or <code>verified</code>)</td></tr><tr><td><code>model_variant</code></td><td>Model, variant code or revision, effective years, sections, nominal and actual dimensions, square feet, beds, baths, floorplan asset, available HUD zones</td></tr><tr><td><code>model_option</code></td><td>Variant or model scope, option code and name, <strong>cost component</strong>, dealer-specific price in offer terms</td></tr><tr><td><code>model_alias</code></td><td>Source scope, raw label, target, confidence, who confirmed it, when</td></tr><tr><td><code>catalogue_source</code></td><td>Manufacturer site, feed or document, permission, last harvested</td></tr></tbody></table></div>
+<h3 id="52-physical-homes">5.2 Physical homes</h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-scroll" role="region" aria-label="Plan table" tabindex="0"><table><thead><tr><th>Entity</th><th>Key fields and relationships</th></tr></thead><tbody><tr><td><code>physical_home</code></td><td>Optional variant, raw make/model labels, year and <strong>manufacture date</strong> (before or after the HUD code’s June 1976 start), sections, actual dimensions, beds, baths, condition, movement status (<code>must_move</code>, <code>may_stay</code>, <code>unknown</code>)</td></tr><tr><td><code>home_section</code></td><td>Home, HUD certification label number, serial suffix. <strong>Private</strong>, and used for identity and deduplication</td></tr><tr><td><code>data_plate</code></td><td>Home, plant, wind zone, roof-load zone, thermal zone, as sourced or photographed</td></tr><tr><td><code>home_title</code></td><td>Home, state, kind, state record reference, evidence. Private. The kinds are <code>personal_property</code>, <code>real_property</code> and <code>unknown</code>. As personal property, the record is a WA DOL title, an entry in Oregon’s ownership document system or an ID ITD title. A home becomes real property through Washington title elimination, Oregon county recording or an Idaho declaration</td></tr><tr><td><code>home_siting</code></td><td>Where the home stands: park space, private land or dealer lot. Precise point is private; display precision is set by the seller</td></tr><tr><td><code>condition_report</code></td><td>Seller statements, photos with AI labels, later inspections, each with provenance</td></tr></tbody></table></div>
+<h3 id="53-organizations-and-people">5.3 Organizations and people</h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-scroll" role="region" aria-label="Plan table" tabindex="0"><table><thead><tr><th>Entity</th><th>Key fields and relationships</th></tr></thead><tbody><tr><td><code>user</code></td><td>Opaque ID, email, verified factors, locale</td></tr><tr><td><code>organization</code></td><td>Legal and display names, public identity, verification level, <strong>pipeline stage</strong> (§6.10)</td></tr><tr><td><code>organization_role</code></td><td>Organization, role: <code>dealer</code>, <code>manufacturer</code>, <code>park_operator</code>, <code>transporter</code>, <code>installer</code>, <code>contractor</code>, <code>lender</code>, <code>insurer</code>, <code>inspector</code>, <code>other</code></td></tr><tr><td><code>location</code></td><td>Organization, branch address and point, hours, contact routes</td></tr><tr><td><code>service_area</code></td><td>Organization and role, geometry or set of counties, what services it covers</td></tr><tr><td><code>licence</code></td><td>Organization, state, type, number, status, source registry, verification time</td></tr><tr><td><code>membership</code></td><td>User, organization, role (<code>owner</code>, <code>publisher</code>, <code>editor</code>, <code>viewer</code>)</td></tr><tr><td><code>private_seller</code></td><td>A user acting for themselves; optional identity verification later</td></tr></tbody></table></div>
+<h3 id="54-market">5.4 Market</h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-scroll" role="region" aria-label="Plan table" tabindex="0"><table><thead><tr><th>Entity</th><th>Key fields and relationships</th></tr></thead><tbody><tr><td><code>offer</code></td><td>Kind (<code>home_for_sale</code>, <code>factory_order</code>, <code>space_for_rent</code>, and later <code>land</code>), <strong>presence</strong> (<code>indexed</code>, <code>mirrored</code> or <code>managed</code>), subject (home, variant or park space), owner (organization or private seller), source, location, public ID</td></tr><tr><td><code>offer_revision</code></td><td>Immutable approved content and terms for mirrored and managed offers; author, approval record</td></tr><tr><td><code>offer_terms</code></td><td>Price kind (<code>fixed</code>, <code>from</code>, <code>range</code>, <code>quote</code>), amounts in cents, price date, lead time, <strong>inclusions by cost component</strong> (<code>included</code>, <code>excluded</code>, <code>conditional</code>, <code>unknown</code>), financing claims with their assumptions</td></tr><tr><td><code>offer_observation</code></td><td>Append-only: offer, source run, observed price, availability, observed time, snapshot pointer. Recorded for every tier</td></tr><tr><td><code>offer_outcome</code></td><td>Sold, withdrawn or expired; reported sale price (optional and private); who reported it</td></tr><tr><td><code>offer_region</code></td><td>Derived distribution regions</td></tr></tbody></table></div>
+<h3 id="55-places">5.5 Places</h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-scroll" role="region" aria-label="Plan table" tabindex="0"><table><thead><tr><th>Entity</th><th>Key fields and relationships</th></tr></thead><tbody><tr><td><code>region</code></td><td>Code, geometry or set of counties, status (<code>seeding</code>, <code>live</code>), configuration</td></tr><tr><td><code>brand</code></td><td>Hosts, name, theme, default region, the regions it serves</td></tr><tr><td><code>jurisdiction</code></td><td>State, county or city, with geometry and parent</td></tr><tr><td><code>park</code></td><td>Name, operator organization, location, number of spaces, registry reference, claimed status</td></tr><tr><td><code>park_space</code></td><td>Park, space identifier, vacancy, size limits. Vacancies appear as <code>space_for_rent</code> offers</td></tr><tr><td><code>park_policy_version</code></td><td>Dated, sourced policies: age restriction (with a flag for claimed 55-and-over status), pets (types, count, size), home age and size and style rules, lot rent, fees, application criteria. Unknown is never taken to mean unrestricted</td></tr><tr><td><code>site</code></td><td>A buyer’s destination: park space, parcel or approximate point, with its jurisdiction</td></tr></tbody></table></div>
+<h3 id="56-knowledge">5.6 Knowledge</h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-scroll" role="region" aria-label="Plan table" tabindex="0"><table><thead><tr><th>Entity</th><th>Key fields and relationships</th></tr></thead><tbody><tr><td><code>cost_component</code></td><td>The shared vocabulary (§8.2), with a stable code and a parent</td></tr><tr><td><code>rule</code></td><td>Subject scope (a jurisdiction, park, lender program or transport authority), kind, predicate and parameters, effective dates, <strong>source citation</strong>, <code>verified_by</code>, <code>verified_at</code>, <code>expires_at</code></td></tr><tr><td><code>rate_card</code></td><td>Provider organization, cost component, pricing structure (base, per mile, per section, minimums, adders), service area, validity</td></tr><tr><td><code>quote</code></td><td>Provider, buyer project or offer, components, amounts, validity, status</td></tr><tr><td><code>research_task</code></td><td>A rule or park fact to verify, with priority from demand, an assignee and a playbook</td></tr></tbody></table></div>
+<h3 id="57-buyers">5.7 Buyers</h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-scroll" role="region" aria-label="Plan table" tabindex="0"><table><thead><tr><th>Entity</th><th>Key fields and relationships</th></tr></thead><tbody><tr><td><code>saved_search</code> / <code>alert</code></td><td>Normalized filters, cadence, consent, last sent</td></tr><tr><td><code>favourite</code> / <code>comparison</code></td><td>Offers or variants the buyer is comparing</td></tr><tr><td><code>buyer_project</code></td><td>Destination site, budget, financing situation, household constraints, timeline. Sensitive fields (income, credit band, ages) are stored only if the buyer saves the project</td></tr><tr><td><code>evaluation</code></td><td>Project × offer: verdict, reasons, cost range, and the rule and rate-card versions used, cached and reproducible</td></tr></tbody></table></div>
+<h3 id="58-engagement-and-revenue">5.8 Engagement and revenue</h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-scroll" role="region" aria-label="Plan table" tabindex="0"><table><thead><tr><th>Entity</th><th>Key fields and relationships</th></tr></thead><tbody><tr><td><code>click_out</code></td><td>Offer, source URL, time, anonymous session reference; counted first-party</td></tr><tr><td><code>enquiry</code></td><td>Offer, buyer contact through the relay, message, consent version, delivery state</td></tr><tr><td><code>conversation</code> / <code>message</code></td><td>Relay threads with masked addresses; scam-screening results</td></tr><tr><td><code>lead</code></td><td>Category (transport, setup, park, finance, insurance), recipient, consent, status, qualification, price</td></tr><tr><td><code>consent_record</code></td><td>Subject, purpose, wording version, time, withdrawal</td></tr><tr><td><code>plan</code> / <code>subscription</code> / <code>entitlement</code></td><td>Stripe product and price mapping; what each organization may do</td></tr><tr><td><code>placement</code> / <code>campaign</code></td><td>Slot definition, targeting (region, county, category, model), period, labelling</td></tr><tr><td><code>billing_event</code></td><td>Stripe webhook events, idempotent, reconciled into the ledger</td></tr><tr><td><code>billable_counter</code></td><td>Daily aggregates of impressions, click-outs, enquiries and leads per placement or organization</td></tr></tbody></table></div>
+<h3 id="59-provenance-and-operations">5.9 Provenance and operations</h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-scroll" role="region" aria-label="Plan table" tabindex="0"><table><thead><tr><th>Entity</th><th>Key fields and relationships</th></tr></thead><tbody><tr><td><code>source</code></td><td>Owner organization, kind (website, feed, file, email, catalogue), adapter, base URL, schedule</td></tr><tr><td><code>source_authorization</code></td><td>Permitted tier, scope (facts, media, prose), evidence (call note, email, signed terms), who and when, revocation</td></tr><tr><td><code>source_run</code></td><td>Status, completeness, counts, adapter and extractor versions, fencing token</td></tr><tr><td><code>snapshot</code></td><td>Run, URL, content hash, R2 key, fetched time</td></tr><tr><td><code>extraction</code></td><td>Snapshot, extractor, model version, typed output, cost, latency</td></tr><tr><td><code>judgment</code></td><td>Question, candidates, probabilities, model version. Never read as a fact</td></tr><tr><td><code>field_evidence</code></td><td>Revision field → snapshot span, seller assertion or rule</td></tr><tr><td><code>match_decision</code></td><td>Catalogue or home identity decisions: proposer, decider, reason; reversible</td></tr><tr><td><code>audit_event</code> / <code>moderation_case</code> / <code>report</code></td><td>Actor, action, reason, target, before and after</td></tr><tr><td>Solid Queue tables / <code>delivery</code></td><td>Jobs live in Solid Queue’s own tables; <code>delivery</code> logs outbound events (PostHog, webhooks, notifications) with idempotency keys and status</td></tr></tbody></table></div>
+<figure class="diagram"><svg viewBox="0 0 910 350" role="img" aria-labelledby="diagram-title-1 diagram-desc-1" xmlns="http://www.w3.org/2000/svg"><title id="diagram-title-1">Domain model overview</title><desc id="diagram-desc-1">A manufacturer defines models and variants, built at plants. A physical home has its own identity through HUD labels and may reference a variant. Offers are owned by organizations and reference a home, an orderable variant or a park space. Offer terms use one cost vocabulary; offers keep revisions and append-only observations; places carry sourced rules.</desc><defs><marker id="arrow-1" markerWidth="9" markerHeight="9" refX="8" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8 Z" class="arrow"/></marker></defs><path d="M285 49 L320 49" marker-end="url(#arrow-1)"/><path d="M590 49 L625 49" marker-end="url(#arrow-1)"/><path d="M455 78 L455 140" marker-end="url(#arrow-1)"/><path d="M760 78 L455 140" marker-end="url(#arrow-1)"/><path d="M285 169 L320 169" marker-end="url(#arrow-1)"/><path d="M590 169 L625 169" marker-end="url(#arrow-1)"/><path d="M455 198 L150 260" marker-end="url(#arrow-1)"/><path d="M455 198 L455 260" marker-end="url(#arrow-1)"/><path d="M760 198 L760 260" marker-end="url(#arrow-1)"/><g><rect x="15" y="20" width="270" height="58" rx="4"/><text x="150" y="54" text-anchor="middle">Manufacturer · plant</text></g><g><rect x="320" y="20" width="270" height="58" rx="4"/><text x="455" y="54" text-anchor="middle">Model → variant</text></g><g><rect x="625" y="20" width="270" height="58" rx="4"/><text x="760" y="54" text-anchor="middle">Physical home (HUD labels)</text></g><g><rect x="15" y="140" width="270" height="58" rx="4"/><text x="150" y="174" text-anchor="middle">Organization (roles)</text></g><g><rect x="320" y="140" width="270" height="58" rx="4"/><text x="455" y="174" text-anchor="middle">Offer (three tiers)</text></g><g><rect x="625" y="140" width="270" height="58" rx="4"/><text x="760" y="174" text-anchor="middle">Park · site · jurisdiction</text></g><g><rect x="15" y="260" width="270" height="58" rx="4"/><text x="150" y="294" text-anchor="middle">Terms → cost components</text></g><g><rect x="320" y="260" width="270" height="58" rx="4"/><text x="455" y="294" text-anchor="middle">Observations and revisions</text></g><g><rect x="625" y="260" width="270" height="58" rx="4"/><text x="760" y="294" text-anchor="middle">Rules and sourced facts</text></g></svg><figcaption>A manufacturer defines models and variants, built at plants. A physical home has its own identity through HUD labels and may reference a variant. Offers are owned by organizations and reference a home, an orderable variant or a park space. Offer terms use one cost vocabulary; offers keep revisions and append-only observations; places carry sourced rules.</figcaption></figure><details><summary>Detailed diagram specification</summary><pre><code class="language-mermaid">erDiagram
+  MANUFACTURER ||--o{ PLANT : operates
+  MANUFACTURER ||--o{ MODEL : makes
+  MODEL ||--o{ MODEL_VARIANT : defines
+  MODEL_VARIANT o|--o{ PHYSICAL_HOME : describes
+  PHYSICAL_HOME ||--o{ HOME_SECTION : "HUD labels"
+  MODEL_VARIANT o|--o{ OFFER : orderable_as
+  PHYSICAL_HOME o|--o{ OFFER : offered_as
+  PARK_SPACE o|--o{ OFFER : rented_as
+  ORGANIZATION ||--o{ OFFER : owns
+  ORGANIZATION ||--o{ ORGANIZATION_ROLE : has
+  ORGANIZATION ||--o{ SERVICE_AREA : serves
+  OFFER ||--o{ OFFER_REVISION : versions
+  OFFER ||--o{ OFFER_OBSERVATION : observed
+  OFFER ||--|| OFFER_TERMS : priced_by
+  OFFER_TERMS }o--o{ COST_COMPONENT : includes
+  PARK ||--o{ PARK_SPACE : contains
+  JURISDICTION ||--o{ RULE : governs
+  SOURCE ||--o{ SOURCE_RUN : runs
+</code></pre></details>
+<h3 id="510-invariants-the-database-and-domain-enforce">5.10 Invariants the database and domain enforce</h3>
+<p>Carried from the first draft:</p>
+<ul>
+<li>Opaque UUIDs identify records. Slugs are presentation only, and a rename creates a redirect.</li>
+<li>Each mirrored or managed offer has exactly one accountable owner. The marketplace operator is never automatically the seller.</li>
+<li>A check constraint requires <code>offer_kind</code> to have exactly one matching subject. Dealer versus private and new versus used are separate dimensions.</li>
+<li>A home’s actual specifications override catalogue defaults. A catalogue edit never silently changes an approved home.</li>
+<li>Publishing requires an approved revision, verified seller access, a usable contact route, authorized media and a clear moderation status.</li>
+<li>Every privileged mutation checks membership on the server. Catalogue identity, source permission and live content changes are audited.</li>
+<li><code>(source_id, external_item_id)</code> is unique, and content hashes skip unchanged inputs.</li>
+<li>Optimistic version checks protect seller edits against concurrent imports. There is no last-write-wins.</li>
+<li>Money is integer cents plus a currency. An unknown price is null, never zero. Units are explicit, and bathrooms may be fractional.</li>
+<li>Timestamps are stored in UTC. User-facing times carry explicit IANA time zones.</li>
+</ul>
+<p>New:</p>
+<ul>
+<li>An offer’s presence tier never exceeds its source’s current authorization. Revoking permission demotes or removes the offer in the same transaction.</li>
+<li>An indexed offer always shows its source and links to it. It never uses the source’s photos or prose, and never presents the platform or Ben’s dealership as the seller.</li>
+<li>Observations and outcomes are insert-only. Corrections are new rows that point at what they correct.</li>
+<li>A rule with no source, or past its <code>expires_at</code>, cannot produce <strong>blocked</strong>. It can only produce <strong>unknown</strong>.</li>
+<li>A judgment is stored separately from facts and changes state only through a rule, a threshold policy recorded in code, or a person.</li>
+<li>HUD label numbers, serial numbers, title records, precise private addresses and reported sale prices never reach a public projection, analytics or logs.</li>
+<li>Regions are not tenants for sellers. Operator permissions may be scoped to regions.</li>
+</ul>
+<h3 id="511-model-identity-and-comparison">5.11 Model identity and comparison</h3>
+<p>A canonical model family has explicit variants and revisions. Identical names do not prove identical floorplans or model years. Raw labels are kept on imports and homes, and an uncertain match never blocks a real used home from being listed.</p>
+<p>Comparison groups have three levels. <strong>Same variant:</strong> confirmed identity and year range, so the offers are directly comparable. <strong>Same model, different revision:</strong> shown together with the differences labelled. <strong>Similar class:</strong> the same sections, bedroom and bathroom counts and area band, across manufacturers, and never presented as the same home. A factory-order offer needs a seller-confirmed variant, which may be provisional. It is excluded from same-variant comparison until staff verify the variant.</p>
+<h3 id="512-geography-and-privacy">5.12 Geography and privacy</h3>
+<p>Postal address, physical point, service territory, region membership and brand presentation are separate fields. Country, state and county come from identifier tables, never from hard-coded enums. A private seller chooses how precisely the location is disclosed. Radius search uses the disclosed precision, labels distances as approximate, and is protected against repeated queries that could triangulate a hidden address.</p>
+<h2 id="6-the-supply-engine">6. The supply engine</h2>
+<h3 id="61-presence-tiers">6.1 Presence tiers</h3>
+<p>This design reconciles two things Ben wants: <em>“mirror every home in the three states”</em> and <em>“I do not want to be responsible for creating somebody else’s listing.”</em></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-scroll" role="region" aria-label="Plan table" tabindex="0"><table><thead><tr><th>Tier</th><th>What a buyer sees</th><th>Permission required</th><th>Who stands behind it</th><th>Contact route</th><th>Upgrade path</th></tr></thead><tbody><tr><td><strong>Indexed</strong></td><td>Structured facts (price, beds, baths, size, year, location, dealer), our catalogue match, cost and feasibility context, and <strong>“View at [dealer]”</strong></td><td>Dealer’s recorded yes, <strong>or</strong> a public-index policy the attorney has approved</td><td>The dealer’s own advertisement; we only point to it</td><td>Tracked click-out to the source</td><td>Dealer grants mirroring or claims the listing</td></tr><tr><td><strong>Mirrored</strong></td><td>Full listing with the dealer’s photos, a description generated from verified facts, and a freshness stamp</td><td>A recorded yes that covers media and generated text</td><td>The dealer, under a standing authorization with correction and removal rights</td><td>The dealer’s chosen route or the relay</td><td>Dealer claims and manages</td></tr><tr><td><strong>Managed</strong></td><td>Full listing edited and approved by its owner</td><td>An account holder with verified membership</td><td>The owner, revision by revision</td><td>Relay and enquiries</td><td>Paid placements and pro features</td></tr></tbody></table></div>
+<p>Nothing is published <em>as</em> someone’s listing without them. An indexed entry is a pointer to an advertisement the dealer already runs. Indexed cards carry no photos, which gives every dealer a visible reason to say yes to mirroring. Ben’s dealer calls ask for the easy yes: <em>“Can we show your inventory and send buyers to you?”</em> That is a far smaller ask than <em>“list with us”</em>. The call note becomes the authorization evidence.</p>
+<p>Third-party marketplaces (MHVillage, Facebook, Craigslist) are never crawled. A seller may paste text or upload photos from their own advertisement there. We do not fetch those platforms automatically.</p>
+<h3 id="62-doorways">6.2 Doorways</h3>
+<p>Every doorway leads to the same change-set pipeline:</p>
+<ul>
+<li><strong>Dealer website:</strong> a vendor adapter or the generic extractor; one-off, then scheduled.</li>
+<li><strong>Feed:</strong> CSV, XML or a shared spreadsheet, with column mapping learned once per source.</li>
+<li><strong>File:</strong> a spreadsheet, PDF flyer or folder of photos.</li>
+<li><strong>Forwarded email:</strong> sent to a per-organization intake address and parsed by Action Mailbox.</li>
+<li><strong>Manual entry:</strong> the seller workspace, with an editor that shows the listing as it will appear.</li>
+<li><strong>Private seller on a phone:</strong> a camera-first draft that needs no account until publication.</li>
+<li><strong>SMS or WhatsApp:</strong> phase 3, through the same draft model.</li>
+</ul>
+<h3 id="63-surveying-dealer-websites-and-building-adapters">6.3 Surveying dealer websites and building adapters</h3>
+<p>In the first week, before any adapter exists:</p>
+<ol>
+<li>Assemble the dealer list: Ben’s 65 locations, cross-checked against the state dealer-licence lookups (§9) and the retailer locators that Clayton, Champion and Cavco publish. Both sources also surface dealers Ben does not know, and the locators show which manufacturers each dealer is authorized to sell.</li>
+<li>Fetch each site politely. Fingerprint the platform from generator tags, script hosts, URL patterns, sitemaps, JSON-LD and the JSON endpoints its own inventory widget calls. Group dealers by vendor. Ben already suspects that <em>“some appear to use inventory/catalog systems supplied by manufacturers or industry website providers.”</em></li>
+<li>Build <strong>one adapter per vendor template</strong>, which then covers every dealer on that vendor. Prefer structured sources in this order: the site’s own feed or API, then JSON-LD and embedded JSON, then HTML.</li>
+<li>Send the long tail to the <strong>generic AI extractor</strong> (§6.5). Use Browser Rendering only where content exists only after JavaScript runs.</li>
+<li>Record every site’s robots rules and terms, and store a label for the platform each dealer site runs on. The survey is also the first sales map of the market.</li>
+</ol>
+<h3 id="64-pipeline">6.4 Pipeline</h3>
+<figure class="diagram"><svg viewBox="0 0 910 350" role="img" aria-labelledby="diagram-title-2 diagram-desc-2" xmlns="http://www.w3.org/2000/svg"><title id="diagram-title-2">Supply engine overview</title><desc id="diagram-desc-2">Dealer sites, feeds, files and messages are fetched or rendered and snapshotted as evidence. Vendor adapters and an AI extractor produce typed candidates, which are normalized, matched and deduplicated into a change set. Indexed and mirrored changes apply within recorded permission; managed changes wait for owner approval.</desc><defs><marker id="arrow-2" markerWidth="9" markerHeight="9" refX="8" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8 Z" class="arrow"/></marker></defs><path d="M285 49 L320 49" marker-end="url(#arrow-2)"/><path d="M590 49 L625 49" marker-end="url(#arrow-2)"/><path d="M760 78 L760 140" marker-end="url(#arrow-2)"/><path d="M625 169 L590 169" marker-end="url(#arrow-2)"/><path d="M320 169 L285 169" marker-end="url(#arrow-2)"/><path d="M455 198 L455 260" marker-end="url(#arrow-2)"/><path d="M150 198 L455 260" marker-end="url(#arrow-2)"/><g><rect x="15" y="20" width="270" height="58" rx="4"/><text x="150" y="54" text-anchor="middle">Sites · feeds · files · messages</text></g><g><rect x="320" y="20" width="270" height="58" rx="4"/><text x="455" y="54" text-anchor="middle">Fetch · render · snapshot</text></g><g><rect x="625" y="20" width="270" height="58" rx="4"/><text x="760" y="54" text-anchor="middle">Extract: adapters, then AI</text></g><g><rect x="625" y="140" width="270" height="58" rx="4"/><text x="760" y="174" text-anchor="middle">Normalize · match · dedupe</text></g><g><rect x="320" y="140" width="270" height="58" rx="4"/><text x="455" y="174" text-anchor="middle">Change set per tier</text></g><g><rect x="15" y="140" width="270" height="58" rx="4"/><text x="150" y="174" text-anchor="middle">Owner claim and approval</text></g><g><rect x="320" y="260" width="270" height="58" rx="4"/><text x="455" y="294" text-anchor="middle">Indexed · mirrored · managed</text></g></svg><figcaption>Dealer sites, feeds, files and messages are fetched or rendered and snapshotted as evidence. Vendor adapters and an AI extractor produce typed candidates, which are normalized, matched and deduplicated into a change set. Indexed and mirrored changes apply within recorded permission; managed changes wait for owner approval.</figcaption></figure><details><summary>Detailed diagram specification</summary><pre><code class="language-mermaid">flowchart LR
+  In[Site, feed, file, email or form] --> Fetch[Fetch or render, then snapshot]
+  Fetch --> Extract[Adapter, then AI extractor]
+  Extract --> Norm[Normalize, match, dedupe]
+  Norm --> Change[Change set per tier]
+  Change --> Claim[Owner claim and approval]
+  Change --> Live[Indexed, mirrored or managed]
+  Claim --> Live
+</code></pre></details>
+<p>A source run is a chain of Solid Queue jobs, limited to one concurrent run per source, with these steps:</p>
+<ol>
+<li><strong>Fence:</strong> take the source’s fencing token so an older run can never overwrite a newer one.</li>
+<li><strong>Fetch and render:</strong> within rate limits and robots rules. Snapshots go to R2 under content hashes.</li>
+<li><strong>Segment:</strong> listing pages into items, spreadsheets into rows, photo folders into proposed homes.</li>
+<li><strong>Extract:</strong> typed candidates with evidence spans.</li>
+<li><strong>Normalize:</strong> units, prices and addresses into points and jurisdictions, in code.</li>
+<li><strong>Match:</strong> to catalogue variants and existing physical homes (§6.6).</li>
+<li><strong>Diff:</strong> build a change set against current offers.</li>
+<li><strong>Apply by tier:</strong>
+<ul>
+<li>Indexed and mirrored changes apply automatically inside the source’s authorization, subject to anomaly guards such as a sudden fall in item count or a price that changes by more than a set threshold.</li>
+<li>Managed changes become draft revisions that wait for the owner.</li>
+</ul>
+</li>
+<li><strong>Record:</strong> write an observation for every item seen.</li>
+<li><strong>Project:</strong> update the search projection and enqueue follow-up jobs in the same transaction.</li>
+</ol>
+<p>Every step records its status, idempotency key, input bounds and versions. Job arguments carry IDs, never documents or credentials. A job can run twice after a crash, so every step is idempotent.</p>
+<h3 id="65-ai-extraction-measured-before-trusted">6.5 AI extraction, measured before trusted</h3>
+<p><strong>Division of labour</strong> (unchanged from <code>jev-greenfield.md</code>):</p>
+<ul>
+<li><strong>Code</strong> enumerates candidates wherever structure exists and owns units, arithmetic, validation, state and authorization.</li>
+<li><strong>A language model</strong> returns schema-constrained output for semi-structured pages. It returns values that are already present in the input, together with the spans they came from.</li>
+<li><strong>Jev</strong> answers typed questions with probabilities: which candidate is the year, whether two records are the same home, what a photo shows, whether a condition claim matches the photos.</li>
+<li><strong>Generative text</strong> is written only from verified facts, for descriptions and alt text, and is never a source of facts.</li>
+</ul>
+<p><strong>An evaluation set comes before any threshold.</strong> From the survey, label at least 60 pages across vendors and the long tail, covering listing recall, per-field accuracy, false merges and cost per item. The extraction model is chosen by that evaluation. Every extraction records its model and prompt version, and a model upgrade has to beat the recorded baseline before it ships.</p>
+<p><strong>Thresholds by consequence.</strong> Price, beds, baths, year and location need high confidence or a person’s confirmation before an indexed or mirrored offer shows them. Low-confidence fields display as unknown rather than guesses. Managed offers always pass through the owner.</p>
+<p><strong>Safety.</strong> Source text is untrusted data. It has no tools, cannot change the pipeline and cannot reach secrets, and output must validate against the schema or the item goes to review. If the model is unavailable, adapters and manual review keep working.</p>
+<p><strong>Scale economics.</strong> Content hashing means unchanged pages are never extracted again. The per-vendor adapters take over the high-volume sources, so AI cost tracks <em>changed long-tail pages</em>, not inventory size (§18).</p>
+<h3 id="66-identity-resolution-and-deduplication">6.6 Identity resolution and deduplication</h3>
+<ul>
+<li><strong>Exact matches:</strong> a known serial or HUD label matches an existing home, subject to a manufacturer and date sanity check.</li>
+<li><strong>Candidate blocking otherwise:</strong> the same seller, or a location within a set distance, plus year, section count, dimensions and price band.</li>
+<li><strong>Evidence for a match:</strong> perceptual hashes of photos (which also catch stolen photos across unrelated sellers, §15), text similarity and a Jev same-home judgment.</li>
+<li><strong>Outcome:</strong> merges are recorded, reversible decisions. Two sources describing one home produce one <code>physical_home</code> with several offers, and the offers are reconciled by tier and ownership. Two dealers offering one <em>model</em> never merge.</li>
+</ul>
+<h3 id="67-acquiring-the-catalogue">6.7 Acquiring the catalogue</h3>
+<p>Comparison is only as good as the catalogue, and the first draft never said where the catalogue would come from.</p>
+<ul>
+<li><strong>Seed:</strong> harvest model facts from manufacturer websites: names, codes, sections, dimensions, beds, baths, square feet, plants and brand lines. Facts are not copyrightable. Floorplan images and renders are used only with permission.</li>
+<li><strong>Start with three manufacturers.</strong> Clayton (46.4%), Champion (22.8%) and Cavco (17.2%) shipped more than 86% of HUD-code homes in the first quarter of 2026 (MHI market-share report), and all three publish floorplan catalogues. Regional builders follow in order of how often they appear in dealer inventory.</li>
+<li><strong>Dealer aliases:</strong> dealer pages supply alias evidence, such as the variant spellings and codes dealers actually use.</li>
+<li><strong>Manufacturer partnerships (phase 4):</strong> manufacturers want their models shown next to their retailers. A catalogue feed becomes part of a manufacturer programme (§11).</li>
+<li><strong>Curation:</strong> the operator confirms AI-proposed matches in the operator console, a click per model rather than per home, and maintains canonical identities, while dealers propose corrections.</li>
+<li><strong>Coverage metric:</strong> the share of live new-home offers matched to a verified variant, by tier and manufacturer.</li>
+</ul>
+<h3 id="68-freshness-and-sync-policy">6.8 Freshness and sync policy</h3>
+<ul>
+<li><strong>Schedule:</strong> daily by default, adjustable per source and per vendor, with per-host concurrency limits.</li>
+<li><strong>Complete versus partial runs:</strong> a run is partial when pagination fails, a login page appears, an item-count anomaly trips or a parse error occurs. Partial runs never remove anything.</li>
+<li><strong>Indexed offers are pointers:</strong> one that is absent from two consecutive complete runs is withdrawn from view, with its observation history kept.</li>
+<li><strong>Mirrored offers:</strong> an absent offer becomes “needs confirmation” and is shown as unconfirmed. After 30 days without confirmation it leaves active search, and it is marked sold only if the source says so.</li>
+<li><strong>Managed offers:</strong> absence never changes them. The owner is nudged at 14 days, shown a warning at 30, and suppressed from active search at 45 unless they confirm.</li>
+<li><strong>Timestamps:</strong> <code>last_seen_at</code>, <code>last_successful_sync_at</code>, <code>last_owner_confirmed_at</code> and <code>price_observed_at</code> stay separate, and the public page shows the right one.</li>
+</ul>
+<h3 id="69-conflict-policy">6.9 Conflict policy</h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-scroll" role="region" aria-label="Plan table" tabindex="0"><table><thead><tr><th>Existing state</th><th>Incoming source change</th><th>Behaviour</th></tr></thead><tbody><tr><td>Unedited imported draft</td><td>Same source changed</td><td>Update the draft and keep the evidence</td></tr><tr><td>Seller-corrected field</td><td>Import differs</td><td>Keep the seller’s value and show the conflict</td></tr><tr><td>Managed offer, published revision</td><td>Price, specification, identity or location changed</td><td>Create a review revision; the approved page stays live</td></tr><tr><td>Seller marked sold or withdrawn</td><td>Source still says available</td><td>Do not reactivate; the owner has to act</td></tr><tr><td>Fetch or parse failed</td><td>Items appear to be missing</td><td>Record the failure; never infer sold</td></tr><tr><td>Authorization revoked</td><td>Work still pending</td><td>Stop, demote or remove per the recorded instructions, and purge media</td></tr></tbody></table></div>
+<h3 id="610-claims-outreach-and-the-dealer-pipeline">6.10 Claims, outreach and the dealer pipeline</h3>
+<ul>
+<li><strong>Dealer claim:</strong> a licence-registry match plus email at the dealer’s own domain, or a callback to the phone number the registry lists. Ben’s personal vouching is one verification route among several, not the only one.</li>
+<li><strong>Private seller claim:</strong> email or phone verification. Drafts prepared by someone else are private and can be deleted in one click, and deletion removes the data.</li>
+<li><strong>The pipeline is part of the organization record:</strong> <code>not_contacted → contacted → permission (index or mirror) → live → claimed → paying</code>, with call notes. It is Ben’s dealer list and the sales pipeline, with no separate CRM to keep in step.</li>
+<li><strong>Outreach tooling:</strong> a record of every contact, one message per person, a do-not-contact list and rate limits enforced in code. These are the rules in <code>distribution.md</code>, made mechanical so they do not depend on willpower.</li>
+</ul>
+<h2 id="7-discovery-and-comparison">7. Discovery and comparison</h2>
+<h3 id="71-the-search-contract">7.1 The search contract</h3>
+<p>Ben’s acceptance query is a test case: <strong>three or more bedrooms, two or more bathrooms, advertised price under $180,000, within 200 miles of a ZIP code.</strong></p>
+<ol>
+<li>A validated ZIP resolves to a centroid from a versioned dataset whose rights are documented. ZIP distance is approximate and labelled that way.</li>
+<li>The public projection is filtered on publication, moderation, freshness, region, specifications and price.</li>
+<li>A GiST index on <code>geography(Point, 4326)</code> serves <code>ST_DWithin</code>, and 200 miles is 321,868.8 m. Physical stock is measured from the home. Factory-order offers are measured from the selling branch and labelled as dealer distance, with delivery estimated separately from the plant.</li>
+<li>“From” prices qualify only with the label visible. Quote-only and unknown prices never satisfy a numeric budget. A range qualifies only if its upper bound is within the budget; ranges that straddle the budget appear in a separately labelled section.</li>
+<li>Queries are parameterized, sort fields are validated, result sizes are bounded, and pagination is stable.</li>
+</ol>
+<h3 id="72-filters">7.2 Filters</h3>
+<ul>
+<li><strong>Home:</strong> price basis, stock, factory order or park space, new or used, beds, baths, year, manufacture before or after the June 1976 HUD code, floor area, sections, manufacturer and model, and roof-load zone (snow country matters in all three states).</li>
+<li><strong>Location:</strong> state, county, city or ZIP, radius, and whether the home must be moved.</li>
+<li><strong>Park, where the facts are sourced:</strong> age restriction, pet types and counts, lot-rent bands (Ben’s: 300 / 400 / 600 / 700 / 800+, doubled around Seattle), and home-age rules.</li>
+<li><strong>Unknown values</strong> never pass a hard filter silently. The buyer can include them explicitly, and they are labelled.</li>
+</ul>
+<h3 id="73-results-and-ranking">7.3 Results and ranking</h3>
+<p>Cards show the actual seller, presence tier, price basis, location precision, relocation status and the right freshness date. Ranking is documented: relevance, distance, price or newest, with a completeness-and-freshness factor that is published in plain words. Paid placement appears <strong>only in labelled slots</strong>, satisfies the buyer’s filters, and never changes the organic order. Empty results offer ways to widen the search, and every zero-result query is recorded as a supply signal.</p>
+<h3 id="74-model-pages-and-the-comparison">7.4 Model pages and the comparison</h3>
+<p>A model page is the Kayak page Ben described:</p>
+<ul>
+<li>Catalogue facts, floorplan and zones.</li>
+<li>Every offer against the model, both in-stock units and factory-order offers, from every dealer.</li>
+<li>One comparison row per dealer: price basis, what is included by cost component, lead time, distance, and <strong>an estimated delivered-and-set range to the buyer’s ZIP</strong> (§8).</li>
+<li>Inclusions the dealer has not stated are shown as unknown, never as zero, with a <em>request a quote</em> action that becomes a lead.</li>
+</ul>
+<p>Model pages are also the platform’s strongest search asset, because people search for model names.</p>
+<h3 id="75-alerts-favourites-and-comparisons">7.5 Alerts, favourites and comparisons</h3>
+<p>Saved searches with consented email alerts arrive early, in phase 2. They are the cheapest repeat-traffic engine a marketplace has, and they rebuild the email list on a clean consent basis alongside the old ~4,000 addresses. Favourites and side-by-side comparisons work without an account, and signing in keeps them.</p>
+<h3 id="76-search-read-model">7.6 Search read model</h3>
+<p><code>public_offer_search</code> is a projection. For managed offers it is updated inside the publication transaction. For indexed and mirrored offers it is updated inside the source-run apply step. It can be rebuilt from the source tables. Indexes: B-tree for publication, region and price predicates; GiST for geography; GIN for a search vector that combines exact model and alias matching with full-text search.</p>
+<h2 id="8-total-cost-and-feasibility">8. Total cost and feasibility</h2>
+<h3 id="81-honesty-rules">8.1 Honesty rules</h3>
+<ul>
+<li>Every figure is a <strong>range</strong>, with its sources and dates on view.</li>
+<li>Unknown is not zero.</li>
+<li><strong>Blocked</strong> requires a sourced, unexpired rule. Anything short of that is <strong>unknown</strong>, with the question the buyer should ask.</li>
+<li>This is information, not advice or a credit decision. It never claims a home will be approved or financed.</li>
+</ul>
+<p>Ben’s own framing sets the target: <em>“They see a home advertised for $80,000 and think it costs $80,000.”</em></p>
+<h3 id="82-cost-components">8.2 Cost components</h3>
+<p>Offer inclusions, provider rate cards, quotes and buyer estimates all use one vocabulary.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-scroll" role="region" aria-label="Plan table" tabindex="0"><table><thead><tr><th>Code</th><th>Component</th><th>Typically quoted by</th></tr></thead><tbody><tr><td><code>home</code></td><td>Home price</td><td>Dealer or seller</td></tr><tr><td><code>options</code></td><td>Factory and dealer options</td><td>Dealer</td></tr><tr><td><code>transport</code></td><td>Freight per section, mileage, escorts, oversize permits</td><td>Transporter or dealer</td></tr><tr><td><code>tax_clearance</code></td><td>Taxes due before a move, and move permits</td><td>County or seller</td></tr><tr><td><code>setup</code></td><td>Blocking, levelling, marriage line, tie-downs or anchoring</td><td>Installer or dealer</td></tr><tr><td><code>foundation</code></td><td>Piers, runners or a permanent foundation</td><td>Installer or contractor</td></tr><tr><td><code>finish</code></td><td>Skirting, steps, decks, gutters</td><td>Installer or contractor</td></tr><tr><td><code>utilities</code></td><td>Water, sewer or septic, power, gas connections</td><td>Contractor or utility</td></tr><tr><td><code>site_prep</code></td><td>Clearing, grading, pad, driveway</td><td>Contractor</td></tr><tr><td><code>permits</code></td><td>Placement, building and electrical permits</td><td>Jurisdiction</td></tr><tr><td><code>sales_tax</code></td><td>State and local tax on the home</td><td>By state rule</td></tr><tr><td><code>park_entry</code></td><td>Application fee, deposit, first month’s lot rent</td><td>Park</td></tr><tr><td><code>removal</code></td><td>Removal or disposal of an existing home</td><td>Transporter or contractor</td></tr><tr><td><code>insurance</code></td><td>First-year premium, as an estimate</td><td>Insurer</td></tr></tbody></table></div>
+<h3 id="83-rules">8.3 Rules</h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-scroll" role="region" aria-label="Plan table" tabindex="0"><table><thead><tr><th>Rule family</th><th>Examples</th><th>Typical source</th></tr></thead><tbody><tr><td>Jurisdiction placement</td><td>Whether manufactured homes are allowed in the zone; minimum year, width or size; roof pitch or siding; foundation; required snow or roof-load zone</td><td>County and city codes, planning departments</td></tr><tr><td>Park acceptance</td><td>Home age, size and style; condition; 55-and-over status; pets; application criteria</td><td>Park operators and their documents</td></tr><tr><td>Transport</td><td>Width and length limits, escort thresholds, oversize permits, taxes due before a move</td><td>WSDOT, ODOT and ITD oversize permits; county treasurer tax certificate before a move in WA; county tax collector notice and payment in OR (ORS 308.865); in ID, a reversal of declaration for homes converted to real property</td></tr><tr><td>Financing information</td><td>Built after June 1976; foundation or permanence; title status; lender age-of-home limits</td><td>Programme guides and lender attestations</td></tr><tr><td>HUD zones</td><td>Destination requirements compared with the home’s data-plate zones</td><td>HUD code and local amendments</td></tr></tbody></table></div>
+<p>Rules are authored in the operator console, versioned, sourced, and given an expiry that forces re-verification. An evaluation stores the rule versions it used, so an answer given in March can be explained in June.</p>
+<h3 id="84-the-evaluator">8.4 The evaluator</h3>
+<figure class="diagram"><svg viewBox="0 0 910 350" role="img" aria-labelledby="diagram-title-3 diagram-desc-3" xmlns="http://www.w3.org/2000/svg"><title id="diagram-title-3">Total cost and feasibility overview</title><desc id="diagram-desc-3">A buyer project and candidate offers are evaluated deterministically against sourced placement and loan rules and provider rate cards, with Jev supplying typed needs and qualitative fit. The result is a verdict with reasons and a cost range, which can lead to a consented provider referral.</desc><defs><marker id="arrow-3" markerWidth="9" markerHeight="9" refX="8" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8 Z" class="arrow"/></marker></defs><path d="M150 78 L455 140" marker-end="url(#arrow-3)"/><path d="M455 78 L455 140" marker-end="url(#arrow-3)"/><path d="M760 78 L455 140" marker-end="url(#arrow-3)"/><path d="M285 169 L320 169" marker-end="url(#arrow-3)"/><path d="M625 169 L590 169" marker-end="url(#arrow-3)"/><path d="M455 198 L455 260" marker-end="url(#arrow-3)"/><path d="M590 289 L625 289" marker-end="url(#arrow-3)"/><g><rect x="15" y="20" width="270" height="58" rx="4"/><text x="150" y="54" text-anchor="middle">Buyer project and destination</text></g><g><rect x="320" y="20" width="270" height="58" rx="4"/><text x="455" y="54" text-anchor="middle">Candidate homes and offers</text></g><g><rect x="625" y="20" width="270" height="58" rx="4"/><text x="760" y="54" text-anchor="middle">Sourced placement and loan rules</text></g><g><rect x="320" y="140" width="270" height="58" rx="4"/><text x="455" y="174" text-anchor="middle">Deterministic evaluator</text></g><g><rect x="15" y="140" width="270" height="58" rx="4"/><text x="150" y="174" text-anchor="middle">Rate cards and quotes</text></g><g><rect x="625" y="140" width="270" height="58" rx="4"/><text x="760" y="174" text-anchor="middle">Jev: needs and qualitative fit</text></g><g><rect x="320" y="260" width="270" height="58" rx="4"/><text x="455" y="294" text-anchor="middle">Verdict and cost range</text></g><g><rect x="625" y="260" width="270" height="58" rx="4"/><text x="760" y="294" text-anchor="middle">Consented provider referral</text></g></svg><figcaption>A buyer project and candidate offers are evaluated deterministically against sourced placement and loan rules and provider rate cards, with Jev supplying typed needs and qualitative fit. The result is a verdict with reasons and a cost range, which can lead to a consented provider referral.</figcaption></figure><details><summary>Detailed diagram specification</summary><pre><code class="language-mermaid">flowchart TD
+  Project[Buyer project and destination] --> Eval[Deterministic evaluator]
+  Homes[Candidate homes and offers] --> Eval
+  Rules[Sourced placement and loan rules] --> Eval
+  Rates[Rate cards and quotes] --> Eval
+  Jev[Jev: needs and qualitative fit] --> Eval
+  Eval --> Verdict[Verdict and cost range]
+  Verdict --> Referral[Consented provider referral]
+</code></pre></details>
+<ul>
+<li><strong>Constraints use three values:</strong> satisfied, violated or unknown. From those the evaluator returns <strong>feasible</strong>, <strong>feasible if…</strong> (naming the condition), <strong>blocked by…</strong> (naming the rule and its source) or <strong>unknown</strong> (naming what to ask).</li>
+<li><strong>Cost:</strong> the sum of component ranges. Transport comes from the county-centroid road-distance matrix, refined with the actual route when a quote is requested, times rate-card structures plus adders for sections and escorts. Setup and foundation come from regional rate cards. Taxes and permits come from rules.</li>
+<li><strong>Jev’s part:</strong> it reads a buyer’s free-text situation into typed needs with evidence spans, for example <em>“land outside Yakima, about $60,000, two dogs”</em>. It also judges qualitative fit. It never decides a hard gate.</li>
+<li><strong>Privacy:</strong> sensitive household facts (income or credit bands, ages) can be evaluated without being stored, and never reach analytics.</li>
+</ul>
+<h3 id="85-acquiring-the-rules-led-by-demand">8.5 Acquiring the rules, led by demand</h3>
+<p>No one researches 119 counties and hundreds of parks up front. Research is ordered by demand: search destinations, zero-result queries and project destinations rank counties and parks by buyer interest. A <code>research_task</code> queue with written playbooks lets an operator verify rules by document and phone. Park operators who claim their park maintain its policies themselves, under expiry dates. Coverage is published per county (“feasibility available for 14 counties”) so nobody mistakes gaps for answers.</p>
+<h3 id="86-valuation">8.6 Valuation</h3>
+<p>Sellers <em>“struggle to know what their home is actually worth.”</em> Once a year of observations exists, the platform can show comparables drawn from market history across all tiers (year, size, sections, condition, region and time on market), with ranges and the comparables shown. A hedonic model can follow when volume supports one. This is the clearest use of commitment 5.</p>
+<h2 id="9-places-and-the-services-network">9. Places and the services network</h2>
+<p><strong>Parks.</strong> Seed park records from the state registries where they exist, then enrich them from the web and by phone:</p>
+<ul>
+<li><strong>Washington:</strong> the Department of Revenue runs the park registration programme (RCW 59.30.050) and keeps a database of about 1,200 registered communities, a figure from a secondary source. A copy is requested through a records request.</li>
+<li><strong>Oregon:</strong> OHCS publishes its manufactured dwelling park directory as a downloadable dataset on data.oregon.gov.</li>
+<li><strong>Idaho:</strong> there is no state registry. Parks are seeded from county records, the web and dealer knowledge, and this is where Ben’s calls matter most.</li>
+</ul>
+<p>Each park gets a page with the homes for sale in it, vacant spaces, lot rent and rules. Operators claim the page to keep it accurate and to list vacancies as <code>space_for_rent</code> offers. The park map is a view over these records. Building it is also how the platform meets every park manager in three states, and those managers are a supply source, an audience and future advertisers.</p>
+<p><strong>Service providers.</strong> Seed dealers and installers from the state licensing lookups:</p>
+<ul>
+<li><strong>Washington:</strong> dealers through the Department of Licensing (RCW 46.70); installers certified by Labor &#x26; Industries.</li>
+<li><strong>Oregon:</strong> dealers through the Division of Financial Regulation (ORS 446.691); installers licensed by the Building Codes Division.</li>
+<li><strong>Idaho:</strong> dealers, brokers and installers through DOPL.</li>
+</ul>
+<p>Transporters and contractors are seeded from registries and the web. Each gets a free profile with service areas and, where the provider supplies them, rate cards. Buyers can request quotes, and providers see a log of every referral sent to them. That log is what turns a free profile into a paid one in phase 3.</p>
+<p><strong>Lenders and insurers.</strong> Directory entries describe programme attributes (home age limits, foundation requirements, personal versus real property). Introductions happen only with buyer consent. RESPA Section 8 covers loans secured by real property, including a manufactured home on land. Chattel loans secured by the home alone generally fall outside it. The CFPB’s 2023 advisory opinion on comparison-shopping platforms treats three things together as a kickback: non-neutral presentation, steering, and pay tied to that steering. So lender listings are presented <strong>neutrally</strong>, and lenders pay <strong>flat fees not tied to referral volume</strong> until counsel approves anything else (§15).</p>
+<p><strong>Land.</strong> Sites begin as a point with its jurisdiction. Parcel boundaries and zoning come later, from county GIS layers or a licensed parcel dataset, when demand for private-land placement justifies it.</p>
+<h2 id="10-engagement-click-outs-enquiries-and-leads">10. Engagement: click-outs, enquiries and leads</h2>
+<ul>
+<li><strong>By tier:</strong> indexed offers send buyers out through a tracked click-out. Mirrored and managed offers take an <strong>enquiry form with a masked email relay</strong>, and masked phone numbers come later.</li>
+<li><strong>Why the relay matters:</strong>
+<ul>
+<li>Private sellers stay safe.</li>
+<li>Relay messages are screened for scam patterns: requests for payment off the platform, “I am overseas, pay a deposit”, gift cards.</li>
+<li>Enquiries become measurable, and measured enquiries are the thing dealers and providers will pay for.</li>
+<li>Seller response times become visible.</li>
+</ul>
+</li>
+<li><strong>Lifecycle:</strong> saved → delivered → replied (a reply seen through the relay) → marked qualified (optional feedback from either side) → outcome.</li>
+<li><strong>Second needs:</strong> an enquiry often implies a move, a place to put the home, setup or insurance. The buyer is offered consented introductions, and each accepted introduction is a <strong>lead</strong> routed to a provider covering that area. This is <code>jev-greenfield.md</code> idea 5, starting with transport and setup, where the regulations are simple.</li>
+<li><strong>Seller reports:</strong> a weekly digest of views, saves, click-outs and enquiries per listing and per organization. This is the dealer retention loop and the natural moment to offer upgrades.</li>
+</ul>
+<h2 id="11-revenue-architecture">11. Revenue architecture</h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-scroll" role="region" aria-label="Plan table" tabindex="0"><table><thead><tr><th>Stream</th><th>Who pays</th><th>What they get</th><th>Billable unit</th><th>Phase</th></tr></thead><tbody><tr><td>Featured placement</td><td>Dealers, private sellers</td><td>Labelled top slots in search, model and county pages</td><td>Listing × period</td><td>3</td></tr><tr><td>Dealer pro subscription</td><td>Dealers</td><td>Managed sync, relay and leads, demand insights, enhanced profile, feed export</td><td>Monthly</td><td>3</td></tr><tr><td>Provider subscription and leads</td><td>Transporters, installers, contractors</td><td>Profile placement, quote requests, referral log</td><td>Monthly, or per accepted lead</td><td>3</td></tr><tr><td>Park programme</td><td>Parks</td><td>Vacancy promotion, enhanced page, applicant enquiries</td><td>Monthly</td><td>3–4</td></tr><tr><td>Sponsorship and advertising</td><td>Regional businesses, insurers, lenders (flat)</td><td>County, category and newsletter placements</td><td>Flat monthly or CPM</td><td>3</td></tr><tr><td>Private-seller upgrades</td><td>Private sellers</td><td>Featured slot, valuation report, more photos</td><td>One-off</td><td>3–4</td></tr><tr><td>Manufacturer programme</td><td>Manufacturers</td><td>Enhanced model pages, retailer routing, demand by county</td><td>Annual</td><td>4</td></tr><tr><td>Market insights</td><td>Dealers, manufacturers, lenders</td><td>Aggregated demand and supply by county, model and price</td><td>Subscription</td><td>4–5</td></tr><tr><td>Transaction services</td><td>Buyers or sellers, through a partner</td><td>Deposits held in escrow, document workflows</td><td>Per transaction</td><td>5, after licensing review</td></tr></tbody></table></div>
+<p><strong>Mechanics.</strong></p>
+<ul>
+<li>Stripe products map to <code>plan</code> rows. Plans grant <strong>entitlements</strong> held in Postgres, never in feature flags, and entitlements unlock placements and features.</li>
+<li>Checkout, the customer portal and Stripe Tax make buying self-serve, so an advertiser can buy a county sponsorship at 2 a.m. without Ben.</li>
+<li>Signed webhooks feed an idempotent billing ledger.</li>
+<li>Advertiser and seller reports read from <code>billable_counter</code> and reconcile with Stripe. PostHog is used for analysis only.</li>
+</ul>
+<p><strong>The milestones in numbers</strong> (illustrative, not forecasts):</p>
+<ul>
+<li><strong>$1,000 a month</strong> is about ten dealers on a $99 pro plan, or a mix such as five pro dealers, a handful of featured listings and two county sponsors.</li>
+<li><strong>$5,000 or more a month</strong> is roughly 30–50 paying businesses across dealers, providers and parks, plus sponsorship.</li>
+<li><strong>Multi-million annual revenue</strong> is the same product repeated across regions: thousands of paying businesses, lead revenue and data products.</li>
+</ul>
+<p>The architecture changes very little between the three. What changes is coverage and audience, which is why the audience layer (§12) matters so much.</p>
+<p><strong>Deliberately left out of the table:</strong> success fees or commissions on home sales. In Washington, being paid by a seller for finding a buyer falls within the dealer licence, and Idaho licenses brokers. Ben kept the door to commissions open, so treat them as a licensing decision and not a pricing tweak (§15).</p>
+<h2 id="12-measurement">12. Measurement</h2>
+<h3 id="121-two-layers">12.1 Two layers</h3>
+<ol>
+<li><strong>Complete first-party counts.</strong> Rails records one count per public page view, click-out, enquiry and placement impression, keyed by page type, region, county, offer and organization. Counts are buffered and rolled up by a scheduled job into daily aggregates in Postgres, kept permanently. No cookies and no personal data are involved, and Cloudflare’s own traffic analytics serve as a cross-check. These counts are the <strong>audience number</strong> for advertisers and the figures in seller reports, and they replace the stale 3,000-visitor claim with a measured one.</li>
+<li><strong>Behavioural analytics in PostHog Cloud</strong> (US region, a dedicated PNW production project, and a separate or disabled development project) for funnels, product analytics, error tracking, masked replay, flags and experiments.</li>
+</ol>
+<p>Postgres remains authoritative for accounts, offers, approvals, jobs and money. If analytics fails, nothing else does.</p>
+<h3 id="122-privacy-posture-a-correction-to-the-first-draft">12.2 Privacy posture: a correction to the first draft</h3>
+<p>The first draft proposed opt-in analytics. For a US marketplace whose product is an audience, opt-in would undercount exactly the number being sold, and in these three states it goes beyond what the law requires. The state positions:</p>
+<ul>
+<li><strong>Washington</strong> has no comprehensive consumer privacy law; My Health My Data covers health data only.</li>
+<li><strong>Idaho</strong> has no comprehensive consumer privacy law either (checked against secondary trackers).</li>
+<li><strong>Oregon’s Consumer Privacy Act</strong> applies from 100,000 Oregon consumers a year, or 25,000 consumers where a quarter of revenue comes from selling personal data. First-party analytics that is not sold and not used for cross-context targeted advertising falls under its opt-out regime, and since January 2026 Oregon requires honouring universal opt-out signals.</li>
+</ul>
+<p>The proposal instead:</p>
+<ul>
+<li>Cookieless first-party counts for everyone.</li>
+<li>PostHog enabled by default, with a clear privacy notice and an easy opt-out.</li>
+<li>The <strong>Global Privacy Control</strong> signal honoured as an opt-out from the first day, before any threshold applies.</li>
+<li>Visitors who opt out or send GPC are still counted, in PostHog’s cookieless mode, which stores nothing on their device.</li>
+<li>No sale or sharing of personal data, and no third-party advertising pixels without a separate decision.</li>
+<li>Replay sampled and masked, and never recorded on authentication, claim, draft, upload, enquiry, billing or operator screens.</li>
+</ul>
+<p>Counsel reviews the privacy notice before launch.</p>
+<h3 id="123-capture-rules">12.3 Capture rules</h3>
+<p>These carry over from the first draft:</p>
+<ul>
+<li><code>posthog-js</code> is initialized once in the public shell, with pageviews configured explicitly and broad autocapture off at first. Turbo navigation must not double-count.</li>
+<li>A first-party proxy has fixed upstreams, restricted paths and bounded bodies, and forwards no application cookies or authorization headers.</li>
+<li><code>posthog-ruby</code> in background jobs emits <strong>server events</strong> for committed business facts, enqueued in the same transaction as the fact, with stable event UUIDs for deduplication and the original timestamps. Events that describe the same milestone are never emitted from both browser and server.</li>
+<li>Identity is an opaque user ID after sign-in and is reset on logout. The active organization is a property. System jobs use operation identities with person processing disabled.</li>
+<li>Properties are typed, versioned and allowlisted. Contact details, message text, precise buyer locations, sensitive project fields and documents are never sent.</li>
+<li>Missing configuration is a development error and a no-op in production, and production configuration health is monitored separately.</li>
+</ul>
+<h3 id="124-event-registry-initial">12.4 Event registry (initial)</h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-scroll" role="region" aria-label="Plan table" tabindex="0"><table><thead><tr><th>Event</th><th>Producer and trigger</th></tr></thead><tbody><tr><td><code>$pageview</code></td><td>Browser; one real navigation, with a sanitized URL and page type</td></tr><tr><td><code>search:results_view</code></td><td>Browser; result set rendered, with bounded filters, count, radius band and latency</td></tr><tr><td><code>offer:view</code></td><td>Browser; detail shown, with tier, kind and price basis</td></tr><tr><td><code>offer:click_out</code></td><td>Server; tracked redirect to the source committed</td></tr><tr><td><code>enquiry:submit</code> / <code>enquiry:deliver</code> / <code>enquiry:reply</code></td><td>Server; each state committed in the relay</td></tr><tr><td><code>lead:create</code> / <code>lead:accept</code></td><td>Server; consented introduction created or accepted by a provider</td></tr><tr><td><code>alert:subscribe_confirm</code> / <code>alert:send</code></td><td>Server</td></tr><tr><td><code>seller:signup_complete</code> / <code>org:claim_complete</code></td><td>Server</td></tr><tr><td><code>listing:draft_create</code> / <code>listing:approve</code> / <code>listing:publish</code> / <code>listing:revision_publish</code></td><td>Server; publication milestones, where a first publish happens once per offer</td></tr><tr><td><code>listing:availability_change</code></td><td>Server; previous and new status, and the actor category</td></tr><tr><td><code>source:run_complete</code> / <code>source:run_fail</code></td><td>Jobs; counts, completeness, adapter or extractor, cost</td></tr><tr><td><code>evaluation:view</code></td><td>Browser; verdict category and the rule-coverage level, never the buyer’s inputs</td></tr><tr><td><code>placement:impression</code> / <code>placement:click</code></td><td>Server counters, which are billable; PostHog receives a copy for analysis</td></tr><tr><td><code>checkout:complete</code> / <code>subscription:change</code></td><td>Server, from Stripe webhooks</td></tr></tbody></table></div>
+<h3 id="125-north-star-measures-and-dashboards">12.5 North-star measures and dashboards</h3>
+<ul>
+<li><strong>Buyer value:</strong> external enquiries delivered plus click-outs, per week, over distinct offers. Click-outs measure <em>intent</em> and delivered enquiries measure <em>contact</em>, and the two are reported separately.</li>
+<li><strong>Supply:</strong> live offers by tier and kind; <strong>coverage</strong>, meaning indexed offers as a share of the known regional inventory from the survey; and catalogue match rate.</li>
+<li><strong>Business:</strong> paying organizations, monthly recurring revenue, and leads accepted.</li>
+<li><strong>Efficiency:</strong> <strong>operator minutes per live offer</strong> and per verified rule, which should fall every month.</li>
+</ul>
+<p>Dashboards: Audience; Buyer discovery (search → view → click-out or enquiry); Supply activation (permission → live → claimed → paying); Intake friction; Search gaps; Reliability; Revenue. Reports use Pacific weeks and exclude internal, QA and bot traffic.</p>
+<h2 id="13-regions-brands-and-national-expansion">13. Regions, brands and national expansion</h2>
+<ul>
+<li><strong>Region:</strong> a set of counties with a status, a brand, default content, and operators with region-scoped permissions. Adding a region is configuration plus data, never a code fork.</li>
+<li><strong>Brand:</strong> a set of hostnames, a name, a theme and the regions it serves, resolved per request from the hostname.</li>
+<li><strong>Canonical host:</strong> every public resource has one, namely the brand serving the region the resource sits in. URL <em>paths</em> are the same on every host, so a future national brand is a redirect map and not a rewrite. Decide before the second region whether regional brands stay canonical or a national brand takes over with regional landing pages. The naming of the national company is Ben’s call.</li>
+<li><strong>The region launch playbook runs as code:</strong>
+<ol>
+<li>Import the dealer and installer licence lookups, the manufacturers’ retailer locators and any state park registries for the new states. Where a state has no registry, as in Idaho, plan research tasks instead.</li>
+<li>Seed jurisdictions.</li>
+<li>Run the dealer-site survey.</li>
+<li>Assign operators.</li>
+<li>Generate county pages from templates that stay unpublished until they pass inventory thresholds.</li>
+<li>Score readiness.</li>
+</ol>
+</li>
+<li><strong>National scale:</strong>
+<ul>
+<li>Observations are partitioned by month, with a read replica for analytics queries.</li>
+<li>The crawler scales by vendor adapters and scheduling, not by head count.</li>
+<li>Operator teams are organized by region.</li>
+<li>A derived search index is added only if measured load requires it.</li>
+</ul>
+</li>
+<li><strong>Languages:</strong> interface strings are externalized from the first line of code. Spanish is the likeliest second language for buyers in this region, and it is added when search and enquiry data show demand.</li>
+</ul>
+<h2 id="14-pages-search-engines-and-content">14. Pages, search engines and content</h2>
+<h3 id="141-url-scheme-fixed-now">14.1 URL scheme (fixed now)</h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-scroll" role="region" aria-label="Plan table" tabindex="0"><table><thead><tr><th>Resource</th><th>Path</th><th>Indexed by search engines</th></tr></thead><tbody><tr><td>Inventory search</td><td><code>/homes/</code> with normalized, shareable filters</td><td>Canonical base only</td></tr><tr><td>Home offer</td><td><code>/homes/&#x3C;public-id>/&#x3C;slug>/</code></td><td>Mirrored and managed: yes. Indexed tier: <code>noindex</code>, because it is a pointer to the dealer’s page</td></tr><tr><td>Factory-order offer</td><td><code>/offers/&#x3C;public-id>/&#x3C;slug>/</code></td><td>Yes</td></tr><tr><td>Model</td><td><code>/models/&#x3C;manufacturer>/&#x3C;model>/</code></td><td>Yes; the core search asset</td></tr><tr><td>Manufacturer</td><td><code>/manufacturers/&#x3C;manufacturer>/</code></td><td>Yes</td></tr><tr><td>Dealer or business</td><td><code>/dealers/&#x3C;public-id>/&#x3C;slug>/</code>, <code>/services/&#x3C;category>/&#x3C;public-id>/&#x3C;slug>/</code></td><td>Yes when claimed or sufficiently complete</td></tr><tr><td>Park</td><td><code>/parks/&#x3C;state>/&#x3C;slug>/</code></td><td>Yes when sourced</td></tr><tr><td>Place</td><td><code>/&#x3C;state>/</code>, <code>/&#x3C;state>/&#x3C;county>/</code>, <code>/&#x3C;state>/&#x3C;county>/&#x3C;city>/</code></td><td>Only above inventory and content thresholds</td></tr><tr><td>Guides</td><td><code>/guides/&#x3C;slug>/</code></td><td>Yes</td></tr><tr><td>Account, operator console, previews</td><td><code>/account/</code>, <code>/ops/</code>, <code>/review/&#x3C;token></code></td><td>Never</td></tr></tbody></table></div>
+<p>Titles and descriptions are unique. The HTML carries real content with ordinary links, alt text written from verified facts, breadcrumbs, Open Graph tags and a sitemap index restricted to published canonical pages, with truthful <code>lastmod</code> values. Structured data matches what each page actually is. A sold offer stays visible with its state and alternatives for a set period and then returns 410, and model pages remain after individual offers sell.</p>
+<h3 id="142-content">14.2 Content</h3>
+<p>Guides, regional copy and page blocks live in the database with revisions and approval, edited in Markdown in the operator console. The first draft put MDX in the repository, which would have made every article a developer task. Ben’s decade of experience is the moat: the recorded interviews (Tuesdays) become the guides on <em>what a move really costs</em>, <em>why 1976 matters</em>, <em>reading a park’s rules</em> and <em>selling without a dealer</em>. AI helps with transcription and editing. It does not write the guides.</p>
+<h3 id="143-media">14.3 Media</h3>
+<ul>
+<li><strong>Upload:</strong> scoped, short-lived uploads into private R2. Type, size and decoded pixel limits are validated by content.</li>
+<li><strong>Originals:</strong> EXIF and location data are stripped from public derivatives, and originals are kept as restricted evidence.</li>
+<li><strong>Hashing:</strong> perceptual hashes are computed on ingest (§6.6, §15).</li>
+<li><strong>Derivatives:</strong> bounded sizes with explicit dimensions, a prioritized hero image and lazy loading below the fold.</li>
+<li><strong>Takedown:</strong> withdrawal revokes access at the origin, purges the CDN and leaves a tombstone so a retry cannot republish the file.</li>
+<li><strong>Open decision:</strong> a representative media spike decides between Cloudflare Images transformations and precomputed derivatives.</li>
+</ul>
+<h3 id="144-migrating-from-brilliant-directories-and-cutting-over">14.4 Migrating from Brilliant Directories and cutting over</h3>
+<ol>
+<li>Export what BD actually provides: listings, contacts, images with their rights, URLs, metadata and DNS records. Keep the original export read-only.</li>
+<li>Treat old listings as unverified until the owner confirms them. Transfer no accounts or passwords, and invite owners to claim instead.</li>
+<li>Inventory the DNS zone (mail, SPF, DKIM, DMARC, verification records, DNSSEC and any third-party subdomains). Copy it and check it before switching nameservers, and coordinate DS records with the registrar if DNSSEC is on.</li>
+<li>Build on a protected preview hostname that is not indexed. The DNS move and the website origin switch are separate changes.</li>
+<li>Map old URLs to new ones and test apex and <code>www</code> behaviour, HTTPS, mail, search and contact.</li>
+<li>Cut over after a data snapshot, freezing legacy writes during the window.</li>
+<li>Watch errors, contact routes, indexing and mail. A fallback to BD must account for anything created on the new platform, because BD is not a synchronized backup.</li>
+</ol>
+<p>The newsletter list turned out to be 789 addresses, exported from Wix and collected through the old site’s sign-up form under a policy covering newsletters and updates. It is mailed once, from Ben, when the new site has homes on it, from a separate marketing subdomain, with an unsubscribe link and the suppression list honoured.</p>
+<h2 id="15-trust-safety-and-legal-posture">15. Trust, safety and legal posture</h2>
+<ul>
+<li><strong>Venue, not seller.</strong>
+<ul>
+<li>The terms of service, page copy and attribution say who is selling.</li>
+<li>Descriptions generated from facts are approved by the owner before they appear on mirrored or managed offers.</li>
+<li>Third-party content is the seller’s.</li>
+<li>A copyright agent is registered for notices about photos.</li>
+</ul>
+</li>
+<li><strong>Verification levels,</strong> shown as badges: email → phone → licence-verified business → optional identity verification for private sellers through a provider. <em>“Every listing on this site is checked”</em> is claimed only once the checks exist and run.</li>
+<li><strong>Moderation.</strong>
+<ul>
+<li>Automated checks for duplicates, fraud patterns and prohibited content.</li>
+<li><strong>Fair-housing language screening:</strong> advertising that states a preference by familial status is blocked unless the community has claimed the housing-for-older-persons exemption. That exemption requires at least 80% of occupied units to have a resident aged 55 or over, published policies, and age verification. The claim is recorded and shown as the park’s own statement. The advertising rule (42 USC 3604(c)) applies to the notice itself, which is why submitted text is screened rather than trusted.</li>
+<li>A human queue for everything flagged.</li>
+</ul>
+</li>
+<li><strong>Fraud signals:</strong>
+<ul>
+<li>Photo hashes reused by unrelated sellers.</li>
+<li>Prices far below comparables.</li>
+<li>Velocity of new accounts.</li>
+<li>Relay messages asking for payment before a viewing or off the platform.</li>
+<li>Clear buyer warnings, and a report route on every page.</li>
+</ul>
+</li>
+<li><strong>Questions for Ben’s attorney,</strong> who is already booked for seller identity:
+<ol>
+<li>Indexing dealers who have not answered, meaning the public-index policy in §6.1.</li>
+<li>The final seller-identity wording.</li>
+<li>Whether any commission on home sales would trigger licensing. Washington’s definition of a “listing dealer” (RCW 46.70.011) covers being paid by a seller for finding a willing buyer, and Idaho licenses manufactured-home brokers separately from dealers. Assume <strong>no success fees on home sales</strong> unless the business holds the licence; advertising, subscriptions and flat lead fees paid by businesses are the default.</li>
+<li>Lender referrals and compensation under RESPA.</li>
+<li>The privacy notice and terms of service.</li>
+</ol>
+</li>
+<li><strong>Security.</strong>
+<ul>
+<li><strong>Access:</strong> ownership is enforced at every read and write boundary, including media, drafts, imports and jobs.</li>
+<li><strong>Data exposure:</strong> public responses are explicit projections. Separate migration and runtime roles.</li>
+<li><strong>Sessions:</strong> secure HttpOnly cookies, origin and CSRF checks, rate limits on login and claim, expiring single-use hashed tokens with a confirmation step (safe against link scanners), and stronger authentication for administrators and ownership changes.</li>
+<li><strong>Importer network access:</strong> authorized HTTPS hosts only. Private, local and link-local addresses, credentials in URLs, unexpected ports, oversized downloads and redirects or DNS rebinding to disallowed targets are all refused. There is no general URL-fetch endpoint.</li>
+<li><strong>Untrusted content:</strong> listing HTML is escaped, rich text sanitized and documents parsed in isolation.</li>
+<li><strong>Secrets:</strong> environment-scoped, and never present in the repository, logs, room answers or analytics.</li>
+</ul>
+</li>
+<li><strong>Retention.</strong>
+<ul>
+<li><strong>Proposed defaults:</strong> abandoned anonymous drafts 7 days, unclaimed prepared drafts 30 days, raw snapshots 90 days (longer only while a dispute or permission record requires it), operational logs 30 days, and replay 30 days or less.</li>
+<li><strong>Kept longer:</strong> observations and outcomes are kept without personal data for the life of the platform.</li>
+<li><strong>Deletion and export:</strong> these cover application data, media, jobs, marketing preferences and PostHog person data. Tombstones stop imports and delayed events from recreating deleted data, and a restore re-applies deletions before exposure.</li>
+</ul>
+</li>
+</ul>
+<h2 id="16-operations-a-business-that-runs-without-ben">16. Operations: a business that runs without Ben</h2>
+<ul>
+<li><strong>The operator console is a set of queues,</strong> each with an owner role, a service level and a linked playbook:
+<ul>
+<li>claims and verification</li>
+<li>match decisions</li>
+<li>source failures and anomalies</li>
+<li>moderation and reports</li>
+<li>rule and park research</li>
+<li>relay escalations</li>
+<li>billing exceptions</li>
+</ul>
+</li>
+<li><strong>Automation-first:</strong> a person sees only what automation could not settle, and every manual action is logged so it can be automated next.</li>
+<li><strong>Roles:</strong> platform administrator and operator (Moritz at first; no assistant is planned); regional operators later, if expansion needs them. Operator permissions can be scoped to regions.</li>
+<li><strong>The efficiency target:</strong> operator minutes per live offer, reviewed monthly. The business is working when that number falls while coverage rises.</li>
+<li><strong>Self-service for owners:</strong> edit, mark sold, remove, claim, invite colleagues, connect a source, buy, cancel, download invoices.</li>
+<li><strong>Service targets:</strong>
+<ul>
+<li>Warm search p95 under 500 ms on representative data, with cold starts measured separately.</li>
+<li>Mobile p75 LCP ≤ 2.5 s, INP ≤ 200 ms and CLS ≤ 0.1, measured on real visits.</li>
+<li>An owner’s sold action takes effect immediately, followed by a cache purge.</li>
+<li>No accepted job is ever without a persisted status.</li>
+<li>RPO ≤ 24 h through an independent daily backup; RTO ≤ 4 h during staffed hours, proven by a rehearsed restore.</li>
+<li>Alert when the job backlog passes 15 minutes.</li>
+</ul>
+</li>
+<li><strong>Failure behaviour:</strong>
+<ul>
+<li>PostHog down: the application continues.</li>
+<li>A source down or changed: approved content is kept, source health is marked, and nothing is mass-marked sold.</li>
+<li>Database down: writes fail clearly and never show “saved”.</li>
+<li>Jobs stalled: the work stays in Postgres and resumes when the worker restarts.</li>
+<li>Email down: retried, and identity proof is never bypassed.</li>
+<li>AI down: adapters and manual review continue.</li>
+<li>Image variants failing: previously made variants or a placeholder, never originals.</li>
+</ul>
+</li>
+<li><strong>Alerting:</strong> Moritz receives infrastructure alerts. Ben receives a weekly business summary, never a pager. Name a backup operator before promising continuous support.</li>
+<li><strong>Backups and portability:</strong> a nightly encrypted logical backup and media manifest to R2 under separate credentials, plus server snapshots; when Postgres moves to a managed service, its restore window adds to this. R2 lifecycle rules match the recovery needs. Restores are rehearsed before launch and after major schema changes. Exports are standard Postgres plus media keys.</li>
+<li><strong>Delivery practice:</strong>
+<ul>
+<li>Local Postgres and PostGIS with synthetic fixtures.</li>
+<li>A staging hostname with isolated data, buckets and secrets, email suppression and production analytics off.</li>
+<li>CI runs the test suite, RuboCop, Brakeman, migration checks, the extraction evaluation (on adapter or prompt changes) and system tests of the seller and buyer paths. Kamal deploys without downtime.</li>
+<li>The server runs unattended security updates, and disk, memory and backup freshness are monitored.</li>
+<li>Additive migrations that work with both the old and new versions; idempotent seeds.</li>
+</ul>
+</li>
+</ul>
+<h3 id="repository-shape">Repository shape</h3>
+<pre><code class="language-text">app/
+  models/           one namespace per module (§4): catalogue, homes, market, supply, places…
+  services/         domain services and rules
+  controllers/      public pages, seller workspace, operator console (/ops)
+  views/            ERB with Turbo; components where they pay
+  jobs/             source runs, extraction, digests, roll-ups, backups
+  mailboxes/        enquiry relay and forwarded inventory (Action Mailbox)
+config/
+  recurring.yml     schedules
+  deploy.yml        Kamal
+db/                 migrations, PostGIS SQL, seeds
+eval/               labelled pages and extraction benchmarks
+docs/               architecture and decision records
+</code></pre>
+<h2 id="17-roadmap">17. Roadmap</h2>
+<p><strong>Principles.</strong> Code is the fast clock. Dealer permission, catalogue curation, park and county research, the attorney, newsletter consent and trust are the slow clocks, so they start in the first week. Every phase ships to production. Each phase’s signals decide <em>where effort goes next</em>. They are not permission to build.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-scroll" role="region" aria-label="Plan table" tabindex="0"><table><thead><tr><th>Phase</th><th>Window</th><th>Theme</th><th>Exit signals</th></tr></thead><tbody><tr><td>1.0</td><td>This week</td><td>Dealer sign-up and first homes</td><td>Ben can send the sign-up link; the first dealers’ homes live; his test query works; DNS on Cloudflare</td></tr><tr><td>1</td><td>October</td><td>Live in three states</td><td>Hundreds of homes live across tiers; Ben’s acceptance query works; measured traffic; BD retired</td></tr><tr><td>2</td><td>Months 2–3</td><td>Compare and return</td><td>Model comparison live with delivered-cost ranges; alerts sending; parks and providers seeded</td></tr><tr><td>3</td><td>Months 3–6</td><td>Earn</td><td>Paid products self-serve; <strong>$1,000 a month</strong>; first leads accepted by providers</td></tr><tr><td>4</td><td>Months 6–24</td><td>Deepen and replicate</td><td>Feasibility for high-demand counties; valuation; manufacturer programme; second region; <strong>$5,000+ a month</strong></td></tr><tr><td>5</td><td>Years 2–10</td><td>National</td><td>Region playbook repeated; national brand; partner API; transaction services</td></tr></tbody></table></div>
+<h3 id="version-10-dealer-sign-up-and-first-homes-this-week">Version 1.0: dealer sign-up and first homes (this week)</h3>
+<p>The smallest release that lets Ben sign dealers up, on the full plan’s schema and stack, so later phases add to it rather than replace it.</p>
+<ul>
+<li><strong>Dealer sign-up</strong> at <code>pnwmobilehomes.com/join</code>: business, inventory page, contact, the choice of tier, and plain-language terms. Ben can fill it in during a call for a verbal yes. Every sign-up notifies Ben and Moritz, and the form is the permission record (§6.1).</li>
+<li><strong>Import:</strong> fetch the dealer’s inventory page, extract with AI into typed fields, deduplicate, and publish at the chosen tier. Moritz approves each dealer’s first import with one click; after that, a daily re-check runs, and partial runs never remove anything. Observations are recorded from the first run.</li>
+<li><strong>Listing a home yourself</strong> with an emailed sign-in link: add a home with photos, edit it, mark it sold. This covers Ben’s own homes, private sellers and dealers without a website.</li>
+<li><strong>Search</strong> with price, beds, baths, year, size, width, new or used, must-be-moved, and ZIP plus radius, so Ben’s test query passes. Home and dealer pages, and a homepage.</li>
+<li><strong>Contact:</strong> tracked click-outs for linked homes, and an enquiry form that emails the seller for self-listed ones.</li>
+<li><strong>Measurement</strong> from the first week: PostHog, plus our own view and click-out counts per home and dealer.</li>
+<li><strong>Legal pages:</strong> terms, privacy and removal requests, as plain-language drafts for the attorney to review.</li>
+<li><strong>Not in 1.0:</strong> comparison, alerts, parks, providers, payments, feasibility, the masked relay and Spanish, all in later phases.</li>
+<li><strong>Running cost:</strong> one small server (about $5–10 a month). Everything else sits in free allowances, and the one-off AI import is covered by the month-one fee.</li>
+<li><strong>Already done:</strong> the Cloudflare zone with every existing record copied, and Email Routing addresses. The nameserver switch is the last step.</li>
+</ul>
+<h3 id="phase-1-live-in-three-states-october">Phase 1: live in three states (October)</h3>
+<p><strong>What gets built:</strong></p>
+<ul>
+<li>Tables for the catalogue, homes, organizations, market (all tiers), places (regions, jurisdictions, a minimal park table), provenance, engagement (click-outs, enquiries) and measurement.</li>
+<li>Vendor adapters plus the generic extractor, daily sync and observations from the first run.</li>
+<li>Catalogue seeds for the manufacturers dealers carry, with Moritz confirming matches in the operator console.</li>
+<li>The seller workspace (managed offers, approvals, sold and withdrawn) and the private-seller camera flow.</li>
+<li>Search with Ben’s acceptance query and filters; offer, dealer, model (without the comparison layer), state and county pages.</li>
+<li>The enquiry relay; first-party counts and PostHog; the operator console queues for claims, matches, source failures and moderation.</li>
+<li>Media, SEO foundations, the BD migration and the cutover.</li>
+</ul>
+<p><strong>Targets.</strong> These depend on Ben’s calls, since supply is his side of the work:</p>
+<ul>
+<li>At least 25 dealer locations granting index or mirror permission, and 300 or more homes live across tiers.</li>
+<li>Ben’s own current and past homes live as managed offers.</li>
+<li>At least one private seller completing the flow unaided.</li>
+<li>At least 80% of new-home offers matched to a catalogue variant.</li>
+<li>A real weekly audience number.</li>
+</ul>
+<h3 id="phase-2-compare-and-return-months-23">Phase 2: compare and return (months 2–3)</h3>
+<ul>
+<li>The comparison layer on model pages, with delivered-and-set ranges from transport rate cards and the county distance matrix.</li>
+<li>Saved searches and alerts; favourites and comparisons.</li>
+<li>Newsletter relaunch, if consent checks pass.</li>
+<li>Park records seeded from registries, with park pages and claims; provider profiles seeded from licence registries, with service areas and quote requests.</li>
+<li>Weekly seller reports; the claim-to-managed flow and scheduled sync with owner delegation.</li>
+<li>Spanish-ready strings.</li>
+</ul>
+<h3 id="phase-3-earn-months-36">Phase 3: earn (months 3–6)</h3>
+<ul>
+<li>Stripe plans, entitlements and self-serve checkout.</li>
+<li>Featured placement, the dealer pro plan and provider plans.</li>
+<li>County and category sponsorships with first-party reports.</li>
+<li>Park vacancy offers.</li>
+<li>Second-need detection and consented leads for transport and setup.</li>
+<li>Feasibility version 1 for the counties that search demand ranks highest.</li>
+<li>SMS and WhatsApp intake.</li>
+</ul>
+<h3 id="phase-4-deepen-and-replicate-months-624">Phase 4: deepen and replicate (months 6–24)</h3>
+<ul>
+<li>Feasibility expanded county by county, and buyer projects end to end.</li>
+<li>Valuation from comparables.</li>
+<li>The lender and insurer directory, with the compensation model counsel approves.</li>
+<li>The manufacturer programme and catalogue feeds; market insights for dealers; masked phone numbers.</li>
+<li>Spanish for buyers, if demand shows.</li>
+<li><strong>The second region, launched from the playbook</strong>, and the decision on a national brand.</li>
+</ul>
+<h3 id="phase-5-national-years-210">Phase 5: national (years 2–10)</h3>
+<ul>
+<li>The region playbook repeated, with regional operators or partners.</li>
+<li>A partner API and syndication feeds, so dealers list once and publish everywhere.</li>
+<li>Transaction services through a licensed partner.</li>
+<li>Data partnerships.</li>
+<li>A national brand fronting regional pages.</li>
+</ul>
+<h3 id="evidence-required-before-each-public-launch">Evidence required before each public launch</h3>
+<ul>
+<li>Same-model offers from two dealers stay separate, and a used home can exist with no known model.</li>
+<li>Two sources describing one home produce one physical home, a merge can be reversed, and two dealers’ offers of one model never merge.</li>
+<li>No offer’s tier exceeds its authorization, and revoking an authorization demotes the offer immediately and purges its media.</li>
+<li>Isolation between sellers holds for offer IDs, imports, claims, media and jobs.</li>
+<li>Replayed runs and duplicate queue deliveries create neither duplicates nor repeated first-publication events. Seller edits survive changes at the source, an old run cannot overwrite a newer one, and a failed or partial run never means sold.</li>
+<li>No draft, private address, HUD label, serial, token or document leaks through server rendering, JSON, media, caches, replay, errors or analytics.</li>
+<li>The acceptance query behaves correctly at its boundaries, including the labels for stock versus factory order and for price uncertainty.</li>
+<li>Search, contact and enquiries work with analytics blocked and with PostHog unavailable.</li>
+<li>Backups restore, rollbacks preserve accepted writes, and DNS and mail checks pass.</li>
+<li>Ben and at least one dealer complete their real workflows without Moritz editing database rows for them.</li>
+</ul>
+<h2 id="18-costs-by-stage">18. Costs by stage</h2>
+<p>These are planning allowances, not quotes. Rates were checked on 28 September 2026 against vendor pages; see the notes after the table.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-scroll" role="region" aria-label="Plan table" tabindex="0"><table><thead><tr><th>Component</th><th>1.0 (this week)</th><th>PNW with revenue products</th><th>Several regions</th><th>National</th></tr></thead><tbody><tr><td>Server with Postgres (VPS, Kamal)</td><td>$5–10</td><td>$10–25</td><td>$40–150</td><td>$300–1,500</td></tr><tr><td>Managed Postgres, once moved off the server</td><td>—</td><td>—</td><td>$70–250</td><td>$300–1,200</td></tr><tr><td>Cloudflare: DNS, CDN, Email Routing</td><td>$0</td><td>$0</td><td>$0–25</td><td>$25–200</td></tr><tr><td>R2 storage and operations</td><td>$0 (free allowance)</td><td>$1–10</td><td>$10–40</td><td>$50–200</td></tr><tr><td>Browser Rendering</td><td>$0</td><td>$0–15</td><td>$15–60</td><td>$100–400</td></tr><tr><td>AI extraction and judgments</td><td>About $20 once, then cents a day</td><td>$15–50</td><td>$50–250</td><td>$500–3,000</td></tr><tr><td>Email (transactional and marketing)</td><td>$0 (free tier)</td><td>$0–35</td><td>$35–100</td><td>$100–500</td></tr><tr><td>SMS or masked phone numbers</td><td>—</td><td>$0–30</td><td>$30–150</td><td>$150–1,000</td></tr><tr><td>PostHog</td><td>$0</td><td>$0–50</td><td>$50–300</td><td>$300–1,500</td></tr><tr><td>Backups, ZIP and geography data</td><td>$0</td><td>$0–10</td><td>$10–40</td><td>$50–200</td></tr><tr><td><strong>Total per month</strong></td><td><strong>≈ $5–10</strong>, plus the one-off import</td><td><strong>≈ $25–225</strong></td><td><strong>≈ $310–1,370</strong></td><td><strong>≈ $1,900–9,700</strong></td></tr></tbody></table></div>
+<p><strong>Notes on the estimates.</strong></p>
+<ul>
+<li><strong>AI extraction.</strong> At current Anthropic list prices (Claude Sonnet 5 at $2 per million input tokens and $10 per million output tokens; Claude Haiku 4.5 at $1 and $5; the Batch API at half price), extracting a page of about 6,000 input and 1,000 output tokens costs roughly $0.02 on Sonnet 5.
+<ul>
+<li><strong>Initial extraction:</strong> about 800 pages for 65 dealers, or about $20.</li>
+<li><strong>Daily re-sync:</strong> about $0.50–1.00 a day after content hashing, lower with batching.</li>
+<li><strong>National scale:</strong> cost is kept down by vendor adapters, not by head count.</li>
+</ul>
+</li>
+<li><strong>Cloudflare list prices checked 28 September:</strong>
+<ul>
+<li>DNS, CDN and Email Routing are free.</li>
+<li>R2 includes 10 GB a month free, then costs $0.015 per GB-month.</li>
+<li>Browser Rendering gives 10 minutes a day on the free plan; on Workers Paid ($5 a month), 10 browser-hours a month are included, then $0.09 an hour.</li>
+<li>Email Service (in beta, Workers Paid) includes 3,000 emails a month, then costs $0.35 per 1,000.</li>
+</ul>
+</li>
+<li><strong>The server:</strong> a small US VPS; Hetzner’s Hillsboro, Oregon location suits a PNW audience. Confirm the current price when ordering.</li>
+<li><strong>Neon Launch, for later:</strong> $0.106 per CU-hour and $0.35 per GB-month, with always-on compute available.</li>
+<li><strong>PostHog’s free allowances:</strong> 1 million events, 5,000 recordings, 1 million flag requests and 100,000 exceptions a month.</li>
+<li><strong>Stripe:</strong> its fees are a percentage of revenue and sit outside this table.</li>
+<li><strong>Who pays:</strong> running costs are Ben’s, and small at the start. The month-one fee covers AI spend. Infrastructure starts in Moritz’s accounts, registered to <code>ops@pnwmobilehomes.com</code>, so a later handover changes billing and forwarding, not logins.</li>
+<li><strong>Review:</strong> check actual usage weekly during phase 1. Cut replay and speculative enrichment before touching inventory integrity or recovery.</li>
+</ul>
+<h2 id="19-risks-and-open-decisions">19. Risks and open decisions</h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-scroll" role="region" aria-label="Plan table" tabindex="0"><table><thead><tr><th>Risk or decision</th><th>Owner</th><th>Needed by</th></tr></thead><tbody><tr><td>Dealers say yes to index or mirror permission when Ben calls</td><td>Ben</td><td>Phase 1 supply</td></tr><tr><td>Attorney: public-index policy, seller identity, commissions and licensing, lender referrals, privacy notice</td><td>Ben + attorney</td><td>Phase 1 launch (index and identity); phase 3 (commissions, leads)</td></tr><tr><td>Handover path to Ben’s entity (infrastructure starts in Moritz’s accounts, registered to <code>ops@pnwmobilehomes.com</code>)</td><td>Moritz + Ben</td><td>Before revenue starts</td></tr><tr><td>AI and crawl spending caps</td><td>Moritz</td><td>1.0</td></tr><tr><td>Operator workload without an assistant: match decisions, first-import approvals, claims</td><td>Moritz</td><td>Handled by automation first; measured as operator minutes per live offer</td></tr><tr><td>Running one server: patching, disk, backups</td><td>Moritz</td><td>Handled by unattended updates, Kamal, nightly off-site backups and monitoring</td></tr><tr><td>Newsletter source, consent and suppression history</td><td>Ben</td><td>Before any mailing</td></tr><tr><td>National brand and company naming</td><td>Ben</td><td>Before the second region</td></tr><tr><td>One technical person. Mitigations: runbooks, tests, decision records, and a second engineer before phase 4</td><td>Moritz</td><td>Ongoing</td></tr><tr><td>Month one spent building while no one does outreach</td><td>Ben (demand)</td><td>Weekly: supply and audience numbers against targets</td></tr><tr><td>Dealer websites block or change</td><td>Moritz</td><td>Handled in code by vendor adapters, partial-run safety and health alerts</td></tr><tr><td>Gaps in rule coverage read as answers</td><td>Moritz</td><td>Handled by expiry, “unknown” never read as clear, and published coverage</td></tr></tbody></table></div>
+<p><strong>The risk that matters most is unchanged.</strong> A working platform with no dealers saying yes is a platform problem that was never the real problem. That is why the first week builds the survey and the permission call script alongside the code.</p></main>
+<footer>Generated from the architecture Markdown source. Proposed technical design for the whole platform; the room records the agreed product and commercial decisions.<br>Source SHA-256: <code>3c736fe646b51ef74fb6a2e3e73ecf4e45eaedb866e0bbe5db96a7b8d2e936e6</code></footer></body></html>

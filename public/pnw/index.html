@@ -12,7 +12,7 @@
   <meta property="og:url" content="https://statecraft.systems/pnw/">
   <link rel="canonical" href="https://statecraft.systems/pnw/">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="/pnw/project.css?v=14">
+  <link rel="stylesheet" href="/pnw/project.css?v=18">
 </head>
 <body>
 <a class="skip" href="#main">Skip to project</a>
@@ -20,24 +20,42 @@
 <div class="save-pill" id="save-pill" role="status" aria-live="polite"></div>
 <main id="main"><form class="decision-form" id="decision-form">
 <section id="now" aria-labelledby="room-title">
-<p class="status">For your review · v0.4 · A letter from Moritz</p>
-<p class="updated">Updated 26 September 2026</p>
+<p class="status">For your review · v0.5 · A letter from Moritz</p>
+<p class="updated">Updated 29 September 2026</p>
 <h1 id="room-title">PNW Mobile Homes.</h1>
-<p class="intro">Ben, your ten-year national vision sets the foundations; our $500 first month gets a usable marketplace live in WA, OR and ID.</p>
-<p>You answered the room. The decisions still guide the work; the original letter is in <a href="#record">the record</a>. Access is the one thing that blocks me.</p>
-<p class="actions"><a class="button blocking" href="#access-steps">Give me access ↓</a><a href="#month-one">Read month one</a></p>
-<article id="decision-tasks" data-field="tasks" class="live-tasks">
-<h3>This week, from you</h3>
-<ol id="live-tasks"><li data-task="task.bd" data-done-label="BD invitation sent"><a class="task-label" href="#access-steps">Invite me to Brilliant Directories</a><button type="button" class="pick task-toggle" data-k="task.bd" data-v="done" aria-pressed="false" data-action-label="Invited" aria-label="Invited: Invite me to Brilliant Directories">Invited</button></li>
-<li data-task="task.dns" data-done-label="Domain access shared"><a class="task-label" href="#access-steps">Share Namecheap domain access</a><button type="button" class="pick task-toggle" data-k="task.dns" data-v="done" aria-pressed="false" data-action-label="Invited" aria-label="Invited: Share Namecheap domain access">Invited</button></li>
-<li data-task="task.pay" data-done-label="First month paid"><a class="task-label" href="#decision-pay">Pay the first month, $500</a><button type="button" class="pick task-toggle" data-k="task.pay" data-v="done" aria-pressed="false" data-action-label="Sent" aria-label="Sent: Pay the first month">Sent</button></li>
-<li data-task="task.newsletter" data-done-label="Newsletter details answered"><a class="task-label" href="#decision-newsletter">Locate the newsletter list and consent wording</a><button type="button" class="pick task-toggle" data-k="task.newsletter" data-v="done" aria-pressed="false" data-action-label="Answered" aria-label="Answered: Locate the newsletter list and consent wording">Answered</button></li>
-<li data-task="task.attorney" data-done-label="Attorney booked"><a class="task-label" href="#decision-dates">Book the attorney</a><button type="button" class="pick task-toggle" data-k="task.attorney" data-v="done" aria-pressed="false" data-action-label="Booked" aria-label="Booked: Book the attorney">Booked</button></li>
-<li data-task="task.interview" data-done-label="Interview date sent"><a class="task-label" href="#decision-dates">Choose a Tuesday for our interview</a><button type="button" class="pick task-toggle" data-k="task.interview" data-v="done" aria-pressed="false" data-action-label="Date sent" aria-label="Date sent: Choose a Tuesday for our interview">Date sent</button></li></ol>
+<p class="intro">Ben, thanks for Monday. Version 1.0 of the new site goes live this week, built to get dealers’ homes onto it.</p>
+<p>Everything I need from you is in the numbered list below. Each step saves as you type or tap; the rest of the page is background for when you have time. Access is done, thank you.</p>
+<div id="decision-tasks" class="live-tasks your-turn">
+<div class="your-turn-head"><h3>Your turn</h3><p id="tasks-progress" aria-live="polite"></p></div>
+<div class="turn-progress" aria-hidden="true"><span id="tasks-bar"></span></div>
+<ol id="live-tasks"><li data-task="task.dealers" data-done-label="Dealer list sent"><article id="decision-dealers" data-field="dealers" class="task-card"><div class="task-head"><h3><a class="task-label" href="#decision-dealers">Send me your dealer list</a></h3></div>
+<div class="task-body"><p>Name, website, phone or contact, and how well you know them. Paste it here or email a spreadsheet to <a href="mailto:contact@statecraft.systems">contact@statecraft.systems</a>; rough is fine. With it, each dealer’s homes are ready the moment they say yes.</p>
+<label class="extra">Your dealers<textarea name="dealer_list" placeholder="One per line: name, website, contact, how well you know them"></textarea></label>
+<details class="task-more"><summary>What to ask them</summary><blockquote class="story-quote">“Can we show the homes you already have on your website and send interested buyers straight to you? No cost, nothing for you to maintain, and you can pull out any time. If you’re happy for us to use your photos too, your homes show up much better.”</blockquote><p class="note">The sign-up link for dealers arrives in the next day or two. Until then, note who said yes and whether that included photos.</p></details></div><div class="task-foot"><button type="button" class="pick task-toggle" data-k="task.dealers" data-v="done" aria-pressed="false" data-action-label="I’ve sent it" aria-label="I’ve sent it: Send me your dealer list">I’ve sent it</button></div></article></li><li data-task="task.design" data-done-label="Thoughts on the look sent"><article id="decision-design" data-field="design" class="task-card"><div class="task-head"><h3><a class="task-label" href="#decision-design">Tell me what you think of three starting looks</a></h3></div>
+<div class="task-body"><p>Starting points, not a menu: mix them, change them, or throw them all away. Each opens in a new tab with four screens to click through: the homepage, a search set to your 3-bed, 2-bath, under-$180,000 test, a home’s page and the dealer sign-up. The homes are made up.</p>
+<div class="look-tiles">
+<a class="look" href="/pnw/prototypes/a-oversize.html" target="_blank" rel="noopener"><span class="sw"><i style="background:#111"></i><i style="background:#ffd200"></i><i style="background:#f5f4ef"></i></span><b>A · Oversize Load</b><small>Bold black and road-sign yellow</small></a>
+<a class="look" href="/pnw/prototypes/b-evergreen.html" target="_blank" rel="noopener"><span class="sw"><i style="background:#1f4d3a"></i><i style="background:#f6f2ea"></i><i style="background:#b4552d"></i></span><b>B · Evergreen</b><small>Warm, calm, photo-led, your voice</small></a>
+<a class="look" href="/pnw/prototypes/c-board.html" target="_blank" rel="noopener"><span class="sw"><i style="background:#16202a"></i><i style="background:#1d5fd1"></i><i style="background:#f4f6f8"></i></span><b>C · Market board</b><small>Dense and factual, like Kayak</small></a>
+</div>
+<p class="rank-label">Which is closest to what you have in mind, if any?</p>
+<div class="pick-list" role="radiogroup" aria-label="Closest starting point">
+<button type="button" class="pick" data-k="design.pick" data-v="oversize" aria-pressed="false"><strong>A · Oversize Load</strong></button>
+<button type="button" class="pick" data-k="design.pick" data-v="evergreen" aria-pressed="false"><strong>B · Evergreen</strong></button>
+<button type="button" class="pick" data-k="design.pick" data-v="board" aria-pressed="false"><strong>C · Market board</strong></button>
+<button type="button" class="pick" data-k="design.pick" data-v="mix" aria-pressed="false"><strong>A mix</strong><span>Say which parts below.</span></button>
+<button type="button" class="pick" data-k="design.pick" data-v="nolook" aria-pressed="false"><strong>None of them</strong><span>Say what you picture instead.</span></button>
+</div>
+<label class="extra">What you like, what you would change, and any sites whose look you like<textarea name="design_note" placeholder="Colours, how the homes are shown, sites you like the look of, what a buyer or dealer would think…"></textarea></label></div><div class="task-foot"><button type="button" class="pick task-toggle" data-k="task.design" data-v="done" aria-pressed="false" data-action-label="I’ve answered" aria-label="I’ve answered: Tell me what you think of three starting looks">I’ve answered</button></div></article></li><li data-task="task.subscribers" data-done-label="Subscriber list emailed"><article id="decision-subscribers" data-field="subscribers" class="task-card"><div class="task-head"><h3><a class="task-label" href="#decision-subscribers">Email me the 789-subscriber CSV</a></h3></div>
+<div class="task-body"><p>To <a href="mailto:contact@statecraft.systems">contact@statecraft.systems</a>, not WhatsApp. It gets one announcement from you once the site has homes on it, with an unsubscribe link.</p></div><div class="task-foot"><button type="button" class="pick task-toggle" data-k="task.subscribers" data-v="done" aria-pressed="false" data-action-label="I’ve emailed it" aria-label="I’ve emailed it: Email me the 789-subscriber CSV">I’ve emailed it</button></div></article></li><li data-task="task.attorney" data-done-label="Attorney booked"><article id="decision-dates" data-field="dates" class="task-card"><div class="task-head"><h3><a class="task-label" href="#decision-dates">Book the attorney</a></h3></div>
+<div class="task-body"><label class="extra">Attorney appointment<input type="text" name="task_attorney_date" placeholder="Date, or still to book"></label>
+<details class="task-more"><summary>Five things to ask, so one appointment covers them</summary><ol><li>Whether the site may show a dealer’s public listings, linked back to them, before they have answered us.</li><li>The wording that makes clear the dealership is not the seller.</li><li>Whether taking a cut of a home sale would need a dealer or broker licence.</li><li>Whether lenders may pay per referral, or only a flat advertising fee.</li><li>The site’s terms and privacy policy; I will send plain-language drafts.</li></ol></details></div><div class="task-foot"><button type="button" class="pick task-toggle" data-k="task.attorney" data-v="done" aria-pressed="false" data-action-label="It’s booked" aria-label="It’s booked: Book the attorney">It’s booked</button></div></article></li><li data-task="task.pay" data-done-label="First month paid"><article data-field="task-pay" class="task-card"><div class="task-head"><h3><a class="task-label" href="#decision-pay">Pay the first month, $500</a></h3></div>
+<div class="task-body"><p>The PayPal link is in your messages. <a href="#decision-pay">Other ways, and the invoice</a>.</p></div><div class="task-foot"><button type="button" class="pick task-toggle" data-k="task.pay" data-v="done" aria-pressed="false" data-action-label="I’ve paid" aria-label="I’ve paid: Pay the first month, $500">I’ve paid</button></div></article></li><li data-task="task.bd" data-done-label="BD invitation sent"><article data-field="task-bd" class="task-card"><div class="task-head"><h3><a class="task-label" href="#access-steps">Invite me to Brilliant Directories</a></h3></div><div class="task-foot"><button type="button" class="pick task-toggle" data-k="task.bd" data-v="done" aria-pressed="false" data-action-label="I’ve invited you" aria-label="I’ve invited you: Invite me to Brilliant Directories">I’ve invited you</button></div></article></li><li data-task="task.dns" data-done-label="Domain access shared"><article data-field="task-dns" class="task-card"><div class="task-head"><h3><a class="task-label" href="#access-steps">Share Namecheap domain access</a></h3></div><div class="task-foot"><button type="button" class="pick task-toggle" data-k="task.dns" data-v="done" aria-pressed="false" data-action-label="I’ve shared it" aria-label="I’ve shared it: Share Namecheap domain access">I’ve shared it</button></div></article></li><li data-task="task.newsletter" data-done-label="Newsletter details answered"><article id="decision-newsletter" data-field="newsletter" class="task-card"><div class="task-head"><h3><a class="task-label" href="#decision-newsletter">Locate the newsletter list and consent wording</a></h3></div>
+<div class="task-body"><label class="extra">Where are they stored, and what did people consent to?<textarea name="newsletter_provenance" placeholder="Service/account; signup wording or where to find it. Say if unknown."></textarea></label></div><div class="task-foot"><button type="button" class="pick task-toggle" data-k="task.newsletter" data-v="done" aria-pressed="false" data-action-label="I’ve answered" aria-label="I’ve answered: Locate the newsletter list and consent wording">I’ve answered</button></div></article></li><li data-task="task.interview" data-done-label="Interview recorded, 28 September"><article data-field="task-interview" class="task-card"><div class="task-head"><h3><a class="task-label" href="#building">Choose a Tuesday for our interview</a></h3></div>
+<div class="task-body"><label class="extra">Which Tuesday for our recorded interview?<input type="text" name="task_interview_date" placeholder="Date and time, Pacific"></label></div><div class="task-foot"><button type="button" class="pick task-toggle" data-k="task.interview" data-v="done" aria-pressed="false" data-action-label="Done" aria-label="Done: Choose a Tuesday for our interview">Done</button></div></article></li></ol>
 <p id="tasks-empty" hidden>Everything here is done. Thank you.</p>
-<details id="tasks-done" class="done-row"><summary>Done this month</summary><ul id="done-tasks"></ul><p id="done-empty">Nothing marked done yet.</p></details>
-</article>
-<div id="access-steps" class="access-steps">
+<details id="tasks-done" class="done-row"><summary>Done this month</summary><ul id="done-tasks"></ul><p id="done-empty">Nothing marked done yet.</p>
+<details id="access-steps" class="access-steps"><summary>The access steps, for reference</summary>
 <h3>The access steps you asked for</h3>
 <ol>
 <li><strong>Brilliant Directories.</strong> Sign in to the site’s admin area and invite a second user on <strong>ops@statecraft.systems</strong> with an <strong>administrator</strong> role — it needs settings and listing data, not just content. <a href="https://bootstrap.brilliantdirectories.com/support/solutions/folders/12000005717">BD’s guide to admin users</a>. If the role names on your plan don’t match that, send me a screenshot of the options and I’ll tell you which one.</li>
@@ -45,11 +63,14 @@
 <li><strong>Then I move DNS to Cloudflare.</strong> Once I can see the zone I copy the existing records across and switch the nameservers, which is the one step you would notice. It is how I get instant record changes, free SSL, and a place to run the new site next to the old one without touching Brilliant Directories. <strong>Nothing goes live until I have checked your existing records</strong> — especially mail — so email and the current site keep working. If DNS is not actually at Namecheap today, tell me where it is and I will start there instead.</li>
 </ol>
 <p class="note">Send both invitations through those services, then mark them above. Keep passwords out of this page — I don’t need any.</p>
+<p class="note"><strong>29 September:</strong> DNS for pnwmobilehomes.com was on Brilliant Directories’ own servers, not Namecheap’s. I have copied every record across to Cloudflare, and the old site keeps running unchanged until version 1.0 replaces it. There was no email on the domain; it now gets addresses of its own.</p>
+</details></details>
 </div>
+
 <dl class="room-facts" aria-label="Agreed position for Moritz">
-<div><dt>This month</dt><dd>$500</dd></div><div><dt>Platform</dt><dd>New build</dd></div><div><dt>Demand</dt><dd>You</dd></div><div><dt>Your supply estimate</dt><dd>65 dealers / ~700 homes</dd></div>
+<div><dt>Month one</dt><dd>28 Sep – 31 Oct · $500</dd></div><div><dt>Running costs</dt><dd>Under $10/month to start</dd></div><div><dt>Demand</dt><dd>You</dd></div><div><dt>Your supply estimate</dt><dd>65 dealers / ~700 homes</dd></div>
 </dl>
-<p class="note">For my next visit: <a href="#record">decisions and source notes</a>. From me: check access, build the model/offer database, then dealer intake.</p>
+<p class="note">From me this week: the dealer sign-up link first, then dealers’ homes on the site.</p>
 <p class="note">Everything you tap saves itself. — Moritz</p>
 
       <div class="decision-actions">
@@ -69,9 +90,16 @@
 
 </section><section id="month-one" aria-labelledby="month-title">
 <h2 id="month-title">Month one.</h2>
-<p>I build the database, listings, search, imports, SEO foundations, automation and analytics — <strong>PostHog</strong>, so from the first week traffic is measured rather than estimated. You own demand: dealer calls, trades, parks and content; I help set up flyers and groups. You are never the listing administrator.</p>
-<p>Listings are free for private sellers and dealers; featured placement stays in the background. We soften stale traffic claims and pause the sponsored article. The BD licence stays yours and the existing site stays untouched while we build.</p>
-<p><strong>$500 agreed.</strong> At month end we review results and settle the ongoing structure: a small fixed amount plus a share, with numbers still open. We overlap at 6–9am your time. A working site without homes would miss the point.</p>
+<p><strong>Version 1.0 goes live this week.</strong> A dealer says yes, on a short sign-up page or to you on the phone, and within a day their homes are on the site under their name, linked back to their own website. Private sellers, and dealers without a website, list a home themselves in five minutes. Buyers search by price, size, beds, baths and distance, and your 3-bed, 2-bath, under-$180,000 test works. Traffic is measured from the first week.</p>
+<p><strong>28 September to 31 October, $500,</strong> whenever suits you. Running costs are yours and small: under $10 a month to start, rising only with use, and never without me telling you first. Listings stay free. You own demand; you are never the listing administrator.</p>
+<table class="scope-table"><caption>What comes when</caption><thead><tr><th scope="col">When</th><th scope="col">What</th></tr></thead><tbody>
+<tr><th scope="row">This week</th><td>Version 1.0: dealer sign-up, dealers’ homes from their own websites, list-your-own, search, dealer pages, enquiries, measured traffic</td></tr>
+<tr><th scope="row">October</th><td>Your own homes and the first dealers live; the old site retired; a weekly report to each dealer; the first guides, from your newsletter videos</td></tr>
+<tr><th scope="row">November–December</th><td>Compare dealers on the same model, with a delivered price; buyer alerts; parks; a directory of checked movers</td></tr>
+<tr><th scope="row">Early next year</th><td>Featured placement and dealer plans: the first $1,000 a month</td></tr>
+<tr><th scope="row">After that</th><td>What can go where, county by county; what a home is worth; a second region; $5,000+ a month</td></tr>
+</tbody></table>
+<details class="fold"><summary>Paying the first month: every way to pay, and the invoice</summary>
 <article id="decision-pay" data-field="pay" class="pay-block">
 <h3>Paying the first month</h3>
 <p>$500, whenever suits you — today or at the end of the month; the work is the same either way. <strong>Say the word and a numbered invoice follows</strong>, with whatever your bookkeeping needs on it.</p>
@@ -102,12 +130,8 @@
 </div>
 <label class="extra">Anything the invoice needs, or another way you would rather pay<textarea name="pay_note" placeholder="A company name and address, a PO number, a check, a different service…"></textarea></label>
 </article>
-<table class="scope-table"><caption>Choices expensive to reverse — and what waits</caption><thead><tr><th scope="col">This month</th><th scope="col">Later</th></tr></thead><tbody>
-<tr><th scope="row">Manufacturer → Model → Dealer → Offer; one model, many offers</th><td>Full comparison view</td></tr>
-<tr><th scope="row">One codebase; region as data</th><td>Other regions and brands</td></tr>
-<tr><th scope="row">Dealer ownership; approved imports first</th><td>Automated sync across 65 dealers</td></tr>
-<tr><th scope="row">Free listings; true-cost content outline</th><td>Monetisation, cost calculator, enquiry routing, park map, AI matching</td></tr>
-</tbody></table>
+</details>
+<details class="fold"><summary>The shape of the month, settled: nothing to tap</summary>
 <div class="decision-list"><article id="decision-plan" class="wide" data-field="plan">
           <h3>The shape of the month, settled</h3>
           <p>Nothing here needs a tap. Each of these follows from something you have already decided; they are written down so we are working from the same page.</p>
@@ -115,10 +139,11 @@
             <li><div><strong>Build the new platform this month, rather than repair the old one</strong><span>Your call, 26 September.</span></div></li>
             <li><div><strong>The model-and-dealer-offer database from the first day</strong><span>What your comparison idea needs underneath, even though the comparison view itself comes later.</span></div></li>
             <li><div><strong>Mirroring the three states first, to fill the site</strong><span>The one you picked to lead.</span></div></li>
-            <li><div><strong>Brilliant Directories stays untouched while we build</strong><span>No work sunk into it, nothing switched off, no rush to redirect.</span></div></li>
+            <li><div><strong>Brilliant Directories stays untouched until version 1.0 replaces it</strong><span>No work sunk into it. The licence stays yours.</span></div></li>
           </ul>
           <label class="extra">Anything you would move, add or cut<textarea name="plan_note" placeholder="Only if something above is in the wrong order, or missing. Otherwise leave this empty."></textarea></label>
         </article></div>
+</details>
 <p class="next-link"><a href="#building">Next: what this is ↓</a></p>
 </section><section id="building" aria-labelledby="building-title">
 <h2 id="building-title">What this is.</h2>
@@ -127,9 +152,28 @@
 <h3>Your story, in your words</h3>
 <p class="note">Ben, 26 September. This replaces <a href="#story">my rejected draft</a>.</p>
 <blockquote class="story-quote">After years working with manufactured homes, I've seen how fragmented the market is. Buyers may have to search dealer websites, Facebook, private listings and national marketplaces just to see what's available, then separately figure out transportation, setup, financing, parks and the true cost of getting the home where they need it. Dealers and private sellers are scattered across all of those places too. I want PNW Mobile Homes to bring that market together for Washington, Oregon and Idaho — one regional place to find homes, compare dealers and options, understand the process and connect directly with the people and businesses needed to make it happen. I don't want to replace dealers or become another middleman. I want to make the whole market easier to navigate.</blockquote>
-<p class="note">You front the site; we’ll record the interview on a Tuesday.</p>
-<h3>Your ten-year vision</h3>
-<p class="note">Ben, WhatsApp, 26 September 2026 — you sent this after you finished the room.</p>
+<p class="note">You front the site. Nothing from Monday’s interview goes on it without your OK.</p>
+<h3>What you said on Monday, and where it lands</h3>
+<ul class="act-list compact">
+<li><div><strong>“Credibility comes from consistency.”</strong><span>Every listing in one format, with the seller and the date last checked.</span></div></li>
+<li><div><strong>“Within 12 months… almost all dealers in the area.”</strong><span>The number I report each week: dealers live, out of 65.</span></div></li>
+<li><div><strong>Movers who take 50% up front and vanish.</strong><span>A directory of checked movers.</span></div></li>
+<li><div><strong>Benton takes homes built after 1976; King wants them nearly new.</strong><span>“Can it go here?” answers, county by county.</span></div></li>
+<li><div><strong>A step tracker from “I might” to “I’ve done it”.</strong><span>Buyer journeys, once comparison is in place.</span></div></li>
+<li><div><strong>Mobile home horror stories.</strong><span>A section of the guides.</span></div></li>
+</ul>
+<p>Your first guides already exist: your nine YouTube newsletter videos become written guides in your voice.</p>
+<h3 id="plan-summary">How it is built, and what that means for you</h3>
+<p>The full technical plan is <a href="/pnw/architecture/">written up here</a>. You don’t need to read or judge it; these are its consequences.</p>
+<ul class="act-list compact">
+<li><div><strong>The market’s database, not a listings page.</strong><span>A model exists once and every dealer’s offer attaches to it; every home keeps its price history.</span></div></li>
+<li><div><strong>Nobody types in dealers’ listings, you included.</strong><span>Homes come from dealers’ own sites, as far as each agreed. The site is never the seller.</span></div></li>
+<li><div><strong>It grows in steps, never a rebuild.</strong><span>1.0 now; comparison, parks, movers, paid placement and other regions on the same system.</span></div></li>
+<li><div><strong>It belongs to the business.</strong><span>Standard parts; the domain, data and accounts can move into your company, so it can be sold.</span></div></li>
+<li><div><strong>It earns from businesses, not home sales.</strong><span>Placement, plans, advertising, introductions. A cut of a sale likely needs a licence.</span></div></li>
+<li><div><strong>The traffic number is ours.</strong><span>We count visitors and enquiries ourselves, so advertisers see a measured audience.</span></div></li>
+</ul>
+<details class="fold"><summary>Your ten-year vision, as you sent it on 26 September: the first region of a national marketplace</summary>
 <blockquote class="story-quote vision"><p><strong>PNW Mobile Homes — Long-Term Platform Vision</strong></p>
 <p><strong>The Vision</strong><br>Build the easiest place in America to find, compare, understand and purchase a manufactured home. PNW Mobile Homes begins with Washington, Oregon and Idaho as the proving ground, but the underlying technology should be designed from the beginning so the model can expand into additional U.S. regions and ultimately nationwide.</p>
 <p><strong>What Makes It Different</strong><br>This is not intended to become another classifieds website. The platform should understand the manufactured-home market itself. A home may be a unique used/private-party listing, an individual dealer-stock home, or a manufacturer model offered by multiple dealers. The system should eventually allow a buyer to find a model and compare every participating dealer offering that same home—price, location, availability, options, delivery, setup and what's included.</p>
@@ -147,28 +191,19 @@
 <li><strong>Dealers own inventory.</strong> They control and approve it; you never maintain their listings.</li>
 <li><strong>Monetise after inventory and traffic.</strong> Free listings now; revenue options follow usage.</li>
 </ol>
+</details>
 <p class="next-link"><a href="#still">Next: still live ↓</a></p>
 </section><section id="still" aria-labelledby="still-title">
 <h2 id="still-title">Still live.</h2>
 <div class="decision-list">
 <article id="decision-identity-revisit" data-field="identity-revisit">
-<h3>Seller identity — reopened</h3>
-<p>You wrote: “I'm not really sure about that either. I will do more research as well for that.” Your <a href="#decision-identity">original yes</a> remains in the record.</p>
-<p>After your research, should the dealership come off the listings?</p>
+<h3>Seller identity: yes, after the attorney</h3>
+<p>You chose to take the dealership off the listings once the attorney has seen the wording; the new site shows each home’s real seller from day one. Change your answer here if that has moved.</p>
 <div class="pick-list" role="group" aria-label="Identity after research">
 <button type="button" class="pick" data-k="identity.revisit" data-v="yes" aria-pressed="false">Yes, after attorney review</button>
 <button type="button" class="pick" data-k="identity.revisit" data-v="no" aria-pressed="false">No</button>
 <button type="button" class="pick" data-k="identity.revisit" data-v="researching" aria-pressed="false">Still researching</button>
 </div>
-</article>
-<article id="decision-newsletter" data-field="newsletter">
-<h3>The ~4,000 newsletter addresses</h3>
-<label class="extra">Where are they stored, and what did people consent to?<textarea name="newsletter_provenance" placeholder="Service/account; signup wording or where to find it. Say if unknown."></textarea></label>
-</article>
-<article id="decision-dates" data-field="dates">
-<h3>Two dates for this week</h3>
-<label class="extra">Attorney appointment<input type="text" name="task_attorney_date" placeholder="Date, or still to book"></label>
-<label class="extra">Which Tuesday for our recorded interview?<input type="text" name="task_interview_date" placeholder="Date and time, Pacific"></label>
 </article>
 </div>
 <p class="next-link"><a href="#record">Next: the record ↓</a></p>
@@ -876,5 +911,5 @@ I also do not want myself or PNW staff manually maintaining dealer inventory. De
 <dt>outreach note</dt><dd><blockquote>Certainly in Facebook groups and marketplace etc</blockquote></dd></dl></div></details><p class="note">Everything you tap still saves itself.</p></section>
 </form></main>
 <footer><a href="/">Statecraft Systems</a><span>Project room for Ben · Updated 26 September 2026</span></footer>
-<script src="/pnw/project.js?v=14" defer></script>
+<script src="/pnw/project.js?v=17" defer></script>
 </body></html>

@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>PNW prototypes</title>
+<style>
+:root{--paper:#f3f3ef;--ink:#1b1f1d;--muted:#5a605c;--line:#d5d8d2}
+@media (prefers-color-scheme:dark){:root{--paper:#161816;--ink:#e8eae6;--muted:#a0a69f;--line:#343834}}
+body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.55 system-ui,sans-serif}
+main{max-width:960px;margin:auto;padding:32px 16px 60px}h1{font-size:1.8rem;margin:0 0 6px}p{color:var(--muted);max-width:66ch}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;margin-top:22px}
+a.card{display:block;text-decoration:none;color:inherit;border:1px solid var(--line);border-radius:12px;overflow:hidden;background:color-mix(in srgb,var(--paper) 70%,white)}
+.sw{height:96px;display:flex}.sw span{flex:1}.body{padding:14px 16px}.body h2{font-size:1.15rem;margin:0 0 4px}.body p{margin:0;font-size:.93rem}
+ul{color:var(--muted);padding-left:20px}
+</style>
+</head>
+<body><main>
+<h1>Version 1.0: three directions</h1>
+<p>The same four screens in three looks: homepage, search (preset to “3+ bed, 2 bath, under $180,000, within 200 miles of 98901”), a home’s page, and the dealer sign-up. The data is sample data and the photos are drawn stand-ins.</p>
+<div class="grid">
+<a class="card" href="a-oversize.html"><div class="sw"><span style="background:#111"></span><span style="background:#ffd200"></span><span style="background:#f5f4ef"></span></div><div class="body"><h2>A · Oversize Load</h2><p>Black and road-sign yellow from the banner every one of these homes travels behind. Bold, industrial, unmistakably this market.</p></div></a>
+<a class="card" href="b-evergreen.html"><div class="sw"><span style="background:#1f4d3a"></span><span style="background:#f6f2ea"></span><span style="background:#b4552d"></span></div><div class="body"><h2>B · Evergreen</h2><p>Warm paper, serif type, large photos, and your voice up front. A trusted regional guide rather than a listings site.</p></div></a>
+<a class="card" href="c-board.html"><div class="sw"><span style="background:#16202a"></span><span style="background:#1d5fd1"></span><span style="background:#f4f6f8"></span></div><div class="body"><h2>C · Market board</h2><p>Dense, list-first and fact-forward, like Kayak. The same model from different dealers shows up side by side.</p></div></a>
+</div>
+<p style="margin-top:26px">In all three:</p>
+<ul><li>Every card shows who is selling and when the listing was last checked.</li><li>Must-be-moved and factory-order homes are marked.</li><li>Homes from a dealer’s own website link back to it.</li><li>The dealer sign-up is the page you send to dealers.</li></ul>
+</main></body></html>

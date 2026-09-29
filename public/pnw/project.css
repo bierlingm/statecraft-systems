@@ -516,3 +516,73 @@ a,a:hover,.lede strong,.story-quote strong,.note-them-who{color:var(--ink)}
   .story-quote,.scope-table{break-inside:auto}
   textarea{height:auto;min-height:5em}
 }
+
+/* v0.5: "Your turn". Everything Ben has to do lives in one panel, and each task
+   reads unmistakably as a task: a numbered white card with the signal edge, a
+   plain title, and one first-person button that says what tapping it records.
+   Prose stays on the overcast ground; only tasks sit on white. */
+.your-turn{margin:30px 0 22px;padding:20px 20px 8px;background:#f7f8f7;border:1px solid var(--line-firm);border-top:4px solid var(--ink);border-radius:3px}
+.your-turn-head{display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.your-turn-head h3{margin:0;font-size:24px;letter-spacing:-.02em}
+.your-turn-head p{margin:0;color:var(--muted);font-size:14px;font-weight:600}
+.turn-progress{height:6px;background:var(--sunk);border-radius:3px;margin:12px 0 18px;overflow:hidden}
+.turn-progress span{display:block;height:100%;width:0;background:var(--ink);transition:width .35s ease}
+#live-tasks{list-style:none;padding:0;margin:0;counter-reset:step}
+#live-tasks>li{counter-increment:step;display:block;margin:0 0 12px;padding:0;border:0}
+#live-tasks .task-card{position:relative;background:#fff;border:1px solid var(--line-firm);border-left:4px solid var(--signal);border-radius:3px;padding:15px 16px 14px 62px;box-shadow:0 1px 2px #1b1f1d0f}
+#live-tasks .task-card::before{content:counter(step);position:absolute;left:16px;top:14px;width:30px;height:30px;border-radius:50%;background:var(--ink);color:#fff;font:700 15px/30px var(--sans);text-align:center}
+.task-head{display:flex;justify-content:space-between;align-items:flex-start;gap:14px}
+.task-card h3{margin:3px 0 0;font-size:17.5px;font-weight:700;line-height:1.35;letter-spacing:-.01em}
+.task-card h3 a{color:var(--ink);text-decoration:none}
+.task-card h3 a:hover{text-decoration:underline}
+.task-card .pick.task-toggle{flex:none;display:inline-block;width:auto;min-height:40px;padding:8px 14px;border-radius:3px;
+  background:var(--ink);color:#fff;border:1px solid var(--ink);font:600 14px var(--sans);text-align:center;white-space:nowrap;box-shadow:none}
+.task-card .pick.task-toggle:hover{background:#000}
+.task-body{margin:6px 0 0;max-width:none}
+.task-body p{margin:6px 0;font-size:15.5px;color:var(--muted);max-width:40rem}
+.task-body .extra{margin-top:12px}
+.task-body textarea,.task-body input[type="text"]{background:#fff}
+.task-body .rank-label{margin-top:14px}
+.task-body .pick-list{grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:6px;margin:8px 0}
+.task-body .pick{padding:9px 12px}
+.task-body .pick strong{font-size:14.5px}
+.task-body .pick span{font-size:13px}
+.task-more{margin:12px 0 2px;border-top:1px dashed var(--line);padding-top:10px}
+.task-more summary{font-size:14.5px;font-weight:600;color:var(--ink)}
+.task-more[open] summary{margin-bottom:6px}
+.look-tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px;margin:12px 0 4px}
+.look{display:block;text-decoration:none;color:var(--ink);background:#fff;border:1px solid var(--line-firm);border-radius:3px;overflow:hidden}
+.look:hover{border-color:var(--ink);box-shadow:0 2px 6px #1b1f1d1f}
+.look .sw{display:flex;height:34px}.look .sw i{flex:1}
+.look b{display:block;padding:8px 10px 0;font-size:14.5px}
+.look small{display:block;padding:0 10px 9px;color:var(--muted);font-size:13px;line-height:1.35}
+.look b::after{content:" ↗";color:var(--muted);font-weight:400}
+/* Done work folds away quietly: a checked line, its details hidden unless linked to. */
+.your-turn .done-row{margin:6px 0 10px;border:0;padding:0}
+.your-turn .done-row summary{font-size:14.5px;color:var(--muted)}
+#done-tasks{list-style:none;padding:0;margin:8px 0 0}
+#done-tasks>li{display:block;margin:0;padding:0;border:0}
+#done-tasks .task-card{position:relative;padding:8px 0 8px 28px;border-bottom:1px solid var(--line)}
+#done-tasks .task-card::before{content:"✓";position:absolute;left:6px;top:8px;font-weight:700;color:var(--ink)}
+#done-tasks .task-card h3{font-size:15px;font-weight:500}
+#done-tasks .task-card:not(:target) .task-body{display:none}
+#done-tasks .task-card .pick.task-toggle{background:transparent;color:var(--muted);border:1px solid var(--line);font-size:12.5px;min-height:32px;padding:3px 10px}
+.act-list.compact li{padding:8px 0}
+details.fold{margin:18px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:12px 0}
+details.fold>summary{font-size:15.5px}
+@media(max-width:600px){
+  .your-turn{padding:16px 12px 6px;margin-left:-8px;margin-right:-8px}
+  #live-tasks .task-card{padding:14px 14px 14px 54px}
+  #live-tasks .task-card::before{left:12px;width:28px;height:28px;line-height:28px;font-size:14px}
+  .task-head{flex-direction:column;gap:10px}
+  .task-card .pick.task-toggle{align-self:flex-start}
+}
+.task-foot{margin-top:12px;display:flex;justify-content:flex-start}
+.task-body+.task-foot{padding-top:12px;border-top:1px solid var(--line)}
+#done-tasks .task-foot{margin:0;position:absolute;right:0;top:6px;border:0;padding:0}
+#done-tasks .task-card{padding-right:84px}
+.task-body p.rank-label{font-size:12px;letter-spacing:.11em;font-weight:700;color:var(--muted);border:0;padding:0;margin:16px 0 6px;text-transform:uppercase}
+#tasks-done #access-steps{margin:14px 0 4px}
+#tasks-done #access-steps>summary{font-size:14px;font-weight:600;color:var(--muted)}
+#tasks-done #access-steps h3{display:none}
+@media(max-width:600px){.task-body .pick-list{grid-template-columns:1fr 1fr}}

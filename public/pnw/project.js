@@ -118,6 +118,13 @@
     });
     document.getElementById('tasks-empty').hidden = !!liveTasks.children.length;
     document.getElementById('done-empty').hidden = !!doneTasks.children.length;
+    var progress = document.getElementById('tasks-progress');
+    if (progress) {
+      var total = taskItems.length, finished = doneTasks.children.length;
+      progress.textContent = finished === total ? 'All done. Thank you.' : finished + ' of ' + total + ' done';
+      var bar = document.getElementById('tasks-bar');
+      if (bar) bar.style.width = Math.round(100 * finished / total) + '%';
+    }
   }
 
   var submit = form.querySelector('button[type="submit"]');
@@ -350,7 +357,11 @@
     'task.dns': 'NEXT STEP: Namecheap domain access shared',
     'task.newsletter': 'NEXT STEP: newsletter location and consent answered',
     'task.attorney': 'NEXT STEP: attorney appointment booked',
-    'task.interview': 'NEXT STEP: interview date sent'
+    'task.interview': 'NEXT STEP: interview date sent',
+    'task.dealers': 'NEXT STEP: dealer list sent',
+    'task.subscribers': 'NEXT STEP: subscriber CSV emailed',
+    'task.design': 'NEXT STEP: thoughts on the look sent',
+    'design.pick': 'DESIGN: closest starting point for the look'
   };
 
   var VALUES = {
@@ -386,7 +397,12 @@
     pause: 'pause it until the numbers are real',
     keep: 'keep selling it',
     done: 'done',
-    researching: 'still researching'
+    researching: 'still researching',
+    oversize: 'A \u00b7 Oversize Load',
+    evergreen: 'B \u00b7 Evergreen',
+    board: 'C \u00b7 Market board',
+    mix: 'a mix \u2014 see the note',
+    nolook: 'none of them \u2014 see the note'
   };
 
   function prettyVal(v) {
