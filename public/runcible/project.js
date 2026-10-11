@@ -93,7 +93,10 @@ setTimeout(()=>hero.play(S[0], true), RM?0:500);
 /* Demo */
 const demoEl = $('[data-inst="demo"]'), demo = new Inst(demoEl), tabs = $$('.tabs [role=tab]');
 let demoStarted = false;
-const pick = i => { tabs.forEach((t,j)=>{ t.setAttribute('aria-selected', String(i===j)); t.tabIndex = i===j?0:-1; }); demo.play(S[i]); };
+const tabRow = $('.tabs');
+const pick = i => { tabs.forEach((t,j)=>{ t.setAttribute('aria-selected', String(i===j)); t.tabIndex = i===j?0:-1; });
+  if (tabRow.scrollWidth > tabRow.clientWidth) tabRow.scrollTo({left: Math.max(0, tabs[i].offsetLeft - tabRow.offsetLeft - 20), behavior: RM?'auto':'smooth'});
+  demo.play(S[i]); };
 tabs.forEach((t,i)=>{
   t.addEventListener('click',()=>{ demoStarted = true; pick(i); });
   t.addEventListener('keydown',e=>{ const k={ArrowRight:1,ArrowDown:1,ArrowLeft:-1,ArrowUp:-1}[e.key]; if(k){ e.preventDefault(); const n=(i+k+tabs.length)%tabs.length; tabs[n].focus(); demoStarted=true; pick(n);} });
@@ -113,6 +116,17 @@ const stage = $('#stage'), stageName = $('#stage-name'), steps = $$('.steps li')
 const names = ['','01 PARSE','02 EXPOSE','03 TEST','04 REPAIR','05 RULE & RECORD'];
 const setStep = n => { if (stage.dataset.stage==n) return; stage.dataset.stage=n; stageName.textContent=names[n]; steps.forEach(s=>s.classList.toggle('on', s.dataset.step==n)); };
 setStep(1); steps[0].classList.add('on');
+const MQ = matchMedia('(max-width:860px)');
+/* Phones: no pinning. Each step gets its own copy of the panel, which runs when it scrolls in. */
+steps.forEach(li => {
+  const n = li.dataset.step, m = stage.cloneNode(true);
+  m.removeAttribute('id'); m.querySelectorAll('[id]').forEach(e => e.removeAttribute('id'));
+  m.classList.add('mini', 'l'+n); m.dataset.stage = RM ? n : '0';
+  m.querySelector('.stage-bar span:last-child').textContent = names[n];
+  li.append(m);
+});
+const miniIO = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting){ const m=e.target; m.dataset.stage = [...m.classList].find(c=>/^l\d$/.test(c)).slice(1); miniIO.unobserve(m); } }), {threshold:.45});
+$$('.mini').forEach(m => miniIO.observe(m));
 
 /* Oversing graph */
 const G = $('#graph'), NS='http://www.w3.org/2000/svg';
@@ -140,28 +154,46 @@ const setOver = p => { // p: 0..1 progress through 6 segments
 };
 setOver(RM?0.999:0);
 
-/* Scroll loop */
-const nav = $('#nav'), mqMobile = matchMedia('(max-width:860px)');
-let ticking = false;
+/* Scroll loop: rAF-throttled, passive, reads only what is on screen */
+const nav = $('#nav');
+let ticking = false, thesisOn = false, overOn = false;
+const kick = () => { if(!ticking){ ticking=true; requestAnimationFrame(onScroll); } };
+new IntersectionObserver(([e])=>{ thesisOn = e.isIntersecting; kick(); }).observe(th);
+new IntersectionObserver(([e])=>{ overOn = e.isIntersecting; kick(); }).observe(over);
 const onScroll = () => {
   ticking = false;
   const vh = innerHeight;
   nav.classList.toggle('solid', scrollY > 24);
-  if (!RM){
+  if (!RM && thesisOn){
     const r = th.getBoundingClientRect(), p = Math.min(1, Math.max(0, (vh*.85 - r.top)/(r.height + vh*.35)));
     const n = Math.round(p*words.length*1.15); words.forEach((w,i)=>w.classList.toggle('on', i<n));
   }
-  // steps: active = last whose top passed 55% (mobile: below sticky stage)
-  const line = mqMobile.matches ? vh*.72 : vh*.55; let a = 1;
+  if (MQ.matches) return;               // phones: steps and graph are driven by IntersectionObserver
+  const line = vh*.55; let a = 1;
   steps.forEach(s=>{ if (s.getBoundingClientRect().top < line) a = +s.dataset.step; });
   setStep(a);
-  if (!RM){
-    if (mqMobile.matches){ const r=$('.graph-wrap').getBoundingClientRect(); setOver(Math.min(1,Math.max(0,(vh*.9 - r.top)/(r.height+vh*.4)))); }
-    else { const r = over.getBoundingClientRect(); setOver(Math.min(1, Math.max(0, -r.top / (r.height - vh*1.6)))); }
-  }
+  if (!RM && overOn){ const r = over.getBoundingClientRect(); setOver(Math.min(1, Math.max(0, -r.top / (r.height - vh*1.6)))); }
 };
 addEventListener('scroll', ()=>{ if(!ticking){ ticking=true; requestAnimationFrame(onScroll); } }, {passive:true});
-addEventListener('resize', onScroll); onScroll();
+addEventListener('resize', ()=>{ if(!ticking){ ticking=true; requestAnimationFrame(onScroll); } }, {passive:true});
+onScroll();
+
+/* Phones: the Oversing graph plays through once when it arrives; tap to replay */
+const gw = $('.graph-wrap');
+const playGraph = () => { if (RM) return setOver(.999); const t0 = performance.now(), D = 5200;
+  const f = t => { const p = Math.min(1, (t - t0) / D); setOver(p * .999); if (p < 1 && MQ.matches) requestAnimationFrame(f); }; requestAnimationFrame(f); };
+new IntersectionObserver(([e],o)=>{ if (e.isIntersecting && MQ.matches){ playGraph(); o.disconnect(); } }, {threshold:.5}).observe(gw);
+gw.addEventListener('click', () => { if (MQ.matches) playGraph(); });
+
+/* Mobile menu */
+const mb = $('.menu-btn'), sheet = $('#sheet');
+const setMenu = open => { mb.setAttribute('aria-expanded', String(open)); document.body.classList.toggle('menu-open', open);
+  if (open){ sheet.hidden = false; requestAnimationFrame(()=>sheet.classList.add('open')); }
+  else { sheet.classList.remove('open'); setTimeout(()=>{ if (mb.getAttribute('aria-expanded')==='false') sheet.hidden = true; }, RM?0:300); } };
+mb.addEventListener('click', () => setMenu(mb.getAttribute('aria-expanded') !== 'true'));
+$$('a', sheet).forEach(a => a.addEventListener('click', () => setMenu(false)));
+addEventListener('keydown', e => { if (e.key === 'Escape' && mb.getAttribute('aria-expanded') === 'true'){ setMenu(false); mb.focus(); } });
+MQ.addEventListener('change', e => { if (!e.matches) setMenu(false); });
 
 /* Hero phase indicator mirrors the instrument */
 const hf = $$('.hero-foot span');
