@@ -1,7 +1,7 @@
 const form=document.querySelector('#review');
 const status=document.querySelector('#review-status');
 const key='prosserhorsehotel-review-v1';
-const labels={name:'Your name',parking:'How the six rig spaces work',care:'Nightly and weekly horse care',monthly:'Weekly/monthly pricing and pet rules',assets:'Photos, domain and contact details',cost:'Recurring software budget',notes:'Other corrections or priorities'};
+const labels={name:'Your name',design:'Website draft 01 feedback',parking:'How the six rig spaces work',care:'Nightly and weekly horse care',monthly:'Weekly/monthly pricing and pet rules',assets:'Photos, domain and contact details',cost:'Recurring software budget',notes:'Other corrections or priorities'};
 let draft={};
 try{draft=JSON.parse(localStorage.getItem(key)||'{}')}catch{}
 for(const [name,value] of Object.entries(draft)){if(form.elements[name])form.elements[name].value=value}
