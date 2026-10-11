@@ -16,6 +16,8 @@ import { signToken, verifyToken } from './tokens';
 export interface RoomEnv {
   /** HMAC secret for room invite and session tokens. */
   PNW_ROOM_SECRET?: string;
+  /** HMAC secret for the Runcible room. */
+  RUNCIBLE_ROOM_SECRET?: string;
   /** Comma-separated addresses allowed to sign themselves in. `Name <addr>` also works. */
   ROOM_EMAILS?: string;
   /** Cloudflare API token with Email Sending: Send, for the REST send endpoint. */
@@ -26,33 +28,56 @@ export interface RoomEnv {
 export const INVITE_TTL = 30 * 24 * 3600;      // a hand-sent invite is good for 30 days
 export const EMAIL_TTL = 30 * 60;              // one you mail yourself, 30 minutes
 export const SESSION_TTL = 180 * 24 * 3600;    // and then the device stays in for 180
-const COOKIE = 'pnw_room';
 
-const secretFor = (env: RoomEnv) => (env.PNW_ROOM_SECRET ? `${env.PNW_ROOM_SECRET}#pnw-room` : '');
+/** One gated room: its path, cookie, session endpoint, key element and secret. */
+export interface Room {
+  /** Path segment, e.g. 'pnw' serves /pnw/. */
+  path: string;
+  cookie: string;
+  /** Session endpoint, e.g. '/api/pnw-session'. */
+  endpoint: string;
+  /** Element mixed into the HMAC key, so a token for one room never opens another. */
+  key: string;
+  secretVar: 'PNW_ROOM_SECRET' | 'RUNCIBLE_ROOM_SECRET';
+  /** Subject for self-served link emails; rooms without one are invite-only. */
+  emailSubject?: string;
+}
 
-export const ready = (env: RoomEnv) => !!env.PNW_ROOM_SECRET;
+export const PNW: Room = {
+  path: 'pnw', cookie: 'pnw_room', endpoint: '/api/pnw-session', key: 'pnw-room',
+  secretVar: 'PNW_ROOM_SECRET', emailSubject: 'Your link to the PNW Mobile Homes project room',
+};
 
-export const inviteLink = async (env: RoomEnv, who: string, origin: string, ttl = INVITE_TTL) =>
-  `${origin}/pnw/?k=${encodeURIComponent(await signToken(secretFor(env), 'invite', who, ttl))}`;
+export const RUNCIBLE: Room = {
+  path: 'runcible', cookie: 'runcible_room', endpoint: '/api/runcible-session', key: 'runcible-room',
+  secretVar: 'RUNCIBLE_ROOM_SECRET',
+};
+
+const secretFor = (env: RoomEnv, room: Room = PNW) => (env[room.secretVar] ? `${env[room.secretVar]}#${room.key}` : '');
+
+export const ready = (env: RoomEnv, room: Room = PNW) => !!env[room.secretVar];
+
+export const inviteLink = async (env: RoomEnv, who: string, origin: string, ttl = INVITE_TTL, room: Room = PNW) =>
+  `${origin}/${room.path}/?k=${encodeURIComponent(await signToken(secretFor(env, room), 'invite', who, ttl))}`;
 
 /** The name an invite was issued to, if the link is genuine and unexpired. */
-export async function redeemInvite(env: RoomEnv, token: string): Promise<string | null> {
-  const claims = await verifyToken(secretFor(env), token);
+export async function redeemInvite(env: RoomEnv, token: string, room: Room = PNW): Promise<string | null> {
+  const claims = await verifyToken(secretFor(env, room), token);
   return claims && claims.kind === 'invite' ? claims.id : null;
 }
 
-export async function sessionCookie(env: RoomEnv, who: string, requestUrl: string): Promise<string> {
-  const t = await signToken(secretFor(env), 'session', who, SESSION_TTL);
-  return `${COOKIE}=${t}; Path=/; Max-Age=${SESSION_TTL}; HttpOnly; SameSite=Lax${secure(requestUrl)}`;
+export async function sessionCookie(env: RoomEnv, who: string, requestUrl: string, room: Room = PNW): Promise<string> {
+  const t = await signToken(secretFor(env, room), 'session', who, SESSION_TTL);
+  return `${room.cookie}=${t}; Path=/; Max-Age=${SESSION_TTL}; HttpOnly; SameSite=Lax${secure(requestUrl)}`;
 }
 
-export const clearedCookie = (requestUrl: string) =>
-  `${COOKIE}=; Path=/; Max-Age=0; HttpOnly; SameSite=Lax${secure(requestUrl)}`;
+export const clearedCookie = (requestUrl: string, room: Room = PNW) =>
+  `${room.cookie}=; Path=/; Max-Age=0; HttpOnly; SameSite=Lax${secure(requestUrl)}`;
 
 const secure = (url: string) => (new URL(url).protocol === 'https:' ? '; Secure' : '');
 
-function cookieValue(req: Request): string | null {
-  const m = new RegExp(`(?:^|;\\s*)${COOKIE}=([^;]+)`).exec(req.headers.get('Cookie') || '');
+function cookieValue(req: Request, room: Room = PNW): string | null {
+  const m = new RegExp(`(?:^|;\\s*)${room.cookie}=([^;]+)`).exec(req.headers.get('Cookie') || '');
   return m ? m[1] : null;
 }
 
@@ -74,18 +99,18 @@ export const nameFor = (env: RoomEnv, email: string) =>
   allowed(env).find((o) => o.email === normalEmail(email))?.name || normalEmail(email);
 
 /** Self-service sign-in is only on when there is a token, an account and an allow-list. */
-export const mailReady = (env: RoomEnv) => !!(env.CF_EMAIL_TOKEN && env.CF_ACCOUNT_ID && allowed(env).length);
+export const mailReady = (env: RoomEnv, room: Room = PNW) => !!room.emailSubject && !!(env.CF_EMAIL_TOKEN && env.CF_ACCOUNT_ID && allowed(env).length);
 
 /**
  * Cloudflare Email Sending, over its REST API rather than a binding: Pages Functions have
  * no send_email binding, and the REST route avoids adding a mailer Worker and a service
  * binding (which would mean putting a wrangler.toml in front of a Git-built Pages project).
  */
-export async function sendLinkEmail(env: RoomEnv, to: string, link: string): Promise<void> {
+export async function sendLinkEmail(env: RoomEnv, to: string, link: string, room: Room = PNW): Promise<void> {
   const body = {
     from: 'Statecraft Systems <rooms@notifications.statecraft.systems>',
     to,
-    subject: 'Your link to the PNW Mobile Homes project room',
+    subject: room.emailSubject,
     text: `Open the project room:\n\n${link}\n\nThe link works for 30 minutes. Tapping it keeps that device signed in, so you only do this once.`,
     html: `<p>Open the project room:</p><p><a href="${link}">${link}</a></p>`
       + `<p style="color:#666">The link works for 30 minutes. Tapping it keeps that device signed in, so you only do this once.</p>`,
@@ -99,7 +124,7 @@ export async function sendLinkEmail(env: RoomEnv, to: string, link: string): Pro
 }
 
 /** Who is asking, or null. Rotating PNW_ROOM_SECRET signs everyone out everywhere. */
-export async function guestFrom(env: RoomEnv, req: Request): Promise<string | null> {
-  const claims = await verifyToken(secretFor(env), cookieValue(req));
+export async function guestFrom(env: RoomEnv, req: Request, room: Room = PNW): Promise<string | null> {
+  const claims = await verifyToken(secretFor(env, room), cookieValue(req, room));
   return claims && claims.kind === 'session' ? claims.id : null;
 }
