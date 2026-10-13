@@ -1,0 +1,48 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ContactBlock from '../components/ContactBlock.astro';
+---
+
+<BaseLayout title="Instruments" description="Tools Statecraft Systems built for its own work and publishes: spikes and werk.">
+  <section class="wrap page-head">
+    <span class="eyebrow">Instruments</span>
+    <h1>Tools we built for our own work, and publish.</h1>
+    <p class="lede">They exist because the work needed them. They are used on every build before they are offered to anyone else.</p>
+  </section>
+
+  <section class="wrap split" id="spikes" aria-labelledby="spikes-h">
+    <div class="left">
+      <span class="eyebrow">Instrument 01</span>
+      <h2 id="spikes-h">spikes</h2>
+      <a class="link-rule" href="https://spikes.sh" rel="noopener">spikes.sh</a>
+    </div>
+    <div class="right prose">
+      <p>Building is quick now. Turning a reviewer’s reaction into a precise change is still the slow part. spikes closes that loop.</p>
+      <p>A reviewer clicks the thing they mean on the real page and says what is wrong with it. The note arrives with the element, the page and the viewport attached, in a form a building agent can act on directly.</p>
+      <p>Open source: a command-line tool, a small widget for any page, and a server that hands notes straight to coding agents. A hosted version keeps reviews in sync across people.</p>
+    </div>
+  </section>
+
+  <section class="wrap split" id="werk" aria-labelledby="werk-h" style="padding-top: 0;">
+    <div class="left">
+      <span class="eyebrow">Instrument 02</span>
+      <h2 id="werk-h">werk</h2>
+      <a class="link-rule" href="/werk">Read about werk →</a>
+    </div>
+    <div class="right prose">
+      <p>werk holds what you want against what is true. The gap between them is not a problem to solve; held honestly, it is what drives resolution.</p>
+      <p>A terminal instrument for structural dynamics practice, after Robert Fritz. It computes how each tension is moving from the record of what you did, and an agent works within the structure you declared. It is how the work behind these builds is held.</p>
+    </div>
+  </section>
+
+  <section class="wrap split" style="padding-top: 0;">
+    <div class="left">
+      <span class="eyebrow">Elsewhere</span>
+    </div>
+    <div class="right ledger">
+      <div><span class="name muted">contribution</span><span class="meta">merged upstream</span><span class="desc">The Linux host for a commercial display-mirroring app.</span></div>
+    </div>
+  </section>
+
+  <ContactBlock />
+</BaseLayout>

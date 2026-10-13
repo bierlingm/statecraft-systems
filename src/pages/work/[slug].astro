@@ -1,0 +1,57 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Drawing from '../../components/Drawing.astro';
+import ContactBlock from '../../components/ContactBlock.astro';
+import { plates, type Plate } from '../../data/work';
+
+export function getStaticPaths() {
+  return plates.map((plate, i) => ({
+    params: { slug: plate.slug },
+    props: { plate, prev: plates[i - 1], next: plates[i + 1] },
+  }));
+}
+
+interface Props {
+  plate: Plate;
+  prev?: Plate;
+  next?: Plate;
+}
+const { plate, prev, next } = Astro.props;
+---
+
+<BaseLayout title={plate.title} description={plate.summary}>
+  <section class="wrap page-head">
+    <span class="eyebrow accent">Plate {plate.numeral} · {plate.status}</span>
+    <h1>{plate.title}</h1>
+    <p class="lede">{plate.client}.</p>
+  </section>
+
+  <article class="wrap case">
+    <div class="plate-ground">
+      <Drawing kind={plate.slug as any} label={`Drawing: ${plate.title.toLowerCase()}`} />
+    </div>
+
+    <div class="body prose">
+      <h2>The situation</h2>
+      {plate.situation.map((p) => <p>{p}</p>)}
+      <h2>What was built</h2>
+      {plate.built.map((p) => <p>{p}</p>)}
+      {plate.quote && <blockquote>{plate.quote}</blockquote>}
+      <h2>How it ran</h2>
+      {plate.process.map((p) => <p>{p}</p>)}
+    </div>
+
+    <aside aria-label="Facts">
+      <dl class="facts">
+        {plate.facts.map(([k, v]) => <div><dt>{k}</dt><dd>{v}</dd></div>)}
+      </dl>
+    </aside>
+
+    <nav class="pager" aria-label="More plates" style="grid-column: 1 / -1;">
+      {prev ? <a href={`/work/${prev.slug}`}>← Plate {prev.numeral} · {prev.title}</a> : <a href="/work">← All plates</a>}
+      {next ? <a href={`/work/${next.slug}`}>Plate {next.numeral} · {next.title} →</a> : <a href="/work">All plates →</a>}
+    </nav>
+  </article>
+
+  <ContactBlock />
+</BaseLayout>

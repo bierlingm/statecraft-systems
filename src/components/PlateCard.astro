@@ -1,0 +1,30 @@
+---
+import Drawing from './Drawing.astro';
+import type { Plate } from '../data/work';
+
+interface Props {
+  plate: Plate;
+  feature?: boolean;
+}
+const { plate, feature = false } = Astro.props;
+const factKeys = ['Replaced', 'Built', 'Rounds', 'Status'];
+---
+
+<figure class:list={['plate', { feature }]}>
+  <a href={`/work/${plate.slug}`}>
+    <div class="plate-ground">
+      <Drawing kind={plate.slug as any} label={`Drawing: ${plate.title.toLowerCase()}`} />
+    </div>
+    <figcaption class="caption">
+      <span class:list={['eyebrow', { accent: feature }]}>Plate {plate.numeral} · {plate.title}{!feature && ` · ${plate.status}`}</span>
+      <h3>{plate.summary}</h3>
+      {feature && (
+        <dl class="facts">
+          {plate.facts.filter(([k]) => factKeys.includes(k)).map(([k, v]) => (
+            <div><dt>{k}</dt><dd>{v}</dd></div>
+          ))}
+        </dl>
+      )}
+    </figcaption>
+  </a>
+</figure>
