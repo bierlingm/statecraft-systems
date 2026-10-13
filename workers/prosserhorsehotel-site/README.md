@@ -15,3 +15,29 @@ Pages project. There is no second build: edit `public/prosserhorsehotel/` and pu
 - Every response carries `X-Robots-Tag: noindex, nofollow` while the site is a draft. Remove it (and the
   pages' meta robots) at launch. `/_archive` and `/prosserhorsehotel*` return 404 on this domain.
 - Deployed via the Cloudflare API (no wrangler.toml). Redeploy only when this file changes.
+
+## Going live (indexing switch)
+
+The draft is `noindex` until Moritz decides to launch. **One-line switch:** in `src/index.js` set
+
+```js
+const INDEXABLE = true;
+```
+
+and redeploy the Worker. That drops the `X-Robots-Tag: noindex` header and strips each pages
+## Going live (indexing switch)
+
+The draft is `noindex` until Moritz decides to launch. **One-line switch:** in `src/index.js` set
+
+```js
+const INDEXABLE = true;
+```
+
+and redeploy the Worker. That drops the `X-Robots-Tag: noindex` header and strips each page's
+`<meta name="robots" content="noindex,nofollow">` on the fly. `/robots.txt` (Allow all + Sitemap) and
+`/sitemap.xml` (all 7 pages) are already served by the Worker. Afterwards, also delete the meta robots
+tags from `public/prosserhorsehotel/preview/**/index.html` so the source matches, update `LASTMOD`,
+and submit the sitemap in Search Console.
+
+Caching set by the Worker: `/assets/photos/*` and `/assets/social/*` 30 days; other `/assets/*` 1 day
+(+ stale-while-revalidate); HTML `max-age=0, must-revalidate`.
