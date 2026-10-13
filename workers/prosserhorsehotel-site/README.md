@@ -6,7 +6,7 @@ Pages project. There is no second build: edit `public/prosserhorsehotel/` and pu
 | prosserhorsehotel.com path | Served from (statecraft-systems.pages.dev) |
 |---|---|
 | `/`, `/boarding/`, … | `/prosserhorsehotel/preview/…` (website draft) |
-| `/room/` | `/prosserhorsehotel/` (client intake room; `/prosserhorsehotel…` links rewritten) |
+| `/room`, `/room/*` | 301 to https://statecraft.systems/prosserhorsehotel/ (the client room lives on statecraft.systems only) |
 | `/api/prosserhorsehotel/*` | forwarded to statecraft.systems → `prosserhorsehotel-intake` Worker |
 | `www.` | 301 to apex |
 
