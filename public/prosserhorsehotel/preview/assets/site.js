@@ -1,127 +1,82 @@
-const toggle = document.querySelector('.menu-toggle');
-const navigation = document.querySelector('#navigation');
-toggle.addEventListener('click', () => {
-  const open = toggle.getAttribute('aria-expanded') !== 'true';
-  toggle.setAttribute('aria-expanded', String(open));
-  navigation.classList.toggle('open', open);
+const menu = document.querySelector('.mobile-menu');
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape' && menu.open) { menu.open = false; menu.querySelector('summary').focus(); }
 });
-document.addEventListener('keydown', event => {
-  if (event.key === 'Escape' && toggle.getAttribute('aria-expanded') === 'true') {
-    toggle.setAttribute('aria-expanded', 'false');
-    navigation.classList.remove('open');
-    toggle.focus();
-  }
-});
-
-const stay = document.querySelector('#stay-form');
-if (stay) {
+const form = document.querySelector('#stay-form');
+if (form) {
+  const el = form.elements;
   const title = document.querySelector('#estimate-title');
-  const lines = document.querySelector('#estimate-lines');
   const total = document.querySelector('#estimate-total');
+  const lines = document.querySelector('#estimate-lines');
   const note = document.querySelector('#estimate-note');
-  const allocation = document.querySelector('#allocation');
-  const copy = document.querySelector('#copy-stay');
-  const status = document.querySelector('#stay-status');
   const guests = document.querySelector('#fifth-guests');
-  const money = value => new Intl.NumberFormat('en-US', {style:'currency',currency:'USD',maximumFractionDigits:0}).format(value);
-  let summary = '';
-  const dateParts = new Intl.DateTimeFormat('en-CA', {timeZone:'America/Los_Angeles',year:'numeric',month:'2-digit',day:'2-digit'}).formatToParts(new Date());
+  const result = document.querySelector('#request-result');
+  const output = document.querySelector('#request-text');
+  const status = document.querySelector('#copy-status');
+  const money = n => '$' + n.toLocaleString('en-US');
+  const dateParts = new Intl.DateTimeFormat('en-CA', {timeZone:'America/Los_Angeles', year:'numeric', month:'2-digit', day:'2-digit'}).formatToParts(new Date());
   const part = type => dateParts.find(p => p.type === type).value;
   const today = `${part('year')}-${part('month')}-${part('day')}`;
-  stay.elements.arrival.min = today;
-  stay.elements.departure.min = today;
+  el.arrival.min = today;
+  let plan = '';
   function update() {
-    const arrival = stay.elements.arrival.value;
-    const departure = stay.elements.departure.value;
-    const horses = Number(stay.elements.horses.value);
-    const lodging = stay.elements.lodging.value;
-    const fifth = lodging === 'fifth';
+    result.hidden = true;
+    output.value = '';
+    status.textContent = '';
+    plan = '';
+    const fifth = el.sleep.value === 'fifth';
     guests.hidden = !fifth;
     guests.disabled = !fifth;
-    const pets = fifth ? Number(stay.elements.pets.value) : 0;
-    const nights = Math.round((Date.parse(departure) - Date.parse(arrival)) / 86400000);
-    const rig = horses > 0 || lodging === 'camping';
-    stay.elements.departure.min = arrival ? new Date(Date.parse(arrival) + 86400000).toISOString().slice(0,10) : today;
-    lines.replaceChildren();
+    const rig = el.rig.value === 'yes';
+    el.rigLength.disabled = !rig;
+    el.rigLength.required = rig;
+    el.rig.setCustomValidity(el.sleep.value === 'camping' && !rig ? 'Dry camping requires your RV or LQ rig.' : '');
+    const dogs = Number(el.dogs.value);
+    const pets = fifth ? dogs + Number(el.otherPets.value) : 0;
+    el.dogs.setCustomValidity(fifth && pets > 2 ? 'The fifth wheel allows at most two household pets, including dogs.' : '');
+    const start = el.arrival.value;
+    const end = el.departure.value;
+    const nights = (Date.parse(end) - Date.parse(start)) / 86400000;
+    el.departure.min = start ? new Date(Date.parse(start) + 86400000).toISOString().slice(0,10) : today;
+    el.departure.setCustomValidity(end && (!Number.isFinite(nights) || nights <= 0) ? 'Departure must be after arrival.' : '');
+    const horses = Number(el.horses.value);
+    el.horses.setCustomValidity(!horses && el.sleep.value === 'elsewhere' ? 'Add horses or choose an on-property sleeping option.' : '');
+    title.textContent = 'Choose your dates.';
     total.textContent = '—';
-    copy.disabled = true;
-    status.textContent = '';
-    summary = '';
-    allocation.textContent = 'No spaces held. Availability is not connected.';
-    if (!arrival || !departure) {
-      title.textContent = 'Choose your dates.';
-      note.textContent = 'Select arrival and departure to see an illustrative nightly base estimate.';
-      return;
-    }
-    if (arrival < today || !Number.isFinite(nights) || nights <= 0) {
-      title.textContent = 'Check your dates.';
-      note.textContent = 'Arrival must be today or later, with departure after arrival.';
-      return;
-    }
-    if (horses === 0 && lodging === 'offsite') {
-      title.textContent = 'Choose a stay.';
-      note.textContent = 'Add at least one horse, RV/LQ camping or a fifth-wheel stay.';
-      return;
-    }
-    title.textContent = `${nights} ${nights === 1 ? 'night' : 'nights'} in Prosser.`;
-    const resources = [horses ? `${horses} ${horses === 1 ? 'paddock' : 'paddocks'}` : '', rig ? '1 shared rig space' : '', fifth ? '1 fifth wheel' : ''].filter(Boolean).join(' + ');
-    allocation.textContent = `Space needs: ${resources}. Extra or oversized rigs need approval. No availability checked or spaces held.`;
-    if (fifth && !rig) allocation.textContent += ' Bringing a trailer too? Confirm its parking allocation with the owners.';
-    const lodgingName = {offsite:'Sleeping elsewhere',camping:'RV / LQ dry camping',fifth:'Fifth wheel'}[lodging];
-    summary = `Prosser Horse Hotel — preview stay plan\nArrival: ${arrival}\nDeparture: ${departure}\nNights: ${nights}\nHorses: ${horses}\nStay: ${lodgingName}\nSpace needs: ${resources}`;
-    if (fifth) summary += `\nGuests: ${stay.elements.adults.value} adults, ${stay.elements.children.value} children, ${pets} household pets`;
-    copy.disabled = false;
-    if (nights >= 7) {
-      total.textContent = 'Quote needed';
-      note.textContent = 'Weekly and monthly base rates are listed above. Rate boundaries, partial weeks and monthly pet fees need confirmation; this preview does not invent a longer-stay total. Monthly stays require approval.';
-      summary += '\nPrice: owner quote needed; see supplied weekly/monthly rates.';
-    } else {
-      const items = [];
-      if (horses) items.push([`${horses} ${horses === 1 ? 'horse' : 'horses'} × $35 × ${nights}`, horses * 35 * nights]);
-      if (lodging === 'camping') items.push([`Camping × $25 × ${nights}`,25 * nights]);
-      if (fifth) items.push([`Fifth wheel × $110 × ${nights}`,110 * nights]);
-      if (pets) items.push([`${pets} ${pets === 1 ? 'pet' : 'pets'} × $20 × ${nights}`,pets * 20 * nights]);
-      const dl = document.createElement('dl');
-      for (const [label, amount] of items) {
-        const row = document.createElement('div');
-        const dt = document.createElement('dt');
-        const dd = document.createElement('dd');
-        dt.textContent = label;
-        dd.textContent = money(amount);
-        row.append(dt,dd);
-        dl.append(row);
-      }
-      lines.append(dl);
-      const amount = items.reduce((sum,item) => sum + item[1],0);
-      total.textContent = money(amount);
-      note.textContent = 'Illustrative nightly base estimate only. Taxes and other approved charges are not included. Final rate rules and availability must be confirmed.';
-      summary += `\nIllustrative nightly base estimate: ${money(amount)}. Taxes and other approved charges not included.`;
-    }
-    summary += '\nPreview only. This is not a reservation or confirmed quote; nothing has been sent.';
+    lines.textContent = '';
+    note.textContent = 'Nightly estimates for 1–6 nights. Seven nights or longer need an owner quote.';
+    if (!start || !end) return;
+    if (start < today || !Number.isInteger(nights) || nights <= 0) { title.textContent = 'Check your dates.'; note.textContent = 'Choose an arrival today or later and a departure after arrival.'; return; }
+    if (!el.horses.checkValidity() || !el.dogs.checkValidity() || !el.rig.checkValidity()) { title.textContent = 'Check your stay options.'; note.textContent = el.horses.validationMessage || el.dogs.validationMessage || el.rig.validationMessage; return; }
+    title.textContent = `${nights} ${nights === 1 ? 'night' : 'nights'} · base estimate`;
+    const items = [];
+    if (horses) items.push([`${horses} horses × $35 × ${nights} nights`, horses * 35 * nights]);
+    if (el.sleep.value === 'camping') items.push([`Dry camping × $25 × ${nights} nights`,25 * nights]);
+    if (fifth) items.push([`Fifth wheel × $110 × ${nights} nights`,110 * nights]);
+    if (pets) items.push([`${pets} pets × $20 × ${nights} nights`,pets * 20 * nights]);
+    const price = nights >= 7 ? 'Owner quote needed' : money(items.reduce((sum,item) => sum + item[1],0));
+    total.textContent = price;
+    lines.textContent = nights >= 7 ? 'See the supplied weekly / monthly rates above.' : items.map(([label,amount]) => `${label}: ${money(amount)}`).join('\n');
+    note.textContent = nights >= 7 ? 'Week/month boundaries, partial periods and monthly pet-fee application are awaiting owner confirmation. Monthly stays require approval.' : 'Nightly base estimate only. Taxes and additional approved charges pending. Availability has not been checked.';
+    const sleeping = {camping:'My RV / LQ — dry camping',fifth:'Stationary fifth wheel',elsewhere:'Elsewhere — horse boarding only'}[el.sleep.value];
+    plan = `Prosser Horse Hotel — availability REQUEST (preview only)\nArrival: ${start}\nDeparture: ${end}\nNights: ${nights}\nExpected arrival: ${el.arrivalTime.value}\nHorses: ${horses}\nRig: ${rig ? `${el.rigLength.value || 'Length needed'} feet total, one rig; layout / limits awaiting owner` : 'No rig'}\nSleeping: ${sleeping}\nDogs: ${dogs}`;
+    if (fifth) plan += `\nFifth-wheel guests: ${el.adults.value} adults, ${el.children.value} children, ${pets} household pets total`;
+    plan += `\nSpace needs: ${horses} paddocks, ${rig ? '1 shared rig space' : 'no rig space'}, ${fifth ? '1 fifth wheel' : 'no fifth wheel'} (owner must verify allocation)\nBase estimate: ${price}${nights < 7 ? '\n'+lines.textContent : ''}\nTaxes / additional charges: awaiting owner\nGuest: ${el.guest.value}\nEmail: ${el.email.value}\nNotes: ${el.notes.value || 'None'}\nAvailability: Placeholder — awaiting owner\nPreview only. Nothing sent, no space held, no confirmed quote. Contact and arrival policies awaiting owner.`;
   }
-  stay.addEventListener('input',update);
-  stay.addEventListener('change',update);
-  stay.addEventListener('submit', event => event.preventDefault());
-  copy.addEventListener('click',async () => {
-    try { await navigator.clipboard.writeText(summary); status.textContent = 'Stay plan copied. No reservation or request has been sent.'; }
-    catch { status.textContent = 'Copy is unavailable. Select and copy the estimate shown above.'; }
+  form.addEventListener('input', update);
+  form.addEventListener('change', update);
+  form.addEventListener('submit', e => {
+    e.preventDefault();
+    update();
+    if (!form.reportValidity() || !plan) return;
+    output.value = plan;
+    result.hidden = false;
+    output.focus();
   });
+  document.querySelector('#copy-request').addEventListener('click', async () => {
+    try { await navigator.clipboard.writeText(output.value); status.textContent = 'Copied. Nothing has been sent.'; }
+    catch { output.focus(); output.select(); status.textContent = 'Summary selected. Use your device’s Copy command. Nothing has been sent.'; }
+  });
+  document.querySelector('#prepare').disabled = false;
   update();
-}
-
-const inquiry = document.querySelector('#inquiry-form');
-if (inquiry) {
-  const text = document.querySelector('#inquiry-text');
-  const status = document.querySelector('#inquiry-status');
-  inquiry.addEventListener('submit',event => {
-    event.preventDefault();
-    const values = new FormData(inquiry);
-    text.textContent = `Prosser Horse Hotel inquiry\nFrom: ${values.get('name')}\nEmail: ${values.get('email')}\n\n${values.get('message')}`;
-    document.querySelector('#inquiry-result').hidden = false;
-    status.textContent = 'Inquiry prepared below. Nothing has been sent. Owner contact details are pending.';
-  });
-  document.querySelector('#copy-inquiry').addEventListener('click',async () => {
-    try {await navigator.clipboard.writeText(text.textContent);status.textContent = 'Inquiry copied. Nothing has been sent.';}
-    catch {status.textContent = 'Select the prepared inquiry above and copy it manually. Nothing has been sent.';}
-  });
 }
