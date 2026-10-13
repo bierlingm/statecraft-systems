@@ -1,0 +1,61 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+const steps = [
+  ['Inventory', 'We list the records you hold, who owns them, and the restrictions attached to each set. You decide which sets to consider. There is no obligation to proceed.'],
+  ['Redaction', 'We remove client names and personal details, check for identifying context, and exclude anything protected by a regulator or contract. Only an approved, cleaned set moves forward.'],
+  ['Contract', 'You review the licensing agreement with micro1: the exact records, permitted uses, who may receive them, access controls, payment and withdrawal terms. You decide whether to sign.'],
+  ['Delivery', 'The approved records are delivered through the agreed channel, within the scope and controls written into the contract.'],
+  ['Payment', 'micro1 pays you under the agreed terms. Statecraft Systems is a referral partner and is paid by micro1, not by you.'],
+];
+---
+
+<BaseLayout title="Operating records" description="Decide whether to license your operating records for AI training, with an inventory, clear boundaries and redaction before delivery.">
+  <section class="wrap page-head">
+    <span class="eyebrow">Operating records · Plate 05</span>
+    <h1>The work you already know how to do has a second use.</h1>
+    <p class="lede">AI labs buy records of how real businesses work. We help you decide what you can license, what must stay private, and whether the terms make sense for you.</p>
+    <a class="link-rule" href="mailto:m@statecraft.systems?subject=Records%20review">Book a 20-minute records review</a>
+  </section>
+
+  <section class="wrap split" aria-labelledby="for-h">
+    <div class="left"><span class="eyebrow">01 · Who it's for</span><h2 id="for-h">Businesses with a record of real work.</h2></div>
+    <div class="right prose">
+      <p>Staffing and recruiting firms, call centres and BPO providers, insurance agencies, outsourced accounting firms, and managed service providers (MSPs).</p>
+      <p>The useful material records how your team handles a request, makes a decision, checks quality or resolves a problem. It does not need to be polished for publication.</p>
+      <h2>What qualifies</h2>
+      <p>Internal SOPs, ticket histories, CRM notes, call scripts and QA rubrics can qualify when you own the rights to license them and they can be cleaned safely.</p>
+      <h2>What doesn't</h2>
+      <p>Client-owned records and contract-restricted material are excluded. So are personal details, client names, credentials, and anything a regulator protects. Removing a name does not create a right to license a record you do not own.</p>
+    </div>
+  </section>
+
+  <section class="records-band" aria-labelledby="process-h">
+    <div class="wrap records">
+      <div class="records-heading"><span class="eyebrow">02 · How it works</span><h2 id="process-h">Five steps. You decide what moves.</h2></div>
+      <ol class="records-list">
+        {steps.map(([title, text], index) => <li><span class="record-num" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span><div><h3>{title}</h3><p>{text}</p></div></li>)}
+      </ol>
+    </div>
+  </section>
+
+  <section class="wrap split" aria-labelledby="faq-h">
+    <div class="left"><span class="eyebrow">03 · Questions</span><h2 id="faq-h">Before you decide.</h2></div>
+    <div class="right prose records-faq">
+      <h3>Will my clients know?</h3>
+      <p>Client names and identifying details are removed or the records are excluded. We also check whether your contracts require notice or consent. Redaction is not a reason to skip those obligations; if a record cannot be shared safely and lawfully, it stays out.</p>
+      <h3>Who sees it?</h3>
+      <p>Licensing runs through micro1, which supplies training data to AI labs. Before you agree, the contract must specify the recipients, permitted uses and access controls. We do not share raw records with prospective buyers.</p>
+      <h3>What does it pay?</h3>
+      <p><a class="link-rule" href="https://www.micro1.ai/data-estimate">micro1 lists partnership tiers from $100K+</a>. The actual price depends on the records: their quality, uniqueness, volume and the agreed access terms. Those tiers are not a quote or a promise of payment for your records.</p>
+      <h3>Can I stop?</h3>
+      <p>You can stop the review before signing, with no obligation. After signing, withdrawal, termination and any continued use of delivered records depend on the contract. We review those terms with you before delivery; do not assume a completed license can be undone.</p>
+    </div>
+  </section>
+
+  <section class="contact">
+    <div class="wrap">
+      <p class="big">Most of our work is building the systems small institutions run on. This is the same knowledge, put to a second use.</p>
+      <a class="link-rule" href="mailto:m@statecraft.systems?subject=Records%20review">Book a 20-minute records review</a>
+    </div>
+  </section>
+</BaseLayout>

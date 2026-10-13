@@ -594,7 +594,7 @@
       })
       .catch(function (err) {
         console.error('[decisions] send failed', err);
-        status.textContent = 'Not through yet. It will keep trying — or copy your answers from the box below and email them to contact@statecraft.systems.';
+        status.textContent = 'Not through yet. It will keep trying — or copy your answers from the box below and email them to m@statecraft.systems.';
         flash('Not sent yet — still trying', true);
         submit.textContent = 'Send now';
         showFallback(answers);

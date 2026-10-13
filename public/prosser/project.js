@@ -157,7 +157,7 @@
 
   function mailtoFor(answers, name) {
     var lines = answers.map(function (a) { return a.title + '\n' + a.answer; });
-    return 'mailto:contact@statecraft.systems?subject=' + encodeURIComponent('Prosser Home decisions' + (name ? ' from ' + name : ''))
+    return 'mailto:m@statecraft.systems?subject=' + encodeURIComponent('Prosser Home decisions' + (name ? ' from ' + name : ''))
       + '&body=' + encodeURIComponent(lines.join('\n\n'));
   }
 

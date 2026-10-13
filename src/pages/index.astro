@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PlateCard from '../components/PlateCard.astro';
+import OperatingRecords from '../components/OperatingRecords.astro';
 import DetailA from '../components/DetailA.astro';
 import ThesisBand from '../components/ThesisBand.astro';
 import ContactBlock from '../components/ContactBlock.astro';
@@ -14,7 +15,7 @@ const [feature, ...rest] = plates;
     <h1>We build the <em>working parts</em> of small institutions.</h1>
     <div class="hero-foot">
       <p class="lede">Intake for a clinic. Booking for a house. Enquiries for a supplier. Designed with the people who run the place, reviewed on the real thing, and built to keep working after we step back.</p>
-      <p class="practice">The practice of Moritz Bierling<br /><a href="mailto:contact@statecraft.systems">contact@statecraft.systems</a></p>
+      <p class="practice">The practice of Moritz Bierling<br /><a href="mailto:m@statecraft.systems">m@statecraft.systems</a></p>
     </div>
   </section>
 
@@ -28,6 +29,8 @@ const [feature, ...rest] = plates;
       {rest.map((plate) => <PlateCard plate={plate} />)}
     </div>
   </section>
+
+  <OperatingRecords />
 
   <DetailA />
 
