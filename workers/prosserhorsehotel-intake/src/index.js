@@ -4,7 +4,7 @@
 //   POST /api/prosserhorsehotel/submit        multipart/form-data or JSON; honeypot field "website"
 //   GET  /api/prosserhorsehotel/submissions   Authorization: Bearer ADMIN_TOKEN -> JSON list
 //   GET  /api/prosserhorsehotel/file/<key>    Authorization: Bearer ADMIN_TOKEN -> stored upload
-const ALLOWED = [/^https:\/\/statecraft\.systems$/, /^https:\/\/www\.statecraft\.systems$/, /^https:\/\/[a-z0-9-]+\.statecraft-systems\.pages\.dev$/, /^http:\/\/localhost(:\d+)?$/];
+const ALLOWED = [/^https:\/\/prosserhorsehotel\.com$/, /^https:\/\/www\.prosserhorsehotel\.com$/, /^https:\/\/statecraft\.systems$/, /^https:\/\/www\.statecraft\.systems$/, /^https:\/\/[a-z0-9-]+\.statecraft-systems\.pages\.dev$/, /^http:\/\/localhost(:\d+)?$/];
 const MAX_FIELDS = 120, MAX_FIELD = 5000, MAX_FILES = 10, MAX_FILE = 8 * 1024 * 1024, MAX_TOTAL = 20 * 1024 * 1024;
 const cors = (o) => ({ 'Access-Control-Allow-Origin': o && ALLOWED.some(r => r.test(o)) ? o : 'https://statecraft.systems', 'Access-Control-Allow-Methods': 'POST, GET, OPTIONS', 'Access-Control-Allow-Headers': 'content-type, authorization', Vary: 'Origin' });
 const json = (d, s, o) => new Response(JSON.stringify(d), { status: s, headers: { 'Content-Type': 'application/json; charset=utf-8', 'Cache-Control': 'no-store', ...cors(o) } });

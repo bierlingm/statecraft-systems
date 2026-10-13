@@ -1,4 +1,4 @@
-const ENDPOINT = 'https://statecraft.systems/api/prosserhorsehotel/submit';
+const ENDPOINT = '/api/prosserhorsehotel/submit';
 const photoInput = document.querySelector('[name="photos"]');
 function validatePhotos() {
   const files = [...photoInput.files];
