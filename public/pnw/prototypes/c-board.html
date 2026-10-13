@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Prototype C · Market board</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f4f6f8;--card:#fff;--ink:#16202a;--muted:#5f6b76;--line:#dde3e8;--blue:#1d5fd1;--blue-soft:#e8f0fd;--amber:#b86e00;--amber-soft:#fff3e0;--green:#1b7a45}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 "IBM Plex Sans",system-ui,sans-serif;padding-bottom:64px}
+a{color:inherit}h1,h2,h3{margin:0;line-height:1.2}.mono{font-family:"IBM Plex Mono",monospace}
+.wrap{max-width:1180px;margin:auto;padding:0 16px}
+.top{background:var(--card);border-bottom:1px solid var(--line)}.top .wrap{display:flex;align-items:center;gap:20px;height:56px}
+.logo{text-decoration:none;font-weight:700;font-size:1.05rem;display:flex;align-items:center;gap:8px}.logo i{width:22px;height:22px;background:var(--blue);border-radius:5px;display:inline-block;position:relative}.logo i::after{content:"";position:absolute;inset:6px 4px 5px;background:#fff;clip-path:polygon(50% 0,100% 45%,100% 100%,0 100%,0 45%)}
+.top nav{display:flex;gap:18px;margin-left:auto;font-weight:500}.top nav a{text-decoration:none;color:var(--muted)}.top nav a:hover{color:var(--ink)}
+.btn{display:inline-flex;align-items:center;justify-content:center;border:0;background:var(--blue);color:#fff;font:600 .95rem "IBM Plex Sans";padding:10px 16px;border-radius:6px;cursor:pointer;text-decoration:none;gap:6px}
+.btn.line{background:#fff;color:var(--blue);border:1px solid var(--blue)}
+.hero{padding:36px 0 22px}.hero h1{font-size:clamp(1.8rem,4vw,2.5rem);font-weight:700;max-width:24ch}.hero p{color:var(--muted);margin:8px 0 18px;max-width:60ch}
+.search{display:grid;grid-template-columns:1.2fr 1fr 1fr .8fr .8fr auto;background:var(--card);border:1px solid var(--line);border-radius:8px;overflow:hidden}
+.search label{display:flex;flex-direction:column;padding:8px 12px;border-right:1px solid var(--line);font-size:.72rem;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
+.search input,.search select{border:0;background:transparent;font:500 1rem "IBM Plex Sans";color:var(--ink);padding:3px 0}
+.search .btn{border-radius:0;padding:0 24px}
+@media(max-width:860px){.search{grid-template-columns:1fr 1fr}.search .btn{grid-column:1/-1;padding:12px}.top nav{display:none}}
+.kpis{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}.kpi{background:var(--card);border:1px solid var(--line);border-radius:6px;padding:8px 12px;font-size:.88rem;color:var(--muted)}.kpi b{color:var(--ink)}
+.layout{display:grid;grid-template-columns:240px 1fr;gap:20px;padding:20px 0}@media(max-width:860px){.layout{grid-template-columns:1fr}}
+.filters{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:14px;align-self:start;position:sticky;top:12px;display:flex;flex-direction:column;gap:10px}
+.filters label{display:flex;flex-direction:column;gap:3px;font-size:.75rem;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
+.filters input,.filters select{font:500 .95rem "IBM Plex Sans";padding:7px 8px;border:1px solid var(--line);border-radius:5px;background:#fff;color:var(--ink);text-transform:none;letter-spacing:0}
+.bar{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;gap:10px;flex-wrap:wrap}.bar h2{font-size:1.1rem}.bar .muted{color:var(--muted);font-size:.9rem}
+.row{display:grid;grid-template-columns:150px 1fr 140px;gap:16px;background:var(--card);border:1px solid var(--line);border-radius:8px;padding:10px;text-decoration:none;margin-bottom:10px;align-items:center}
+.row:hover{border-color:var(--blue)}
+@media(max-width:620px){.row{grid-template-columns:110px 1fr}.row .rt{grid-column:1/-1;text-align:left!important;display:flex;justify-content:space-between;align-items:center}}
+.thumb{border-radius:6px;overflow:hidden;aspect-ratio:4/3}.thumb svg{width:100%;height:100%;display:block}
+.row h3{font-size:1rem;font-weight:600}.meta{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+.chip{font-size:.78rem;font-weight:600;padding:2px 8px;border-radius:4px;background:#eef1f4;color:var(--ink)}.chip.warn{background:var(--amber-soft);color:var(--amber)}.chip.new{background:var(--blue-soft);color:var(--blue)}
+.sub{color:var(--muted);font-size:.88rem;margin-top:4px}.also{font-size:.84rem;color:var(--blue);margin-top:6px;font-weight:600}
+.rt{text-align:right}.pr{font-size:1.35rem;font-weight:700}.pr small{font-size:.75rem;color:var(--muted);font-weight:600;text-transform:uppercase;margin-right:3px}
+.ck{font-size:.8rem;color:var(--green);font-weight:600}
+.detail{display:grid;grid-template-columns:1.6fr 1fr;gap:22px;padding:20px 0}@media(max-width:860px){.detail{grid-template-columns:1fr}}
+.box{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:16px}
+.gallery{display:grid;grid-template-columns:3fr 1fr;gap:6px}.gallery div{border-radius:6px;overflow:hidden}.gallery svg{display:block;width:100%;height:100%}.gallery .side{display:grid;gap:6px}
+table{width:100%;border-collapse:collapse;font-size:.93rem}th,td{text-align:left;padding:8px 6px;border-bottom:1px solid var(--line)}th{color:var(--muted);font-weight:500;width:40%}
+.cmp th{width:auto;font-size:.75rem;text-transform:uppercase;letter-spacing:.05em}.cmp td.num{font-weight:600}
+.panel{position:sticky;top:12px;align-self:start;display:flex;flex-direction:column;gap:10px}.panel .btn{width:100%}.note{font-size:.85rem;color:var(--muted)}
+.soon{background:var(--blue-soft);color:#173f86;border-radius:8px;padding:12px 14px;font-size:.9rem}
+.join{max-width:680px;margin:auto;padding:30px 0}.join h1{font-size:1.9rem}.join form{margin-top:16px;display:flex;flex-direction:column;gap:12px}
+.join label{display:flex;flex-direction:column;gap:4px;font-weight:600;font-size:.9rem}.join input{font:500 1rem "IBM Plex Sans";padding:9px 10px;border:1px solid var(--line);border-radius:6px}
+.choice{flex-direction:row!important;gap:10px!important;align-items:flex-start;border:1px solid var(--line);border-radius:8px;padding:10px 12px;font-weight:500!important;cursor:pointer;background:#fff}.choice:has(input:checked){border-color:var(--blue);background:var(--blue-soft)}
+.foot{border-top:1px solid var(--line);background:var(--card);padding:22px 0;color:var(--muted);font-size:.88rem;margin-top:24px}
+.proto{position:fixed;left:0;right:0;bottom:0;background:#16202a;color:#dde3e8;font:13px system-ui;display:flex;gap:14px;align-items:center;padding:8px 14px;z-index:9;flex-wrap:wrap}.proto a{color:#8fb6ff}.proto b{color:#fff}
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap"><a class="logo" href="#/"><i></i>PNW Mobile Homes</a><nav><a href="#/homes">Homes</a><a href="#/homes?kind=order">New models</a><a href="#/join">Dealers</a><a href="#/join">Sell yours</a></nav><a class="btn line" href="#/join" style="padding:6px 12px">List free</a></div></header>
+<main id="app"></main>
+<footer class="foot"><div class="wrap">PNW Mobile Homes is a marketplace, not a dealer. Every home is sold by the dealer or owner shown. Prices and availability are checked against the seller daily.</div></footer>
+<div class="proto"><b>Prototype C · Market board</b> <span>Sample data, not real listings.</span> <a href="#/">Home</a><a href="#/homes?zip=98901&radius=200&maxPrice=180000&beds=3&baths=2">Search: 3+ bed, 2 bath, under $180k</a><a href="#/home/h1">A home</a><a href="#/join">Dealer sign-up</a> · <a href="a-oversize.html">A</a><a href="b-evergreen.html">B</a><a href="index.html">All</a></div>
+<script src="data.js"></script>
+<script>
+const P = window.PNW, app = document.getElementById('app');
+const sameModel = h => h.model === 'unknown' ? [] : P.homes.filter(x => x.id !== h.id && x.maker === h.maker && x.model === h.model);
+const chips = h => [h.kind === 'order' ? '<span class="chip new">Factory order</span>' : '<span class="chip">In stock</span>', h.move === 'must move' ? '<span class="chip warn">Must be moved</span>' : '', h.park ? `<span class="chip">Park · lot ${P.money(h.lotRent)}/mo</span>` : '', `<span class="chip">${['Single', 'Double', 'Triple'][h.sections - 1]}-wide</span>`].join('');
+const row = h => { const also = sameModel(h); return `<a class="row" href="#/home/${h.id}"><div class="thumb">${P.photo(h)}</div>
+  <div><h3>${h.year} ${h.maker !== 'unknown' ? h.maker : ''} ${h.model !== 'unknown' ? h.model.replace('Sample ', '') : ''} · ${h.beds} bd · ${h.baths} ba · ${h.sqft.toLocaleString()} ft²</h3>
+  <div class="sub">${h.town}, ${h.place.state}${h.distance != null ? ` · <span class="mono">${h.distance} mi</span>` : ''} · ${P.sellerName(h)} (${P.sellerKind(h).toLowerCase()})</div><div class="meta">${chips(h)}</div>
+  ${also.length ? `<div class="also">Same model at ${also.length} other dealer${also.length > 1 ? 's' : ''} → compare</div>` : ''}</div>
+  <div class="rt"><div class="pr">${h.priceKind === 'from' ? '<small>from</small>' : ''}${P.money(h.price)}</div><div class="ck">✓ ${P.checkedLabel(h)}</div></div></a>`; };
+function go(form) { location.hash = '#/homes?' + new URLSearchParams(new FormData(form)); }
+const opt = (n, q, list) => `<select name="${n}">${list.map(([v, l]) => `<option value="${v}" ${(q[n] ?? '') == v ? 'selected' : ''}>${l}</option>`).join('')}</select>`;
+function home() {
+  const newest = P.homes.slice(0, 5);
+  return `<div class="wrap"><section class="hero"><h1>Every manufactured home for sale in WA, OR and ID, side by side.</h1><p>Dealer stock, new models to order and private sellers in one search, with the same facts shown the same way for every home.</p>
+  <form class="search" onsubmit="event.preventDefault();go(this)"><label>ZIP<input name="zip" placeholder="98901" inputmode="numeric"></label><label>Radius${opt('radius', { radius: 200 }, [[50, '50 mi'], [100, '100 mi'], [200, '200 mi'], [400, '400 mi']])}</label><label>Max price${opt('maxPrice', {}, [['', 'Any'], [100000, '$100k'], [150000, '$150k'], [180000, '$180k'], [250000, '$250k']])}</label><label>Beds${opt('beds', {}, [[0, 'Any'], [2, '2+'], [3, '3+'], [4, '4+']])}</label><label>Baths${opt('baths', {}, [[0, 'Any'], [1, '1+'], [2, '2+']])}</label><button class="btn">Search</button></form>
+  <div class="kpis"><span class="kpi"><b>${P.homes.length}</b> homes (sample)</span><span class="kpi"><b>${P.dealers.length}</b> dealers</span><span class="kpi"><b>${P.homes.filter(h => h.kind === 'order').length}</b> new models to order</span><span class="kpi">Checked <b>daily</b></span></div></section>
+  <div class="bar"><h2>Newest homes</h2><a href="#/homes" class="muted">See all →</a></div>${newest.map(row).join('')}
+  <div class="box" style="display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;margin:20px 0"><div><b>Dealers:</b> your inventory here, free, linked back to your site. Buyers see which dealers carry each model.</div><a class="btn" href="#/join">Add your dealership</a></div></div>`;
+}
+function results(q) {
+  const r = P.search({ zip: q.zip, radius: +q.radius || 200, maxPrice: +q.maxPrice || 0, beds: +q.beds || 0, baths: +q.baths || 0, kind: q.kind || 'all', move: q.move || 'any' });
+  return `<div class="wrap layout"><form class="filters" onchange="go(this)" onsubmit="event.preventDefault();go(this)"><label>ZIP<input name="zip" value="${q.zip || ''}"></label><label>Radius${opt('radius', q, [[50, '50 miles'], [100, '100 miles'], [200, '200 miles'], [400, '400 miles']])}</label>
+  <label>Max price${opt('maxPrice', q, [['', 'Any'], [50000, '$50,000'], [100000, '$100,000'], [150000, '$150,000'], [180000, '$180,000'], [250000, '$250,000']])}</label><label>Beds${opt('beds', q, [[0, 'Any'], [2, '2+'], [3, '3+'], [4, '4+']])}</label><label>Baths${opt('baths', q, [[0, 'Any'], [1, '1+'], [2, '2+']])}</label>
+  <label>Type${opt('kind', q, [['all', 'All'], ['stock', 'In stock'], ['order', 'Factory order']])}</label><label>Moving${opt('move', q, [['any', 'Either'], ['stay', 'Can stay'], ['must', 'Must be moved']])}</label></form>
+  <div><div class="bar"><h2>${r.length} homes${q.zip ? ` within ${q.radius || 200} mi of ${q.zip}` : ''}</h2><span class="muted">Sorted by distance, then price</span></div>${r.map(row).join('') || '<div class="box">No homes match. Widen the radius.</div>'}</div></div>`;
+}
+function detail(id) {
+  const h = P.homes.find(x => x.id === id); if (!h) return ''; const also = sameModel(h); const indexed = h.dealerObj && h.dealerObj.tier === 'indexed';
+  const offers = [h, ...also];
+  return `<div class="wrap detail"><div style="display:flex;flex-direction:column;gap:16px"><div class="gallery"><div>${P.photo(h)}</div><div class="side"><div>${P.photo(h, 1)}</div><div>${P.photo(h, 2)}</div></div></div>
+  <div class="box"><h1 style="font-size:1.5rem">${h.title}</h1><div class="sub">${h.town}, ${h.place.county} County, ${h.place.state}${h.park ? ` · ${h.park}` : ''}</div><div class="meta">${chips(h)}</div></div>
+  <div class="box"><table><tr><th>Maker / model</th><td>${h.maker} · ${h.model}</td></tr><tr><th>Year</th><td>${h.year}${h.year < 1976 ? ' · built before the HUD code (June 1976)' : ''}</td></tr><tr><th>Bedrooms / bathrooms</th><td>${h.beds} / ${h.baths}</td></tr><tr><th>Size</th><td>${h.sqft.toLocaleString()} ft², ${['single', 'double', 'triple'][h.sections - 1]}-wide</td></tr><tr><th>Moving</th><td>${h.move === 'must move' ? 'Must be moved' : h.kind === 'order' ? 'Built to order and delivered' : 'Can stay where it is'}</td></tr><tr><th>Lot rent</th><td>${h.lotRent ? P.money(h.lotRent) + ' / month' : 'Not in a park'}</td></tr></table></div>
+  ${also.length ? `<div class="box"><h3 style="font-size:1rem;margin-bottom:8px">This model from ${offers.length} sellers</h3><table class="cmp"><tr><th>Seller</th><th>Type</th><th>Price</th><th>Year</th><th>Where</th></tr>${offers.map(o => `<tr><td>${P.sellerName(o)}</td><td>${o.kind === 'order' ? 'Factory order' : 'In stock, used'}</td><td class="num">${P.priceLabel(o)}</td><td>${o.year}</td><td>${o.town}</td></tr>`).join('')}</table><p class="note" style="margin:8px 0 0">Delivered-and-set prices come next.</p></div>` : ''}
+  <div class="soon">Coming to every listing: what the price includes, the cost of moving and setup to your ZIP, and whether it can go where you want it.</div></div>
+  <aside class="panel"><div class="box"><div class="pr">${h.priceKind === 'from' ? '<small>from</small>' : ''}${P.money(h.price)}</div><div class="ck">✓ ${P.checkedLabel(h)} against the ${h.dealerObj ? 'dealer’s website' : 'seller'}</div></div>
+  <div class="box" style="display:flex;flex-direction:column;gap:10px"><div><div class="note">Seller</div><b>${P.sellerName(h)}</b> · <span class="note">${P.sellerKind(h)}</span></div>
+  ${indexed ? `<a class="btn" href="#">View on dealer’s site ↗</a><p class="note" style="margin:0">Listed on the dealer’s own site. We point you to it; they sell it.</p>` : `<a class="btn" href="#">Send a message</a><a class="btn line" href="#">Show phone</a>`}</div><a class="note" href="#">Report this listing</a></aside></div>`;
+}
+function join() {
+  return `<div class="wrap join"><h1>Add your dealership</h1><p class="note" style="font-size:1rem">Free. We show the homes on your website and send buyers to you. Choose what we show; leave any time.</p>
+  <form class="box" onsubmit="event.preventDefault();this.innerHTML='<h2>Received.</h2><p>Your homes appear within a day; we email you a link to check them first.</p>'">
+  <label>Dealership<input required></label><label>Inventory page URL<input type="url" required placeholder="https://…"></label><div style="display:grid;grid-template-columns:1fr 1fr;gap:10px"><label>Your name<input required></label><label>Phone<input type="tel"></label></div><label>Email<input type="email" required></label>
+  <label class="choice"><input type="radio" name="t" checked><span><b>Facts + link back</b> <span class="note">· price, size, beds, baths; buyers click through to you</span></span></label>
+  <label class="choice"><input type="radio" name="t"><span><b>Facts + photos + link back</b> <span class="note">· listings with photos get far more attention</span></span></label>
+  <label class="choice"><input type="radio" name="t"><span><b>I’ll manage my listings here</b> <span class="note">· your own login</span></span></label>
+  <label class="choice"><input type="checkbox" required><span>I’m authorised to list this dealership’s homes and accept the terms.</span></label><button class="btn">Add my dealership</button></form></div>`;
+}
+function route() { const [path, qs] = location.hash.slice(1).split('?'); const q = Object.fromEntries(new URLSearchParams(qs || ''));
+  app.innerHTML = path.startsWith('/homes') ? results(q) : path.startsWith('/home/') ? detail(path.split('/')[2]) : path.startsWith('/join') ? join() : home(); scrollTo(0, 0); }
+addEventListener('hashchange', route); route();
+</script>
+</body>
+</html>

@@ -1,4 +1,60 @@
 (function () {
+  // The record ships closed. A shared question link opens its chapter before scrolling.
+  function reveal(target) {
+    if (!target) return;
+    for (var node = target; node; node = node.parentElement) {
+      if (node.tagName === 'DETAILS') node.open = true;
+    }
+  }
+  function followHash() {
+    var id;
+    try { id = decodeURIComponent(location.hash.slice(1)); } catch (e) { return; }
+    var target = document.getElementById(id);
+    if (!target) return;
+    reveal(target);
+    requestAnimationFrame(function () { target.scrollIntoView({ behavior: 'instant', block: 'start' }); });
+  }
+  document.addEventListener('DOMContentLoaded', followHash);
+  window.addEventListener('hashchange', followHash);
+  if (document.readyState !== 'loading') followHash();
+  // Repeated clicks on the same hash still reopen a chapter the reader has closed.
+  document.addEventListener('click', function (event) {
+    var anchor = event.target.closest('a[href^="#"]');
+    if (anchor && anchor.hash === location.hash) followHash();
+  });
+
+  var navLinks = Array.from(document.querySelectorAll('.section-nav a[href^="#"]'));
+  var roomSections = [];
+  navLinks = navLinks.filter(function (a) {
+    var section = a.hash && a.hash.length > 1 ? document.getElementById(a.hash.slice(1)) : null;
+    if (!section) return false;   // a link to a section that no longer exists must not crash the nav
+    roomSections.push(section);
+    return true;
+  });
+  if (roomSections.length && 'IntersectionObserver' in window) {
+    var observer = new IntersectionObserver(function () {
+      var current = roomSections[0];
+      roomSections.forEach(function (section) {
+        if (section.getBoundingClientRect().top <= window.innerHeight * 0.3) current = section;
+      });
+      navLinks.forEach(function (a) {
+        if (a.hash === '#' + current.id) a.setAttribute('aria-current', 'location');
+        else a.removeAttribute('aria-current');
+      });
+    }, { rootMargin: '-10% 0px -65% 0px', threshold: 0 });
+    roomSections.forEach(function (section) { observer.observe(section); });
+  }
+
+  var printClosed = [];
+  window.addEventListener('beforeprint', function () {
+    printClosed = Array.from(document.querySelectorAll('details:not([open])'));
+    printClosed.forEach(function (details) { details.open = true; });
+  });
+  window.addEventListener('afterprint', function () {
+    printClosed.forEach(function (details) { details.open = false; });
+    printClosed = [];
+  });
+
   var SITE = 'https://www.pnwmobilehomes.com';
   var select = document.getElementById('preview-page');
   var preview = document.getElementById('site-preview');
@@ -12,12 +68,64 @@
     });
   }
 
+  // Answers go to Moritz's Zo, which stores them before replying and texts him once a
+  // sitting goes quiet. Spikes stays as a best-effort mirror so the record Ben started
+  // on 2026-09-24 keeps running in one place; a Spikes failure never blocks the room.
+  var INTAKE_ENDPOINT = 'https://bierlingm.zo.space/api/pnw/answers';
   var SPIKES_ENDPOINT = 'https://spikes.sh/spikes';
   var SPIKES_PROJECT = 'pnw';
   var PICKS_KEY = 'pnw-picks';
   var form = document.getElementById('decision-form');
   var status = document.getElementById('decision-status');
   if (!form) return;
+
+  var benTaskPicks = {};
+  var taskItems = Array.from(form.querySelectorAll('[data-task]'));
+  var liveTasks = document.getElementById('live-tasks');
+  var doneTasks = document.getElementById('done-tasks');
+
+  function refreshTasks() {
+    var picks = Object.assign({}, benTaskPicks, currentPicks());
+    taskItems.forEach(function (item) {
+      var key = item.getAttribute('data-task');
+      var complete = picks[key] === 'done';
+      var destination = complete ? doneTasks : liveTasks;
+      var active = item.contains(document.activeElement);
+      item.classList.toggle('task-complete', complete);
+      var label = item.querySelector('.task-label');
+      if (!item.hasAttribute('data-live-label')) item.setAttribute('data-live-label', label.textContent);
+      label.textContent = '';
+      if (complete) {
+        var strike = document.createElement('s');
+        strike.textContent = item.getAttribute('data-done-label');
+        label.appendChild(strike);
+      } else label.textContent = item.getAttribute('data-live-label');
+      var button = item.querySelector('.task-toggle');
+      if (button) {
+        var own = button.getAttribute('aria-pressed') === 'true';
+        // Someone else's completed task is visible, never pressed on their behalf.
+        button.hidden = complete && !own;
+        button.textContent = complete ? 'Undo' : button.getAttribute('data-action-label');
+        button.setAttribute('aria-label', (complete ? 'Undo: ' : button.getAttribute('data-action-label') + ': ') + item.querySelector('.task-label').textContent);
+      }
+      if (item.parentElement !== destination) {
+        destination.appendChild(item);
+        if (active) {
+          var next = liveTasks.querySelector('button:not([hidden]), a');
+          (next || document.querySelector('#tasks-done summary')).focus();
+        }
+      }
+    });
+    document.getElementById('tasks-empty').hidden = !!liveTasks.children.length;
+    document.getElementById('done-empty').hidden = !!doneTasks.children.length;
+    var progress = document.getElementById('tasks-progress');
+    if (progress) {
+      var total = taskItems.length, finished = doneTasks.children.length;
+      progress.textContent = finished === total ? 'All done. Thank you.' : finished + ' of ' + total + ' done';
+      var bar = document.getElementById('tasks-bar');
+      if (bar) bar.style.width = Math.round(100 * finished / total) + '%';
+    }
+  }
 
   var submit = form.querySelector('button[type="submit"]');
 
@@ -42,6 +150,16 @@
     // These are toggle buttons, not radios. Carrying aria-checked as well kept
     // screen readers reading every option as unchecked; drop it where it exists.
     if (btn.hasAttribute('aria-checked')) btn.removeAttribute('aria-checked');
+  }
+
+  function currentFields() {
+    var out = {};
+    form.querySelectorAll('textarea, input:not([type="hidden"])').forEach(function (field) {
+      if (!field.name || !field.value.trim()) return;
+      if (field.value.trim() === (field.getAttribute('data-default') || '\u0000')) return;
+      out[field.name] = field.value.trim();
+    });
+    return out;
   }
 
   function applyPicks(picks) {
@@ -169,21 +287,21 @@
   }
 
   var LABELS = {
-    speed: 'BUILD COST: does the argument land',
+    'speed': 'BUILD COST: does the argument land',
     'claims.article': 'THE $500 SPONSORED ARTICLE',
     'idea.mirror': 'WOULD TRY: mirror every home in the three states',
     'idea.guide': 'WOULD TRY: the buyer and seller guide',
     'idea.parkmap': 'WOULD TRY: the park and community map',
     'idea.directory': 'WOULD TRY: the index of businesses serving the market',
     'idea.first': 'WOULD TRY: which one comes first',
-    after: 'AFTER THE FIRST MONTH: the structure',
+    'after': 'AFTER THE FIRST MONTH: the structure',
     'asm.paywall': 'ASSESSMENT: the paywall and contradicting price lists',
     'asm.identity': 'ASSESSMENT: dealership shows as seller on every listing',
     'have.year': 'DEALERS HAVE ON RECORD: year built',
     'have.sqft': 'DEALERS HAVE ON RECORD: square footage',
     'have.moved': 'DEALERS HAVE ON RECORD: must be moved',
     'have.lotrent': 'DEALERS HAVE ON RECORD: lot rent',
-    terms: 'COMMERCIAL TERMS',
+    'terms': 'COMMERCIAL TERMS',
     'access.bd': 'ACCESS: Brilliant Directories',
     'access.dns': 'ACCESS: the domain at Namecheap',
     'story.front': 'STORY: who fronts the site',
@@ -220,14 +338,30 @@
     'claims.visitors': 'Soften the 3,000 visitor claim',
     'claims.sellers': 'Remove “join hundreds of sellers”',
     'claims.article': 'Pause the $500 sponsored article',
-    buyerq: 'The buyer’s real question',
+    'buyerq': 'The buyer’s real question',
     'inv.dealers': 'Ben calls dealers he knows',
     'inv.import': 'Import dealer inventory from their own files',
     'inv.own': 'Load Ben’s own past and current listings',
     'inv.blocked': 'Go back to sellers who hit the paywall',
     'inv.parks': 'Parks and communities list vacant homes',
-    demand: 'Who owns demand',
-    'start.terms': '$500 upfront, one month'
+    'demand': 'Who owns demand',
+    'start.terms': '$500 upfront, one month',
+    'pay.how': 'MONEY: how you would like to pay the first month',
+    'task.pay': 'TASK: first month paid',
+    'plan.build': 'MONTH ONE: build the new platform rather than repair the old',
+    'plan.schema': 'MONTH ONE: the model-and-dealer-offer database from day one',
+    'plan.mirror': 'MONTH ONE: mirror the three states first',
+    'plan.bd': 'MONTH ONE: leave Brilliant Directories untouched',
+    'identity.revisit': 'IDENTITY REOPENED: remove dealership after research',
+    'task.bd': 'NEXT STEP: Brilliant Directories invitation sent',
+    'task.dns': 'NEXT STEP: Namecheap domain access shared',
+    'task.newsletter': 'NEXT STEP: newsletter location and consent answered',
+    'task.attorney': 'NEXT STEP: attorney appointment booked',
+    'task.interview': 'NEXT STEP: interview date sent',
+    'task.dealers': 'NEXT STEP: dealer list sent',
+    'task.subscribers': 'NEXT STEP: subscriber CSV emailed',
+    'task.design': 'NEXT STEP: thoughts on the look sent',
+    'design.pick': 'DESIGN: closest starting point for the look'
   };
 
   var VALUES = {
@@ -261,7 +395,14 @@
     prove: 'hears it, but would rather prove it first',
     doubt: 'not convinced building is that cheap',
     pause: 'pause it until the numbers are real',
-    keep: 'keep selling it'
+    keep: 'keep selling it',
+    done: 'done',
+    researching: 'still researching',
+    oversize: 'A \u00b7 Oversize Load',
+    evergreen: 'B \u00b7 Evergreen',
+    board: 'C \u00b7 Market board',
+    mix: 'a mix \u2014 see the note',
+    nolook: 'none of them \u2014 see the note'
   };
 
   function prettyVal(v) {
@@ -312,6 +453,40 @@
   var autoTimer = null;
   var sending = false;
 
+  // What the text message reports: how far through he is, and how much he wrote.
+  // One question is one data-k group, plus each pick-three list as a single question.
+  function progressCounts() {
+    var total = {};
+    var done = {};
+    form.querySelectorAll('[data-k]').forEach(function (btn) {
+      var k = btn.getAttribute('data-k');
+      total[k] = true;
+      if (btn.getAttribute('aria-pressed') === 'true') done[k] = true;
+    });
+    form.querySelectorAll('[data-pick3]').forEach(function (list) {
+      var k = 'pick3:' + list.getAttribute('data-pick3');
+      total[k] = true;
+      if (list.querySelector('.p3[aria-pressed="true"]')) done[k] = true;
+    });
+    // A written answer counts without fabricating the yes/no tap that never happened.
+    var lotrent = form.querySelector('[name="lotrent_bands"]');
+    if (lotrent && lotrent.value.trim()) done['have.lotrent'] = true;
+    var notes = 0;
+    form.querySelectorAll('textarea, input:not([type="hidden"])').forEach(function (field) {
+      if (!field.name || !field.value.trim()) return;
+      if (field.value.trim() === (field.getAttribute('data-default') || '\u0000')) return;
+      notes++;
+    });
+    return { answered: Object.keys(done).length, total: Object.keys(total).length, notes: notes };
+  }
+
+  function mirrorToSpikes(spike) {
+    try {
+      fetch(SPIKES_ENDPOINT, { method: 'POST', mode: 'cors', keepalive: true, headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(spike) })
+        .catch(function () { /* best effort only */ });
+    } catch (e) { /* best effort only */ }
+  }
+
   function postAnswers(answers, name, attempt) {
     var sig = JSON.stringify([name, answers]);
     var id = submissionIds[sig] || (submissionIds[sig] = uuid());
@@ -328,7 +503,17 @@
       viewport: { width: Math.max(1, Math.round(window.innerWidth)), height: Math.max(1, Math.round(window.innerHeight)) },
       resolved: false
     };
-    return fetch(SPIKES_ENDPOINT, { method: 'POST', mode: 'cors', keepalive: true, headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(spike) })
+    var payload = {
+      submission_id: id,
+      reviewer: { id: reviewerId, name: name },
+      page: location.href,
+      progress: progressCounts(),
+      picks: currentPicks(),
+      fields: currentFields(),
+      answers: answers.map(function (a) { return { id: a.id, title: a.title, answer: a.answer }; })
+    };
+    if (attempt === 1) mirrorToSpikes(spike);
+    return fetch(INTAKE_ENDPOINT, { method: 'POST', mode: 'cors', keepalive: true, headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) })
       .then(function (r) {
         if (r.ok) return sig;
         return r.text().then(function (t) {
@@ -375,6 +560,7 @@
     var box = document.getElementById('answers-fallback');
     if (!box) return;
     box.hidden = false;
+    reveal(box);
     var ta = box.querySelector('textarea');
     if (ta) ta.value = answersText(answers);
   }
@@ -470,9 +656,11 @@
 
   // How far through they are. Counts a card as answered once anything in it is set.
   function refreshProgress() {
+    refreshTasks();
     var articles = form.querySelectorAll('article[data-field]');
-    var total = articles.length;
-    var done = collectAnswers().length;
+    var counts = progressCounts();
+    var total = counts.total;
+    var done = counts.answered;
     articles.forEach(function (article) {
       article.classList.toggle('is-answered', !!articleAnswer(article));
     });
@@ -487,4 +675,129 @@
   refreshProgress();
   // Answers left over from a previous visit that never reached us.
   if (unsent() && reviewerName()) queueSend(2000);
+
+  // ---------------------------------------------------------------------------
+  // What has already been answered, from the record rather than from this device.
+  //
+  // Picks used to live only in localStorage, so the room looked blank to anyone but
+  // the person who filled it in — and blank to that person on a second device. The
+  // gated /api/pnw-answers returns the stored set. Your own answers are restored into
+  // the form; somebody else's are shown beside each question, and never pressed, so
+  // nobody overwrites anyone by tapping.
+  // ---------------------------------------------------------------------------
+
+  function dayMonth(iso) {
+    var d = new Date(iso);
+    if (isNaN(d)) return '';
+    return d.getDate() + ' ' + ['January', 'February', 'March', 'April', 'May', 'June', 'July',
+      'August', 'September', 'October', 'November', 'December'][d.getMonth()];
+  }
+
+  // Keys and field names come off the wire, so they are escaped before going into a selector.
+  function attr(value) {
+    return String(value).replace(/\\/g, '\\\\').replace(/"/g, '\\"');
+  }
+
+  function groupFor(btn) {
+    return btn.closest('.votes, .pick-list, .act-list li, .decision-list article') || btn.parentElement;
+  }
+
+  function markTheirPicks(picks, who) {
+    var marked = 0;
+    Object.keys(picks).forEach(function (k) {
+      var chosen = form.querySelector('[data-k="' + attr(k) + '"][data-v="' + attr(picks[k]) + '"]');
+      if (!chosen) return;
+      chosen.classList.add('is-theirs');
+      var group = groupFor(chosen);
+      if (!group || group.querySelector(':scope > .by-them')) return;
+      var badge = document.createElement('span');
+      badge.className = 'by-them';
+      badge.textContent = who + ': ' + prettyVal(picks[k]);
+      group.appendChild(badge);
+      marked++;
+    });
+    return marked;
+  }
+
+  function markTheirFields(fields, who) {
+    Object.keys(fields).forEach(function (name) {
+      var field = form.querySelector('[name="' + attr(name) + '"]');
+      if (!field) return;
+      var label = field.closest('label, .field-row') || field.parentElement;
+      if (!label || label.querySelector(':scope > .note-them')) return;
+      var note = document.createElement('div');
+      note.className = 'note-them';
+      var head = document.createElement('span');
+      head.className = 'note-them-who';
+      head.textContent = who + ' wrote';
+      var body = document.createElement('p');
+      body.textContent = fields[name];
+      note.appendChild(head);
+      note.appendChild(body);
+      label.insertAdjacentElement('afterend', note);
+    });
+  }
+
+  function restoreOwn(record) {
+    var picks = loadPicks();
+    var added = 0;
+    Object.keys(record.picks || {}).forEach(function (k) {
+      if (picks[k] === undefined) { picks[k] = record.picks[k]; added++; }
+    });
+    if (added) { savePicks(picks); applyPicks(picks); }
+    Object.keys(record.fields || {}).forEach(function (name) {
+      var field = form.querySelector('[name="' + attr(name) + '"]');
+      if (field && !field.value.trim()) {
+        field.value = record.fields[name];
+        remember('pnw-decision-' + name, field.value);
+        added++;
+      }
+    });
+    if (added) refreshProgress();
+    return added;
+  }
+
+  function announce(text) {
+    var bar = document.getElementById('answers-on-record');
+    if (!bar) {
+      bar = document.createElement('p');
+      bar.id = 'answers-on-record';
+      bar.className = 'on-record';
+      form.insertBefore(bar, form.firstChild);
+    }
+    bar.textContent = text;
+  }
+
+  fetch('/api/pnw-answers', { headers: { Accept: 'application/json' } })
+    .then(function (r) { return r.ok ? r.json() : null; })
+    .then(function (data) {
+      if (!data || !data.latest || !data.latest.length) return;
+      data.latest.forEach(function (record) {
+        var them = (record.reviewer && record.reviewer.name) || 'someone';
+        var when = dayMonth(record.received_at);
+        var picked = Object.keys(record.picks || {}).length;
+        var count = (record.progress && record.progress.answered) || picked;
+        // Lot rent was answered in prose, never tapped, so the stored count is one short.
+        // Stated as the rule rather than pinned to one submission's totals.
+        var proseLotrent = !!(record.fields && record.fields.lotrent_bands) && !(record.picks || {})['have.lotrent'];
+        if (proseLotrent && record.progress && count < record.progress.total) count++;
+        if (them.toLowerCase() === 'ben' && String(data.who).toLowerCase() !== 'ben') {
+          benTaskPicks = record.picks || {};
+        }
+        if (!picked && !Object.keys(record.fields || {}).length) return;
+        if (data.who && them.toLowerCase() === String(data.who).toLowerCase()) {
+          restoreOwn(record);
+          announce('Your answers from ' + when + ' are on record — ' + count
+            + (record.progress && record.progress.total ? ' of ' + record.progress.total : '') + ' answered.');
+        } else {
+          markTheirPicks(record.picks || {}, them);
+          markTheirFields(record.fields || {}, them);
+          announce(them + ' answered ' + count
+            + (record.progress && record.progress.total ? ' of ' + record.progress.total : '')
+            + ' on ' + when + '. Their answers are marked below.');
+        }
+      });
+      refreshTasks();
+    })
+    .catch(function () { /* the room works without it */ });
 })();

@@ -25,8 +25,8 @@
   --signal:#b23c0a;      /* oversize load — fills */
   --signal-ink:#963006;  /* the same, dark enough to set 12px type in */
   --signal-wash:#b23c0a12;
-  --affirm:#2f6b3f;
-  --caution:#8a5a0f;
+  --affirm:var(--ink);
+  --caution:var(--muted);
 
   --sans:system-ui,-apple-system,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;
 
@@ -348,3 +348,241 @@ article[data-field].is-answered>h3::after{content:" ✓";color:var(--affirm);fon
 /* The one block explaining how the page works. The progress mark sits on its
    own line beneath, not inline at the end of a sentence. */
 .answer-note [data-progress]{display:block;width:max-content;margin-top:12px}
+
+/* ---------------------------------------------------------------------------
+   Answers already on record.
+
+   Picks used to live only in this browser, so the room read as blank to anyone
+   but the person who filled it in. These mark what the record holds. Somebody
+   else's answer is never pressed — it is annotated, so a tap cannot be mistaken
+   for agreement and nobody overwrites anyone.
+   --------------------------------------------------------------------------- */
+
+.on-record{margin:0 0 26px;padding:11px 15px;background:var(--signal-wash);
+  border-left:3px solid var(--signal);color:var(--signal-ink);
+  font-size:13.5px;font-weight:600;letter-spacing:-.005em;max-width:var(--measure)}
+
+.by-them{display:inline-block;margin:6px 0 0;padding:3px 8px;
+  border:1px dashed var(--line-firm);background:var(--paper);
+  color:var(--muted);font-size:11.5px;font-weight:700;
+  letter-spacing:.055em;text-transform:uppercase;white-space:nowrap}
+
+.votes .by-them{margin:0 0 0 8px;align-self:center}
+.act-list li .by-them{margin-top:8px}
+
+/* The control they chose, shown as chosen without being pressed. */
+.is-theirs{border-color:var(--signal-ink) !important;
+  box-shadow:inset 0 0 0 1px var(--signal-ink)}
+
+.note-them{margin:8px 0 4px;padding:10px 14px;background:var(--surface);
+  border-left:3px solid var(--line-firm);max-width:var(--measure)}
+.note-them-who{display:block;color:var(--signal-ink);font-size:11px;font-weight:700;
+  letter-spacing:.09em;text-transform:uppercase}
+.note-them p{margin:5px 0 0;color:var(--ink);font-size:14.5px;line-height:1.5;
+  white-space:pre-wrap}
+
+@media (max-width:640px){
+  .votes .by-them{margin:6px 0 0}
+  .votes{flex-wrap:wrap}
+}
+
+/* v0.4: one working letter, with the original chapters kept closed. */
+[hidden]{display:none!important}
+.section-nav{position:sticky;top:0;z-index:100;flex-wrap:nowrap;overflow-x:auto;
+  gap:24px;white-space:nowrap;margin:0;padding:10px max(20px,calc((100vw - 704px)/2));
+  background:var(--paper);border-bottom:1px solid var(--line-firm);border-top:0;
+  -webkit-overflow-scrolling:touch;font-size:13px;letter-spacing:0;text-transform:none}
+.section-nav a{flex:none;min-height:36px;display:flex;align-items:center;border-bottom:2px solid transparent}
+.section-nav a[aria-current]{color:var(--signal-ink);border-bottom-color:var(--signal)}
+.section-nav a:hover{color:var(--ink)}
+#decision-form>section{max-width:var(--measure);margin:0 auto;padding:42px 0;scroll-margin-top:78px}
+#decision-form>#now{border-top:0;padding-top:32px}
+[id]{scroll-margin-top:78px}
+#now .status{margin-bottom:4px;letter-spacing:.04em}
+#now .updated{margin:0}
+#now .intro{max-width:none;font-size:1.25rem;text-wrap:pretty}
+#now h1{font-size:clamp(2rem,5.4vw,3rem)}
+.actions{display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+.live-tasks{margin:28px 0}
+#live-tasks{padding-left:24px}
+/* Label left, action right, on one row where it fits and stacked where it does not —
+   ragged mid-sentence buttons made the list read like an afterthought on a phone. */
+#live-tasks li{display:flex;justify-content:space-between;align-items:center;gap:12px;
+  padding:9px 0;border-bottom:1px solid var(--line);font-size:16px}
+.task-label{color:var(--ink);min-width:0}
+.task-toggle{flex:none;width:auto;min-height:44px;padding:6px 12px;
+  font:600 13px var(--sans);border:1px solid var(--line-firm);background:transparent}
+.done-row{margin:18px 0;border-bottom:1px solid var(--line);padding-bottom:14px}
+summary{cursor:pointer;color:var(--ink);font-weight:600}
+.done-row summary{font-size:15px}
+#done-tasks{padding:0;list-style:none}
+#done-tasks li{font-size:14px;margin:8px 0}
+.task-complete .task-label{text-decoration:line-through;color:var(--muted)}
+#done-tasks .task-toggle{min-height:44px;font-size:12px;padding:4px 8px}
+/* Payment sits inside the letter, not in a billing panel: the same rules as the
+   status figures, so it reads as one more agreed fact rather than a demand. */
+.pay-block{margin:28px 0}
+.pay-details{margin:16px 0 22px;border-top:1px solid var(--line-firm)}
+.pay-details>div{display:flex;gap:18px;align-items:baseline;padding:10px 0;
+  border-bottom:1px solid var(--line)}
+.pay-details dt{flex:0 0 108px;font-size:12px;letter-spacing:.11em;text-transform:uppercase;
+  font-weight:600;color:var(--muted)}
+.pay-details dd{margin:0;min-width:0;font-size:16px;color:var(--ink);overflow-wrap:anywhere}
+/* Account numbers are read digit by digit and copied by hand: give them their own line
+   and a fixed-width face so a transposed digit is visible. */
+.pay-line{display:block;margin-top:4px;font-size:15px;color:var(--muted)}
+.pay-line b{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:16px;
+  color:var(--ink);letter-spacing:.04em;font-weight:600}
+.pay-sub{display:block;margin-top:7px;font-size:14px;color:var(--muted);line-height:1.45}
+.pay-sub b{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--ink)}
+.pay-block .rank-label{margin:22px 0 0}
+.pay-details{margin-top:10px}
+.pay-foot{margin:16px 0 0;font-size:14px;color:var(--muted);line-height:1.45;max-width:var(--measure)}
+.pay-foot b{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--ink)}
+.access-steps{margin:28px 0}
+.access-steps li{margin-bottom:12px;font-size:16px}
+.access-steps ol,.foundations{padding-left:24px}
+.room-facts{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:28px 0 16px;border-top:1px solid var(--line);padding-top:18px}
+.room-facts dt{font-size:12px;color:var(--muted)}
+.room-facts dd{margin:3px 0;font-size:17px;font-weight:650}
+#now .decision-actions{margin-top:14px;gap:10px;padding-top:0;border:0}
+#now .decision-actions button{font-size:12px;padding:7px 12px;min-height:44px}
+#now #decision-status{font-size:13px;margin:0}
+.scope-table{width:100%;border-collapse:collapse;table-layout:fixed;margin:24px 0;font-size:15px}
+.scope-table caption{text-align:left;font-weight:650;margin-bottom:10px}
+.scope-table th,.scope-table td{text-align:left;vertical-align:top;padding:12px 10px;border-bottom:1px solid var(--line);overflow-wrap:anywhere}
+.scope-table thead{background:var(--surface)}
+.scope-table tbody th{font-weight:500}
+.scope-table th:first-child{padding-left:0}
+.scope-table thead th:first-child{padding-left:10px}
+.story-quote{border-color:var(--line-firm);font-size:16px;line-height:1.6;padding:16px 20px;max-width:100%}
+.vision{font-style:normal}
+.vision p{font-size:16px;line-height:1.6}
+.vision p:last-child{margin-bottom:0}
+.vision code{font-family:inherit;overflow-wrap:anywhere}
+.foundations li{font-size:16px;margin:10px 0}
+.next-link{margin-top:28px;font-size:14px}
+.record-chapter{border-top:1px solid var(--line-firm);margin:0;padding:0}
+.record-chapter>summary{font-size:15px;padding:18px 0;line-height:1.5}
+.record-chapter[open]>summary{border-bottom:1px solid var(--line)}
+.record-body{padding:24px 0 36px;min-width:0}
+.record-body .opening-figures{margin:20px 0}
+.record-body .section-title{margin-top:10px}
+.record-aside{border-top:1px solid var(--line);padding:16px 0}
+.record-correction{padding:14px;background:var(--surface);border-left:3px solid var(--ink)}
+.superseded{border-left:1px solid var(--line-firm);padding-left:16px;color:var(--muted)}
+.superseded h3{font-size:14px}
+.answer-index dt{font-size:14px;font-weight:650;margin-top:18px}
+.answer-index dd{margin:4px 0 14px;font-size:15px}
+.answer-index blockquote{margin:0;white-space:pre-wrap;overflow-wrap:anywhere}
+.on-record{background:var(--surface);border-color:var(--line-firm);color:var(--muted)}
+/* Orange is reserved for the access CTA and current navigation item. */
+a,a:hover,.lede strong,.story-quote strong,.note-them-who{color:var(--ink)}
+.status span{background:var(--ink)}
+.button:not(.blocking){background:transparent;color:var(--ink);border:1px solid var(--line-firm)}
+.button.blocking{color:var(--paper);background:var(--signal);border-color:var(--signal)}
+.vote.yes[aria-pressed="true"],.vote.no[aria-pressed="true"],.pick.pick-inline[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:var(--paper)}
+.pick[aria-pressed="true"],.p3[aria-pressed="true"]{background:var(--surface);border-color:var(--ink);box-shadow:inset 3px 0 0 var(--ink)}
+.pick[aria-pressed="true"] strong,.p3[aria-pressed="true"] strong,.tag.review{color:var(--ink)}
+.p3[aria-pressed="true"] .p3-n{background:var(--ink);border-color:var(--ink)}
+.is-theirs{border-color:var(--ink)!important;box-shadow:inset 0 0 0 1px var(--ink)}
+.tag.review,.fallback{border-color:var(--line-firm);background:var(--surface)}
+.done-list summary:hover{color:var(--ink)}
+.skip{border-color:var(--ink)}
+#still .decision-list{grid-template-columns:1fr}
+.answer-note{border-color:var(--line-firm)}
+:focus-visible{outline:2px solid var(--ink)!important;outline-offset:3px}
+.decision-form textarea:focus,.decision-form input:focus{border-color:var(--ink)}
+@media(max-width:560px){
+  .section-nav{gap:22px;padding:8px 20px}
+  #decision-form>section{padding:32px 0}
+  .task-toggle{margin-left:6px}
+  .room-facts{gap:14px}
+  .scope-table{font-size:14px}
+  .scope-table th,.scope-table td{padding:10px 7px}
+  .story-quote{padding:14px;font-size:16px}
+}
+@media print{
+  html{scroll-behavior:auto}
+  body{font-size:11pt;background:white;color:var(--ink)}
+  main{max-width:none;padding:0}
+  .section-nav,.save-pill,.skip,.preview-toolbar,.preview-wrap{display:none!important}
+  #decision-form>section{max-width:none;padding:20px 0}
+  details> :not(summary){display:block!important}
+  details::details-content{display:block!important;content-visibility:visible!important;height:auto!important}
+  details{break-inside:auto}
+  summary,h2,h3{break-after:avoid}
+  .record-body{padding:14px 0}
+  .story-quote,.scope-table{break-inside:auto}
+  textarea{height:auto;min-height:5em}
+}
+
+/* v0.5: "Your turn". Everything Ben has to do lives in one panel, and each task
+   reads unmistakably as a task: a numbered white card with the signal edge, a
+   plain title, and one first-person button that says what tapping it records.
+   Prose stays on the overcast ground; only tasks sit on white. */
+.your-turn{margin:30px 0 22px;padding:20px 20px 8px;background:#f7f8f7;border:1px solid var(--line-firm);border-top:4px solid var(--ink);border-radius:3px}
+.your-turn-head{display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.your-turn-head h3{margin:0;font-size:24px;letter-spacing:-.02em}
+.your-turn-head p{margin:0;color:var(--muted);font-size:14px;font-weight:600}
+.turn-progress{height:6px;background:var(--sunk);border-radius:3px;margin:12px 0 18px;overflow:hidden}
+.turn-progress span{display:block;height:100%;width:0;background:var(--ink);transition:width .35s ease}
+#live-tasks{list-style:none;padding:0;margin:0;counter-reset:step}
+#live-tasks>li{counter-increment:step;display:block;margin:0 0 12px;padding:0;border:0}
+#live-tasks .task-card{position:relative;background:#fff;border:1px solid var(--line-firm);border-left:4px solid var(--signal);border-radius:3px;padding:15px 16px 14px 62px;box-shadow:0 1px 2px #1b1f1d0f}
+#live-tasks .task-card::before{content:counter(step);position:absolute;left:16px;top:14px;width:30px;height:30px;border-radius:50%;background:var(--ink);color:#fff;font:700 15px/30px var(--sans);text-align:center}
+.task-head{display:flex;justify-content:space-between;align-items:flex-start;gap:14px}
+.task-card h3{margin:3px 0 0;font-size:17.5px;font-weight:700;line-height:1.35;letter-spacing:-.01em}
+.task-card h3 a{color:var(--ink);text-decoration:none}
+.task-card h3 a:hover{text-decoration:underline}
+.task-card .pick.task-toggle{flex:none;display:inline-block;width:auto;min-height:40px;padding:8px 14px;border-radius:3px;
+  background:var(--ink);color:#fff;border:1px solid var(--ink);font:600 14px var(--sans);text-align:center;white-space:nowrap;box-shadow:none}
+.task-card .pick.task-toggle:hover{background:#000}
+.task-body{margin:6px 0 0;max-width:none}
+.task-body p{margin:6px 0;font-size:15.5px;color:var(--muted);max-width:40rem}
+.task-body .extra{margin-top:12px}
+.task-body textarea,.task-body input[type="text"]{background:#fff}
+.task-body .rank-label{margin-top:14px}
+.task-body .pick-list{grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:6px;margin:8px 0}
+.task-body .pick{padding:9px 12px}
+.task-body .pick strong{font-size:14.5px}
+.task-body .pick span{font-size:13px}
+.task-more{margin:12px 0 2px;border-top:1px dashed var(--line);padding-top:10px}
+.task-more summary{font-size:14.5px;font-weight:600;color:var(--ink)}
+.task-more[open] summary{margin-bottom:6px}
+.look-tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px;margin:12px 0 4px}
+.look{display:block;text-decoration:none;color:var(--ink);background:#fff;border:1px solid var(--line-firm);border-radius:3px;overflow:hidden}
+.look:hover{border-color:var(--ink);box-shadow:0 2px 6px #1b1f1d1f}
+.look .sw{display:flex;height:34px}.look .sw i{flex:1}
+.look b{display:block;padding:8px 10px 0;font-size:14.5px}
+.look small{display:block;padding:0 10px 9px;color:var(--muted);font-size:13px;line-height:1.35}
+.look b::after{content:" ↗";color:var(--muted);font-weight:400}
+/* Done work folds away quietly: a checked line, its details hidden unless linked to. */
+.your-turn .done-row{margin:6px 0 10px;border:0;padding:0}
+.your-turn .done-row summary{font-size:14.5px;color:var(--muted)}
+#done-tasks{list-style:none;padding:0;margin:8px 0 0}
+#done-tasks>li{display:block;margin:0;padding:0;border:0}
+#done-tasks .task-card{position:relative;padding:8px 0 8px 28px;border-bottom:1px solid var(--line)}
+#done-tasks .task-card::before{content:"✓";position:absolute;left:6px;top:8px;font-weight:700;color:var(--ink)}
+#done-tasks .task-card h3{font-size:15px;font-weight:500}
+#done-tasks .task-card:not(:target) .task-body{display:none}
+#done-tasks .task-card .pick.task-toggle{background:transparent;color:var(--muted);border:1px solid var(--line);font-size:12.5px;min-height:32px;padding:3px 10px}
+.act-list.compact li{padding:8px 0}
+details.fold{margin:18px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:12px 0}
+details.fold>summary{font-size:15.5px}
+@media(max-width:600px){
+  .your-turn{padding:16px 12px 6px;margin-left:-8px;margin-right:-8px}
+  #live-tasks .task-card{padding:14px 14px 14px 54px}
+  #live-tasks .task-card::before{left:12px;width:28px;height:28px;line-height:28px;font-size:14px}
+  .task-head{flex-direction:column;gap:10px}
+  .task-card .pick.task-toggle{align-self:flex-start}
+}
+.task-foot{margin-top:12px;display:flex;justify-content:flex-start}
+.task-body+.task-foot{padding-top:12px;border-top:1px solid var(--line)}
+#done-tasks .task-foot{margin:0;position:absolute;right:0;top:6px;border:0;padding:0}
+#done-tasks .task-card{padding-right:84px}
+.task-body p.rank-label{font-size:12px;letter-spacing:.11em;font-weight:700;color:var(--muted);border:0;padding:0;margin:16px 0 6px;text-transform:uppercase}
+#tasks-done #access-steps{margin:14px 0 4px}
+#tasks-done #access-steps>summary{font-size:14px;font-weight:600;color:var(--muted)}
+#tasks-done #access-steps h3{display:none}
+@media(max-width:600px){.task-body .pick-list{grid-template-columns:1fr 1fr}}

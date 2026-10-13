@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Prototype B · Evergreen</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,650&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--paper:#f6f2ea;--card:#fffdf8;--ink:#23261f;--muted:#6a6a60;--line:#e2dccf;--green:#1f4d3a;--green-soft:#e3ece5;--rust:#b4552d}
+*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font:17px/1.6 "Source Sans 3",system-ui,sans-serif;padding-bottom:64px}
+a{color:inherit}h1,h2,h3,.serif{font-family:Fraunces,Georgia,serif;font-weight:650;line-height:1.12;margin:0;letter-spacing:-.01em}
+.wrap{max-width:1100px;margin:auto;padding:0 18px}
+.top{border-bottom:1px solid var(--line);background:var(--paper)}.top .wrap{display:flex;align-items:center;gap:18px;padding-top:14px;padding-bottom:14px}
+.logo{text-decoration:none;display:flex;align-items:center;gap:10px}.logo svg{width:30px;height:30px}.logo b{font:650 1.3rem Fraunces,serif}.logo span{font-size:.8rem;color:var(--muted);display:block;line-height:1}
+.top nav{margin-left:auto;display:flex;gap:22px;font-weight:600;font-size:.97rem}.top nav a{text-decoration:none}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:0;background:var(--green);color:#fff;font:600 1rem "Source Sans 3";padding:12px 20px;border-radius:999px;cursor:pointer;text-decoration:none}
+.btn.soft{background:var(--green-soft);color:var(--green)}.btn.line{background:transparent;border:1.5px solid var(--green);color:var(--green)}
+.hero{padding:54px 0 34px;display:grid;grid-template-columns:1.2fr 1fr;gap:40px;align-items:center}
+@media(max-width:860px){.hero{grid-template-columns:1fr}.top nav{display:none}}
+.hero h1{font-size:clamp(2.3rem,5.2vw,3.6rem)}.hero p{font-size:1.15rem;color:var(--muted);max-width:46ch}
+.hero .art{border-radius:18px;overflow:hidden;box-shadow:0 20px 40px -24px #1f4d3a66}.hero .art svg{display:block;width:100%}
+.search{margin-top:22px;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:8px;display:flex;flex-wrap:wrap;gap:6px;box-shadow:0 10px 30px -22px #0005}
+.search label{flex:1 1 120px;display:flex;flex-direction:column;padding:6px 12px;font-size:.78rem;font-weight:600;color:var(--muted)}
+.search input,.search select{border:0;background:transparent;font:600 1.02rem "Source Sans 3";color:var(--ink);padding:2px 0}
+.search .btn{flex:1 1 100%}
+.quote{background:var(--green);color:#f3efe4;border-radius:18px;padding:30px;display:grid;grid-template-columns:auto 1fr;gap:22px;align-items:center;margin:28px 0}
+.quote .avatar{width:74px;height:74px;border-radius:50%;background:#e9dfc8;display:grid;place-items:center;font:650 1.6rem Fraunces;color:var(--green)}
+.quote blockquote{margin:0;font:500 1.25rem/1.45 Fraunces,serif}.quote cite{display:block;margin-top:8px;font:600 .9rem "Source Sans 3";font-style:normal;opacity:.8}
+.section{padding:30px 0}.section h2{font-size:1.9rem;margin-bottom:6px}.section .lede{color:var(--muted);margin:0 0 18px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:22px}
+.card{text-decoration:none;background:var(--card);border-radius:16px;overflow:hidden;border:1px solid var(--line);display:flex;flex-direction:column;transition:box-shadow .15s}
+.card:hover{box-shadow:0 18px 30px -22px #0006}
+.ph{position:relative;aspect-ratio:3/2;overflow:hidden}.ph svg{width:100%;height:100%;display:block}
+.tag{position:absolute;top:12px;left:12px;background:var(--card);color:var(--ink);font-size:.8rem;font-weight:700;padding:3px 10px;border-radius:999px}
+.tag.move{background:var(--rust);color:#fff}
+.card .body{padding:16px 18px 18px;display:flex;flex-direction:column;gap:4px;flex:1}
+.price{font:650 1.55rem Fraunces,serif}.price small{font:600 .9rem "Source Sans 3";color:var(--muted)}
+.facts-line{font-weight:600}.where{color:var(--muted)}
+.trust{margin-top:auto;padding-top:10px;border-top:1px dashed var(--line);display:flex;justify-content:space-between;gap:8px;font-size:.9rem}
+.trust .ok{color:var(--green);font-weight:600}
+.guides{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:16px}
+.guide{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;text-decoration:none}.guide small{color:var(--rust);font-weight:700;text-transform:uppercase;letter-spacing:.06em;font-size:.72rem}.guide h3{font-size:1.15rem;margin-top:6px}
+.results{display:grid;grid-template-columns:270px 1fr;gap:28px;padding:26px 0}@media(max-width:860px){.results{grid-template-columns:1fr}}
+.filters{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px;align-self:start;position:sticky;top:14px;display:flex;flex-direction:column;gap:14px}
+.filters label{display:flex;flex-direction:column;gap:4px;font-weight:600;font-size:.9rem}.filters input,.filters select{font:500 1rem "Source Sans 3";padding:9px 10px;border:1px solid var(--line);border-radius:10px;background:var(--paper)}
+.count{font:650 1.6rem Fraunces,serif;margin-bottom:16px}
+.detail{display:grid;grid-template-columns:1.55fr 1fr;gap:34px;padding:26px 0}@media(max-width:860px){.detail{grid-template-columns:1fr}}
+.gallery{display:grid;grid-template-columns:2fr 1fr;gap:8px;border-radius:18px;overflow:hidden}.gallery .ph:first-child{grid-row:span 2;aspect-ratio:auto}
+.facts{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:20px 0}@media(max-width:560px){.facts{grid-template-columns:1fr 1fr}}
+.facts div{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px}.facts dt{font-size:.8rem;color:var(--muted);font-weight:600}.facts dd{margin:0;font:650 1.1rem Fraunces,serif}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:22px;align-self:start;position:sticky;top:14px;display:flex;flex-direction:column;gap:12px;box-shadow:0 20px 40px -30px #0006}
+.panel .btn{width:100%}.note{font-size:.9rem;color:var(--muted)}
+.coming{background:var(--green-soft);border-radius:14px;padding:16px 18px;color:var(--green)}
+.join{max-width:660px;margin:auto;padding:40px 0}.join h1{font-size:2.5rem}.join form{margin-top:22px;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:24px;display:flex;flex-direction:column;gap:14px}
+.join label{display:flex;flex-direction:column;gap:4px;font-weight:600}.join input{font:500 1rem "Source Sans 3";padding:11px 12px;border:1px solid var(--line);border-radius:10px;background:var(--paper)}
+.choice{flex-direction:row!important;gap:12px!important;align-items:flex-start;border:1.5px solid var(--line);border-radius:12px;padding:12px 14px;font-weight:500!important;cursor:pointer}.choice:has(input:checked){border-color:var(--green);background:var(--green-soft)}
+.foot{border-top:1px solid var(--line);padding:30px 0;margin-top:30px;color:var(--muted);font-size:.92rem}
+.proto{position:fixed;left:0;right:0;bottom:0;background:#23261f;color:#eee;font:13px system-ui;display:flex;gap:14px;align-items:center;padding:8px 14px;z-index:9;flex-wrap:wrap}.proto a{color:#b9e0c6}.proto b{color:#fff}
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap"><a class="logo" href="#/"><svg viewBox="0 0 32 32"><path d="M16 3 4 26h24Z" fill="#1f4d3a"/><path d="M16 11 9 26h14Z" fill="#3c7a5c"/><rect x="15" y="24" width="2" height="5" fill="#6b4a33"/></svg><div><b>PNW Mobile Homes</b><span>Washington · Oregon · Idaho</span></div></a>
+<nav><a href="#/homes">Find a home</a><a href="#/">Guides</a><a href="#/join">For dealers</a><a href="#/join">Sell your home</a></nav></div></header>
+<main id="app"></main>
+<footer class="foot"><div class="wrap">PNW Mobile Homes brings the Northwest’s manufactured-home market into one place. We are not a dealer: every home is sold by the dealer or owner shown on it. Free to list, free to search.</div></footer>
+<div class="proto"><b>Prototype B · Evergreen</b> <span>Sample data, not real listings.</span> <a href="#/">Home</a><a href="#/homes?zip=98901&radius=200&maxPrice=180000&beds=3&baths=2">Search: 3+ bed, 2 bath, under $180k</a><a href="#/home/h4">A home</a><a href="#/join">Dealer sign-up</a> · <a href="a-oversize.html">A</a><a href="c-board.html">C</a><a href="index.html">All</a></div>
+<script src="data.js"></script>
+<script>
+const P = window.PNW, app = document.getElementById('app');
+const tag = h => h.move === 'must move' ? '<span class="tag move">Must be moved</span>' : h.kind === 'order' ? '<span class="tag">New · built to order</span>' : h.park ? `<span class="tag">In ${h.park.replace('Sample ', '')}</span>` : '';
+const card = h => `<a class="card" href="#/home/${h.id}"><div class="ph">${P.photo(h)}${tag(h)}</div><div class="body">
+  <div class="price">${h.priceKind === 'from' ? '<small>from </small>' : ''}${P.money(h.price)}</div>
+  <div class="facts-line">${h.beds} bed · ${h.baths} bath · ${h.sqft.toLocaleString()} sq ft · ${h.year}</div>
+  <div class="where">${h.town}, ${h.place.state}${h.distance != null ? ` · ${h.distance} miles away` : ''}</div>
+  <div class="trust"><span>${P.sellerName(h)}</span><span class="ok">${P.checkedLabel(h)}</span></div></div></a>`;
+function go(form) { location.hash = '#/homes?' + new URLSearchParams(new FormData(form)); }
+const opt = (n, q, list) => `<select name="${n}">${list.map(([v, l]) => `<option value="${v}" ${(q[n] ?? '') == v ? 'selected' : ''}>${l}</option>`).join('')}</select>`;
+function home() {
+  return `<div class="wrap"><section class="hero"><div><h1>Find a manufactured home in the Northwest, and know what it takes to make it yours.</h1>
+  <p>Dealers, private sellers and factory-order homes across Washington, Oregon and Idaho, all in one place, with the answers you need along the way.</p>
+  <form class="search" onsubmit="event.preventDefault();go(this)"><label>Near ZIP<input name="zip" placeholder="98901" inputmode="numeric"></label><label>Within${opt('radius', { radius: 200 }, [[50, '50 miles'], [100, '100 miles'], [200, '200 miles'], [400, '400 miles']])}</label><label>Up to${opt('maxPrice', {}, [['', 'Any price'], [100000, '$100,000'], [150000, '$150,000'], [180000, '$180,000'], [250000, '$250,000']])}</label><label>Bedrooms${opt('beds', {}, [[0, 'Any'], [2, '2+'], [3, '3+'], [4, '4+']])}</label><button class="btn" type="submit">Show homes</button></form></div>
+  <div class="art">${P.photo(P.homes[3])}</div></section>
+  <div class="quote"><div class="avatar">B</div><div><blockquote>“There’s nowhere that I know of to go to one location and get all that information. That’s what this is for.”</blockquote><cite>Ben, ten years moving and selling manufactured homes in the Northwest</cite></div></div>
+  <section class="section"><h2>New this week</h2><p class="lede">Every listing shows who is selling it and when we last checked it.</p><div class="grid">${P.homes.slice(0, 6).map(card).join('')}</div></section>
+  <section class="section"><h2>Before you buy</h2><p class="lede">Written from ten years of doing this, not from a template.</p><div class="guides">
+  <a class="guide" href="#"><small>Guide</small><h3>How to finance a mobile or manufactured home</h3></a><a class="guide" href="#"><small>Guide</small><h3>Selling your home: a step-by-step guide</h3></a>
+  <a class="guide" href="#"><small>Guide</small><h3>What 1976 means for your home</h3></a><a class="guide" href="#"><small>Watch out</small><h3>Mover deposits: how the most common scam works</h3></a></div></section>
+  <section class="section"><div class="coming" style="display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap"><div><h2 style="font-size:1.5rem">Are you a dealer?</h2><p style="margin:4px 0 0">Your homes, shown here free, with buyers sent straight to you.</p></div><a class="btn" href="#/join">Add your dealership</a></div></section></div>`;
+}
+function results(q) {
+  const r = P.search({ zip: q.zip, radius: +q.radius || 200, maxPrice: +q.maxPrice || 0, beds: +q.beds || 0, baths: +q.baths || 0, kind: q.kind || 'all', move: q.move || 'any' });
+  return `<div class="wrap results"><form class="filters" onchange="go(this)" onsubmit="event.preventDefault();go(this)"><h3 style="font-size:1.2rem">Refine</h3>
+  <label>Near ZIP<input name="zip" value="${q.zip || ''}"></label><label>Within${opt('radius', q, [[50, '50 miles'], [100, '100 miles'], [200, '200 miles'], [400, '400 miles']])}</label>
+  <label>Up to${opt('maxPrice', q, [['', 'Any price'], [50000, '$50,000'], [100000, '$100,000'], [150000, '$150,000'], [180000, '$180,000'], [250000, '$250,000']])}</label>
+  <label>Bedrooms${opt('beds', q, [[0, 'Any'], [2, '2+'], [3, '3+'], [4, '4+']])}</label><label>Bathrooms${opt('baths', q, [[0, 'Any'], [1, '1+'], [2, '2+']])}</label>
+  <label>Kind of home${opt('kind', q, [['all', 'All homes'], ['stock', 'For sale now'], ['order', 'New, built to order']])}</label>
+  <label>Moving${opt('move', q, [['any', 'Either'], ['stay', 'Can stay where it is'], ['must', 'Must be moved']])}</label></form>
+  <div><div class="count">${r.length} homes${q.zip ? ` within ${q.radius || 200} miles of ${q.zip}` : ' across the Northwest'}</div><div class="grid">${r.map(card).join('') || '<p>Nothing matches yet. Try a wider area.</p>'}</div></div></div>`;
+}
+function detail(id) {
+  const h = P.homes.find(x => x.id === id); if (!h) return '';
+  const indexed = h.dealerObj && h.dealerObj.tier === 'indexed';
+  return `<div class="wrap detail"><div><div class="gallery"><div class="ph">${P.photo(h)}${tag(h)}</div><div class="ph">${P.photo(h, 1)}</div><div class="ph">${P.photo(h, 2)}</div></div>
+  <h1 style="font-size:2.2rem;margin-top:22px">${h.title}</h1><p class="where" style="margin:6px 0 0">${h.town}, ${h.place.county} County, ${h.place.state}${h.park ? ` · ${h.park}` : ''}</p>
+  <dl class="facts"><div><dt>Bedrooms</dt><dd>${h.beds}</dd></div><div><dt>Bathrooms</dt><dd>${h.baths}</dd></div><div><dt>Size</dt><dd>${h.sqft.toLocaleString()} sq ft</dd></div>
+  <div><dt>Year built</dt><dd>${h.year}</dd></div><div><dt>Width</dt><dd>${['Single', 'Double', 'Triple'][h.sections - 1]}-wide</dd></div><div><dt>Lot rent</dt><dd>${h.lotRent ? P.money(h.lotRent) : '—'}</dd></div></dl>
+  <p><b>Maker and model:</b> ${h.maker}, ${h.model}. <b>Moving:</b> ${h.move === 'must move' ? 'this home must be moved.' : h.kind === 'order' ? 'built to order and delivered.' : 'it can stay where it is.'}</p>
+  <div class="coming"><b>Coming to every listing:</b> what the price includes, what moving and setup would cost, and whether this home can go where you want it.</div></div>
+  <aside class="panel"><div class="price">${h.priceKind === 'from' ? '<small>from </small>' : ''}${P.money(h.price)}</div>
+  <div><span class="note">Sold by</span><br><b style="font-size:1.1rem">${P.sellerName(h)}</b><br><span class="note">${P.sellerKind(h)}</span></div>
+  ${indexed ? `<a class="btn" href="#">See it on ${P.sellerName(h)}’s website ↗</a><p class="note">This home is listed on the dealer’s own website; they sell it, we help you find it.</p>` : `<a class="btn" href="#">Message the seller</a><a class="btn line" href="#">Show phone number</a>`}
+  <p class="note" style="color:var(--green);font-weight:600">✓ ${P.checkedLabel(h)}</p><a class="note" href="#">Something wrong? Report this listing</a></aside></div>`;
+}
+function join() {
+  return `<div class="wrap join"><h1>Show your homes to buyers across the Northwest, free.</h1><p class="note" style="font-size:1.05rem">We show the homes already on your website and send buyers straight to you. You decide how much we show, and you can leave whenever you like.</p>
+  <form onsubmit="event.preventDefault();this.innerHTML='<h2>Thank you.</h2><p>Your homes will appear within a day. We’ll email you a link to check them first.</p>'">
+  <label>Dealership<input required placeholder="Sample Valley Homes"></label><label>Where your homes are listed now<input type="url" required placeholder="https://yourdealership.com/inventory"></label>
+  <label>Your name<input required></label><label>Email<input type="email" required></label><label>Phone<input type="tel"></label>
+  <label class="choice"><input type="radio" name="t" checked><span><b>Show my homes, linked back to my website</b><br><span class="note">Price and the key facts; buyers click through to you.</span></span></label>
+  <label class="choice"><input type="radio" name="t"><span><b>Include my photos too</b><br><span class="note">Listings with photos get far more attention.</span></span></label>
+  <label class="choice"><input type="radio" name="t"><span><b>I’d rather post and manage listings myself</b><br><span class="note">You get your own login.</span></span></label>
+  <label class="choice"><input type="checkbox" required><span>I’m authorised to list this dealership’s homes, and I agree to the terms.</span></label>
+  <button class="btn" type="submit">Add my dealership</button></form></div>`;
+}
+function route() { const [path, qs] = location.hash.slice(1).split('?'); const q = Object.fromEntries(new URLSearchParams(qs || ''));
+  app.innerHTML = path.startsWith('/homes') ? results(q) : path.startsWith('/home/') ? detail(path.split('/')[2]) : path.startsWith('/join') ? join() : home(); scrollTo(0, 0); }
+addEventListener('hashchange', route); route();
+</script>
+</body>
+</html>

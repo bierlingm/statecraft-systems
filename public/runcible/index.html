@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Runcible — Project room · Statecraft Systems</title>
+<meta name="robots" content="noindex,nofollow">
+<meta name="description" content="Runcible is the qualification layer between what AI generates and what institutions rely on. It parses a claim, tests it, and rules: warrant, repair, block, escalate or undecidable, with a record you can audit.">
+<meta name="theme-color" content="#0B0C0E">
+<meta property="og:title" content="Runcible: put every claim on trial">
+<meta property="og:description" content="The qualification layer for consequential AI.">
+<link rel="preload" href="/runcible/fonts/serif.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/runcible/fonts/inter.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/runcible/fonts/mono.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/runcible/project.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' fill='%230B0C0E'/><circle cx='16' cy='16' r='7' fill='none' stroke='%23FF5B2E' stroke-width='2.5'/><circle cx='16' cy='16' r='2' fill='%23EDEAE3'/></svg>">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="nav" id="nav">
+  <a class="brand" href="#top" aria-label="Runcible, back to top">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><circle class="core" cx="12" cy="12" r="2.2"/></svg>
+    <span>Runcible</span>
+  </a>
+  <nav aria-label="Primary">
+    <a href="#instrument">Instrument</a>
+    <a href="#verdicts">Verdicts</a>
+    <a href="#demo">Try it</a>
+    <a href="#oversing">Oversing</a>
+    <a href="#vision">Vision</a>
+  </nav>
+  <a class="nav-cta" href="mailto:hello@runcible.com?subject=Briefing%20request">Request a briefing</a>
+  <button class="menu-btn" type="button" aria-expanded="false" aria-controls="sheet"><span class="mono">Menu</span><i aria-hidden="true"></i></button>
+</header>
+<div class="sheet" id="sheet" hidden>
+  <nav aria-label="Mobile">
+    <a href="#instrument"><span class="mono">02</span>Instrument</a>
+    <a href="#verdicts"><span class="mono">03</span>Verdicts</a>
+    <a href="#demo"><span class="mono">04</span>Try it</a>
+    <a href="#oversing"><span class="mono">05</span>Oversing</a>
+    <a href="#vision"><span class="mono">07</span>Vision</a>
+  </nav>
+  <a class="btn btn-signal lg" href="mailto:hello@runcible.com?subject=Briefing%20request">Request a briefing</a>
+</div>
+
+<main id="main">
+
+<!-- HERO -->
+<section class="hero" id="top">
+  <div class="hero-copy">
+    <p class="mono label"><span class="pulse" aria-hidden="true"></span>Early access · by briefing</p>
+    <h1 class="display">Put every claim<br><em>on trial.</em></h1>
+    <p class="hero-sub">Models generate. Runcible rules on what your institution can rely on. It reads what a claim actually asserts, tests it, and returns a verdict with reasons you can audit.</p>
+    <div class="actions">
+      <a class="btn btn-signal" href="mailto:hello@runcible.com?subject=Briefing%20request">Request a briefing</a>
+      <a class="btn btn-line" href="#demo">Run a claim <span aria-hidden="true">→</span></a>
+    </div>
+  </div>
+  <div class="hero-inst" aria-label="Animated example: Runcible adjudicating a product label claim">
+    <div class="inst" data-inst="hero"></div>
+    <p class="mono cap">Illustrative run · Decidability Record retained</p>
+  </div>
+  <div class="hero-foot mono" aria-hidden="true">
+    <span>PARSE</span><i></i><span>EXPOSE</span><i></i><span>TEST</span><i></i><span>REPAIR</span><i></i><span>RULE</span><i></i><span>RECORD</span>
+  </div>
+</section>
+
+<!-- THESIS -->
+<section class="thesis" aria-labelledby="thesis-h">
+  <p class="mono label">01 / Thesis</p>
+  <h2 id="thesis-h" class="thesis-line" data-words>Generation is solved. <span class="dim">Reliance isn’t.</span></h2>
+  <div class="thesis-grid">
+    <p>A model will write anything fluently. Fluency was never the hard part. The hard part is the question a regulator, a court or a citizen asks afterwards: <em>on what grounds did you act?</em></p>
+    <p>The vendor doesn’t answer that. You do. Runcible sits at the point of reliance and makes sure there is an answer before anything ships, signs or executes.</p>
+  </div>
+</section>
+
+<!-- INSTRUMENT (sticky scene) -->
+<section class="scene" id="instrument" aria-labelledby="inst-h">
+  <div class="scene-head">
+    <p class="mono label">02 / The instrument</p>
+    <h2 id="inst-h" class="h2">A compiler for meaning.</h2>
+    <p class="lead">SQL made data queryable under a schema. Runcible does the same for claims: it compiles language into typed propositions, then runs them against a governed model of evidence, law and authority.</p>
+  </div>
+  <div class="scene-body">
+    <div class="stage-wrap">
+      <div class="stage" id="stage" data-stage="1" aria-hidden="true">
+        <div class="stage-bar mono"><span>specimen</span><span id="stage-name">01 PARSE</span></div>
+        <p class="spec"><span class="t t1">Clinically proven</span> <span class="t t2">to reduce</span> <span class="t t3">redness</span> <span class="t t4">in 7 days.</span></p>
+        <div class="layer l-parse mono">
+          <div><b>CLAIM</b> efficacy(product, redness, ↓)</div>
+          <div><b>MODAL</b> proven · clinical</div>
+          <div><b>SCOPE</b> t ≤ 7d</div>
+        </div>
+        <div class="layer l-expose">
+          <p class="mono k">Unstated</p>
+          <ul><li>A controlled trial exists</li><li>The effect is measurable against a baseline</li><li>Market: EU cosmetics advertising rules apply</li></ul>
+        </div>
+        <div class="layer l-test mono">
+          <div class="row"><span>TRUTH</span><i style="--w:.55"></i><b>PARTIAL</b></div>
+          <div class="row"><span>POSSIBILITY</span><i style="--w:1"></i><b>PASS</b></div>
+          <div class="row"><span>ETHICS</span><i style="--w:.9"></i><b>PASS</b></div>
+          <div class="row"><span>AUTHORITY</span><i style="--w:.3"></i><b class="sig">EXCEEDS</b></div>
+          <div class="row"><span>LIABILITY</span><i style="--w:.4"></i><b>ELEVATED</b></div>
+        </div>
+        <div class="layer l-repair">
+          <p class="strike">Clinically proven to reduce redness in 7 days.</p>
+          <p class="fixed">Shown in a clinical study to visibly reduce redness within four weeks.</p>
+        </div>
+        <div class="layer l-record mono">
+          <div class="stamp">REPAIR</div>
+          <dl><dt>RECORD</dt><dd>DR-0417-C</dd><dt>BASIS</dt><dd>1 study · 28-day endpoint</dd><dt>OWNER</dt><dd>Regulatory lead</dd><dt>STATE</dt><dd>Retained</dd></dl>
+        </div>
+      </div>
+    </div>
+    <ol class="steps">
+      <li data-step="1"><span class="mono">01</span><h3>Parse</h3><p>Language compiles into typed propositions in RDL, Runcible’s semantic language. "Proven" stops being a mood and becomes a burden of evidence.</p></li>
+      <li data-step="2"><span class="mono">02</span><h3>Expose</h3><p>Every claim smuggles in assumptions. Runcible names them, so nothing is relied on by accident.</p></li>
+      <li data-step="3"><span class="mono">03</span><h3>Test</h3><p>Five axes, each relative to jurisdiction, evidence and time: truth, possibility, ethics, authority, liability.</p></li>
+      <li data-step="4"><span class="mono">04</span><h3>Repair</h3><p>Most claims aren’t wrong, they’re overreaching. Runcible returns the strongest version that actually holds.</p></li>
+      <li data-step="5"><span class="mono">05</span><h3>Rule &amp; record</h3><p>A bounded verdict, an accountable owner, and a Decidability Record that reconstructs the reasoning years later.</p></li>
+    </ol>
+  </div>
+</section>
+
+<!-- VERDICTS -->
+<section class="verdicts" id="verdicts" aria-labelledby="v-h">
+  <div class="sec-head">
+    <p class="mono label">03 / Verdicts</p>
+    <h2 id="v-h" class="h2">Five rulings.<br><em>No shrugs.</em></h2>
+  </div>
+  <div class="keys">
+    <button class="key" type="button" aria-pressed="false"><span class="glyph" aria-hidden="true">✓</span><span class="kname">Warrant</span><span class="kdef">It holds. Rely on it, within the stated bounds.</span><span class="mono kno">V/01</span></button>
+    <button class="key" type="button" aria-pressed="false"><span class="glyph" aria-hidden="true">↻</span><span class="kname">Repair</span><span class="kdef">Overreaching. Here’s the strongest version that holds.</span><span class="mono kno">V/02</span></button>
+    <button class="key" type="button" aria-pressed="false"><span class="glyph" aria-hidden="true">✕</span><span class="kname">Block</span><span class="kdef">Fails a test no rewrite can fix. Stop here.</span><span class="mono kno">V/03</span></button>
+    <button class="key" type="button" aria-pressed="false"><span class="glyph" aria-hidden="true">↑</span><span class="kname">Escalate</span><span class="kdef">Above this desk’s authority. Routed to whoever holds it.</span><span class="mono kno">V/04</span></button>
+    <button class="key" type="button" aria-pressed="false"><span class="glyph" aria-hidden="true">?</span><span class="kname">Undecidable</span><span class="kdef">The evidence can’t settle it yet. Here’s what would.</span><span class="mono kno">V/05</span></button>
+  </div>
+  <p class="aside mono">Every candidate is a hypothesis until it survives falsification.</p>
+</section>
+
+<!-- DEMO -->
+<section class="demo" id="demo" aria-labelledby="d-h">
+  <div class="sec-head">
+    <p class="mono label">04 / Try it</p>
+    <h2 id="d-h" class="h2">Pick a claim.<br><em>Watch it ruled on.</em></h2>
+    <p class="mono note">Illustrative runs · precomputed</p>
+  </div>
+  <div class="demo-grid">
+    <div class="tabs" role="tablist" aria-label="Example claims">
+      <button role="tab" aria-selected="true" data-s="0"><span class="mono">Product label</span><span class="tq">“Clinically proven to reduce redness in 7 days.”</span></button>
+      <button role="tab" aria-selected="false" data-s="1"><span class="mono">Policy memo</span><span class="tq">“Remote work reduced our productivity last year.”</span></button>
+      <button role="tab" aria-selected="false" data-s="2"><span class="mono">Contract clause</span><span class="tq">“Supplier may share customer data with affiliates for any purpose.”</span></button>
+      <button role="tab" aria-selected="false" data-s="3"><span class="mono">Government directive</span><span class="tq">“Suspend benefit payments to all flagged accounts from Monday.”</span></button>
+    </div>
+    <div class="inst" data-inst="demo" role="tabpanel" aria-live="polite"></div>
+  </div>
+</section>
+
+<!-- OVERSING -->
+<section class="over" id="oversing" aria-labelledby="o-h">
+  <div class="over-track" id="over-track">
+  <div class="over-sticky">
+    <div class="over-copy">
+      <p class="mono label">05 / Runcible Oversing</p>
+      <h2 id="o-h" class="h2">The institution,<br><em>as one living system.</em></h2>
+      <p class="lead">A verdict is only useful if something accountable acts on it. Oversing connects purpose, people, roles, permissions, procedures, money and history into one live operating picture, then feeds every consequence back into memory.</p>
+      <ol class="over-log mono" aria-live="off">
+        <li data-o="0">Purpose sets the program</li>
+        <li data-o="1">A role holds the authority</li>
+        <li data-o="2">Runcible qualifies the decision</li>
+        <li data-o="3">Procedure carries the action</li>
+        <li data-o="4">Consequences are observed</li>
+        <li data-o="5">Memory updates the institution</li>
+      </ol>
+    </div>
+    <div class="graph-wrap">
+      <svg class="graph" id="graph" viewBox="0 0 600 600" role="img" aria-label="Diagram: an institution as a connected graph of purpose, programs, people, roles, permissions, procedures, resources, finances, decisions, consequences and memory."></svg>
+    </div>
+  </div>
+  </div>
+  <ul class="over-benefits">
+    <li><b>Live awareness.</b> See how the organisation is actually running, not how the org chart says it does.</li>
+    <li><b>Capture-resistant.</b> Drift, bloat and politics are visible the moment they start.</li>
+    <li><b>Continuous adaptation.</b> Reorganise by the week, not by the consultant.</li>
+    <li><b>Built for agents.</b> A structured world where AI can act inside real permissions.</li>
+    <li><b>One platform.</b> Coordination without another custom system.</li>
+  </ul>
+</section>
+
+<!-- WHO -->
+<section class="who" aria-labelledby="w-h">
+  <div class="sec-head">
+    <p class="mono label">06 / For</p>
+    <h2 id="w-h" class="h2">Institutions that answer<br><em>for what they do.</em></h2>
+  </div>
+  <div class="who-grid">
+    <article><span class="mono">A</span><h3>Regulated enterprise</h3><p>Pharma, finance, insurance, energy. Where one sentence can become an enforcement action.</p></article>
+    <article><span class="mono">B</span><h3>Government</h3><p>Decisions that must be lawful, explainable and defensible to the people they affect.</p></article>
+    <article><span class="mono">C</span><h3>Legal &amp; compliance</h3><p>Review at machine speed, without losing the reasoning behind each call.</p></article>
+    <article><span class="mono">D</span><h3>High-stakes operations</h3><p>Where an automated action is expensive, irreversible or public.</p></article>
+  </div>
+</section>
+
+<!-- VISION -->
+<section class="vision" id="vision" aria-labelledby="vi-h">
+  <p class="mono label">07 / Where this goes</p>
+  <h2 id="vi-h" class="sr">Vision</h2>
+  <ol class="manifesto">
+    <li><span class="mono">I</span><p>AI that institutions can <em>answer for</em>, not just deploy.</p></li>
+    <li><span class="mono">II</span><p>A qualification layer in front of <em>every consequential action</em> a machine takes.</p></li>
+    <li><span class="mono">III</span><p>Regulated AI <em>by default</em>, because the rules are compiled in, not bolted on.</p></li>
+    <li><span class="mono">IV</span><p>Institutions that <em>remember why</em>, and get wiser with every decision.</p></li>
+  </ol>
+  <p class="mono fine">Forward-looking. This is where we’re building, not a description of what ships today.</p>
+</section>
+
+<!-- CTA -->
+<section class="cta" aria-labelledby="c-h">
+  <div class="cta-inner">
+    <p class="mono label"><span class="pulse" aria-hidden="true"></span>Early access</p>
+    <h2 id="c-h" class="display sm">Bring us the claim<br><em>you can’t afford to get wrong.</em></h2>
+    <p>Runcible is in early access with a small number of teams. Briefings are hands-on: we take one of your real decisions through the instrument, and you see the Developer Console with every protocol and intermediate step exposed.</p>
+    <a class="btn btn-signal lg" href="mailto:hello@runcible.com?subject=Briefing%20request">Request a briefing</a>
+  </div>
+</section>
+</main>
+
+<footer class="foot">
+  <div class="foot-big" aria-hidden="true">Runcible</div>
+  <div class="foot-row mono">
+    <span>Qualification for consequential AI</span>
+    <a href="mailto:hello@runcible.com">hello@runcible.com</a>
+    <span>© 2026 Runcible</span>
+  </div>
+</footer>
+
+<script src="/runcible/project.js" defer></script>
+</body>
+</html>
