@@ -12,7 +12,7 @@ event.preventDefault();
 const data=answers();
 if(!Object.entries(data).some(([k,v])=>k!=='name'&&v.trim())){status.textContent='Add at least one answer or correction first.';return}
 const text=Object.entries(data).filter(([,v])=>v.trim()).map(([k,v])=>labels[k]+':\n'+v.trim()).join('\n\n');
-location.href='mailto:m@statecraft.systems?subject='+encodeURIComponent('Prosser Horse Hotel — project-room answers')+'&body='+encodeURIComponent(text);
+location.href='mailto:ops@statecraft.systems?subject='+encodeURIComponent('Prosser Horse Hotel — project-room answers')+'&body='+encodeURIComponent(text);
 status.textContent='Email draft opened. Send it from your email app; this page has not sent your answers.';
 });
 document.querySelector('#copy').addEventListener('click',async()=>{try{await navigator.clipboard.writeText(Object.entries(answers()).filter(([,v])=>v.trim()).map(([k,v])=>labels[k]+':\n'+v.trim()).join('\n\n'));status.textContent='Copied. Paste these answers into your reply to Moritz.'}catch{status.textContent='Copy is unavailable. Select your answers and copy them manually.'}});
