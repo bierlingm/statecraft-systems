@@ -3,16 +3,37 @@
 Email Routing Worker for **hello@prosserhorsehotel.com** (guest email on the site) and
 **listings@prosserhorsehotel.com** (directory sign-ups).
 
-- **Moritz:** the original message is forwarded (`message.forward`) to moritzbierling@hey.com,
-  a verified Email Routing destination.
-- **Ben:** a copy is re-sent to prosserhorsehotel@gmail.com through the Cloudflare Email Service
-  send binding `EMAIL` (allowed sender `forward@statecraft.systems`, a verified sending domain),
-  so Ben never has to verify anything. From is "Prosser Horse Hotel mail <forward@statecraft.systems>",
-  Reply-To is the original sender, and subject, text, HTML and attachments (up to 20 MB) are kept.
-  The message is parsed with postal-mime.
-- A failure on one path never blocks the other; the message is rejected only if both fail.
-- Zone `prosserhorsehotel.com` → Email Routing rules for hello@ and listings@ use *Send to Worker*
-  → `prosserhorsehotel-mail`. The catch-all drops everything else.
-- Build: `npm i && npm run build`, then deploy `dist/index.js` as module `index.js` via the
-  Cloudflare API with binding `{type: "send_email", name: "EMAIL", allowed_sender_addresses: ["forward@statecraft.systems"]}`
-  (wrangler.toml mirrors this config). Observability logs are on (100% sampling).
+## Delivery
+
+1. **Moritz:** `message.forward` to moritzbierling@hey.com (verified Email Routing destination).
+2. **Ben:** re-send via Cloudflare Email Service binding `EMAIL` from
+   `Prosser Horse Hotel mail <rooms@statecraft.systems>` (same proven sender as the intake Worker),
+   with the original sender as Reply-To, plus subject / text / HTML / attachments when parseable.
+3. **Fallback:** if Email Sending fails, `message.forward` to prosserhorsehotel@gmail.com
+   (verified destination). Ben never needs to re-verify.
+
+A failure on one path never blocks the others; the message is rejected only if nothing was delivered.
+
+## Why rooms@ (not forward@)
+
+The first Email Sending attempt used `forward@statecraft.systems`. Worker invocations for the
+TEST emails completed with 0 errors (HEY forward succeeded) but Ben never got a copy — the resend
+path failed silently in a catch. The working intake Worker sends as `rooms@statecraft.systems`.
+This Worker now uses that same allowed sender.
+
+## Deploy
+
+```bash
+npm i && npm run build
+```
+
+Deploy `dist/index.js` as module `index.js` via the Cloudflare API with:
+
+```json
+{ "type": "send_email", "name": "EMAIL", "allowed_sender_addresses": ["rooms@statecraft.systems"] }
+```
+
+Keep `[observability] enabled = true` (100% sampling) so `[phh-mail] resent …` / `fallback forward gmail` lines show in Workers Logs.
+
+Zone `prosserhorsehotel.com` → Email Routing rules for hello@ and listings@ use *Send to Worker*
+→ `prosserhorsehotel-mail`. Catch-all drops everything else.
