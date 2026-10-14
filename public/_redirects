@@ -19,6 +19,8 @@
 /prosser/versions/v0-8 /prosser/versions/v0-8/index.html 200
 
 /prosserhorsehotel /prosserhorsehotel/index.html 200
+/prosserhorsehotel/terms /terms/ 301
+/prosserhorsehotel/terms/ /terms/ 301
 /prosserhorsehotel/preview-v2/* /prosserhorsehotel/preview/:splat 301
 /prosserhorsehotel/preview-v2 /prosserhorsehotel/preview/ 301
 
