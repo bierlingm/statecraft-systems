@@ -1,11 +1,11 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 const steps = [
-  ['Inventory', 'We list the records you hold, who owns them, and the restrictions attached to each set. You decide which sets to consider. There is no obligation to proceed.'],
-  ['Redaction', 'We remove client names and personal details, check for identifying context, and exclude anything protected by a regulator or contract. Only an approved, cleaned set moves forward.'],
-  ['Contract', 'You review the licensing agreement with micro1: the exact records, permitted uses, who may receive them, access controls, payment and withdrawal terms. You decide whether to sign.'],
-  ['Delivery', 'The approved records are delivered through the agreed channel, within the scope and controls written into the contract.'],
-  ['Payment', 'micro1 pays you under the agreed terms. Statecraft Systems is a referral partner and is paid by micro1, not by you.'],
+  ['Consent', 'Nothing about your company goes to a buyer until an authorised person at your company agrees, in writing, to an introduction.'],
+  ['Inventory', 'You list the records you hold, who owns them, and the restrictions attached to each set. We help you decide which sets to consider. There is no obligation to proceed.'],
+  ['Introduction', 'We introduce you to a buyer that licenses data for AI training, such as micro1 or Polyshares. You can speak to more than one.'],
+  ['Contract', 'You review the licensing agreement directly with the buyer: the exact records, de-identification, permitted uses, recipients, access controls, payment and withdrawal terms. You decide whether to sign.'],
+  ['Delivery and payment', 'Records move directly between you and the buyer, within the scope written into the contract. The buyer pays you under the agreed terms.'],
 ];
 ---
 
@@ -20,7 +20,8 @@ const steps = [
   <section class="wrap split" aria-labelledby="for-h">
     <div class="left"><span class="eyebrow">01 · Who it's for</span><h2 id="for-h">Businesses with a record of real work.</h2></div>
     <div class="right prose">
-      <p>Staffing and recruiting firms, call centres and BPO providers, insurance agencies, outsourced accounting firms, and managed service providers (MSPs).</p>
+      <h2>Operating companies</h2>
+      <p>Companies with 30 or more staff and mature internal documentation. Typical examples: staffing and recruiting firms, call centres and BPO providers, insurance agencies, outsourced accounting firms, and managed service providers (MSPs).</p>
       <p>The useful material records how your team handles a request, makes a decision, checks quality or resolves a problem. It does not need to be polished for publication.</p>
       <h2>What qualifies</h2>
       <p>Internal SOPs, ticket histories, CRM notes, call scripts and QA rubrics can qualify when you own the rights to license them and they can be cleaned safely.</p>
@@ -38,15 +39,31 @@ const steps = [
     </div>
   </section>
 
+  <section class="wrap split" aria-labelledby="closed-h">
+    <div class="left"><span class="eyebrow">03 · Closed or winding down</span><h2 id="closed-h">When the company has stopped trading.</h2></div>
+    <div class="right prose">
+      <p>For founders, trustees, assignees for the benefit of creditors (ABC assignees) and restructuring counsel handling a company that has closed or is winding down.</p>
+      <p>What buyers look for: companies that had 50 or more staff at their peak, with Slack or Teams history and internal documents, licensed as a de-identified archive.</p>
+      <p>Only the person with legal authority over the records can agree to a sale. In a bankruptcy estate that is the trustee or debtor in possession, and the sale needs court approval.</p>
+    </div>
+  </section>
+
+  <section class="wrap split" aria-labelledby="fee-h">
+    <div class="left"><span class="eyebrow">04 · How we are paid</span><h2 id="fee-h">Disclosed plainly.</h2></div>
+    <div class="right prose">
+      <p>Statecraft Systems may be paid an introducer or referral fee by the buyer (micro1 or other licensees such as Polyshares). We are never paid by the seller. We refer a company only with its consent, and we never receive or hold the data itself.</p>
+    </div>
+  </section>
+
   <section class="wrap split" aria-labelledby="faq-h">
-    <div class="left"><span class="eyebrow">03 · Questions</span><h2 id="faq-h">Before you decide.</h2></div>
+    <div class="left"><span class="eyebrow">05 · Questions</span><h2 id="faq-h">Before you decide.</h2></div>
     <div class="right prose records-faq">
       <h3>Will my clients know?</h3>
       <p>Client names and identifying details are removed or the records are excluded. We also check whether your contracts require notice or consent. Redaction is not a reason to skip those obligations; if a record cannot be shared safely and lawfully, it stays out.</p>
       <h3>Who sees it?</h3>
-      <p>Licensing runs through micro1, which supplies training data to AI labs. Before you agree, the contract must specify the recipients, permitted uses and access controls. We do not share raw records with prospective buyers.</p>
+      <p>The buyer you sign with, such as micro1 or another licensee like Polyshares. Before you agree, the contract must specify the recipients, permitted uses and access controls. Statecraft never receives, holds or views the records themselves; they move only between you and the buyer.</p>
       <h3>What does it pay?</h3>
-      <p><a class="link-rule" href="https://www.micro1.ai/data-estimate">micro1 lists partnership tiers from $100K+</a>. The actual price depends on the records: their quality, uniqueness, volume and the agreed access terms. Those tiers are not a quote or a promise of payment for your records.</p>
+      <p><a class="link-rule" href="https://www.micro1.ai/data-estimate">micro1 publishes partnership tiers of $100K+, $500K+ and $1M+</a>, agreed with the buyer deal by deal. The actual price depends on the records: their quality, uniqueness, volume and the agreed access terms. Those tiers are not a quote or a promise of payment for your records.</p>
       <h3>Can I stop?</h3>
       <p>You can stop the review before signing, with no obligation. After signing, withdrawal, termination and any continued use of delivered records depend on the contract. We review those terms with you before delivery; do not assume a completed license can be undone.</p>
     </div>
