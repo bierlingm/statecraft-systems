@@ -2,10 +2,10 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 ---
 
-<BaseLayout title="Privacy" description="What business contact data Statecraft Systems keeps for outreach, why, and how to opt out.">
+<BaseLayout title="Privacy" description="What data Statecraft Systems keeps for outreach, client websites, form submissions and billing, why, and how to reach us.">
   <section class="wrap page-head">
     <span class="eyebrow">Privacy</span>
-    <h1>What we keep when we write to you.</h1>
+    <h1>What we keep, and why.</h1>
   </section>
 
   <section class="wrap split">
@@ -15,8 +15,28 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       <p><strong>Where it comes from.</strong> Public websites, such as your company's own site.</p>
       <p><strong>Why.</strong> To offer business-to-business introductions, for example to buyers that license operating records.</p>
       <p><strong>Opting out.</strong> Reply "unsubscribe" to any email, or write to <a href="mailto:m@statecraft.systems">m@statecraft.systems</a>. We stop within 10 business days.</p>
-      <p><strong>Selling.</strong> We do not sell or rent contact data.</p>
-      <p>Statecraft Systems LLC · <a href="mailto:m@statecraft.systems">m@statecraft.systems</a></p>
+      <p><strong>Selling.</strong> We do not sell or rent contact data, or any other data.</p>
     </div>
+  </section>
+  <section class="wrap split">
+    <div class="left"><h2>Client websites and forms</h2></div>
+    <div class="right prose">
+      <p><strong>What we keep.</strong> What you or your visitors send through forms on sites and project rooms we run: names, contact details, messages, answers and uploaded photos.</p>
+      <p><strong>Where it goes.</strong> Submissions are stored with our hosting provider (Cloudflare) and emailed to the people who need them to do the work, such as the site owner or us.</p>
+      <p><strong>Why.</strong> To build and run the site, answer enquiries and do the work you asked for. We don't use it for anything else.</p>
+      <p><strong>Deleting it.</strong> Write to <a href="mailto:m@statecraft.systems">m@statecraft.systems</a> and we delete it within 10 business days, unless we must keep it by law.</p>
+    </div>
+  </section>
+
+  <section class="wrap split">
+    <div class="left"><h2>Billing</h2></div>
+    <div class="right prose">
+      <p><strong>Payments.</strong> Card payments are handled by Stripe. We never see or store your full card number; Stripe keeps it under its own <a href="https://stripe.com/privacy">privacy policy</a>.</p>
+      <p><strong>What we keep.</strong> Your name, billing email, invoices and receipts, for as long as tax and accounting rules require.</p>
+    </div>
+  </section>
+  <section class="wrap split">
+    <div class="left"><h2>Contact</h2></div>
+    <div class="right prose"><p>Statecraft Systems LLC · <a href="mailto:m@statecraft.systems">m@statecraft.systems</a> · <a href="/terms/">Terms</a> · <a href="/support/">Support</a></p></div>
   </section>
 </BaseLayout>
