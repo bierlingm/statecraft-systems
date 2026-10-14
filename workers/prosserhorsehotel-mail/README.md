@@ -37,3 +37,14 @@ Keep `[observability] enabled = true` (100% sampling) so `[phh-mail] resent …`
 
 Zone `prosserhorsehotel.com` → Email Routing rules for hello@ and listings@ use *Send to Worker*
 → `prosserhorsehotel-mail`. Catch-all drops everything else.
+
+## EmailAddress.name
+
+Cloudflare Email Service throws if `name` on From/Reply-To is present but not a string
+(postal-mime can return a non-string). We only set `name` when `typeof name === 'string'`
+and it is non-empty.
+
+## Order
+
+HEY `message.forward` runs **before** reading `message.raw`, so parse/send failures cannot
+skip Moritz's copy. Logs: `forwarding hey` then `forwarded hey` (or `forward hey failed`).
