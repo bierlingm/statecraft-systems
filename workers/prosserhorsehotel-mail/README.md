@@ -15,4 +15,4 @@ Email Routing Worker for **hello@prosserhorsehotel.com** (guest email on the sit
   → `prosserhorsehotel-mail`. The catch-all drops everything else.
 - Build: `npm i && npm run build`, then deploy `dist/index.js` as module `index.js` via the
   Cloudflare API with binding `{type: "send_email", name: "EMAIL", allowed_sender_addresses: ["forward@statecraft.systems"]}`
-  (no wrangler.toml).
+  (wrangler.toml mirrors this config). Observability logs are on (100% sampling).

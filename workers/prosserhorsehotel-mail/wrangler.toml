@@ -1,0 +1,12 @@
+# Reference config. The Worker is deployed via the Cloudflare API (see README); keep this in sync.
+name = "prosserhorsehotel-mail"
+main = "src/index.js"
+compatibility_date = "2025-09-01"
+
+[[send_email]]
+name = "EMAIL"
+allowed_sender_addresses = ["forward@statecraft.systems"]
+
+[observability]
+enabled = true
+head_sampling_rate = 1
