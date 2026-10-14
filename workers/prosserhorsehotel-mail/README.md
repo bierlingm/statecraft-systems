@@ -1,25 +1,22 @@
 # prosserhorsehotel-mail
 
-Email Routing Worker for **hello@prosserhorsehotel.com** (guest email on the site) and
-**listings@prosserhorsehotel.com** (directory sign-ups).
+Email Routing Worker for **hello@prosserhorsehotel.com** and **listings@prosserhorsehotel.com**.
 
 ## Delivery
 
-1. **Moritz:** `message.forward` to moritzbierling@hey.com (verified Email Routing destination).
-2. **Ben:** re-send via Cloudflare Email Service binding `EMAIL` from
-   `Prosser Horse Hotel mail <rooms@statecraft.systems>` (same proven sender as the intake Worker),
-   with the original sender as Reply-To, plus subject / text / HTML / attachments when parseable.
-3. **Fallback:** if Email Sending fails, `message.forward` to prosserhorsehotel@gmail.com
-   (verified destination). Ben never needs to re-verify.
+1. **HEY first:** `message.forward` to moritzbierling@hey.com (before reading `message.raw`).
+2. **Ben via Email Sending:** `env.EMAIL.send` from `Prosser Horse Hotel mail <rooms@statecraft.systems>`
+   (same sender + binding allowlist as the working intake Worker). Payload matches intake:
+   `{ from: { email, name }, to: [string], subject, text, html? }` with `replyTo` as a **plain
+   string** (not `{ email, name }` — object form caused `EmailAddress.name` TypeErrors).
+3. **Fallback:** if Email Sending fails, `message.forward` to prosserhorsehotel@gmail.com (verified).
 
-A failure on one path never blocks the others; the message is rejected only if nothing was delivered.
+## Root causes fixed
 
-## Why rooms@ (not forward@)
-
-The first Email Sending attempt used `forward@statecraft.systems`. Worker invocations for the
-TEST emails completed with 0 errors (HEY forward succeeded) but Ben never got a copy — the resend
-path failed silently in a catch. The working intake Worker sends as `rooms@statecraft.systems`.
-This Worker now uses that same allowed sender.
+- `EmailAddress.name` must be a string or omitted (postal-mime can return non-strings).
+- `replyTo` as an object was a likely ongoing send failure; intake never uses replyTo objects.
+- Attachments (if any) are base64 strings; Email Sending total size cap is 5 MiB.
+- HEY forward runs before reading raw so parse/send failures cannot skip Moritz.
 
 ## Deploy
 
@@ -27,24 +24,10 @@ This Worker now uses that same allowed sender.
 npm i && npm run build
 ```
 
-Deploy `dist/index.js` as module `index.js` via the Cloudflare API with:
+Deploy `dist/index.js` via the Cloudflare API with:
 
 ```json
 { "type": "send_email", "name": "EMAIL", "allowed_sender_addresses": ["rooms@statecraft.systems"] }
 ```
 
-Keep `[observability] enabled = true` (100% sampling) so `[phh-mail] resent …` / `fallback forward gmail` lines show in Workers Logs.
-
-Zone `prosserhorsehotel.com` → Email Routing rules for hello@ and listings@ use *Send to Worker*
-→ `prosserhorsehotel-mail`. Catch-all drops everything else.
-
-## EmailAddress.name
-
-Cloudflare Email Service throws if `name` on From/Reply-To is present but not a string
-(postal-mime can return a non-string). We only set `name` when `typeof name === 'string'`
-and it is non-empty.
-
-## Order
-
-HEY `message.forward` runs **before** reading `message.raw`, so parse/send failures cannot
-skip Moritz's copy. Logs: `forwarding hey` then `forwarded hey` (or `forward hey failed`).
+Keep observability enabled (100% sampling). Look for `[phh-mail] sending` then `resent` / `resend failed` / `fallback forward gmail`.

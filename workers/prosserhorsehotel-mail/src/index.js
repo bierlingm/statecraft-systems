@@ -1,118 +1,178 @@
 // prosserhorsehotel-mail: Email Routing Worker for hello@ and listings@prosserhorsehotel.com.
-// 1) Always forwards the original message to Moritz (moritzbierling@hey.com) via message.forward
-//    BEFORE reading message.raw (so a parse/send failure cannot skip HEY).
-// 2) Re-sends a copy to Ben (prosserhorsehotel@gmail.com) via Cloudflare Email Service
-//    (From: "Prosser Horse Hotel mail <rooms@statecraft.systems>", Reply-To = original sender).
-// 3) If Email Sending fails, falls back to message.forward to Ben (verified destination).
-// EmailAddress.name is only set when typeof name === 'string' and non-empty (avoids TypeError).
+// 1) Forward original to Moritz (HEY) first, before reading message.raw.
+// 2) Re-send a copy to Ben via Cloudflare Email Service (rooms@statecraft.systems),
+//    matching the working intake Worker payload shape; replyTo is a plain string.
+// 3) If Email Sending fails, message.forward to Ben (verified destination).
 import PostalMime from 'postal-mime';
 
 const FORWARD_HEY = 'moritzbierling@hey.com';
 const BEN = 'prosserhorsehotel@gmail.com';
 const FROM_EMAIL = 'rooms@statecraft.systems';
 const FROM_NAME = 'Prosser Horse Hotel mail';
-const MAX_ATTACH = 15 * 1024 * 1024;
+const MAX_ATTACH = 4 * 1024 * 1024; // Email Sending limit is 5 MiB total
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-function emailAddress(email, name) {
-  const a = { email: String(email || '').trim() };
-  if (typeof name === 'string' && name.trim()) a.name = name.trim();
-  return a;
+function log(...parts) {
+  console.log(parts.map(p => {
+    if (p == null) return String(p);
+    if (typeof p === 'string') return p;
+    if (p instanceof Error) return `${p.name}: ${p.message}`;
+    try { return JSON.stringify(p); } catch { return String(p); }
+  }).join(' '));
+}
+
+function emailOnly(email) {
+  const s = String(email || '').trim();
+  // Strip display-name wrappers: Name <addr@host>
+  const m = s.match(/<([^>]+)>/);
+  const addr = (m ? m[1] : s).trim();
+  return EMAIL_RE.test(addr) ? addr : '';
 }
 
 function esc(s) {
   return String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 }
 
+function toBase64(buf) {
+  const u8 = buf instanceof Uint8Array ? buf : new Uint8Array(buf);
+  let s = '';
+  for (let i = 0; i < u8.length; i++) s += String.fromCharCode(u8[i]);
+  return btoa(s);
+}
+
 async function buildCopy(message, raw) {
   let subject = message.headers.get('subject') || '(no subject)';
-  let replyTo = emailAddress(message.from);
+  let replyEmail = emailOnly(message.from);
   let text = `Forwarded copy of a message to ${message.to}.\nOriginal From: ${message.from}\n\n(Could not parse the original body; open the HEY copy for the full message.)`;
   let html;
-  let attachments;
+  let attachments = [];
   try {
     const m = await PostalMime.parse(raw);
     if (typeof m.subject === 'string' && m.subject) subject = m.subject;
-    if (m.from?.address) replyTo = emailAddress(m.from.address, m.from.name);
-    const who = replyTo.name ? `${replyTo.name} <${replyTo.email}>` : replyTo.email;
+    if (m.from?.address) {
+      const a = emailOnly(m.from.address);
+      if (a) replyEmail = a;
+    }
+    const who = (typeof m.from?.name === 'string' && m.from.name.trim())
+      ? `${m.from.name.trim()} <${replyEmail || message.from}>`
+      : (replyEmail || message.from);
     const note = `Sent to ${message.to} by ${who}. Reply to answer them directly.`;
     text = `${note}\n\n${m.text || '(no plain-text body)'}`;
-    if (m.html) html = `<p style="color:#666;font-size:13px">${esc(note)}</p><hr>${m.html}`;
+    if (typeof m.html === 'string' && m.html) {
+      html = `<p style="color:#666;font-size:13px">${esc(note)}</p><hr>${m.html}`;
+    }
     let size = 0;
-    attachments = [];
     for (const a of m.attachments || []) {
-      const buf = a.content instanceof ArrayBuffer ? a.content : (a.content?.buffer || a.content);
-      const len = buf?.byteLength ?? buf?.length ?? 0;
+      const buf = a.content instanceof ArrayBuffer ? a.content
+        : a.content?.buffer ? a.content : null;
+      const len = buf?.byteLength ?? 0;
       if (!buf || !len) continue;
       size += len;
       if (size > MAX_ATTACH) break;
-      const item = {
-        content: buf,
+      attachments.push({
+        content: toBase64(buf),
         filename: (typeof a.filename === 'string' && a.filename) ? a.filename : 'attachment',
         type: (typeof a.mimeType === 'string' && a.mimeType) ? a.mimeType : 'application/octet-stream',
-        disposition: a.disposition === 'inline' && a.contentId ? 'inline' : 'attachment',
-      };
-      if (typeof a.contentId === 'string' && a.contentId) item.contentId = a.contentId.replace(/^<|>$/g, '');
-      attachments.push(item);
+        disposition: 'attachment',
+      });
     }
   } catch (e) {
-    console.error('[phh-mail] parse failed, using header fallback', e?.message);
+    log('[phh-mail] parse failed, using header fallback', e);
   }
-  return { subject: String(subject).slice(0, 900), replyTo, text, html, attachments };
+  return {
+    subject: String(subject).slice(0, 900),
+    replyEmail,
+    text: String(text),
+    html: typeof html === 'string' ? html : undefined,
+    attachments,
+  };
+}
+
+async function sendCopy(env, copy) {
+  // Match intake Worker: from object with string name, to as string array, text (+ optional html).
+  // replyTo as plain string only (object form previously caused EmailAddress TypeErrors).
+  const base = {
+    from: { email: FROM_EMAIL, name: FROM_NAME },
+    to: [BEN],
+    subject: copy.subject,
+    text: copy.text,
+  };
+  if (copy.replyEmail) base.replyTo = copy.replyEmail;
+  if (copy.html) base.html = copy.html;
+
+  // 1) Minimal send first (no attachments) — same shape as intake.
+  log('[phh-mail] sending', { to: BEN, from: FROM_EMAIL, replyTo: base.replyTo || null, subject: copy.subject.slice(0, 80), hasHtml: !!copy.html, attach: 0 });
+  try {
+    const r = await env.EMAIL.send(base);
+    log('[phh-mail] resent', r?.messageId || r);
+    return true;
+  } catch (e1) {
+    log('[phh-mail] resend failed', e1?.code, e1?.message, e1);
+  }
+
+  // 2) Retry without replyTo / html (closest to bare intake).
+  try {
+    const r = await env.EMAIL.send({
+      from: { email: FROM_EMAIL, name: FROM_NAME },
+      to: [BEN],
+      subject: copy.subject,
+      text: copy.text,
+    });
+    log('[phh-mail] resent no-attach', r?.messageId || r);
+    return true;
+  } catch (e2) {
+    log('[phh-mail] resend bare failed', e2?.code, e2?.message, e2);
+  }
+
+  // 3) Optional: with base64 attachments only if present and still failing above is N/A —
+  //    try once with attachments if we have them and bare already failed (unlikely to help).
+  if (copy.attachments?.length) {
+    try {
+      const r = await env.EMAIL.send({ ...base, attachments: copy.attachments });
+      log('[phh-mail] resent', r?.messageId || r);
+      return true;
+    } catch (e3) {
+      log('[phh-mail] resend with attachments failed', e3?.code, e3?.message, e3);
+    }
+  }
+  return false;
 }
 
 export default {
   async email(message, env) {
     let delivered = 0;
-    console.log('[phh-mail] start', message.to);
+    log('[phh-mail] start', message.to);
 
-    // HEY first, before touching message.raw, so this path always runs.
-    console.log('[phh-mail] forwarding hey');
+    log('[phh-mail] forwarding hey');
     try {
       await message.forward(FORWARD_HEY);
       delivered++;
-      console.log('[phh-mail] forwarded hey');
+      log('[phh-mail] forwarded hey');
     } catch (e) {
-      console.error('[phh-mail] forward hey failed', e?.message, String(e));
+      log('[phh-mail] forward hey failed', e);
     }
-
-    const raw = await new Response(message.raw).arrayBuffer();
 
     let resent = false;
     try {
-      const copy = await buildCopy(message, raw);
-      const payload = {
-        from: emailAddress(FROM_EMAIL, FROM_NAME),
-        to: [BEN],
-        replyTo: copy.replyTo,
-        subject: copy.subject,
-        text: copy.text,
-      };
-      if (copy.html) payload.html = copy.html;
-      if (copy.attachments?.length) payload.attachments = copy.attachments;
-      try {
-        const r = await env.EMAIL.send(payload);
-        console.log('[phh-mail] resent', r?.messageId);
-        resent = true;
-        delivered++;
-      } catch (e1) {
-        console.error('[phh-mail] resend with attachments failed', e1?.code, e1?.message);
-        delete payload.attachments;
-        const r = await env.EMAIL.send(payload);
-        console.log('[phh-mail] resent no-attach', r?.messageId);
-        resent = true;
-        delivered++;
+      if (!env.EMAIL || typeof env.EMAIL.send !== 'function') {
+        log('[phh-mail] EMAIL binding missing', { hasEmail: !!env.EMAIL });
+      } else {
+        const raw = await new Response(message.raw).arrayBuffer();
+        const copy = await buildCopy(message, raw);
+        resent = await sendCopy(env, copy);
+        if (resent) delivered++;
       }
     } catch (e) {
-      console.error('[phh-mail] resend failed', e?.code, e?.message, String(e));
+      log('[phh-mail] resend path threw', e);
     }
 
     if (!resent) {
       try {
         await message.forward(BEN);
         delivered++;
-        console.log('[phh-mail] fallback forward gmail');
+        log('[phh-mail] fallback forward gmail');
       } catch (e) {
-        console.error('[phh-mail] fallback forward gmail failed', e?.message, String(e));
+        log('[phh-mail] fallback forward gmail failed', e);
       }
     }
 
