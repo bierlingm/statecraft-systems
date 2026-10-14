@@ -65,7 +65,7 @@ for (const form of document.querySelectorAll('form')) {
       panel.querySelector('button').addEventListener('click', () => { panel.remove(); form.hidden = false; form.querySelector('input[name=name]').focus(); });
       panel.focus();
     } catch {
-      status.textContent = 'We couldn’t send this time. Your answers are still here. Please try again, or email ops@statecraft.systems.';
+      status.textContent = 'We couldn’t send this time. Your answers are still here. Please try again, or email contact@statecraft.systems.';
     } finally { button.disabled = false; }
   });
 }
