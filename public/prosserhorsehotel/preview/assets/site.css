@@ -2,3 +2,5 @@
 
 /* Owner property photography */
 .photo picture,.hero-art picture{display:block;min-width:0;width:100%}.photo img,.hero-art img{width:100%;height:auto;aspect-ratio:1600 / 747;object-fit:cover;border-radius:8px}.photo-pair{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:28px}@media(max-width:800px){.photo-pair{grid-template-columns:minmax(0,1fr)}}
+
+.quick-answer{margin:28px 0 0;padding:16px 20px;background:var(--white);border-left:3px solid var(--clay);font-size:15px;line-height:1.6}.quick-answer p{margin:0;max-width:90ch}.quick-answer .qa-label{font-size:11px;letter-spacing:.15em;text-transform:uppercase;font-weight:750;color:var(--clay);margin-bottom:6px}
