@@ -5,18 +5,56 @@ import OperatingRecords from '../components/OperatingRecords.astro';
 import DetailA from '../components/DetailA.astro';
 import ThesisBand from '../components/ThesisBand.astro';
 import ContactBlock from '../components/ContactBlock.astro';
+import QuickAnswer from '../components/QuickAnswer.astro';
 import { plates } from '../data/work';
+import { SITE_URL, SITE_DESCRIPTION } from '../data/site';
+
+// Structured data: only what this page states (header, hero, footer, meta description).
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': ['Organization', 'ProfessionalService'],
+      '@id': `${SITE_URL}/#organization`,
+      name: 'Statecraft Systems',
+      legalName: 'Statecraft Systems LLC',
+      url: `${SITE_URL}/`,
+      email: 'm@statecraft.systems',
+      description: SITE_DESCRIPTION,
+      image: `${SITE_URL}/og-default.png`,
+      founder: {
+        '@type': 'Person',
+        '@id': `${SITE_URL}/#moritz-bierling`,
+        name: 'Moritz Bierling',
+        url: 'https://moritzbierling.com',
+      },
+    },
+    {
+      '@type': 'WebSite',
+      '@id': `${SITE_URL}/#website`,
+      name: 'Statecraft Systems',
+      url: `${SITE_URL}/`,
+      description: SITE_DESCRIPTION,
+      inLanguage: 'en',
+      publisher: { '@id': `${SITE_URL}/#organization` },
+    },
+  ],
+};
 
 const [feature, ...rest] = plates;
 ---
 
-<BaseLayout title="Statecraft Systems">
+<BaseLayout title="Statecraft Systems" jsonLd={jsonLd}>
   <section class="wrap hero">
     <h1>We build the <em>working parts</em> of small institutions.</h1>
     <div class="hero-foot">
       <p class="lede">Intake for a clinic. Booking for a house. Enquiries for a supplier. Designed with the people who run the place, reviewed on the real thing, and built to keep working after we step back.</p>
       <p class="practice">The practice of Moritz Bierling<br /><a href="mailto:m@statecraft.systems">m@statecraft.systems</a></p>
     </div>
+    <QuickAnswer>
+      <p>Statecraft Systems is the practice of Moritz Bierling, run as Statecraft Systems LLC, a US company. It builds the working parts of small institutions, such as intake for a clinic, booking for a house and enquiries for a supplier, designed with the people who run the place and reviewed on the real thing.</p>
+      <p>To start, describe what you need to <a href="mailto:m@statecraft.systems">m@statecraft.systems</a>. The reply comes from the person who would build it.</p>
+    </QuickAnswer>
   </section>
 
   <section class="wrap plates" aria-labelledby="plates-h">

@@ -449,3 +449,22 @@ a:hover { color: var(--accent); }
 @media (max-width: 860px) {
   .records-heading, .records-list { grid-column: 1 / -1; }
 }
+
+/* ——— Quick answer ——— */
+
+.quick-answer {
+  max-width: var(--measure);
+  border-top: 1px solid var(--ink);
+  border-left: 2px solid var(--accent);
+  background: var(--paper-3);
+  padding: 16px 20px 18px;
+}
+.quick-answer .qa-head {
+  display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+  font-family: var(--mono); font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted);
+  margin-bottom: 10px;
+}
+.quick-answer .qa-body { font-size: 1.0625rem; line-height: 1.55; color: var(--ink-2); }
+.quick-answer .qa-body p + p { margin-top: 0.6em; }
+.quick-answer a { border-bottom: 1px solid var(--accent); }
+.hero-foot + .quick-answer { margin-top: 0; }

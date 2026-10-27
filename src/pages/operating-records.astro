@@ -1,5 +1,21 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import QuickAnswer from '../components/QuickAnswer.astro';
+import { SITE_URL } from '../data/site';
+
+// FAQPage structured data: the questions and answers in section 05, word for word.
+const faq = [
+    { q: "Will my clients know?", a: "Client names and identifying details are removed or the records are excluded. We also check whether your contracts require notice or consent. Redaction is not a reason to skip those obligations; if a record cannot be shared safely and lawfully, it stays out." },
+    { q: "Who sees it?", a: "The buyer you sign with, such as micro1 or another licensee like Polyshares. Before you agree, the contract must specify the recipients, permitted uses and access controls. Statecraft never receives, holds or views the records themselves; they move only between you and the buyer." },
+    { q: "What does it pay?", a: "micro1 publishes partnership tiers of $100K+, $500K+ and $1M+, agreed with the buyer deal by deal. The actual price depends on the records: their quality, uniqueness, volume and the agreed access terms. Those tiers are not a quote or a promise of payment for your records." },
+    { q: "Can I stop?", a: "You can stop the review before signing, with no obligation. After signing, withdrawal, termination and any continued use of delivered records depend on the contract. We review those terms with you before delivery; do not assume a completed license can be undone." },
+];
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  url: `${SITE_URL}/operating-records/`,
+  mainEntity: faq.map(({ q, a }) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a } })),
+};
 const steps = [
   ['Consent', 'Nothing about your company goes to a buyer until an authorised person at your company agrees, in writing, to an introduction.'],
   ['Inventory', 'You list the records you hold, who owns them, and the restrictions attached to each set. We help you decide which sets to consider. There is no obligation to proceed.'],
@@ -9,11 +25,14 @@ const steps = [
 ];
 ---
 
-<BaseLayout title="Operating records" description="Decide whether to license your operating records for AI training, with an inventory, clear boundaries and redaction before delivery.">
+<BaseLayout jsonLd={jsonLd} title="Operating records" description="Decide whether to license your operating records for AI training, with an inventory, clear boundaries and redaction before delivery.">
   <section class="wrap page-head">
     <span class="eyebrow">Operating records · Plate 05</span>
     <h1>The work you already know how to do has a second use.</h1>
     <p class="lede">AI labs buy records of how real businesses work. We help you decide what you can license, what must stay private, and whether the terms make sense for you.</p>
+    <QuickAnswer>
+      <p>Statecraft Systems helps companies decide whether to license operating records, such as internal SOPs, ticket histories, CRM notes, call scripts and QA rubrics, to buyers that license data for AI training, such as micro1 or Polyshares. Nothing about your company goes to a buyer until an authorised person agrees in writing, and records move directly between you and the buyer. Statecraft Systems may be paid an introducer fee by the buyer, never by the seller.</p>
+    </QuickAnswer>
     <a class="link-rule" href="mailto:m@statecraft.systems?subject=Records%20review">Book a 20-minute records review</a>
   </section>
 

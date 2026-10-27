@@ -6,9 +6,11 @@ interface Props {
   description?: string;
   image?: string;
   footerEmail?: string;
+  /** Structured data for this page. Must match what the page says. */
+  jsonLd?: object;
 }
 
-const { title, description, image, footerEmail = 'm@statecraft.systems' } = Astro.props;
+const { title, description, image, footerEmail = 'm@statecraft.systems', jsonLd } = Astro.props;
 
 const SITE = 'Statecraft Systems';
 const DEFAULT_DESCRIPTION = 'Statecraft Systems builds the working parts of small institutions: intake, booking, enquiries and the systems behind them.';
@@ -54,6 +56,10 @@ const isCurrent = (href: string) => (path === href || path.startsWith(href + '/'
     <meta name="twitter:title" content={pageTitle} />
     <meta name="twitter:description" content={metaDescription} />
     <meta name="twitter:image" content={ogImage} />
+
+    <link rel="alternate" type="application/feed+json" title="Statecraft Systems: public pages" href="/feed.json" />
+    <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
+    {jsonLd && <script type="application/ld+json" set:html={JSON.stringify(jsonLd).replace(/</g, '\\u003c')} />}
   </head>
   <body>
     <a class="skip" href="#main">Skip to content</a>

@@ -1,0 +1,15 @@
+---
+// A short, dated answer to what someone would ask about this page.
+// Write it only from facts already stated on the site.
+import { QUICK_ANSWER_DATE } from '../data/site';
+
+interface Props {
+  date?: string;
+}
+const { date = QUICK_ANSWER_DATE } = Astro.props;
+---
+
+<aside class="quick-answer" aria-label="Quick answer">
+  <p class="qa-head"><span>Quick answer</span><span>Updated <time datetime={date}>{date}</time></span></p>
+  <div class="qa-body"><slot /></div>
+</aside>
