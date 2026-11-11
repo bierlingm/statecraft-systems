@@ -18,6 +18,7 @@ const factKeys = ['Replaced', 'Built', 'Rounds', 'Status'];
     <figcaption class="caption">
       <span class:list={['eyebrow', { accent: feature }]}>Plate {plate.numeral} · {plate.title}{!feature && ` · ${plate.status}`}</span>
       <h3>{plate.summary}</h3>
+      {!feature && <span class="more" aria-hidden="true">Read plate {plate.numeral} →</span>}
       {feature && (
         <dl class="facts">
           {plate.facts.filter(([k]) => factKeys.includes(k)).map(([k, v]) => (
@@ -25,6 +26,7 @@ const factKeys = ['Replaced', 'Built', 'Rounds', 'Status'];
           ))}
         </dl>
       )}
+      {feature && <span class="more" aria-hidden="true">Read plate {plate.numeral} →</span>}
     </figcaption>
   </a>
 </figure>

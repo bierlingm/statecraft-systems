@@ -1,0 +1,125 @@
+---
+// Sheet 01: a small institution drawn as its working parts.
+// The parts arrive exploded, click into their sockets, and the whole keeps running
+// after the builder steps back. Pull any part out; let go and it clicks back in.
+// Everything here is a drawing: the counts are simulated, and the figure says so.
+const parts = [
+  { id: 'in', n: '01', name: 'the way in', note: 'Where a request arrives. One door, so nothing comes in sideways.' },
+  { id: 'cal', n: '02', name: 'one calendar', note: 'One calendar every channel writes to, so a night cannot be sold twice.' },
+  { id: 'rule', n: '03', name: 'the rule', note: 'What decides, written down. The same answers take the same path.' },
+  { id: 'desk', n: '04', name: 'the inbox', note: 'An inbox the people at the counter actually work, so every request is kept in one place.' },
+  { id: 'rec', n: '05', name: 'the record', note: 'What happened, kept where the institution can find it, not in someone’s memory.' },
+  { id: 'note', n: '06', name: 'a word to the owner', note: 'The owner hears only when something needs them.' },
+];
+---
+
+<figure class="assembly" data-state="static" aria-labelledby="asm-title">
+  <div class="sheet-frame">
+    <span class="reg tl" aria-hidden="true"></span><span class="reg tr" aria-hidden="true"></span>
+    <span class="reg bl" aria-hidden="true"></span><span class="reg br" aria-hidden="true"></span>
+    <svg class="asm" viewBox="0 30 720 495" role="img" aria-labelledby="asm-title asm-desc">
+      <desc id="asm-desc">A line drawing of a small institution as six working parts: the way in, one calendar, the rule, the inbox, the record, and a word to the owner. Requests enter at the way in, pass the rule, and go to the calendar or the inbox; each is recorded, and now and then the owner is told.</desc>
+      <g class="leaders" aria-hidden="true"></g>
+      <g class="sockets" aria-hidden="true">
+        <g class="socket" data-for="in" transform="translate(85 260)"><path d="M-7 0h14M0 -7v14"/><circle r="11"/></g>
+        <g class="socket" data-for="cal" transform="translate(540 135)"><path d="M-7 0h14M0 -7v14"/><circle r="11"/></g>
+        <g class="socket" data-for="rule" transform="translate(300 260)"><path d="M-7 0h14M0 -7v14"/><circle r="11"/></g>
+        <g class="socket" data-for="desk" transform="translate(540 391)"><path d="M-7 0h14M0 -7v14"/><circle r="11"/></g>
+        <g class="socket" data-for="rec" transform="translate(300 445)"><path d="M-7 0h14M0 -7v14"/><circle r="11"/></g>
+        <g class="socket" data-for="note" transform="translate(692 260)"><path d="M-7 0h14M0 -7v14"/><circle r="11"/></g>
+      </g>
+      <g class="pipes" aria-hidden="true">
+        <path class="pipe a" data-a="in" data-b="rule" d="M130 260 H254"/>
+        <path class="pipe" data-a="rule" data-b="cal" d="M346 260 H390 V135 H440"/>
+        <path class="pipe" data-a="rule" data-b="desk" d="M390 260 V391 H440"/>
+        <path class="pipe" data-a="rule" data-b="rec" d="M300 306 V400"/>
+        <path class="pipe dash" data-a="rule" data-b="note" d="M390 260 H672"/>
+      </g>
+      <g class="tokens" aria-hidden="true"></g>
+
+      <g class="part" data-part="in" data-home="40 200" transform="translate(40 200)">
+        <rect class="hit" x="-10" y="-34" width="110" height="164"/>
+        <rect x="0" y="0" width="90" height="120"/>
+        <path class="w2" d="M12 14h50"/>
+        <rect x="12" y="28" width="66" height="13"/>
+        <rect x="12" y="49" width="66" height="13"/>
+        <rect x="12" y="70" width="66" height="13"/>
+        <rect class="fill-a" x="12" y="96" width="34" height="12"/>
+        <text x="0" y="-12"><tspan class="pn">01</tspan> the way in</text>
+      </g>
+
+      <g class="part" data-part="cal" data-home="440 70" transform="translate(440 70)">
+        <rect class="hit" x="-10" y="-34" width="220" height="174"/>
+        <rect x="0" y="0" width="200" height="130"/>
+        <path d="M40 0v130M80 0v130M120 0v130M160 0v130M0 32.5h200M0 65h200M0 97.5h200"/>
+        <g class="cells"></g>
+        <text x="0" y="-12"><tspan class="pn">02</tspan> one calendar</text>
+      </g>
+
+      <g class="part" data-part="rule" data-home="300 260" transform="translate(300 260)">
+        <rect class="hit" x="-56" y="-56" width="112" height="112"/>
+        <path class="w2" d="M0 -46 L46 0 L0 46 L-46 0 Z"/>
+        <path d="M-14 -6h28M-14 6h18"/>
+        <text x="-46" y="-58"><tspan class="pn">03</tspan> the rule</text>
+      </g>
+
+      <g class="part" data-part="desk" data-home="440 330" transform="translate(440 330)">
+        <rect class="hit" x="-10" y="-10" width="220" height="160"/>
+        <rect x="0" y="0" width="200" height="34"/>
+        <rect x="0" y="44" width="200" height="34"/>
+        <rect x="0" y="88" width="200" height="34"/>
+        <circle class="dot-a" cx="16" cy="17" r="4"/>
+        <path d="M30 17h60M30 61h80M30 105h50"/>
+        <text x="0" y="144"><tspan class="pn">04</tspan> the inbox</text>
+      </g>
+
+      <g class="part" data-part="rec" data-home="250 400" transform="translate(250 400)">
+        <rect class="hit" x="-10" y="-10" width="120" height="134"/>
+        <rect x="0" y="0" width="100" height="90"/>
+        <path d="M18 0v90"/>
+        <g class="lines"></g>
+        <text x="0" y="110"><tspan class="pn">05</tspan> the record</text>
+      </g>
+
+      <g class="part" data-part="note" data-home="672 226" transform="translate(672 226)">
+        <rect class="hit" x="-14" y="-14" width="58" height="96"/>
+        <rect x="0" y="0" width="40" height="68" rx="7"/>
+        <rect class="screen" x="6" y="10" width="28" height="40"/>
+        <path d="M14 59h12"/>
+        <text x="40" y="92" text-anchor="end"><tspan class="pn">06</tspan> owner</text>
+      </g>
+
+      <g class="pencil" aria-hidden="true" transform="translate(760 560)">
+        <path d="M0 0 L-6 -20 L-2 -22 L4 -2 Z"/>
+        <path d="M-6 -20 L-12 -40 L-8 -42 L-2 -22"/>
+        <text x="8" y="-8">M.B.</text>
+      </g>
+    </svg>
+  </div>
+
+  <figcaption class="title-block">
+    <div class="tb-row tb-head">
+      <span id="asm-title">Sheet 01 · A small institution, in working parts</span>
+      <span class="tb-status" data-status>Running</span>
+    </div>
+    <ol class="legend">
+      {parts.map((p) => (
+        <li data-part={p.id}><button type="button" data-part={p.id} aria-describedby="asm-note"><span class="pn">{p.n}</span> {p.name}</button></li>
+      ))}
+    </ol>
+    <div class="tb-row tb-foot">
+      <p class="tb-note" id="asm-note" data-note>A drawing, not a dashboard. Pull any part out; let go and it clicks back in.</p>
+      <p class="tb-count" aria-hidden="true"><span data-handled>0</span> handled · owner told <span data-told>0</span></p>
+    </div>
+    <div class="tb-row tb-meta">
+      <span>Drawn by M. Bierling, with the people who run it</span>
+      <button type="button" class="tb-replay" data-replay hidden>Take it apart again</button>
+    </div>
+  </figcaption>
+  <script type="application/json" data-notes set:html={JSON.stringify(Object.fromEntries(parts.map((p) => [p.id, `${p.n} · ${p.name}. ${p.note}`])))} />
+</figure>
+
+<script>
+  import { mountAssembly } from '../scripts/assembly';
+  document.querySelectorAll<HTMLElement>('figure.assembly').forEach(mountAssembly);
+</script>

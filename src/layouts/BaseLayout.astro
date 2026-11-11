@@ -13,7 +13,7 @@ interface Props {
 const { title, description, image, footerEmail = 'm@statecraft.systems', jsonLd } = Astro.props;
 
 const SITE = 'Statecraft Systems';
-const DEFAULT_DESCRIPTION = 'Statecraft Systems builds the working parts of small institutions: intake, booking, enquiries and the systems behind them.';
+import { SITE_DESCRIPTION as DEFAULT_DESCRIPTION } from '../data/site';
 const SITE_URL = 'https://statecraft.systems';
 
 const pageTitle = title === SITE ? SITE : `${title} — ${SITE}`;
@@ -41,6 +41,7 @@ const isCurrent = (href: string) => (path === href || path.startsWith(href + '/'
     <meta name="theme-color" content="#f6f1e7" />
     <link rel="canonical" href={canonicalUrl} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <script is:inline>(function(h){h.classList.add('js');setTimeout(function(){if(!document.querySelector('.assembly.mounted'))h.classList.add('failsafe')},2500)})(document.documentElement)</script>
     <link rel="preload" href="/fonts/newsreader-latin-opsz-normal.woff2" as="font" type="font/woff2" crossorigin />
 
     <meta property="og:type" content="website" />
@@ -89,16 +90,39 @@ const isCurrent = (href: string) => (path === href || path.startsWith(href + '/'
 
     <footer class="site-footer">
       <div class="wrap">
-        <span>Statecraft Systems LLC · A US company.</span>
-        <a href="/operating-records">Operating records</a>
-        <a href="/privacy">Privacy</a>
-        <a href={`mailto:${footerEmail}`}>{footerEmail}</a>
-        <a href="https://moritzbierling.com" rel="noopener">moritzbierling.com</a>
-        <span>Rev. 2026-09</span>
+        <div class="cell"><span class="k">Statecraft Systems</span><span class="v">The working parts of small institutions.</span><span>Statecraft Systems LLC · A US company.</span></div>
+        <div class="cell"><span class="k">Practitioner</span><a class="v" href="https://moritzbierling.com" rel="noopener">Moritz Bierling</a><a href={`mailto:${footerEmail}`}>{footerEmail}</a></div>
+        <div class="cell"><span class="k">Sheets</span><a href="/work">Work</a><a href="/method">Method</a><a href="/instruments">Instruments</a><a href="/thesis">Thesis</a></div>
+        <div class="cell"><span class="k">Records</span><a href="/operating-records">Operating records</a><a href="/support">Support</a><a href="/terms">Terms</a><a href="/privacy">Privacy</a><span>Rev. 2026-11</span></div>
       </div>
     </footer>
 
-    <!-- Spikes feedback widget · one project per site for unified inbox -->
-    <script is:inline src="https://spikes.sh/widget.js" data-project="statecraft-systems" data-endpoint="https://spikes.sh/spikes" data-position="bottom-right" data-color="#7a2418"></script>
+    <script is:inline>
+      (function () {
+        var ds = document.querySelectorAll('.drawing.ink');
+        if (!ds.length) return;
+        var still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+        ds.forEach(function (d) {
+                    d.querySelectorAll('path, rect, circle, line').forEach(function (el) {
+            if (el.getAttribute('stroke-dasharray') || el.matches('.shade, .shade-a, .dot-a, .heart')) return;
+            el.setAttribute('pathLength', '1');
+          });
+        });
+        if (still || !('IntersectionObserver' in window)) { ds.forEach(function (d) { d.classList.add('drawn'); }); return; }
+        var draw = function (d) {
+          d.classList.add('drawn');
+          if (!d.animate) return;
+          d.querySelectorAll('[pathLength]').forEach(function (el, i) {
+            el.animate([{ strokeDasharray: '1', strokeDashoffset: 1 }, { strokeDasharray: '1', strokeDashoffset: 0 }], { duration: 1100, delay: i * 45, easing: 'cubic-bezier(.3,.1,.2,1)', fill: 'backwards' });
+          });
+          d.querySelectorAll('text, .shade, .shade-a, .dot-a, .heart').forEach(function (el) {
+            el.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 500, delay: 700, fill: 'backwards' });
+          });
+        };
+        var io = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) { draw(e.target); io.unobserve(e.target); } }); }, { rootMargin: '0px 0px -12% 0px' });
+        ds.forEach(function (d) { io.observe(d); });
+      })();
+    </script>
+
   </body>
 </html>

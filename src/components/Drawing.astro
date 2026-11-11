@@ -8,7 +8,7 @@ interface Props {
 const { kind, label } = Astro.props;
 ---
 
-<svg class="drawing" role="img" aria-label={label} viewBox={kind === 'direct-booking' ? '0 0 700 380' : '0 0 360 220'} fill="none">
+<svg class="drawing ink" role="img" aria-label={label} viewBox={kind === 'direct-booking' ? '0 0 700 380' : '0 0 360 220'} fill="none">
   {kind === 'direct-booking' && (
     <>
       <text x="0" y="84">listing site A</text>

@@ -4,7 +4,7 @@ Website for [statecraft.systems](https://statecraft.systems). A static site buil
 
 ## Tech Stack
 
-- [Astro](https://astro.build/) v5 — static output; one small script (the Detail A reasoning toggle)
+- [Astro](https://astro.build/) v5 — static output; light vanilla scripts: the homepage assembly drawing, plate draw-in, and the Detail A reasoning toggle
 - Newsreader + [Berkeley Mono](https://usgraphics.com/products/berkeley-mono)
 
 ## Setup
@@ -41,7 +41,7 @@ Serves the production build locally for review.
 
 | Path | File | Description |
 |------|------|-------------|
-| `/` | `src/pages/index.astro` | Home: headline, plates, Detail A, instruments |
+| `/` | `src/pages/index.astro` | Home: Sheet 01 assembly drawing (`src/components/Assembly.astro`, `src/scripts/assembly.ts`), what a working part is, plates, Detail A, instruments. See `DESIGN.md`. |
 | `/work`, `/work/:slug` | `src/pages/work/` | Plates (anonymized client work) from `src/data/work.ts` |
 | `/method` | `src/pages/method.astro` | How a build runs |
 | `/instruments` | `src/pages/instruments.astro` | spikes, werk |

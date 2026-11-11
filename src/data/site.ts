@@ -7,7 +7,7 @@ import { plates } from './work';
 export const SITE_URL = 'https://statecraft.systems';
 export const SITE_NAME = 'Statecraft Systems';
 export const SITE_DESCRIPTION =
-  'Statecraft Systems builds the working parts of small institutions: intake, booking, enquiries and the systems behind them.';
+  'Statecraft Systems is the practice of Moritz Bierling. It builds the working parts of small institutions with the people who run them, reviewed on the real thing and made to keep working after he steps back.';
 
 /** Date shown on the quick-answer blocks. Change it when a quick answer changes. */
 export const QUICK_ANSWER_DATE = '2026-10-27';
@@ -21,8 +21,8 @@ export interface PublicPage {
 }
 
 export const publicPages: PublicPage[] = [
-  { path: '/', title: 'Statecraft Systems', section: 'Main', updated: QUICK_ANSWER_DATE,
-    summary: 'The practice of Moritz Bierling. We build the working parts of small institutions: intake for a clinic, booking for a house, enquiries for a supplier.' },
+  { path: '/', title: 'Statecraft Systems', section: 'Main', updated: '2026-11-11',
+    summary: 'The practice of Moritz Bierling. I build the working parts of small institutions, with the people who run them, made to keep working after I step back.' },
   { path: '/work/', title: 'Work', section: 'Main', updated: QUICK_ANSWER_DATE,
     summary: "Recent builds by Statecraft Systems: booking, clinical intake, trade enquiries and a nonprofit's single ask." },
   ...plates.map((p): PublicPage => ({

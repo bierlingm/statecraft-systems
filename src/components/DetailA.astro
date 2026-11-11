@@ -3,15 +3,16 @@
 // The reasoning layer (notes in drafting blue) is hidden until asked for.
 interface Props {
   heading?: string;
+  sheet?: string;
 }
-const { heading = 'You review the real thing, from the first week.' } = Astro.props;
+const { heading = 'You review the real thing, from the first week.', sheet } = Astro.props;
 ---
 
 <section class="detail-a" data-reasoning="off" aria-labelledby="detail-a-h">
   <div class="wrap">
     <div class="detail-head">
       <div>
-        <span class="eyebrow">Detail A · How a build runs</span>
+        <span class="eyebrow">{sheet && <span class="no">{sheet} · </span>}Detail A · How a build runs</span>
         <h2 id="detail-a-h">{heading}</h2>
       </div>
       <button class="reason-toggle" type="button" aria-pressed="false" hidden>Show the reasoning</button>
