@@ -493,3 +493,5 @@ html.js.failsafe .drawing.ink :is(text, .shade, .shade-a, .dot-a, .heart) { opac
 .page-head > .eyebrow:first-child { position: relative; display: block; padding-bottom: 16px; border-bottom: 1px solid var(--ink); }
 .page-head > .eyebrow:first-child::before { content: 'Sheet · '; color: var(--accent); }
 .page-head > .eyebrow:first-child::after { content: ''; position: absolute; right: 0; bottom: -4px; width: 7px; height: 7px; border: 1px solid var(--ink); background: var(--paper); transform: rotate(45deg); }
+.tb-replay[hidden] { display: none; }
+html:not(.js) .tb-count, .assembly[data-state='still'] .tb-count { display: none; }
