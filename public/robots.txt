@@ -27,6 +27,22 @@ User-agent: CCBot
 User-agent: Applebot-Extended
 Disallow: /
 
+# Link-preview bots may read the SkyAccess room so shared links show a card (the room stays noindex).
+User-agent: Twitterbot
+User-agent: facebookexternalhit
+User-agent: Slackbot-LinkExpanding
+User-agent: LinkedInBot
+User-agent: WhatsApp
+User-agent: Discordbot
+User-agent: TelegramBot
+Allow: /
+Allow: /skyaccess
+Disallow: /pnw
+Disallow: /runcible
+Disallow: /prosser
+Disallow: /prosserhorsehotel
+Disallow: /api/
+
 User-agent: *
 Allow: /
 Disallow: /pnw
