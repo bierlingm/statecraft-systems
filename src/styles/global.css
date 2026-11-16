@@ -548,21 +548,23 @@ a:hover { color: var(--accent); }
 .site-footer a { color: var(--on-ink); }
 .site-footer a:hover { color: var(--signal); }
 .foot {
-  display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--col-gap); row-gap: 48px;
-  padding-block: clamp(56px, 6vw, 96px) clamp(40px, 5vw, 80px);
+  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: var(--col-gap); row-gap: 40px;
+  padding-block: clamp(56px, 6vw, 96px) clamp(40px, 5vw, 72px);
 }
-.foot-say { grid-column: 1 / span 6; font-size: clamp(1.0625rem, 1.3vw, 1.25rem); line-height: 1.45; max-width: 36rem; }
-.foot-say a { border-bottom: 2px solid var(--signal); }
-.foot nav { grid-column: 8 / -1; }
-.foot nav { display: grid; grid-template-columns: repeat(3, minmax(0, auto)); column-gap: var(--col-gap); row-gap: 28px; align-items: start; }
+.foot > div { border-top: 2px solid var(--on-ink); padding-top: 16px; display: flex; flex-direction: column; gap: 18px; align-items: flex-start; }
+.foot .head { font-stretch: 62%; font-weight: 800; text-transform: uppercase; font-size: clamp(2rem, 3vw, 3rem); line-height: 0.86; letter-spacing: -0.012em; }
 .foot ul { list-style: none; padding: 0; }
-.foot li { padding-block: 5px; }
-.foot li a { font-weight: 500; }
-@media (max-width: 560px) { .foot nav { grid-template-columns: 1fr 1fr; } }
-.wordmark { font-size: clamp(2.5rem, 11.9vw, 13rem); line-height: 0.76; white-space: nowrap; color: var(--on-ink); text-align: center; margin-bottom: -0.035em; user-select: none; }
-@media (max-width: 860px) {
-  .foot-say, .foot nav { grid-column: 1 / -1; }
+.foot li { padding-block: 4px; }
+.foot li a { font-size: 1.0625rem; color: var(--on-ink-muted); }
+.foot li a:hover { color: var(--signal); }
+.foot-base {
+  display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 32px;
+  padding-bottom: clamp(40px, 5vw, 72px); font-size: 0.9375rem;
 }
+.foot-base p:first-child a { border-bottom: 1px solid var(--signal); }
+.foot-base p:last-child { display: flex; gap: 24px; }
+@media (max-width: 720px) { .foot { grid-template-columns: 1fr; } }
+.wordmark { font-size: clamp(2.5rem, 11.9vw, 13rem); line-height: 0.76; white-space: nowrap; color: var(--on-ink); text-align: center; margin-bottom: -0.035em; user-select: none; }
 
 /* ——— Inner pages ——— */
 

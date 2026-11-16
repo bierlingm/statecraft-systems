@@ -97,27 +97,33 @@ const inPractice = ['/practice', '/thesis', '/disciplines'].some(under) ? 'page'
     </main>
 
     <footer class="site-footer">
-      <div class="wrap foot">
-        <p class="foot-say">Statecraft Systems is the practice of <a href="https://moritzbierling.com" rel="noopener">Moritz Bierling</a>, run as Statecraft Systems LLC, a US company. It builds the working parts of small institutions, such as intake for a clinic, booking for a house and enquiries for a supplier, designed with the people who run the place and reviewed on the real thing.</p>
-        <nav aria-label="Footer">
+      <nav class="wrap foot" aria-label="Footer">
+        <div>
+          <a class="head" href="/#offering">Offering</a>
           <ul>
             <li><a href="/work">Work</a></li>
             <li><a href="/method">Method</a></li>
             <li><a href="/operating-records">Operating records</a></li>
-            <li><a href="/contact">Contact</a></li>
           </ul>
+        </div>
+        <div>
+          <a class="head" href="/practice">Practice</a>
           <ul>
-            <li><a href="/practice">Practice</a></li>
             <li><a href="/thesis">Thesis</a></li>
             <li><a href="/disciplines">Disciplines</a></li>
           </ul>
+        </div>
+        <div>
+          <a class="head" href="/contact">Contact</a>
           <ul>
-            <li><a href="/support">Support</a></li>
-            <li><a href="/terms">Terms</a></li>
-            <li><a href="/privacy">Privacy</a></li>
             <li><a href={`mailto:${footerEmail}`}>{footerEmail}</a></li>
+            <li><a href="/support">Support for clients</a></li>
           </ul>
-        </nav>
+        </div>
+      </nav>
+      <div class="wrap foot-base">
+        <p>Statecraft Systems LLC, a US company. The practice of <a href="https://moritzbierling.com" rel="noopener">Moritz Bierling</a>.</p>
+        <p><a href="/terms">Terms</a><a href="/privacy">Privacy</a></p>
       </div>
       <p class="wordmark" aria-hidden="true">Statecraft Systems</p>
     </footer>

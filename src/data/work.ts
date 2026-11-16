@@ -26,7 +26,7 @@ export const plates: Plate[] = [
     numeral: 'I',
     title: 'Direct booking',
     principle: 'Take back the terms.',
-    status: 'Launching',
+    status: 'Live',
     client: 'A family-owned vacation rental',
     summary:
       'A family-owned vacation rental takes bookings on its own site. One calendar holds every channel. The owners hear only when something needs them.',
@@ -35,7 +35,7 @@ export const plates: Plate[] = [
       ['Built', 'September 2026'],
       ['Rounds', 'Nine reviewed versions'],
       ['Parts', 'Site, calendar sync, holds and payment, owner texts'],
-      ['Status', 'Launching'],
+      ['Status', 'Live'],
     ],
     situation: [
       'The house could only be booked through the large listing sites. They set the terms, hold the guest relationship and take a share of every stay.',
