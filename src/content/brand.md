@@ -8,7 +8,7 @@ The site keeps what is sold apart from what is believed.
 
 A visitor arrives with one of two questions: "what can you do for me?" or "who are you, and why does this exist?". Each is answered in its own place, and the first never depends on the second.
 
-**The offering.** Home, Work, each build, Method, Contact, Operating records, Support, Terms, Privacy. These say what can be asked for, in plain nouns (a build, care, working sessions, a records review), with the proof and how a build runs. A competent reader should know within one screen whether to write. No philosophy is needed to follow them. The home headline is "The working parts."
+**The offering.** Home, Work, each build, Method, Contact, Operating records, Support, Terms, Privacy. These say what can be asked for, in plain nouns (a build, care, working sessions, a records review), with recent work and how a build runs. A reader should know within one screen whether to write. No philosophy is needed to follow them. The home headline is "The working parts."
 
 **The practice.** Practice, Thesis, Disciplines. These are the company: what the name means, why it exists, the three scales it works at (person, institution, network), where its reasoning comes from, and who does the work. They sell nothing. "The craft of good rule" is the headline of the Practice page and appears nowhere on the offering pages.
 
@@ -26,7 +26,18 @@ The rule: a page belongs to one kind. The navigation shows the two halves with a
 
 **Do not use:** solutions, innovative, cutting-edge, leverage (as a verb), passionate, excited, empower, holistic, synergy, disrupt, unlock (as a metaphor), deep dive, game-changer. No emojis, no exclamation marks, no rhetorical questions.
 
-**Cadence.** Short declarative sentences as the baseline. Longer ones when the idea needs them.
+**Cadence.** Full sentences of ordinary length. Vary them because the content varies.
+
+**Write like a person explaining their work.** These patterns read as machine-written and are not used:
+
+- Slogans and aphorisms, especially as headings ("Small, and real.", "The machine gathers. The physician decides.").
+- "X, not Y" and "not X but Y" used for effect. Say what the thing is.
+- Lists of three for rhythm. List what there is, however many that is.
+- Sentence fragments standing in for sentences ("What remains. What compounds.").
+- A short punchy line at the end of a paragraph that restates it.
+- A colon that sets up a reveal.
+- The same favourite phrase on every page. Say a thing once, where it belongs.
+- Headings that tease. A heading names what is under it ("Recent work.", "How we are paid.").
 
 **Honesty standard.** Every claim must be something Moritz can defend in a direct conversation. Nothing that inflates scope or implies capability not yet shown. If something is early, say so. Clients are described, not named. No invented clients, numbers, logos, testimonials, awards or team.
 

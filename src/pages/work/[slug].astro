@@ -22,7 +22,7 @@ const { plate, prev, next } = Astro.props;
 <BaseLayout title={plate.title} description={plate.summary}>
   <section class="wrap page-head plain">
     <h1>{plate.title}</h1>
-    <p class="lede"><strong>{plate.principle}</strong> {plate.client}.</p>
+    <p class="lede">{plate.summary}</p>
   </section>
 
   <article class="wrap case">
@@ -35,7 +35,6 @@ const { plate, prev, next } = Astro.props;
       {plate.situation.map((p) => <p>{p}</p>)}
       <h2>What was built</h2>
       {plate.built.map((p) => <p>{p}</p>)}
-      {plate.quote && <blockquote>{plate.quote}</blockquote>}
       <h2>How it ran</h2>
       {plate.process.map((p) => <p>{p}</p>)}
     </div>

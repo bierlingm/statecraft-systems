@@ -12,9 +12,6 @@ export interface Plate {
   situation: string[];
   built: string[];
   process: string[];
-  quote?: string;
-  /** What the build demonstrates, in one line. Drawn from the text below it. */
-  principle: string;
   /** What the figure shows, for people who cannot see it. */
   figure: string;
 }
@@ -25,11 +22,10 @@ export const plates: Plate[] = [
     figure: 'Two listing sites and one guest booking directly, all feeding a single calendar.',
     numeral: 'I',
     title: 'Direct booking',
-    principle: 'Take back the terms.',
     status: 'Live',
     client: 'A family-owned vacation rental',
     summary:
-      'A family-owned vacation rental takes bookings on its own site. One calendar holds every channel. The owners hear only when something needs them.',
+      'A family-owned vacation rental now takes bookings on its own site. One calendar covers the site and the listing platforms, and the owners get a text when a request needs their answer.',
     facts: [
       ['Replaced', 'Booking only through listing sites'],
       ['Built', 'September 2026'],
@@ -56,11 +52,10 @@ export const plates: Plate[] = [
     figure: 'A patient, then a fixed protocol that gathers, then the physician who decides.',
     numeral: 'II',
     title: 'Clinical intake',
-    principle: 'The machine gathers. The physician decides.',
     status: 'Pilot',
     client: 'A cash-pay telemedicine practice',
     summary:
-      'A cash-pay telemedicine practice. The patient answers by form or by phone. A fixed protocol decides what to ask, AI drafts the report, the physician decides. No patient records kept.',
+      'Intake for a cash-pay telemedicine practice. Patients answer questions by form or by phone, a fixed protocol chooses the questions, and AI drafts a report for the physician to review. The system keeps no patient records.',
     facts: [
       ['For', 'A physician-led, cash-pay practice'],
       ['Built', 'July 2026, continuing'],
@@ -68,29 +63,27 @@ export const plates: Plate[] = [
       ['Status', 'Engineering pilot, shown on synthetic data only'],
     ],
     situation: [
-      'In routine visits, much of a physician’s time goes to taking a history that follows a predictable shape. The judgement is the valuable part; the gathering is not.',
+      'In a routine visit, much of the physician’s time goes to taking a history that follows a predictable shape. That leaves less time for the judgement the patient came for.',
     ],
     built: [
-      'A fixed protocol decides what to ask, in what order, and when to stop and escalate. It is deterministic: the same answers produce the same path.',
-      'An AI layer drafts the provisional report from the answers. It is bounded: it structures and flags, and it cannot decide.',
-      'Identifying details are removed before anything leaves the patient’s device. The practice’s own records system keeps the record; this system keeps none.',
-      'The physician works from a review queue: read, adjudicate, treat. A voice option lets the patient give the same history by phone.',
+      'A fixed protocol decides what to ask, in what order, and when to stop and escalate. The same answers always produce the same path.',
+      'An AI layer drafts a provisional report from the answers. It organises what the patient said and flags what looks urgent, and it has no part in the decision.',
+      'Identifying details are removed before anything leaves the patient’s device. The practice’s own records system holds the record, and this system stores none.',
+      'The physician works through a review queue, reading each report and deciding on treatment. Patients can also give the same history by phone.',
     ],
     process: [
       'Built alongside the physician, in rounds. Everything shown outside the build runs on synthetic patients.',
     ],
-    quote: 'AI gathers, structures, detects and escalates. The physician reviews, adjudicates and treats.',
   },
   {
     slug: 'trade-enquiries',
     figure: 'Three people sending requests that arrive in one inbox.',
     numeral: 'III',
     title: 'Trade enquiries',
-    principle: 'Every request, kept in one place.',
     status: 'Live',
     client: 'A regional jobsite-supply wholesaler',
     summary:
-      'A regional jobsite-supply wholesaler. A site that says plainly what they carry, and a request form that lands in an inbox the counter staff run. Five drafts, one week.',
+      'A site for a regional jobsite-supply wholesaler that lists what they carry, with a request form that goes to an inbox run by the counter staff. Built in one week, over five drafts.',
     facts: [
       ['For', 'A regional wholesaler of safety and jobsite supplies'],
       ['Built', 'April 2026, in one week'],
@@ -102,7 +95,7 @@ export const plates: Plate[] = [
       'The business needed a plain place for contractors to see what it carries and to ask for it.',
     ],
     built: [
-      'A site that says plainly what they carry and how ordering works.',
+      'A site that lists what they carry and explains how to order.',
       'A request form that arrives by email and in a small inbox the staff can work through, so every request is kept in one place.',
     ],
     process: [
@@ -114,11 +107,10 @@ export const plates: Plate[] = [
     figure: 'One page with one thing on it.',
     numeral: 'IV',
     title: 'One page, one ask',
-    principle: 'Nothing else competes for attention.',
     status: 'Live',
     client: 'A child-recovery nonprofit',
     summary:
-      'A child-recovery nonprofit. One page that walks supporters through giving their unused airline miles, airline by airline, in about two minutes.',
+      'One page for a child-recovery nonprofit. It shows supporters how to donate unused airline miles, with separate steps for each airline, and takes about two minutes.',
     facts: [
       ['For', 'A nonprofit that recovers missing and abducted children'],
       ['Built', 'April 2026'],
@@ -129,7 +121,7 @@ export const plates: Plate[] = [
       'The organisation’s operators travel worldwide, and donated airline miles pay for those flights. Supporters have miles to give, but every airline handles donations differently.',
     ],
     built: [
-      'One page with one ask. Each major airline gets its own short set of steps and a direct link to its donation portal. Nothing else competes for attention.',
+      'A single page. Each major airline gets its own short set of steps and a direct link to its donation portal. The page asks for nothing else.',
     ],
     process: ['A single short build, reviewed on the page itself.'],
   },

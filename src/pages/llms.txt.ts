@@ -12,18 +12,18 @@ export const GET: APIRoute = () => {
 
   const body = `# Statecraft Systems
 
-> Statecraft Systems builds the working parts of small institutions: intake for a clinic, booking for a house, enquiries for a supplier. It is the practice of Moritz Bierling, run as Statecraft Systems LLC, a US company.
+> Statecraft Systems builds the working parts of small institutions, such as patient intake for a clinic or direct booking for a rental house. It is the practice of Moritz Bierling, run as Statecraft Systems LLC, a US company.
 
 Last updated: ${REVISED}
 
-- What it does: designs and builds intake, booking, enquiries and the systems behind them, with the people who run the place. Each version is reviewed on the real page, and the result is built to keep working after we step back.
-- How a build runs: one conversation with the person who does the work; a working version at a real address, built in rounds; a launch written down so that someone else could carry it; then the client runs it, or Statecraft Systems keeps it running. A small site takes one to three weeks, end to end.
-- What you can ask for: a build (a working part of an institution, such as intake, booking or enquiries); care (a monthly plan that keeps it online, secure and working after launch); working sessions (for a founder, an executive or a team, building real tools on their own devices and workflows); a records review (deciding whether to license operating records for AI training).
-- The company is described apart from the offering, under Practice. Statecraft is the craft of good rule, practised at three scales: the person, the institution and the network. Thesis, in one line: good rule is scarce, does not maintain itself, and endures only through structures built to carry it. Disciplines: structural dynamics (Robert Fritz), natural law (Curt Doolittle), currency design (Arthur Brock) and operative traditions (Miguel Angel Fernandez).
+- What it does: designs and builds intake, booking and enquiry systems with the people who use them. The client reviews every version and owns the result.
+- How a build runs: one conversation with the person who does the work now; working versions at a private address, reviewed in rounds; at launch, a written account of how everything works; then the client runs it, or Statecraft Systems runs it on a monthly plan. A small site takes one to three weeks.
+- Services: a build (a booking site, an intake form, an enquiry inbox or a single page); care (a monthly plan that keeps a site online and secure and covers small changes); working sessions (for one person or a small team, building tools for their own work on their own computers); a records review (deciding whether to license operating records for AI training).
+- About the company: statecraft is an old word for the craft of ruling well, applied here at three scales (person, institution, network). The thesis in one line: good rule is scarce, does not maintain itself, and lasts only where a structure carries it. Disciplines: structural dynamics (Robert Fritz), natural law (Curt Doolittle), currency design (Arthur Brock) and operative traditions (Miguel Angel Fernandez).
 - What clients keep: their domains, content, data and accounts, set up under an address they control, whether or not Statecraft Systems stays involved.
-- Recent work (clients are described, not named): direct booking for a family-owned vacation rental; clinical intake for a cash-pay telemedicine practice; trade enquiries for a regional jobsite-supply wholesaler; a one-page airline-miles donation ask for a child-recovery nonprofit.
+- Recent work (clients are described without being named): direct booking for a family-owned vacation rental; clinical intake for a cash-pay telemedicine practice; trade enquiries for a regional jobsite-supply wholesaler; a one-page airline-miles donation ask for a child-recovery nonprofit.
 - Operating records: helps companies decide whether to license their operating records to buyers that license data for AI training, with consent, an inventory and clear boundaries.
-- Contact: m@statecraft.systems. The reply comes from the person who would build it. Client support: contact@statecraft.systems.
+- Contact: m@statecraft.systems. Moritz Bierling replies. Client support: contact@statecraft.systems.
 
 ## Main
 

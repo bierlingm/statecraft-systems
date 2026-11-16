@@ -5,11 +5,11 @@ import { SITE_URL } from '../data/site';
 // Each answer restates something said elsewhere on the site (method, terms, support).
 // The FAQPage data below is these questions and answers, word for word.
 const faq = [
-  { q: 'What should the first message say?', a: 'What happens now, what should happen, and who does the work today. A few sentences is enough.' },
-  { q: 'Who replies?', a: 'Moritz Bierling, the principal. The reply comes from the person who would build it.' },
-  { q: 'How long does a build take?', a: 'A small site takes one to three weeks, end to end. It runs in rounds, and you review a working version at a private address from the start.' },
-  { q: 'Who owns what is built?', a: 'You do: your domains, content, data and every account and listing set up for you, whether or not you stay on a plan.' },
-  { q: 'What happens after launch?', a: 'Everything is written down so that someone else could carry it. Take it over, or leave it with us on a monthly care plan that either side can end with 30 days’ written notice.' },
+  { q: 'What should the first message say?', a: 'What happens now, what should happen instead, and who does the work today. A few sentences will do.' },
+  { q: 'Who replies?', a: 'Moritz Bierling, the principal, who also does the building.' },
+  { q: 'How long does a build take?', a: 'A small site takes one to three weeks. You get a working version at a private address in the first round and review a new one each round after that.' },
+  { q: 'Who owns what is built?', a: 'You own your domains, content and data, and every account and listing set up for you. That holds whether or not you stay on a plan.' },
+  { q: 'What happens after launch?', a: 'We write down how everything works. You can run it yourself, or keep us on a monthly care plan that either side can cancel with 30 days’ written notice.' },
 ];
 const jsonLd = {
   '@context': 'https://schema.org',
@@ -19,16 +19,16 @@ const jsonLd = {
 };
 ---
 
-<BaseLayout jsonLd={jsonLd} title="Contact" description="Write to Statecraft Systems. The reply comes from the person who would build it.">
+<BaseLayout jsonLd={jsonLd} title="Contact" description="Write to Statecraft Systems. Moritz Bierling replies. Includes answers to common questions.">
   <section class="wrap page-head">
-    <h1 class="long">Begin with the state of affairs.</h1>
-    <p class="lede">What happens now, what should happen, and who does the work today. A few sentences is enough. The reply comes from the person who would build it.</p>
+    <h1>Write to us.</h1>
+    <p class="lede">Tell us what happens now, what should happen instead, and who does the work today. A few sentences will do. Moritz Bierling replies.</p>
     <a class="btn" href="mailto:m@statecraft.systems">m@statecraft.systems</a>
   </section>
 
   <section class="wrap split" aria-labelledby="before-h">
     <div class="left">
-      <h2 id="before-h">Five things people ask first.</h2>
+      <h2 id="before-h">Common questions.</h2>
     </div>
     <dl class="right qa">
       {faq.map(({ q, a }) => <div><dt><h3>{q}</h3></dt><dd>{a}</dd></div>)}
@@ -37,7 +37,7 @@ const jsonLd = {
 
   <section class="wrap split" aria-labelledby="who-h">
     <div class="left">
-      <h2 id="who-h">One person, who also does the work.</h2>
+      <h2 id="who-h">Who does the work.</h2>
     </div>
     <div class="right ledger">
       <div><span class="name">Moritz Bierling</span><span class="meta">Principal</span><span class="desc"><a href="https://moritzbierling.com" rel="noopener" style="border-bottom: 1px solid var(--accent);">moritzbierling.com</a></span></div>
