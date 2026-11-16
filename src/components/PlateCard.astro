@@ -4,27 +4,23 @@ import type { Plate } from '../data/work';
 
 interface Props {
   plate: Plate;
-  flip?: boolean;
 }
-const { plate, flip = false } = Astro.props;
-const factKeys = ['Replaced', 'For', 'Built', 'Rounds', 'Parts', 'Status'];
+const { plate } = Astro.props;
 ---
 
-<article class:list={['plate', 'reveal', { flip }]}>
+<article class="plate reveal">
   <a href={`/work/${plate.slug}`}>
     <div class="plate-ground">
-      <Drawing kind={plate.slug as any} label={`Drawing: ${plate.title.toLowerCase()}`} />
+      <Drawing kind={plate.slug as any} label={plate.figure} />
     </div>
     <div class="caption">
-      <h2>{plate.title}</h2>
+      <div class="top">
+        <h2>{plate.title}</h2>
+        <span class="status">{plate.status}</span>
+      </div>
       <p class="principle">{plate.principle}</p>
       <p class="sum">{plate.summary}</p>
-      <dl class="facts">
-        {plate.facts.filter(([k]) => factKeys.includes(k)).map(([k, v]) => (
-          <div><dt>{k}</dt><dd>{v}</dd></div>
-        ))}
-      </dl>
-      <span class="more">Read the plate</span>
+      <span class="more">See the build</span>
     </div>
   </a>
 </article>

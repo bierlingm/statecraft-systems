@@ -106,7 +106,7 @@ Structure is what remains. A page that argues this should itself be made of very
 - **Actions.** Anything that acts speaks in the statement voice and carries the same drawn arrow. Three forms: a block, an outline, a bare underlined line. Two heights, 64 and 44. Pointed at, a block turns blue; on blue it turns black.
 - **Three sizes of statement.** XL for the first and last screen, L for every section and page heading, M for the things inside a section.
 - **One signal.** Vermilion appears only on blue or black, and only where something is at stake: the full stop of the claim, the thing that advances, the full stop and the address of the invitation, the path that matters in a drawing. On bone the accent is blue. The mark in the header is the one exception.
-- **Three shapes.** Circle, square, triangle. Rules are two pixels.
+- **Three shapes.** Circle, square, triangle. Rules are two pixels. The plate figures use the same three with fixed meanings: a circle is a person, a square is an institution or the thing that holds, a triangle is an instrument. White line on blue, vermilion for what the build is for, no labels.
 - **Interaction is one move.** What you point at turns blue.
 
 ## The journey (home)

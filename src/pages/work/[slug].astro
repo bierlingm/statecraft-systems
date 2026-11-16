@@ -27,7 +27,7 @@ const { plate, prev, next } = Astro.props;
 
   <article class="wrap case">
     <div class="plate-ground">
-      <Drawing kind={plate.slug as any} label={`Drawing: ${plate.title.toLowerCase()}`} />
+      <Drawing kind={plate.slug as any} label={plate.figure} />
     </div>
 
     <div class="body prose">

@@ -352,45 +352,35 @@ a:hover { color: var(--accent); }
 .plate-ground {
   position: relative; background: var(--blue); color: #fff;
   display: flex; align-items: center; justify-content: center;
-  padding: clamp(28px, 4.5vw, 72px);
-  aspect-ratio: 7 / 4.6;
+  padding: clamp(12px, 2.4vw, 40px);
+  aspect-ratio: 8 / 5;
   transition: background-color 240ms ease;
 }
-.plate-ground .drawing { width: 100%; max-width: 520px; max-height: 100%; }
-.plate-ground .drawing.wide { max-width: 660px; }
+.plate-ground .drawing { width: 100%; height: auto; max-height: 100%; }
 
-.drawing { stroke: currentColor; stroke-width: 1.5; fill: none; overflow: visible; }
-.drawing .a { stroke: var(--signal); stroke-width: 3; }
-.drawing .w2 { stroke-width: 2.5; }
-.drawing .shade { fill: currentColor; fill-opacity: 0.2; stroke: none; }
-.drawing .shade-a { fill: var(--signal); fill-opacity: 0.9; stroke: none; }
-.drawing .dot-a { fill: var(--signal); stroke: none; }
-.drawing .heart { fill: var(--signal); stroke: var(--signal); stroke-width: 1.5; }
-.drawing text { fill: currentColor; fill-opacity: 0.82; stroke: none; font-family: var(--mono); font-size: 12px; }
-.drawing text.t-ink { fill-opacity: 1; }
-.drawing.wide text { font-size: 16px; }
+/* One grammar: circle, square, triangle. White line, vermilion for what the build is for. */
+.drawing { stroke: currentColor; stroke-width: 6; fill: none; overflow: visible; }
+.drawing .a { stroke: var(--signal); }
+.drawing .f { fill: currentColor; fill-opacity: 0.3; stroke: none; }
+.drawing .fa { fill: var(--signal); stroke: none; }
 
 .facts { font-size: 0.875rem; line-height: 1.45; border-top: 2px solid var(--black); }
 .facts div { display: grid; grid-template-columns: 110px 1fr; gap: 12px; padding: 11px 0; border-bottom: 1px solid var(--rule); }
 .facts dt { font-family: var(--mono); font-weight: 400; font-size: 0.75rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); padding-top: 3px; }
 .facts dd { margin: 0; font-weight: 500; }
 
-.plates { display: flex; flex-direction: column; gap: clamp(72px, 9vw, 144px); padding-bottom: var(--section); }
-.plate { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--col-gap); row-gap: 28px; align-items: end; }
-.plate > a { display: contents; }
-.plate .plate-ground { grid-column: 1 / span 7; }
-.plate .caption { grid-column: 9 / span 4; display: flex; flex-direction: column; gap: 20px; }
-.plate.flip .plate-ground { grid-column: 6 / span 7; grid-row: 1; }
-.plate.flip .caption { grid-column: 1 / span 4; grid-row: 1; }
+.plates { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: var(--col-gap); row-gap: clamp(64px, 7vw, 112px); padding-bottom: var(--section); }
+.plate > a { display: flex; flex-direction: column; gap: 24px; height: 100%; }
+.plate .caption { display: flex; flex-direction: column; gap: 14px; flex: 1; }
+.plate .top { display: flex; align-items: baseline; justify-content: space-between; gap: 24px; padding-bottom: 14px; border-bottom: 2px solid var(--black); }
 .plate h2 { font-stretch: 62%; font-weight: 800; text-transform: uppercase; font-size: var(--fs-m); line-height: 0.86; letter-spacing: -0.012em; }
+.plate .status { flex: none; font-family: var(--mono); font-weight: 400; font-size: 0.75rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); }
 .plate p.principle { font-size: clamp(1.375rem, 2vw, 1.875rem); line-height: 1.05; font-weight: 700; font-stretch: 88%; letter-spacing: -0.028em; }
-.plate p.sum { font-size: 1.125rem; line-height: 1.45; color: var(--ink-2); }
+.plate p.sum { font-size: 1.125rem; line-height: 1.45; color: var(--ink-2); max-width: 52ch; }
 .plate a:hover { color: inherit; }
 .plate a:hover .plate-ground { background: var(--black); }
-.plate .more { color: var(--blue); }
-@media (max-width: 960px) {
-  .plate .plate-ground, .plate .caption, .plate.flip .plate-ground, .plate.flip .caption { grid-column: 1 / -1; grid-row: auto; }
-}
+.plate .more { color: var(--blue); margin-top: auto; padding-top: 10px; }
+@media (max-width: 860px) { .plates { grid-template-columns: 1fr; } }
 
 /* ——— Detail A: how a build runs, as a drawing (method page) ——— */
 
@@ -557,8 +547,7 @@ a:hover { color: var(--accent); }
 
 .case { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--col-gap); row-gap: clamp(48px, 6vw, 96px); padding-bottom: var(--section); }
 .case .plate-ground { grid-column: 1 / -1; aspect-ratio: auto; min-height: clamp(300px, 42vw, 640px); }
-.case .plate-ground .drawing { max-width: 620px; }
-.case .plate-ground .drawing.wide { max-width: 880px; }
+.case .plate-ground .drawing { max-width: 800px; }
 .case .body { grid-column: 1 / span 7; }
 .case aside { grid-column: 9 / span 4; }
 .case aside .facts { position: sticky; top: 24px; }

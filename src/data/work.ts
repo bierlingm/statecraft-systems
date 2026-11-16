@@ -15,11 +15,14 @@ export interface Plate {
   quote?: string;
   /** What the build demonstrates, in one line. Drawn from the text below it. */
   principle: string;
+  /** What the figure shows, for people who cannot see it. */
+  figure: string;
 }
 
 export const plates: Plate[] = [
   {
     slug: 'direct-booking',
+    figure: 'Two listing sites and one guest booking directly, all feeding a single calendar.',
     numeral: 'I',
     title: 'Direct booking',
     principle: 'Take back the terms.',
@@ -50,6 +53,7 @@ export const plates: Plate[] = [
   },
   {
     slug: 'clinical-intake',
+    figure: 'A patient, then an instrument that gathers, then the physician who decides.',
     numeral: 'II',
     title: 'Clinical intake',
     principle: 'The machine gathers. The physician decides.',
@@ -79,6 +83,7 @@ export const plates: Plate[] = [
   },
   {
     slug: 'trade-enquiries',
+    figure: 'Three people sending requests that arrive in one inbox.',
     numeral: 'III',
     title: 'Trade enquiries',
     principle: 'Every request, kept in one place.',
@@ -106,6 +111,7 @@ export const plates: Plate[] = [
   },
   {
     slug: 'one-page-one-ask',
+    figure: 'One page with one thing on it.',
     numeral: 'IV',
     title: 'One page, one ask',
     principle: 'Nothing else competes for attention.',
