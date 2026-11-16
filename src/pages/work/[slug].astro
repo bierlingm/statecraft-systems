@@ -21,7 +21,6 @@ const { plate, prev, next } = Astro.props;
 
 <BaseLayout title={plate.title} description={plate.summary}>
   <section class="wrap page-head plain">
-    <span class="eyebrow accent"><span>Plate {plate.numeral}</span><span>{plate.status}</span></span>
     <h1>{plate.title}</h1>
     <p class="lede"><strong>{plate.principle}</strong> {plate.client}.</p>
   </section>
@@ -47,13 +46,13 @@ const { plate, prev, next } = Astro.props;
       </dl>
     </aside>
 
-    <nav class="pager" aria-label="More plates">
+    <nav class="pager" aria-label="More work">
       {prev
-        ? <a href={`/work/${prev.slug}`}><span class="eyebrow">← Plate {prev.numeral}</span><span class="t">{prev.title}</span></a>
-        : <a href="/work"><span class="eyebrow">← Index</span><span class="t">All plates</span></a>}
+        ? <a href={`/work/${prev.slug}`}><span class="t">← {prev.title}</span></a>
+        : <a href="/work"><span class="t">← All work</span></a>}
       {next
-        ? <a href={`/work/${next.slug}`}><span class="eyebrow">Plate {next.numeral} →</span><span class="t">{next.title}</span></a>
-        : <a href="/work"><span class="eyebrow">Index →</span><span class="t">All plates</span></a>}
+        ? <a href={`/work/${next.slug}`}><span class="t">{next.title} →</span></a>
+        : <a href="/work"><span class="t">All work →</span></a>}
     </nav>
   </article>
 

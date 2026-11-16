@@ -7,7 +7,7 @@ interface Props {
   flip?: boolean;
 }
 const { plate, flip = false } = Astro.props;
-const factKeys = ['Replaced', 'For', 'Built', 'Rounds', 'Parts'];
+const factKeys = ['Replaced', 'For', 'Built', 'Rounds', 'Parts', 'Status'];
 ---
 
 <article class:list={['plate', 'reveal', { flip }]}>
@@ -16,7 +16,6 @@ const factKeys = ['Replaced', 'For', 'Built', 'Rounds', 'Parts'];
       <Drawing kind={plate.slug as any} label={`Drawing: ${plate.title.toLowerCase()}`} />
     </div>
     <div class="caption">
-      <span class="eyebrow accent">Plate {plate.numeral} · {plate.status}</span>
       <h2>{plate.title}</h2>
       <p class="principle">{plate.principle}</p>
       <p class="sum">{plate.summary}</p>

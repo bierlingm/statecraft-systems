@@ -91,42 +91,23 @@ const isCurrent = (href: string) => (path === href || path.startsWith(href + '/'
 
     <footer class="site-footer">
       <div class="wrap foot">
-        <div class="foot-id">
-          <p>Statecraft Systems LLC. A US company.</p>
-          <p>The practice of <a href="https://moritzbierling.com" rel="noopener">Moritz Bierling</a>, working from Barcelona.</p>
-        </div>
-        <nav aria-label="Practice">
-          <h2>Practice</h2>
+        <p class="foot-say">Statecraft Systems is the practice of <a href="https://moritzbierling.com" rel="noopener">Moritz Bierling</a>, run as Statecraft Systems LLC, a US company. It builds the working parts of small institutions, such as intake for a clinic, booking for a house and enquiries for a supplier, designed with the people who run the place and reviewed on the real thing.</p>
+        <nav aria-label="Footer">
           <ul>
             <li><a href="/work">Work</a></li>
             <li><a href="/method">Method</a></li>
             <li><a href="/thesis">Thesis</a></li>
             <li><a href="/instruments">Instruments</a></li>
             <li><a href="/operating-records">Operating records</a></li>
-          </ul>
-        </nav>
-        <nav aria-label="Details">
-          <h2>Details</h2>
-          <ul>
             <li><a href="/contact">Contact</a></li>
             <li><a href="/support">Support</a></li>
             <li><a href="/terms">Terms</a></li>
             <li><a href="/privacy">Privacy</a></li>
+            <li><a href={`mailto:${footerEmail}`}>{footerEmail}</a></li>
           </ul>
         </nav>
-        <div>
-          <h2>Write</h2>
-          <ul>
-            <li><a href={`mailto:${footerEmail}`}>{footerEmail}</a></li>
-            <li><a href="https://moritzbierling.com" rel="noopener">moritzbierling.com</a></li>
-          </ul>
-        </div>
       </div>
       <p class="wordmark" aria-hidden="true">Statecraft Systems</p>
-      <div class="wrap foot-base">
-        <span>© 2026 Statecraft Systems LLC</span>
-        <span>Rev. 2026-11</span>
-      </div>
     </footer>
   </body>
 </html>

@@ -88,3 +88,37 @@ The plate book spoke about the work (booking, intake, enquiries) and let the the
 ## What it is not allowed to become
 
 A poster with nothing behind it. Every abstract line on the home page is paired with a concrete one within the same screen, and every proposition can be traced to a sentence in `src/content/thesis.md`, the method page, the terms or `src/data/work.ts`.
+
+---
+
+# Third pass: Field, honed (same day)
+
+Instruction: keep the bolder approach, remove the visual cruft (eyebrows, meta commentary, "Rev"), develop a perspective, turn it into a visual journey, make it clean and coherent.
+
+## The perspective
+
+Structure is what remains. A page that argues this should itself be made of very few things, each of which carries weight. Anything that only describes the page (a section number, a label above a heading, a revision stamp, a note about what follows) is not structure and was removed.
+
+## The rules
+
+- **Three grounds.** Blue is where a claim is made. Bone is where it is reasoned and shown. Black is where the tension is.
+- **Two voices.** Statement (condensed, heavy capitals) and text. Berkeley Mono appears only on a control (navigation, a button) or a recorded fact (status, a facts ledger, a diagram label).
+- **Three sizes of statement.** XL for the first and last screen, L for every section and page heading, M for the things inside a section.
+- **One signal.** Vermilion appears only on blue or black, and only where something is at stake: the full stop of the claim, the thing that advances, the full stop and the address of the invitation, the path that matters in a drawing. On bone the accent is blue. The mark in the header is the one exception.
+- **Three shapes.** Circle, square, triangle. Rules are two pixels.
+- **Interaction is one move.** What you point at turns blue.
+
+## The journey (home)
+
+1. **Claim** (blue). The craft of good rule. One sentence that brings it to ground. Two actions.
+2. **Name** (bone). State, Craft, Systems, each defined.
+3. **Reasons** (bone). Five propositions.
+4. **Tension** (black). Advance, or oscillate: the one moving figure on the site.
+5. **Practice** (bone). One craft at three scales, then the proof, small and real.
+6. **Invitation** (blue). Begin with the state of affairs. One address.
+
+Blue opens and closes. Black sits at the hinge. The first and last screens are set the same way, so the page ends where it started, with a full stop in vermilion.
+
+## What was removed
+
+Section numbers and labels, every eyebrow, the hero's base strip, "Rev." and the copyright line, footer column headings, plate numbering in headings, "Scale 1/2/3", the notes under section headings, the four-verbs section on the home page (the method page carries it), and the labelled, dated "Quick answer" boxes. The facts those boxes held now sit in the page ledes and in one plain statement in the footer.

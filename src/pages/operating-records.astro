@@ -1,6 +1,5 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import QuickAnswer from '../components/QuickAnswer.astro';
 import { SITE_URL } from '../data/site';
 
 // FAQPage structured data: the questions and answers in section 05, word for word.
@@ -27,17 +26,14 @@ const steps = [
 
 <BaseLayout jsonLd={jsonLd} title="Operating records" description="Decide whether to license your operating records for AI training, with an inventory, clear boundaries and redaction before delivery.">
   <section class="wrap page-head">
-    <span class="eyebrow"><span>Operating records</span><span>Plate 05</span></span>
     <h1 class="long">The work you already know how to do <em>has a second use.</em></h1>
     <p class="lede">AI labs buy records of how real businesses work. We help you decide what you can license, what must stay private, and whether the terms make sense for you.</p>
-    <QuickAnswer>
-      <p>Statecraft Systems helps companies decide whether to license operating records, such as internal SOPs, ticket histories, CRM notes, call scripts and QA rubrics, to buyers that license data for AI training, such as micro1 or Polyshares. Nothing about your company goes to a buyer until an authorised person agrees in writing, and records move directly between you and the buyer. Statecraft Systems may be paid an introducer fee by the buyer, never by the seller.</p>
-    </QuickAnswer>
+    <p class="lede fine">Statecraft Systems helps companies decide whether to license operating records, such as internal SOPs, ticket histories, CRM notes, call scripts and QA rubrics, to buyers that license data for AI training, such as micro1 or Polyshares. Nothing about your company goes to a buyer until an authorised person agrees in writing, and records move directly between you and the buyer. Statecraft Systems may be paid an introducer fee by the buyer, never by the seller.</p>
     <a class="btn" href="mailto:m@statecraft.systems?subject=Records%20review">Book a 20-minute records review</a>
   </section>
 
   <section class="wrap split" aria-labelledby="for-h">
-    <div class="left"><span class="eyebrow">01 · Who it's for</span><h2 id="for-h">Businesses with a record of real work.</h2></div>
+    <div class="left"><h2 id="for-h">Businesses with a record of real work.</h2></div>
     <div class="right prose">
       <h2>Operating companies</h2>
       <p>Companies with 30 or more staff and mature internal documentation. Typical examples: staffing and recruiting firms, call centres and BPO providers, insurance agencies, outsourced accounting firms, and managed service providers (MSPs).</p>
@@ -51,7 +47,7 @@ const steps = [
 
   <section class="records-band" aria-labelledby="process-h">
     <div class="wrap records">
-      <div class="records-heading"><span class="eyebrow">02 · How it works</span><h2 id="process-h">Five steps. You decide what moves.</h2></div>
+      <div class="records-heading"><h2 id="process-h">Five steps. You decide what moves.</h2></div>
       <ol class="records-list">
         {steps.map(([title, text], index) => <li><span class="record-num" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span><div><h3>{title}</h3><p>{text}</p></div></li>)}
       </ol>
@@ -59,7 +55,7 @@ const steps = [
   </section>
 
   <section class="wrap split" aria-labelledby="closed-h">
-    <div class="left"><span class="eyebrow">03 · Closed or winding down</span><h2 id="closed-h">When the company has stopped trading.</h2></div>
+    <div class="left"><h2 id="closed-h">When the company has stopped trading.</h2></div>
     <div class="right prose">
       <p>For founders, trustees, assignees for the benefit of creditors (ABC assignees) and restructuring counsel handling a company that has closed or is winding down.</p>
       <p>What buyers look for: companies that had 50 or more staff at their peak, with Slack or Teams history and internal documents, licensed as a de-identified archive.</p>
@@ -68,14 +64,14 @@ const steps = [
   </section>
 
   <section class="wrap split" aria-labelledby="fee-h">
-    <div class="left"><span class="eyebrow">04 · How we are paid</span><h2 id="fee-h">Disclosed plainly.</h2></div>
+    <div class="left"><h2 id="fee-h">Disclosed plainly.</h2></div>
     <div class="right prose">
       <p>Statecraft Systems may be paid an introducer or referral fee by the buyer (micro1 or other licensees such as Polyshares). We are never paid by the seller. We refer a company only with its consent, and we never receive or hold the data itself.</p>
     </div>
   </section>
 
   <section class="wrap split" aria-labelledby="faq-h">
-    <div class="left"><span class="eyebrow">05 · Questions</span><h2 id="faq-h">Before you decide.</h2></div>
+    <div class="left"><h2 id="faq-h">Before you decide.</h2></div>
     <div class="right prose records-faq">
       <h3>Will my clients know?</h3>
       <p>Client names and identifying details are removed or the records are excluded. We also check whether your contracts require notice or consent. Redaction is not a reason to skip those obligations; if a record cannot be shared safely and lawfully, it stays out.</p>
@@ -90,8 +86,7 @@ const steps = [
 
   <section class="closing field" aria-label="Records review">
     <div class="wrap">
-      <span class="eyebrow">Records review</span>
-      <p class="big long reveal">The same knowledge, put to a second use.</p>
+      <p class="big long">The same knowledge, put to a second use.</p>
       <p class="sub">Most of our work is building the systems small institutions run on. This is the same knowledge, put to a second use.</p>
       <a class="btn" href="mailto:m@statecraft.systems?subject=Records%20review">Book a 20-minute records review</a>
     </div>

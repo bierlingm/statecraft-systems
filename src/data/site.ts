@@ -9,7 +9,7 @@ export const SITE_NAME = 'Statecraft Systems';
 export const SITE_DESCRIPTION =
   'Statecraft Systems builds the working parts of small institutions: intake, booking, enquiries and the systems behind them.';
 
-/** Date shown on the quick-answer blocks. Change it when a quick answer changes. */
+/** Date of the last change to the factual summaries (ledes, footer statement) on pages that use it. */
 export const QUICK_ANSWER_DATE = '2026-10-27';
 /** Date of the last pass that changed what the main pages say (not only how they look). */
 export const REVISED = '2026-11-16';
