@@ -24,7 +24,7 @@ export interface PublicPage {
 
 export const publicPages: PublicPage[] = [
   { path: '/', title: 'Statecraft Systems', section: 'Main', updated: REVISED,
-    summary: 'The craft of good rule. The practice of Moritz Bierling builds the working parts of small institutions: intake for a clinic, booking for a house, enquiries for a supplier. Owned by the people who run them, made to keep working after we step back.' },
+    summary: 'The practice of Moritz Bierling builds the working parts of small institutions: intake for a clinic, booking for a house, enquiries for a supplier. Designed with the people who run the place, owned by them, and made to keep working after we step back.' },
   { path: '/work/', title: 'Work', section: 'Main', updated: REVISED,
     summary: "Recent builds by Statecraft Systems: booking, clinical intake, trade enquiries and a nonprofit's single ask." },
   ...plates.map((p): PublicPage => ({
@@ -35,7 +35,9 @@ export const publicPages: PublicPage[] = [
   { path: '/operating-records/', title: 'Operating records', section: 'Main', updated: QUICK_ANSWER_DATE,
     summary: 'Decide whether to license your operating records for AI training, with an inventory, clear boundaries and redaction before delivery.' },
   { path: '/thesis/', title: 'Thesis', section: 'Main', updated: REVISED,
-    summary: 'Ten propositions on good rule, and the four disciplines they rest on: structural dynamics (Robert Fritz), natural law (Curt Doolittle), currency design (Arthur Brock) and operative traditions (Miguel Angel Fernandez).' },
+    summary: 'What the name means, and ten propositions on good rule: it is scarce, it does not maintain itself, and it endures only through structures built to carry it.' },
+  { path: '/disciplines/', title: 'Disciplines', section: 'Main', updated: REVISED,
+    summary: 'The four disciplines the work draws on, each credited to its source: structural dynamics (Robert Fritz), natural law (Curt Doolittle), currency design (Arthur Brock) and operative traditions (Miguel Angel Fernandez).' },
   { path: '/contact/', title: 'Contact', section: 'Main', updated: REVISED,
     summary: 'Write to Statecraft Systems. The reply comes from the person who would build it. Includes the five questions people ask first.' },
   { path: '/support/', title: 'Support', section: 'Details', updated: '2026-10-14',

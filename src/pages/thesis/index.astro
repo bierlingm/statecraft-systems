@@ -2,30 +2,12 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import ContactBlock from '../../components/ContactBlock.astro';
 
-// The thesis: ten propositions and the four disciplines they rest on.
+// The thesis: the name taken literally, then ten propositions.
 // It names no project or programme, so it does not date when those change.
-const disciplines: { name: string; by: string; claim: string; body: string; use: string }[] = [
-  { name: 'Structural dynamics', by: 'Robert Fritz',
-    claim: 'The structure decides the outcome.',
-    body: 'Behaviour follows the path of least resistance, and the underlying structure decides where that path runs. Action driven by a problem eases off as the problem recedes, so it oscillates. Action held between an honest account of current reality and a clear picture of the desired outcome resolves toward the outcome. The path is structural, not motivational.',
-    use: 'A build begins with two accounts: what happens now, and what should happen. Every version is checked against both.' },
-  { name: 'Natural law', by: 'Curt Doolittle',
-    claim: 'What is true, and what is reciprocal.',
-    body: 'A discipline of decidability. A claim is stated concretely enough to be tested, and an arrangement is judged by whether it is reciprocal: nobody gains by placing a cost on someone who did not agree to bear it. This gives good rule its content, the constraints that separate cooperation from extraction and that survive contact with human nature.',
-    use: 'Terms are written plainly. The client owns the domains, content, data and accounts, and can leave with them.' },
-  { name: 'Currency design', by: 'Arthur Brock',
-    claim: 'What flows, and what makes it visible.',
-    body: 'A currency, in this sense, is any shared record that shapes a flow: money, and also reputation, credentials, obligations, a queue. What a group can see, it can coordinate around. What it cannot see is carried in one person’s head. Designing these records is designing the circulation of an institution.',
-    use: 'One calendar that holds every channel, a hold that lapses by itself, an inbox where every request is kept. Each is a small currency.' },
-  { name: 'Operative traditions', by: 'Miguel Angel Fernandez',
-    claim: 'A tradition is something done.',
-    body: 'A tradition is an operation, not an inherited custom. It is alive while it is enacted by people who understand what it is for, and it is over once only the form is repeated. This is how a structure outlasts its builders: through practice, handed on by formation, carried by people who know what they are doing and why.',
-    use: 'Every launch is written down so that someone else could carry it. The work is finished when it no longer needs us.' },
-];
-
+// This page is about the ideas. What is sold is on the home, work and method pages.
 const theses: { n: string; title: string; body: string[] }[] = [
   { n: 'I', title: 'Somebody rules.', body: [
-    'Every household, company and country is governed by someone or something. The open matter is never whether, only how well.',
+    'Every household, company and country is governed by someone or something: one person’s memory, a vendor’s terms, or a structure built on purpose. The open matter is never whether, only how well.',
     'The demand for good rule is unlimited and permanent. Every civilisation that built anything lasting built it on this.',
   ] },
   { n: 'II', title: 'Good rule is scarce.', body: [
@@ -68,7 +50,24 @@ const theses: { n: string; title: string; body: string[] }[] = [
 <BaseLayout title="Thesis" description="Ten propositions on good rule: it is scarce, it does not maintain itself, and it endures only through structures built to carry it.">
   <section class="wrap page-head">
     <h1>Ten propositions on good rule.</h1>
-    <p class="lede">The reasoning behind the work, and the four disciplines it rests on.</p>
+    <p class="lede">Why the practice exists and what its name means. Statecraft is the craft of good rule.</p>
+  </section>
+
+  <section class="wrap section flush" aria-label="The name">
+    <ul class="defs">
+      <li class="reveal">
+        <h2 class="w">State</h2>
+        <p>The unit that must be governed. The condition a system is in. The state of affairs, which has to be seen clearly before any work begins.</p>
+      </li>
+      <li class="reveal">
+        <h2 class="w">Craft</h2>
+        <p>Direct contact with the material. Honest assessment, skilled making, the hand on the work.</p>
+      </li>
+      <li class="reveal">
+        <h2 class="w">Systems</h2>
+        <p>What remains after individuals leave. What compounds. What holds an obligation in place when nobody is watching.</p>
+      </li>
+    </ul>
   </section>
 
   <ol class="wrap theses">
@@ -81,21 +80,8 @@ const theses: { n: string; title: string; body: string[] }[] = [
     ))}
   </ol>
 
-  <section class="wrap disciplines" aria-labelledby="disc-h">
-    <h2 class="statement reveal" id="disc-h">Four disciplines.</h2>
-    {disciplines.map((d) => (
-      <article class="disc reveal">
-        <header>
-          <h3>{d.name}</h3>
-          <p class="by">{d.by}</p>
-        </header>
-        <div class="text">
-          <p class="claim">{d.claim}</p>
-          <p>{d.body}</p>
-          <p class="use">{d.use}</p>
-        </div>
-      </article>
-    ))}
+  <section class="wrap after-list">
+    <a class="btn ghost" href="/disciplines">The four disciplines</a>
   </section>
 
   <ContactBlock />

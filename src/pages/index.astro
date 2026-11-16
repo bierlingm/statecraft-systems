@@ -4,6 +4,9 @@ import ContactBlock from '../components/ContactBlock.astro';
 import { plates } from '../data/work';
 import { SITE_URL, SITE_DESCRIPTION } from '../data/site';
 
+// The home page is the offering: what is built, for whom, the proof, how a build runs.
+// The ideas behind it live on /thesis and /disciplines and get one doorway here.
+
 // Structured data: only what this page states (header, hero, footer, meta description).
 const jsonLd = {
   '@context': 'https://schema.org',
@@ -45,7 +48,7 @@ const jsonLd = {
         <span class="rise" style="--i:1" aria-hidden="true"><span>of good rule<span class="stop">.</span></span></span>
       </h1>
       <div class="hero-foot">
-        <p class="lede">Every institution is ruled by something: one person’s memory, a vendor’s terms, or a structure built on purpose. We build the third kind. The working parts of small institutions, owned by the people who run them and made to keep working after we step back.</p>
+        <p class="lede">We build the working parts of small institutions: intake for a clinic, booking for a house, enquiries for a supplier. Designed with the people who run the place, owned by them, and made to keep working after we step back.</p>
         <div class="hero-actions">
           <a class="btn" href="mailto:m@statecraft.systems">Write to us</a>
           <a class="link-rule" href="/work">See the work</a>
@@ -54,68 +57,20 @@ const jsonLd = {
     </div>
   </section>
 
-  <section class="wrap section" aria-label="The name">
-    <ul class="defs">
-      <li class="reveal">
-        <h2 class="w">State</h2>
-        <p>The unit that must be governed. The condition a system is in. The state of affairs, which has to be seen clearly before any work begins.</p>
-      </li>
-      <li class="reveal">
-        <h2 class="w">Craft</h2>
-        <p>Direct contact with the material. Honest assessment, skilled making, the hand on the work.</p>
-      </li>
-      <li class="reveal">
-        <h2 class="w">Systems</h2>
-        <p>What remains after individuals leave. What compounds. What holds an obligation in place when nobody is watching.</p>
-      </li>
-    </ul>
-  </section>
-
-  <section class="wrap section" aria-labelledby="props-h">
-    <h2 class="statement reveal" id="props-h">Five things we hold to be true.</h2>
-    <ol class="props">
-      <li class="reveal"><span class="n" aria-hidden="true">I</span><h3>Good rule is scarce.</h3><p>The capacity for it does not arise by itself and does not maintain itself. It has to be cultivated in people and built into structures.</p></li>
-      <li class="reveal"><span class="n" aria-hidden="true">II</span><h3>What is not built into a structure leaves with the person.</h3><p>A practice that lives in one head is a single point of failure. Written down and made to run, it becomes something others can carry.</p></li>
-      <li class="reveal"><span class="n" aria-hidden="true">III</span><h3>Whoever holds the parts sets the terms.</h3><p>When the calendar, the inbox or the guest relationship belongs to someone else, so do the conditions you work under. Ownership is the practical form of sovereignty.</p></li>
-      <li class="reveal"><span class="n" aria-hidden="true">IV</span><h3>A structure advances, or it oscillates.</h3><p>The result follows from the structure, not from the effort put into it. Change the structure and the same effort produces a different outcome.</p></li>
-      <li class="reveal"><span class="n" aria-hidden="true">V</span><h3>The work is finished when it no longer needs us.</h3><p>A structure that depends on one person, ourselves included, has not been finished.</p></li>
-    </ol>
-    <div class="after"><a class="btn ghost" href="/thesis">Read the thesis</a></div>
-  </section>
-
-  <section class="section ground" aria-labelledby="fig-h">
-    <div class="wrap">
-      <div class="figure-head">
-        <h2 class="statement" id="fig-h">Advance, <em>or oscillate.</em></h2>
-        <p>Most effort oscillates. A problem presses, action follows, the pressure drops, the action stops. <strong>Held between an honest account of what is and a clear picture of what is wanted, the same effort moves one way.</strong> After Robert Fritz.</p>
-      </div>
-      <div class="tracks" role="img" aria-label="Two tracks. On the first, a marker swings back and forth between problem and relief. On the second, a marker moves steadily from what is to what is wanted.">
-        <div class="track osc" aria-hidden="true">
-          <div class="lane"><span class="tick a"></span><span class="tick b"></span><span class="mover"></span></div>
-          <p class="caps"><span class="at-a">Problem</span><span class="at-b">Relief</span></p>
-        </div>
-        <div class="track adv" aria-hidden="true">
-          <div class="lane"><span class="trail"></span><span class="tick a"></span><span class="tick b"></span><span class="mover"></span></div>
-          <p class="caps"><span>What is</span><span>What is wanted</span></p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="wrap section" aria-labelledby="scales-h">
-    <h2 class="statement reveal" id="scales-h">One craft, two scales.</h2>
+  <section class="wrap section" aria-labelledby="ways-h">
+    <h2 class="statement reveal" id="ways-h">Two ways to work.</h2>
     <ul class="scales">
-      <li class="reveal"><a href="mailto:m@statecraft.systems?subject=Working%20sessions">
-        <span class="glyph" aria-hidden="true"><svg viewBox="0 0 100 100"><circle class="b" cx="50" cy="50" r="50" /></svg></span>
-        <h3>Person</h3>
-        <p>A founder, an executive, a team. We build real tools on your own devices and workflows, then teach you to extend them. The capability stays with you.</p>
-        <span class="go">Write to us</span>
-      </a></li>
       <li class="reveal"><a href="/work">
         <span class="glyph" aria-hidden="true"><svg viewBox="0 0 100 100"><rect class="b" width="100" height="100" /></svg></span>
-        <h3>Institution</h3>
+        <h3>For an institution</h3>
         <p>A clinic, a house, a supplier, a cause. We build its working parts: how a request arrives, how a date is held, who hears about it and when. Yours, written down, made to be handed on.</p>
         <span class="go">See the work</span>
+      </a></li>
+      <li class="reveal"><a href="mailto:m@statecraft.systems?subject=Working%20sessions">
+        <span class="glyph" aria-hidden="true"><svg viewBox="0 0 100 100"><circle class="b" cx="50" cy="50" r="50" /></svg></span>
+        <h3>For a person</h3>
+        <p>A founder, an executive, a team. We build real tools on your own devices and workflows, then teach you to extend them. The capability stays with you.</p>
+        <span class="go">Write to us</span>
       </a></li>
     </ul>
   </section>
@@ -126,14 +81,44 @@ const jsonLd = {
       {plates.map((plate) => (
         <li>
           <a href={`/work/${plate.slug}`}>
-            <span class="title">{plate.principle}</span>
-            <span class="who"><b>{plate.title}</b>{plate.client}</span>
+            <span class="title">{plate.title}</span>
+            <span class="who"><b>{plate.client}</b>{plate.principle}</span>
             <span class="status">{plate.status}</span>
           </a>
         </li>
       ))}
     </ol>
-    <div class="after"><a class="btn ghost" href="/method">How a build runs</a></div>
+    <div class="after"><a class="btn ghost" href="/work">All the work</a></div>
+  </section>
+
+  <section class="section ground" aria-labelledby="run-h">
+    <div class="wrap">
+      <h2 class="statement" id="run-h">How a build runs.</h2>
+      <ol class="run">
+        <li><h3>See</h3><p>One conversation with the person who does the work today.</p></li>
+        <li><h3>Build</h3><p>A working version at a real address, in rounds. You leave notes on the page itself.</p></li>
+        <li><h3>Launch</h3><p>Everything is written down so that someone else could carry it.</p></li>
+        <li><h3>Run</h3><p>You take it over, or we keep it running and you hear only when something needs you.</p></li>
+      </ol>
+      <div class="after">
+        <a class="btn ghost" href="/method">The method</a>
+        <p class="run-note">A small site takes one to three weeks, end to end.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap section" aria-labelledby="why-h">
+    <h2 class="statement reveal" id="why-h">The thinking behind it.</h2>
+    <ul class="index">
+      <li><a href="/thesis">
+        <span class="title">Thesis</span>
+        <span class="who wide">Ten propositions on good rule, and what the name means.</span>
+      </a></li>
+      <li><a href="/disciplines">
+        <span class="title">Disciplines</span>
+        <span class="who wide">Structural dynamics, natural law, currency design, operative traditions.</span>
+      </a></li>
+    </ul>
   </section>
 
   <ContactBlock />

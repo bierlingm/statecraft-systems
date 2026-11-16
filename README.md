@@ -41,12 +41,13 @@ Serves the production build locally for review.
 
 | Path | File | Description |
 |------|------|-------------|
-| `/` | `src/pages/index.astro` | Home: hero, the name, five propositions, advance-or-oscillate figure, two scales, proof, contact |
+| `/` | `src/pages/index.astro` | Home (the offering only): hero, two ways to work, proof, how a build runs, one doorway to the ideas, contact |
 | `/work`, `/work/:slug` | `src/pages/work/` | Plates (anonymized client work) from `src/data/work.ts` |
 | `/method` | `src/pages/method.astro` | How a build runs |
 | `/instruments` | redirect in `astro.config.mjs` | Removed; leads to `/` |
 | `/werk` | `src/pages/werk.astro` | werk. Not linked from the site or listed in llms.txt, feed or sitemap; kept only because the werk repo links to it |
-| `/thesis` | `src/pages/thesis/index.astro` | Ten propositions and four disciplines. Names no project or programme |
+| `/thesis` | `src/pages/thesis/index.astro` | The name, then ten propositions. Names no project or programme |
+| `/disciplines` | `src/pages/disciplines.astro` | Four disciplines, each credited and linked to its source, with the advance-or-oscillate figure |
 | `/thesis/full` | redirect in `astro.config.mjs` | Removed; leads to `/thesis` |
 | `/contact` | `src/pages/contact.astro` | Contact |
 

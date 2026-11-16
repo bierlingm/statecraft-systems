@@ -127,3 +127,13 @@ Section numbers and labels, every eyebrow, the hero's base strip, "Rev." and the
 ## Later the same day: a thesis that does not date
 
 The thesis page names no project or programme. The long form and its source text were removed (`/thesis/full` leads to `/thesis`). The four disciplines each get the same treatment: name, the person it comes from, one claim, what it says, and what it does in a build. The instruments page and the third scale on the home page were removed (`/instruments` leads to `/`).
+
+## Later still: the offering apart from the ideas
+
+The home page had been carrying both what is sold and what is believed, and a visitor could not tell which was which. They are now separate.
+
+- **Offering pages** (home, work, method, contact): what is built, for whom, the proof, how a build runs. The home page is hero, two ways to work, the four builds, how a build runs (black), one doorway to the ideas, invitation.
+- **Ideas pages** (thesis, disciplines): the name taken literally and ten propositions on one; four disciplines on the other, each credited and linked to its source, with what the source says kept apart from what we do with it. The advance-or-oscillate figure sits with structural dynamics, where it belongs.
+- The headline "The craft of good rule" stays on the home page as the meaning of the name. The sentence under it is now the offering.
+- Black is now the one band per page that shows a process or a tension.
+- `src/content/brand.md` was rewritten to state this split and the Field system.

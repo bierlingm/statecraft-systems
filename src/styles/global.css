@@ -236,6 +236,7 @@ a:hover { color: var(--accent); }
 
 .section { padding-block: var(--section); }
 .section:not(.field):not(.ground) + .section:not(.field):not(.ground) { padding-top: 0; }
+.section.flush { padding-top: 0; }
 
 /* ——— Definitions ——— */
 
@@ -334,6 +335,7 @@ a:hover { color: var(--accent); }
 .index .who { grid-column: 8 / span 3; font-size: 1.0625rem; line-height: 1.35; color: var(--muted); transition: color 200ms ease; }
 .index .who b { display: block; font-weight: 600; color: var(--ink); transition: color 200ms ease; }
 .index .status { grid-column: 11 / span 2; justify-self: end; text-align: right; font-family: var(--mono); font-weight: 400; font-size: 0.75rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); transition: color 200ms ease; }
+.index .who.wide { grid-column: 8 / -1; font-size: 1.1875rem; color: var(--ink-2); }
 .index a:hover, .index a:focus-visible { background: var(--blue); color: #fff; }
 .index a:hover .who, .index a:hover .who b, .index a:hover .status,
 .index a:focus-visible .who, .index a:focus-visible .who b, .index a:focus-visible .status { color: #fff; }
@@ -346,6 +348,16 @@ a:hover { color: var(--accent); }
   .index .who, .index .status { grid-column: 1 / -1; justify-self: start; text-align: left; }
 }
 .after { margin-top: clamp(32px, 4vw, 56px); display: flex; gap: 20px 32px; flex-wrap: wrap; align-items: center; }
+
+/* ——— How a build runs (home) ——— */
+
+.run { list-style: none; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); column-gap: var(--col-gap); row-gap: 40px; }
+.run li { border-top: 2px solid currentColor; padding-top: 16px; display: flex; flex-direction: column; gap: clamp(14px, 1.6vw, 22px); }
+.run h3 { font-stretch: 62%; font-weight: 800; text-transform: uppercase; font-size: var(--fs-m); line-height: 0.86; letter-spacing: -0.012em; }
+.run p { font-size: 1.125rem; line-height: 1.45; color: var(--on-ink-muted); max-width: 22rem; }
+.run-note { font-size: 1.0625rem; color: var(--on-ink-muted); }
+@media (max-width: 960px) { .run { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 560px) { .run { grid-template-columns: 1fr; } }
 
 /* ——— Plates ——— */
 
@@ -563,7 +575,7 @@ a:hover { color: var(--accent); }
 @media (max-width: 560px) { .pager { grid-template-columns: 1fr; } .pager a:last-child { text-align: left; align-items: flex-start; border-top: 1px solid var(--rule); } }
 
 /* Thesis: ten propositions. */
-.theses { list-style: none; padding-block: 0 var(--section); }
+.theses { list-style: none; padding-block: 0 clamp(40px, 5vw, 72px); }
 .theses li {
   display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--col-gap); row-gap: 18px; align-items: start;
   border-top: 2px solid var(--black); padding-block: clamp(20px, 2.4vw, 36px) clamp(56px, 7vw, 120px);
@@ -575,23 +587,26 @@ a:hover { color: var(--accent); }
 @media (max-width: 960px) {
   .theses .n, .theses h2, .theses p { grid-column: 1 / -1; }
 }
-/* The disciplines: each one named, stated, explained, and shown in the work. */
-.disciplines { padding-bottom: var(--section); }
+/* The disciplines: each one named, credited, stated, explained, and shown in the work. */
 .disc {
   display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--col-gap); row-gap: 24px; align-items: start;
-  padding-block: clamp(32px, 4vw, 64px) clamp(48px, 6vw, 96px); border-top: 2px solid var(--black);
+  padding-block: clamp(32px, 4vw, 64px) clamp(56px, 7vw, 112px); border-top: 2px solid var(--black);
 }
+.ground + .disciplines { padding-top: var(--section); }
 .disc header { grid-column: 1 / span 6; display: flex; flex-direction: column; gap: 18px; }
-.disc h3 { font-stretch: 62%; font-weight: 800; text-transform: uppercase; font-size: clamp(2.75rem, 6vw, 6.5rem); line-height: 0.84; letter-spacing: -0.012em; max-width: 9ch; }
-.disc .by { font-family: var(--mono); font-weight: 400; font-size: 0.75rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); }
+.disc h2 { font-stretch: 62%; font-weight: 800; text-transform: uppercase; font-size: clamp(2.75rem, 6vw, 6.5rem); line-height: 0.84; letter-spacing: -0.012em; max-width: 9ch; }
+.disc .by { font-family: var(--mono); font-weight: 400; font-size: 0.75rem; line-height: 1.7; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink); }
+.disc .by a { display: block; width: fit-content; color: var(--muted); border-bottom: 1px solid var(--rule-2); }
+.disc .by a:hover { color: var(--blue); border-color: var(--blue); }
 .disc .text { grid-column: 7 / span 6; display: flex; flex-direction: column; gap: 20px; max-width: 36rem; }
 .disc .claim { font-size: clamp(1.5rem, 2.4vw, 2.25rem); line-height: 1.04; font-weight: 700; font-stretch: 88%; letter-spacing: -0.03em; text-wrap: balance; }
 .disc .text p:not(.claim) { font-size: clamp(1.125rem, 1.5vw, 1.375rem); line-height: 1.45; }
 .disc .text p.use { border-left: 6px solid var(--blue); padding-left: 20px; font-weight: 600; margin-top: 8px; }
 @media (max-width: 960px) {
   .disc header, .disc .text { grid-column: 1 / -1; }
-  .disc h3 { max-width: none; }
+  .disc h2 { max-width: none; }
 }
+.after-list { padding-block: clamp(8px, 2vw, 24px) var(--section); }
 
 /* Operating records */
 .records-band { background: var(--bone-2); }

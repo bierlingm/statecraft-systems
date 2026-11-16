@@ -1,0 +1,119 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Tracks from '../components/Tracks.astro';
+import ContactBlock from '../components/ContactBlock.astro';
+
+// The ideas the work draws on, each credited to the person who worked it out.
+// This page is about the ideas. What is sold is on the home, work and method pages.
+// `says` restates the source; `take` is what Statecraft Systems does with it.
+interface Discipline {
+  id: string;
+  name: string;
+  by: string;
+  source: string;
+  href: string;
+  claim: string;
+  says: string[];
+  take: string;
+}
+
+const disciplines: Discipline[] = [
+  {
+    id: 'structural-dynamics',
+    name: 'Structural dynamics',
+    by: 'Robert Fritz',
+    source: 'The Path of Least Resistance, 1989',
+    href: 'https://www.robertfritz.com',
+    claim: 'The structure decides the outcome.',
+    says: [
+      'Fritz, a composer by training, asked why some efforts build on themselves and others come undone. His answer is that energy moves along the path of least resistance, and the underlying structure decides where that path runs. Change the structure and the same effort goes somewhere else.',
+      'An oscillating structure gives one step forward and one step back: action is driven by a problem and eases off as the problem recedes. An advancing structure is held by structural tension, the gap between an honest account of current reality and a clear picture of the result that is wanted. Tension seeks resolution, and here it resolves toward the result.',
+    ],
+    take: 'A build begins with two accounts, what happens now and what should happen, and every version is checked against both.',
+  },
+  {
+    id: 'natural-law',
+    name: 'Natural law',
+    by: 'Curt Doolittle',
+    source: 'Natural Law Institute',
+    href: 'https://naturallawinstitute.com',
+    claim: 'What is true, and what is reciprocal.',
+    says: [
+      'Doolittle’s work asks for decidability. A claim is put in operational terms, as actions and their consequences, so that it can be tested instead of argued. A statement that cannot be put that way has not yet said anything a decision can rest on.',
+      'Its test for conduct is reciprocity: the obligation not to impose costs on others that they did not agree to bear. Applied to an institution, it separates cooperation from extraction, and it explains why arrangements that run one way do not last.',
+    ],
+    take: 'Terms are written plainly. The client owns the domains, content, data and accounts, and can leave with them.',
+  },
+  {
+    id: 'currency-design',
+    name: 'Currency design',
+    by: 'Arthur Brock',
+    source: 'artbrock.com',
+    href: 'https://www.artbrock.com',
+    claim: 'What flows, and what makes it visible.',
+    says: [
+      'Brock reads the word as current-see. Currencies, in his definition, are formal symbol systems which shape, enable and measure currents. Money is one specific form. An Olympic medal is another, and so are a race time, a reputation and the trust a community places in someone.',
+      'A flow disappears as it happens, and the currency is the record that lasts. Its design decides what becomes visible and what stays invisible, what counts and how it is counted, and who is allowed to issue it. The possibility of a gold medal shapes the participation of millions of athletes.',
+    ],
+    take: 'One calendar that holds every channel, a hold that lapses by itself, an inbox where every request is kept. Each is a small currency.',
+  },
+  {
+    id: 'operative-traditions',
+    name: 'Operative traditions',
+    by: 'Miguel Angel Fernandez',
+    source: 'Operative Traditions, 2017',
+    href: 'https://manticore.press/product/operative-traditions/',
+    claim: 'A tradition is something done.',
+    says: [
+      'The word comes from the masons: operative masonry built in stone before speculative masonry talked about building. Fernandez recovers that sense. His books look for the values carried in traditional craft and art, and treat technique, the disciplined doing of a thing, as what forms the person who does it.',
+      'On this reading a tradition is alive while it is enacted by people who understand what it is for, and it is over once only the form is repeated. That is how a structure outlasts its builders: through practice, handed on by formation.',
+    ],
+    take: 'Every launch is written down so that someone else could carry it. The work is finished when it no longer needs us.',
+  },
+];
+const [first, ...rest] = disciplines;
+---
+
+<BaseLayout title="Disciplines" description="The four disciplines Statecraft Systems draws on: structural dynamics (Robert Fritz), natural law (Curt Doolittle), currency design (Arthur Brock) and operative traditions (Miguel Angel Fernandez).">
+  <section class="wrap page-head">
+    <h1>Four disciplines.</h1>
+    <p class="lede">Where the reasoning comes from. Each is called by its established name and credited to the person who worked it out.</p>
+  </section>
+
+  {[[first], rest].map((group, g) => (
+    <>
+      <section class="wrap disciplines" aria-label={g === 0 ? first.name : 'Further disciplines'}>
+        {group.map((d) => (
+          <article class="disc reveal" id={d.id}>
+            <header>
+              <h2>{d.name}</h2>
+              <p class="by">{d.by}<a href={d.href} rel="noopener">{d.source}</a></p>
+            </header>
+            <div class="text">
+              <p class="claim">{d.claim}</p>
+              {d.says.map((p) => <p>{p}</p>)}
+              <p class="use">{d.take}</p>
+            </div>
+          </article>
+        ))}
+      </section>
+      {g === 0 && (
+        <section class="section ground" aria-labelledby="fig-h">
+          <div class="wrap">
+            <div class="figure-head">
+              <h2 class="statement" id="fig-h">Advance, <em>or oscillate.</em></h2>
+              <p>Most effort oscillates. A problem presses, action follows, the pressure drops, the action stops. <strong>Held between what is and what is wanted, the same effort moves one way.</strong></p>
+            </div>
+            <Tracks />
+          </div>
+        </section>
+      )}
+    </>
+  ))}
+
+  <section class="wrap after-list">
+    <a class="btn ghost" href="/thesis">Read the thesis</a>
+  </section>
+
+  <ContactBlock />
+</BaseLayout>
