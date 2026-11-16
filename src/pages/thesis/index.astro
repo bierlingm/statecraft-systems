@@ -1,0 +1,82 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ContactBlock from '../../components/ContactBlock.astro';
+
+// The thesis, compressed to ten propositions. Every line restates src/content/thesis.md,
+// which is published in full at /thesis/full.
+const theses: { n: string; title: string; body: string[] }[] = [
+  { n: 'I', title: 'Somebody rules.', body: [
+    'Every household, company and country is governed by someone or something. The open matter is never whether, only how well.',
+    'The demand for good rule is unlimited and permanent. Every civilisation that built anything lasting built it on this.',
+  ] },
+  { n: 'II', title: 'Good rule is scarce.', body: [
+    'It is the exercise of judgment, responsibility and care by people able to see reality clearly, act on what they see, and accept the obligations that come with the power they hold.',
+    'That capacity does not arise by itself. Management and administration are downstream of it.',
+  ] },
+  { n: 'III', title: 'It does not maintain itself.', body: [
+    'Prohibitions do not enforce themselves. Principles do not persist without structures that carry them. Even restraint has to be actively enacted.',
+    'When the chain of transmission breaks, what follows is consistent: procedure in place of authority, and obligation that runs one way only.',
+  ] },
+  { n: 'IV', title: 'What persists is structure.', body: [
+    'People leave. What they built into a structure stays. It keeps its function through time, survives the departure of individuals, resists degradation under pressure, and passes its principles to those who come after.',
+    'Building these structures is the work.',
+  ] },
+  { n: 'V', title: 'See first.', body: [
+    'The state of affairs has to be seen clearly before any work begins: what is true, what is reciprocal, what will survive contact with human nature.',
+  ] },
+  { n: 'VI', title: 'Advance, or oscillate.', body: [
+    'A structure driven by problems moves until the problem recedes, and then stops. A structure held between an honest account of what is and a clear picture of what is wanted resolves forward.',
+    'The path is structural, not motivational.',
+  ] },
+  { n: 'VII', title: 'Reciprocity holds it together.', body: [
+    'Reputation, credit, obligation and trust all circulate. Designing how they flow is designing the circulatory system of good rule.',
+    'A structure in which duty runs in both directions holds. This work is not for those who seek to extract without reciprocating.',
+  ] },
+  { n: 'VIII', title: 'The ground has moved.', body: [
+    'The structures built for the twentieth century cannot withstand or steer what is happening now. Every workflow, role and form of cooperation is being reorganised around AI.',
+    'Whether you wield these tools to create outcomes or consume products controlled by others is a difference in sovereignty.',
+  ] },
+  { n: 'IX', title: 'Sovereignty is built.', body: [
+    'Self-determination by self-determined means. In practice: parts you own, people you are bound to by mutual obligation, and the capacity to process information correctly and act on it quickly.',
+  ] },
+  { n: 'X', title: 'A tradition is a structure that teaches.', body: [
+    'It is alive when it is practised by people who understand its function, and it lasts when each person who does the work becomes able to carry it.',
+    'This one is young. This is the craft. This is statecraft.',
+  ] },
+];
+---
+
+<BaseLayout title="Thesis" description="Ten propositions on good rule: it is scarce, it does not maintain itself, and it endures only through structures built to carry it.">
+  <section class="wrap page-head">
+    <span class="eyebrow"><span>Thesis</span><span>I–X</span></span>
+    <h1>Ten propositions on good rule.</h1>
+    <p class="lede">The reasoning behind the work, compressed. It is not required reading for hiring us.</p>
+    <a class="link-rule" href="/thesis/full">Read the long form</a>
+  </section>
+
+  <ol class="wrap theses">
+    {theses.map((t) => (
+      <li class="reveal">
+        <span class="n">{t.n}</span>
+        <h2>{t.title}</h2>
+        {t.body.map((p) => <p>{p}</p>)}
+      </li>
+    ))}
+  </ol>
+
+  <section class="wrap split sources" aria-labelledby="src-h">
+    <div class="left">
+      <span class="eyebrow">Sources</span>
+      <h2 id="src-h">We did not invent the disciplines.</h2>
+    </div>
+    <div class="right ledger">
+      <div><span class="name">Structural dynamics</span><span class="meta">Robert Fritz</span><span class="desc">Why a structure advances or oscillates.</span></div>
+      <div><span class="name">Natural law</span><span class="meta">Curt Doolittle</span><span class="desc">Decidability and reciprocity: what is true, and what holds.</span></div>
+      <div><span class="name">Currency design</span><span class="meta">Arthur Brock</span><span class="desc">How information, value and obligation flow in a group.</span></div>
+      <div><span class="name">Operative traditions</span><span class="meta">Miguel Angel Fernandez</span><span class="desc">Traditions as active operations, not inherited customs.</span></div>
+      <a href="/thesis/full"><span class="name">The long form</span><span class="meta">Read →</span><span class="desc">The full text, with the synthesis and what it asks of the people who do the work.</span></a>
+    </div>
+  </section>
+
+  <ContactBlock />
+</BaseLayout>

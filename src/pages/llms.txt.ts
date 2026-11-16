@@ -18,7 +18,8 @@ Last updated: ${REVISED}
 
 - What it does: designs and builds intake, booking, enquiries and the systems behind them, with the people who run the place. Each version is reviewed on the real page, and the result is built to keep working after we step back.
 - How a build runs: one conversation with the person who does the work; a working version at a real address, built in rounds; a launch written down so that someone else could carry it; then the client runs it, or Statecraft Systems keeps it running. A small site takes one to three weeks, end to end.
-- Ways to work: a build (one working part, designed and built in rounds); care after launch, month to month; working sessions for founders and their teams, building real tools on their own devices and workflows.
+- Three scales of work: the person (working sessions for founders and their teams, building real tools on their own devices and workflows); the institution (its working parts, built in rounds, then run by the client or kept running by Statecraft Systems); the instrument (tools built for the work and published).
+- Thesis, in one line: good rule is scarce, does not maintain itself, and endures only through structures built to carry it.
 - What clients keep: their domains, content, data and accounts, set up under an address they control, whether or not Statecraft Systems stays involved.
 - Recent work (clients are described, not named): direct booking for a family-owned vacation rental; clinical intake for a cash-pay telemedicine practice; trade enquiries for a regional jobsite-supply wholesaler; a one-page airline-miles donation ask for a child-recovery nonprofit.
 - Operating records: helps companies decide whether to license their operating records to buyers that license data for AI training, with consent, an inventory and clear boundaries.

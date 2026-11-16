@@ -1,16 +1,17 @@
 ---
-// The closing band. Sits directly above the footer, on the same ink ground.
+// The closing field. Sits directly above the footer.
 interface Props {
   email?: string;
 }
 const { email = 'm@statecraft.systems' } = Astro.props;
 ---
 
-<section class="contact band-ink" aria-label="Write to us">
+<section class="closing field" aria-label="Write to us">
   <div class="wrap">
     <span class="eyebrow">Write to us</span>
-    <p class="big reveal">Describe what you need. <span>The reply comes from the person who would build it.</span></p>
-    <a class="mail reveal" href={`mailto:${email}`}>{email}</a>
+    <p class="big reveal">Begin with the state of affairs.</p>
+    <p class="sub">What happens now, what should happen, and who does the work today. A few sentences is enough. The reply comes from the person who would build it.</p>
+    <a class="mail" href={`mailto:${email}`}>{email}</a>
     {Astro.slots.has('default') && <div class="aside"><slot /></div>}
   </div>
 </section>

@@ -5,7 +5,7 @@ Website for [statecraft.systems](https://statecraft.systems). A static site buil
 ## Tech Stack
 
 - [Astro](https://astro.build/) v5 — static output; one small script (the Detail A reasoning toggle). All motion is CSS and is off under `prefers-reduced-motion`.
-- Newsreader + [Berkeley Mono](https://usgraphics.com/products/berkeley-mono)
+- Archivo (variable width and weight, OFL) + [Berkeley Mono](https://usgraphics.com/products/berkeley-mono)
 
 ## Setup
 
@@ -41,12 +41,13 @@ Serves the production build locally for review.
 
 | Path | File | Description |
 |------|------|-------------|
-| `/` | `src/pages/index.astro` | Home: hero and seal, premise, work index with plate stage, thesis band, method, engagements, instruments, contact |
+| `/` | `src/pages/index.astro` | Home: hero, the name, five propositions, advance-or-oscillate figure, three scales, proof, method, contact |
 | `/work`, `/work/:slug` | `src/pages/work/` | Plates (anonymized client work) from `src/data/work.ts` |
 | `/method` | `src/pages/method.astro` | How a build runs |
 | `/instruments` | `src/pages/instruments.astro` | spikes, werk |
 | `/werk` | `src/pages/werk.astro` | werk (linked from the werk repo; keep the URL) |
-| `/thesis` | `src/pages/thesis.astro` | Renders `src/content/thesis.md` |
+| `/thesis` | `src/pages/thesis/index.astro` | Ten propositions, compressed from the thesis |
+| `/thesis/full` | `src/pages/thesis/full.astro` | Renders `src/content/thesis.md` (the long form) |
 | `/contact` | `src/pages/contact.astro` | Contact |
 
 Old routes `/approach`, `/services`, `/about` redirect via `public/_redirects`.
@@ -59,7 +60,6 @@ Client rooms and demos under `public/` (`prosser/`, `cashclinic/`, `pnw/`, …) 
 - `src/content/thesis.md` — thesis document
 - `src/content/brand.md` — brand voice and visual principles
 - `DESIGN-AMBITIOUS.md` — the three directions explored for the 2026-11 pass and the system that was built
-- `src/components/Seal.astro` — the engraved seal (hero and footer), generated from a few rotated SVG primitives
 
 ## Reference Vault
 
@@ -67,7 +67,7 @@ Client rooms and demos under `public/` (`prosser/`, `cashclinic/`, `pnw/`, …) 
 
 ## Fonts
 
-Self-hosted in `public/fonts/`: Newsreader (variable, OFL) for reading text, Berkeley Mono (licensed) for labels. The `.otf` Berkeley Mono files are still used by `public/prosser/project.css`.
+Self-hosted in `public/fonts/`: Archivo (variable, OFL) for statements and reading text, Berkeley Mono (licensed) for labels and record. The Newsreader files are no longer used by the main site. The `.otf` Berkeley Mono files are still used by `public/prosser/project.css`.
 
 ## Project Structure
 

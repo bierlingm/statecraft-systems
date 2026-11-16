@@ -18,6 +18,7 @@ const factKeys = ['Replaced', 'For', 'Built', 'Rounds', 'Parts'];
     <div class="caption">
       <span class="eyebrow accent">Plate {plate.numeral} · {plate.status}</span>
       <h2>{plate.title}</h2>
+      <p class="principle">{plate.principle}</p>
       <p class="sum">{plate.summary}</p>
       <dl class="facts">
         {plate.facts.filter(([k]) => factKeys.includes(k)).map(([k, v]) => (

@@ -23,7 +23,7 @@ const { plate, prev, next } = Astro.props;
   <section class="wrap page-head plain">
     <span class="eyebrow accent"><span>Plate {plate.numeral}</span><span>{plate.status}</span></span>
     <h1>{plate.title}</h1>
-    <p class="lede">{plate.client}.</p>
+    <p class="lede"><strong>{plate.principle}</strong> {plate.client}.</p>
   </section>
 
   <article class="wrap case">

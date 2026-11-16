@@ -1,6 +1,5 @@
 ---
 import '../styles/global.css';
-import Seal from '../components/Seal.astro';
 
 interface Props {
   title: string;
@@ -9,11 +8,11 @@ interface Props {
   footerEmail?: string;
   /** Structured data for this page. Must match what the page says. */
   jsonLd?: object;
-  /** Preload the italic face when the first screen uses it. */
-  italic?: boolean;
+  /** 'field' when the page opens on the blue field: the header sits on it. */
+  tone?: 'bone' | 'field';
 }
 
-const { title, description, image, footerEmail = 'm@statecraft.systems', jsonLd, italic = false } = Astro.props;
+const { title, description, image, footerEmail = 'm@statecraft.systems', jsonLd, tone = 'bone' } = Astro.props;
 
 const SITE = 'Statecraft Systems';
 const DEFAULT_DESCRIPTION = 'Statecraft Systems builds the working parts of small institutions: intake, booking, enquiries and the systems behind them.';
@@ -40,11 +39,10 @@ const isCurrent = (href: string) => (path === href || path.startsWith(href + '/'
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{pageTitle}</title>
     <meta name="description" content={metaDescription} />
-    <meta name="theme-color" content="#f6f1e7" />
+    <meta name="theme-color" content={tone === 'field' ? '#1029c4' : '#f1f0ea'} />
     <link rel="canonical" href={canonicalUrl} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="preload" href="/fonts/newsreader-latin-opsz-normal.woff2" as="font" type="font/woff2" crossorigin />
-    {italic && <link rel="preload" href="/fonts/newsreader-latin-opsz-italic.woff2" as="font" type="font/woff2" crossorigin />}
+    <link rel="preload" href="/fonts/archivo-latin-wdth-wght.woff2" as="font" type="font/woff2" crossorigin />
 
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content={SITE} />
@@ -64,7 +62,7 @@ const isCurrent = (href: string) => (path === href || path.startsWith(href + '/'
     <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
     {jsonLd && <script type="application/ld+json" set:html={JSON.stringify(jsonLd).replace(/</g, '\\u003c')} />}
   </head>
-  <body>
+  <body class={`tone-${tone}`}>
     <a class="skip" href="#main">Skip to content</a>
     <header class="site-header">
       <div class="wrap">
@@ -94,9 +92,8 @@ const isCurrent = (href: string) => (path === href || path.startsWith(href + '/'
     <footer class="site-footer">
       <div class="wrap foot">
         <div class="foot-id">
-          <Seal id="foot-seal" rim={false} />
-          <p>Statecraft Systems LLC<br />A US company.</p>
-          <p>The practice of <a href="https://moritzbierling.com" rel="noopener">Moritz Bierling</a>,<br />working from Barcelona.</p>
+          <p>Statecraft Systems LLC. A US company.</p>
+          <p>The practice of <a href="https://moritzbierling.com" rel="noopener">Moritz Bierling</a>, working from Barcelona.</p>
         </div>
         <nav aria-label="Practice">
           <h2>Practice</h2>

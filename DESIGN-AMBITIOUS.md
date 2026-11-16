@@ -62,3 +62,29 @@ The core line stays. Additions are drawn from what the site, the terms and the o
 ### What does not change
 
 URLs, client rooms, functions, workers, robots rules, redirects. Quick-answer blocks, llms.txt, feed.json, sitemap and JSON-LD stay and are updated where wording moved.
+
+---
+
+# Second pass: Field (same day)
+
+Instruction after seeing the plate book: leave the colour scheme and visual language behind, take extreme liberty with the thesis and the copy, abstract upwards. Berkeley Mono may stay if it makes sense.
+
+## What changed in kind
+
+The plate book spoke about the work (booking, intake, enquiries) and let the thesis sit in a band. Field inverts that. The site now speaks at the level of the thesis and uses the work as proof.
+
+- **Headline.** "The craft of good rule." The concrete line moves into the sentence beneath it.
+- **Structure of the home page.** The name, taken literally (State, Craft, Systems). Five propositions. One figure: advance, or oscillate. One craft at three scales (the person, the institution, the instrument). Proof, small and real: each build named by the principle it demonstrates. Four verbs. Begin with the state of affairs.
+- **Thesis.** Compressed to ten propositions at `/thesis`. The original text is untouched and published at `/thesis/full`.
+
+## The system
+
+- **Colour.** Ultramarine `#1029c4` as a field, bone `#f1f0ea` for reading, black `#09090d` as ground, vermilion `#ff4b1f` as the one signal (the square in the mark, the full stop in the headline, the path that matters in a drawing, the thing that advances).
+- **Type.** Archivo, one variable file, across its width axis: condensed and heavy in capitals for statements, slightly narrow and bold for propositions, regular for reading. Berkeley Mono is the small voice: labels, numerals, facts, status.
+- **Shape.** Circle, square, line. No engraving, no hairlines. Rules are two pixels and black.
+- **Plates.** The drawings stay, as white line on the blue field with vermilion for the path that matters.
+- **The figure.** Two tracks. On one a marker swings between problem and relief. On the other a marker moves from current reality to the desired outcome and leaves a line behind it. CSS only; under reduced motion both rest in a meaningful position.
+
+## What it is not allowed to become
+
+A poster with nothing behind it. Every abstract line on the home page is paired with a concrete one within the same screen, and every proposition can be traced to a sentence in `src/content/thesis.md`, the method page, the terms or `src/data/work.ts`.

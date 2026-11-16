@@ -13,6 +13,8 @@ export interface Plate {
   built: string[];
   process: string[];
   quote?: string;
+  /** What the build demonstrates, in one line. Drawn from the text below it. */
+  principle: string;
 }
 
 export const plates: Plate[] = [
@@ -20,6 +22,7 @@ export const plates: Plate[] = [
     slug: 'direct-booking',
     numeral: 'I',
     title: 'Direct booking',
+    principle: 'Take back the terms.',
     status: 'Launching',
     client: 'A family-owned vacation rental',
     summary:
@@ -49,6 +52,7 @@ export const plates: Plate[] = [
     slug: 'clinical-intake',
     numeral: 'II',
     title: 'Clinical intake',
+    principle: 'The machine gathers. The physician decides.',
     status: 'Pilot',
     client: 'A cash-pay telemedicine practice',
     summary:
@@ -77,6 +81,7 @@ export const plates: Plate[] = [
     slug: 'trade-enquiries',
     numeral: 'III',
     title: 'Trade enquiries',
+    principle: 'Every request, kept in one place.',
     status: 'Live',
     client: 'A regional jobsite-supply wholesaler',
     summary:
@@ -103,6 +108,7 @@ export const plates: Plate[] = [
     slug: 'one-page-one-ask',
     numeral: 'IV',
     title: 'One page, one ask',
+    principle: 'Nothing else competes for attention.',
     status: 'Live',
     client: 'A child-recovery nonprofit',
     summary:
