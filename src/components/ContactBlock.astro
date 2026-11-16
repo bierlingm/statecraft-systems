@@ -1,6 +1,16 @@
-<section class="contact">
+---
+// The closing band. Sits directly above the footer, on the same ink ground.
+interface Props {
+  email?: string;
+}
+const { email = 'm@statecraft.systems' } = Astro.props;
+---
+
+<section class="contact band-ink" aria-label="Write to us">
   <div class="wrap">
-    <p class="big">Describe what you need. The reply comes from the person who would build it.</p>
-    <a class="link-rule" href="mailto:m@statecraft.systems">m@statecraft.systems</a>
+    <span class="eyebrow">Write to us</span>
+    <p class="big reveal">Describe what you need. <span>The reply comes from the person who would build it.</span></p>
+    <a class="mail reveal" href={`mailto:${email}`}>{email}</a>
+    {Astro.slots.has('default') && <div class="aside"><slot /></div>}
   </div>
 </section>

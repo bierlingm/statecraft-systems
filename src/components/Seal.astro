@@ -1,0 +1,79 @@
+---
+// The seal: three layers of hairline engraving. A lettered rim, a woven wave band
+// and a rosette. The band and the rosette turn slowly against each other (CSS, compositor
+// only; static under prefers-reduced-motion). Purely presentational.
+interface Props {
+  /** Unique per page: the seal can appear more than once. */
+  id?: string;
+  class?: string;
+  rim?: boolean;
+}
+const { id = 'seal', class: className, rim = true } = Astro.props;
+
+const C = 500;
+const f = (n: number) => n.toFixed(1).replace(/\.0$/, '');
+
+/** r(θ) = R + a·sin(nθ), drawn as cubic segments between crests and troughs. */
+function wave(R: number, a: number, n: number) {
+  const half = Math.PI / n;
+  const pts = Array.from({ length: 2 * n + 1 }, (_, k) => {
+    const t = (k + 0.5) * half;
+    const r = R + (k % 2 === 0 ? a : -a);
+    const h = 0.3642 * half * r;
+    const [x, y] = [C + r * Math.cos(t), C + r * Math.sin(t)];
+    const [tx, ty] = [-Math.sin(t) * h, Math.cos(t) * h];
+    return { x, y, ox: x + tx, oy: y + ty, ix: x - tx, iy: y - ty };
+  });
+  let d = `M${f(pts[0].x)} ${f(pts[0].y)}`;
+  for (let k = 1; k < pts.length; k++) {
+    const p = pts[k - 1], q = pts[k];
+    d += `C${f(p.ox)} ${f(p.oy)} ${f(q.ix)} ${f(q.iy)} ${f(q.x)} ${f(q.y)}`;
+  }
+  return d + 'Z';
+}
+
+const bandN = 30, bandCopies = 6;
+const band = wave(392, 27, bandN);
+const bandTurns = Array.from({ length: bandCopies - 1 }, (_, k) => ((k + 1) * 360) / (bandN * bandCopies));
+
+const innerN = 18, innerCopies = 4;
+const inner = wave(196, 13, innerN);
+const innerTurns = Array.from({ length: innerCopies - 1 }, (_, k) => ((k + 1) * 360) / (innerN * innerCopies));
+
+const petals = 30;
+const petalTurns = Array.from({ length: petals - 1 }, (_, k) => ((k + 1) * 180) / petals);
+
+const legend =
+  'STATECRAFT SYSTEMS LLC · THE WORKING PARTS OF SMALL INSTITUTIONS · DESIGNED WITH THE PEOPLE WHO RUN THE PLACE · BUILT TO KEEP WORKING · ';
+---
+
+<div class:list={['seal', className]} aria-hidden="true">
+  {rim && (
+    <svg class="seal-rim" viewBox="0 0 1000 1000" focusable="false">
+      <defs><path id={`${id}-c`} d="M500 50a450 450 0 1 1-.01 0" /></defs>
+      <circle cx="500" cy="500" r="495" />
+      <circle cx="500" cy="500" r="489" />
+      <circle class="ticks" cx="500" cy="500" r="481" />
+      <circle cx="500" cy="500" r="430" />
+      <text><textPath href={`#${id}-c`} textLength="2812" lengthAdjust="spacing">{legend}</textPath></text>
+    </svg>
+  )}
+  <svg class="seal-band" viewBox="0 0 1000 1000" focusable="false">
+    <path id={`${id}-w`} d={band} />
+    {bandTurns.map((t) => <use href={`#${id}-w`} transform={`rotate(${f(t)} 500 500)`} />)}
+  </svg>
+  <svg class="seal-rose" viewBox="0 0 1000 1000" focusable="false">
+    <ellipse id={`${id}-e`} cx="500" cy="500" rx="352" ry="118" />
+    {petalTurns.map((t) => <use href={`#${id}-e`} transform={`rotate(${f(t)} 500 500)`} />)}
+  </svg>
+  <svg class="seal-core" viewBox="0 0 1000 1000" focusable="false">
+    <circle class="ground" cx="500" cy="500" r="212" />
+    <path id={`${id}-i`} d={inner} />
+    {innerTurns.map((t) => <use href={`#${id}-i`} transform={`rotate(${f(t)} 500 500)`} />)}
+    <circle class="ground" cx="500" cy="500" r="150" />
+    <circle cx="500" cy="500" r="150" />
+    <circle cx="500" cy="500" r="143" />
+    <rect class="mark" x="456" y="456" width="88" height="88" />
+    <rect class="mark-sq" x="482" y="482" width="36" height="36" />
+  </svg>
+</div>

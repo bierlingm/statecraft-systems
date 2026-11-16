@@ -4,7 +4,7 @@ Website for [statecraft.systems](https://statecraft.systems). A static site buil
 
 ## Tech Stack
 
-- [Astro](https://astro.build/) v5 — static output; one small script (the Detail A reasoning toggle)
+- [Astro](https://astro.build/) v5 — static output; one small script (the Detail A reasoning toggle). All motion is CSS and is off under `prefers-reduced-motion`.
 - Newsreader + [Berkeley Mono](https://usgraphics.com/products/berkeley-mono)
 
 ## Setup
@@ -41,7 +41,7 @@ Serves the production build locally for review.
 
 | Path | File | Description |
 |------|------|-------------|
-| `/` | `src/pages/index.astro` | Home: headline, plates, Detail A, instruments |
+| `/` | `src/pages/index.astro` | Home: hero and seal, premise, work index with plate stage, thesis band, method, engagements, instruments, contact |
 | `/work`, `/work/:slug` | `src/pages/work/` | Plates (anonymized client work) from `src/data/work.ts` |
 | `/method` | `src/pages/method.astro` | How a build runs |
 | `/instruments` | `src/pages/instruments.astro` | spikes, werk |
@@ -58,6 +58,8 @@ Client rooms and demos under `public/` (`prosser/`, `cashclinic/`, `pnw/`, …) 
 - `src/components/Drawing.astro` — the line drawing for each plate.
 - `src/content/thesis.md` — thesis document
 - `src/content/brand.md` — brand voice and visual principles
+- `DESIGN-AMBITIOUS.md` — the three directions explored for the 2026-11 pass and the system that was built
+- `src/components/Seal.astro` — the engraved seal (hero and footer), generated from a few rotated SVG primitives
 
 ## Reference Vault
 

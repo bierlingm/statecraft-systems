@@ -11,6 +11,8 @@ export const SITE_DESCRIPTION =
 
 /** Date shown on the quick-answer blocks. Change it when a quick answer changes. */
 export const QUICK_ANSWER_DATE = '2026-10-27';
+/** Date of the last pass that changed what the main pages say (not only how they look). */
+export const REVISED = '2026-11-16';
 
 export interface PublicPage {
   path: string;
@@ -21,8 +23,8 @@ export interface PublicPage {
 }
 
 export const publicPages: PublicPage[] = [
-  { path: '/', title: 'Statecraft Systems', section: 'Main', updated: QUICK_ANSWER_DATE,
-    summary: 'The practice of Moritz Bierling. We build the working parts of small institutions: intake for a clinic, booking for a house, enquiries for a supplier.' },
+  { path: '/', title: 'Statecraft Systems', section: 'Main', updated: REVISED,
+    summary: 'The practice of Moritz Bierling. We build the working parts of small institutions: intake for a clinic, booking for a house, enquiries for a supplier. Built to be owned, understood and handed on.' },
   { path: '/work/', title: 'Work', section: 'Main', updated: QUICK_ANSWER_DATE,
     summary: "Recent builds by Statecraft Systems: booking, clinical intake, trade enquiries and a nonprofit's single ask." },
   ...plates.map((p): PublicPage => ({
@@ -38,8 +40,8 @@ export const publicPages: PublicPage[] = [
     summary: 'The Operative Instrument — a structural dynamics engine for the gap between desire and reality.' },
   { path: '/thesis/', title: 'Thesis', section: 'Main', updated: '2026-09-24',
     summary: 'The Statecraft thesis: good rule is the foundation of all human flourishing, and it endures only through structures worthy of it.' },
-  { path: '/contact/', title: 'Contact', section: 'Main', updated: QUICK_ANSWER_DATE,
-    summary: 'Write to Statecraft Systems. The reply comes from the person who would build it.' },
+  { path: '/contact/', title: 'Contact', section: 'Main', updated: REVISED,
+    summary: 'Write to Statecraft Systems. The reply comes from the person who would build it. Includes the five questions people ask first.' },
   { path: '/support/', title: 'Support', section: 'Details', updated: '2026-10-14',
     summary: 'How Statecraft Systems clients get help: contact, response times and billing.' },
   { path: '/terms/', title: 'Terms', section: 'Details', updated: '2026-10-14',

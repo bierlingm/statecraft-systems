@@ -8,15 +8,15 @@ interface Props {
 const { kind, label } = Astro.props;
 ---
 
-<svg class="drawing" role="img" aria-label={label} viewBox={kind === 'direct-booking' ? '0 0 700 380' : '0 0 360 220'} fill="none">
+<svg class:list={['drawing', { wide: kind === 'direct-booking' }]} role="img" aria-label={label} viewBox={kind === 'direct-booking' ? '0 0 700 390' : '0 0 360 220'} fill="none">
   {kind === 'direct-booking' && (
     <>
       <text x="0" y="84">listing site A</text>
       <text x="0" y="194">listing site B</text>
       <text x="0" y="304" class="t-ink">guest, direct</text>
-      <path d="M110 80 C200 80 200 130 280 130" />
-      <path d="M110 190 L280 190" />
-      <path class="a" d="M112 300 C200 300 200 250 280 250" />
+      <path d="M146 80 C220 80 215 130 280 130" />
+      <path d="M146 190 L280 190" />
+      <path class="a" d="M146 300 C220 300 215 250 280 250" />
       <rect x="280" y="60" width="300" height="260" />
       <path d="M323 60v260M366 60v260M409 60v260M452 60v260M495 60v260M538 60v260" />
       <path d="M280 112h300M280 164h300M280 216h300M280 268h300" />
@@ -25,7 +25,7 @@ const { kind, label } = Astro.props;
       <path d="M580 242 L640 242" stroke-dasharray="4 4" />
       <rect x="640" y="210" width="40" height="64" rx="7" />
       <path d="M652 262h16" />
-      <text x="690" y="300" text-anchor="end">owner, by text</text>
+      <text x="690" y="352" text-anchor="end">owner, by text</text>
     </>
   )}
   {kind === 'clinical-intake' && (

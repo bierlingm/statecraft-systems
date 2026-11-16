@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css';
+import Seal from '../components/Seal.astro';
 
 interface Props {
   title: string;
@@ -8,9 +9,11 @@ interface Props {
   footerEmail?: string;
   /** Structured data for this page. Must match what the page says. */
   jsonLd?: object;
+  /** Preload the italic face when the first screen uses it. */
+  italic?: boolean;
 }
 
-const { title, description, image, footerEmail = 'm@statecraft.systems', jsonLd } = Astro.props;
+const { title, description, image, footerEmail = 'm@statecraft.systems', jsonLd, italic = false } = Astro.props;
 
 const SITE = 'Statecraft Systems';
 const DEFAULT_DESCRIPTION = 'Statecraft Systems builds the working parts of small institutions: intake, booking, enquiries and the systems behind them.';
@@ -41,6 +44,7 @@ const isCurrent = (href: string) => (path === href || path.startsWith(href + '/'
     <link rel="canonical" href={canonicalUrl} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="preload" href="/fonts/newsreader-latin-opsz-normal.woff2" as="font" type="font/woff2" crossorigin />
+    {italic && <link rel="preload" href="/fonts/newsreader-latin-opsz-italic.woff2" as="font" type="font/woff2" crossorigin />}
 
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content={SITE} />
@@ -65,8 +69,8 @@ const isCurrent = (href: string) => (path === href || path.startsWith(href + '/'
     <header class="site-header">
       <div class="wrap">
         <a class="mark" href="/" aria-label="Statecraft Systems, home">
-          <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><rect x="0.5" y="0.5" width="15" height="15" fill="none" stroke="currentColor"></rect><rect class="sq" x="5" y="5" width="6" height="6"></rect></svg>
-          Statecraft Systems
+          <svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><rect x="0.5" y="0.5" width="17" height="17" fill="none" stroke="currentColor"></rect><rect class="sq" x="5.5" y="5.5" width="7" height="7"></rect></svg>
+          <span>Statecraft Systems</span>
         </a>
         <nav class="nav" aria-label="Main">
           {nav.map((item) => <a href={item.href} aria-current={isCurrent(item.href)}>{item.label}</a>)}
@@ -76,6 +80,7 @@ const isCurrent = (href: string) => (path === href || path.startsWith(href + '/'
           <summary>Menu</summary>
           <ul>
             {nav.map((item) => <li><a href={item.href} aria-current={isCurrent(item.href)}>{item.label}</a></li>)}
+            <li><a href="/contact">Contact</a></li>
             <li><a href="mailto:m@statecraft.systems">Write to us</a></li>
           </ul>
         </details>
@@ -87,16 +92,44 @@ const isCurrent = (href: string) => (path === href || path.startsWith(href + '/'
     </main>
 
     <footer class="site-footer">
-      <div class="wrap">
-        <span>Statecraft Systems LLC · A US company.</span>
-        <a href="/instruments">Instruments</a>
-        <a href="/operating-records">Operating records</a>
-        <a href="/privacy">Privacy</a>
-        <a href={`mailto:${footerEmail}`}>{footerEmail}</a>
-        <a href="https://moritzbierling.com" rel="noopener">moritzbierling.com</a>
+      <div class="wrap foot">
+        <div class="foot-id">
+          <Seal id="foot-seal" rim={false} />
+          <p>Statecraft Systems LLC<br />A US company.</p>
+          <p>The practice of <a href="https://moritzbierling.com" rel="noopener">Moritz Bierling</a>,<br />working from Barcelona.</p>
+        </div>
+        <nav aria-label="Practice">
+          <h2>Practice</h2>
+          <ul>
+            <li><a href="/work">Work</a></li>
+            <li><a href="/method">Method</a></li>
+            <li><a href="/thesis">Thesis</a></li>
+            <li><a href="/instruments">Instruments</a></li>
+            <li><a href="/operating-records">Operating records</a></li>
+          </ul>
+        </nav>
+        <nav aria-label="Details">
+          <h2>Details</h2>
+          <ul>
+            <li><a href="/contact">Contact</a></li>
+            <li><a href="/support">Support</a></li>
+            <li><a href="/terms">Terms</a></li>
+            <li><a href="/privacy">Privacy</a></li>
+          </ul>
+        </nav>
+        <div>
+          <h2>Write</h2>
+          <ul>
+            <li><a href={`mailto:${footerEmail}`}>{footerEmail}</a></li>
+            <li><a href="https://moritzbierling.com" rel="noopener">moritzbierling.com</a></li>
+          </ul>
+        </div>
+      </div>
+      <p class="wordmark" aria-hidden="true">Statecraft Systems</p>
+      <div class="wrap foot-base">
+        <span>© 2026 Statecraft Systems LLC</span>
         <span>Rev. 2026-11</span>
       </div>
     </footer>
-
   </body>
 </html>

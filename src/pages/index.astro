@@ -1,6 +1,9 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import PlateCard from '../components/PlateCard.astro';
+import Seal from '../components/Seal.astro';
+import Drawing from '../components/Drawing.astro';
+import ThesisBand from '../components/ThesisBand.astro';
+import ContactBlock from '../components/ContactBlock.astro';
 import QuickAnswer from '../components/QuickAnswer.astro';
 import { plates } from '../data/work';
 import { SITE_URL, SITE_DESCRIPTION } from '../data/site';
@@ -37,47 +40,160 @@ const jsonLd = {
   ],
 };
 
+const built = (p: (typeof plates)[number]) => p.facts.find(([k]) => k === 'Built')?.[1].split(',')[0] ?? '';
 ---
 
-<BaseLayout title="Statecraft Systems" jsonLd={jsonLd}>
-  <section class="wrap hero">
-    <h1>We build the <em>working parts</em> of small institutions.</h1>
-    <p class="lede">Intake for a clinic. Booking for a house. Enquiries for a supplier. Designed with the people who run the place, reviewed on the real thing, and built to keep working after we step back.</p>
-    <p class="practice">The practice of <a href="https://moritzbierling.com" rel="noopener">Moritz Bierling</a> · <a href="mailto:m@statecraft.systems">m@statecraft.systems</a></p>
-  </section>
-
-  <section class="wrap plates" aria-labelledby="plates-h">
-    <div class="section-head">
-      <h2 id="plates-h">Recent work</h2>
-      <span class="note">Clients are described, not named.</span>
-    </div>
-    <div class="plate-grid">
-      {plates.map((plate) => <PlateCard plate={plate} />)}
-    </div>
-    <a class="link-rule" href="/work">All work</a>
-  </section>
-
-  <section class="wrap how" aria-labelledby="how-h">
-    <div class="section-head">
-      <h2 id="how-h">How a build runs</h2>
-      <span class="note">A small site: one to three weeks, end to end.</span>
-    </div>
-    <ol class="how-steps">
-      <li><span class="num">01</span><h3>See what is there</h3><p>One conversation with the person who does the work.</p></li>
-      <li><span class="num">02</span><h3>Build, in rounds</h3><p>A working version at a real address. Notes land on the page they are about.</p></li>
-      <li><span class="num">03</span><h3>Launch</h3><p>Written down so that someone else could carry it.</p></li>
-      <li><span class="num">04</span><h3>Run it, or we do</h3><p>Take it over, or leave it with us and hear only when it matters.</p></li>
-    </ol>
-    <a class="link-rule" href="/method">More on the method</a>
-  </section>
-
-  <section class="contact">
+<BaseLayout title="Statecraft Systems" jsonLd={jsonLd} italic>
+  <section class="hero">
+    <Seal id="hero-seal" />
     <div class="wrap">
-      <p class="big">Describe what you need. The reply comes from the person who would build it.</p>
-      <a class="link-rule" href="mailto:m@statecraft.systems">m@statecraft.systems</a>
-      <QuickAnswer>
-        <p>Statecraft Systems is the practice of Moritz Bierling, run as Statecraft Systems LLC, a US company. It builds the working parts of small institutions, such as intake for a clinic, booking for a house and enquiries for a supplier, designed with the people who run the place and reviewed on the real thing.</p>
-      </QuickAnswer>
+      <h1 aria-label="We build the working parts of small institutions.">
+        <span class="rise" style="--i:0" aria-hidden="true"><span>We build the</span></span>
+        <span class="rise" style="--i:1" aria-hidden="true"><span><em>working parts</em> of</span></span>
+        <span class="rise" style="--i:2" aria-hidden="true"><span>small institutions.</span></span>
+      </h1>
+      <div>
+        <div class="hero-foot">
+          <p class="lede">Intake for a clinic. Booking for a house. Enquiries for a supplier. Designed with the people who run the place, reviewed on the real thing, and built to keep working after we step back.</p>
+          <div class="hero-actions">
+            <a class="btn" href="mailto:m@statecraft.systems">Describe what you need</a>
+            <a class="link-rule" href="/work">See the work</a>
+          </div>
+        </div>
+        <p class="hero-base">
+          <span>The practice of <a href="https://moritzbierling.com" rel="noopener">Moritz Bierling</a></span>
+          <span>Booking · Intake · Enquiries · Giving</span>
+          <span>Statecraft Systems LLC · A US company</span>
+        </p>
+      </div>
     </div>
   </section>
+
+  <section class="wrap section premise" aria-labelledby="premise-h">
+    <div class="sec-head reveal">
+      <p class="sec-label" id="premise-h"><span class="n">01</span> Premise</p>
+      <p class="statement">A small institution runs on a handful of working parts: how a request arrives, how a date is held, who hears about it and when. When those parts belong to someone else, so do the terms. We build them to be <em>owned, understood and handed on.</em></p>
+    </div>
+    <div class="body">
+      <ul class="tenets reveal">
+        <li>
+          <h3>Owned</h3>
+          <p>Your domains, content, data and accounts are yours, set up under an address you control, whether or not we stay involved.</p>
+        </li>
+        <li>
+          <h3>Reviewed on the real thing</h3>
+          <p>Every version is a working page at a private address. You point at what is wrong, and the next version says what changed.</p>
+        </li>
+        <li>
+          <h3>Made to be handed on</h3>
+          <p>Few, well-understood parts, written down so that someone else could carry them. A structure that depends on one person has not been finished.</p>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="wrap section" aria-labelledby="work-h">
+    <div class="sec-head reveal">
+      <p class="sec-label"><span class="n">02</span> Work</p>
+      <h2 id="work-h">Plates from recent builds.</h2>
+      <p class="note">Clients are described, not named.</p>
+    </div>
+    <div class="work-body">
+      <ol class="index">
+        {plates.map((plate) => (
+          <li>
+            <a href={`/work/${plate.slug}`}>
+              <span class="num">{plate.numeral}</span>
+              <span class="title">{plate.title}</span>
+              <span class="status">{plate.status} · {built(plate)}</span>
+              <span class="who">{plate.client}</span>
+              <figure>
+                <div class="plate-ground">
+                  <Drawing kind={plate.slug as any} label={`Drawing: ${plate.title.toLowerCase()}`} />
+                </div>
+                <figcaption>
+                  <span class="eyebrow accent">Plate {plate.numeral} · {plate.title}</span>
+                  <p>{plate.summary}</p>
+                </figcaption>
+              </figure>
+            </a>
+          </li>
+        ))}
+      </ol>
+    </div>
+    <div class="after"><a class="btn ghost" href="/work">All work</a></div>
+  </section>
+
+  <ThesisBand />
+
+  <section class="section band" aria-labelledby="how-h">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <p class="sec-label"><span class="n">03</span> Method</p>
+        <h2 id="how-h">You review the real thing, from the first week.</h2>
+      </div>
+      <ol class="how-steps reveal">
+        <li><span class="num">01</span><h3>See what is there</h3><p>One conversation with the person who does the work.</p></li>
+        <li><span class="num">02</span><h3>Build, in rounds</h3><p>A working version at a real address. Notes land on the page they are about.</p></li>
+        <li><span class="num">03</span><h3>Launch</h3><p>Written down so that someone else could carry it.</p></li>
+        <li><span class="num">04</span><h3>Run it, or we do</h3><p>Take it over, or leave it with us and hear only when it matters.</p><span class="tag">Your choice</span></li>
+        <li class="span-line" aria-label="Duration"><span>A small site: one to three weeks, end to end</span></li>
+      </ol>
+      <div class="after"><a class="btn ghost" href="/method">More on the method</a></div>
+    </div>
+  </section>
+
+  <section class="wrap section" aria-labelledby="ways-h">
+    <div class="sec-head reveal">
+      <p class="sec-label"><span class="n">04</span> Engagements</p>
+      <h2 id="ways-h">Three ways to work with us.</h2>
+    </div>
+    <ul class="ways">
+      <li class="reveal"><a class="row" href="/method">
+        <span class="n">A</span>
+        <h3>A build</h3>
+        <p>One working part, designed and built in rounds: a booking page, an intake, a request desk. A small site takes one to three weeks, end to end.</p>
+        <span class="go">Method</span>
+      </a></li>
+      <li class="reveal"><a class="row" href="/terms">
+        <span class="n">B</span>
+        <h3>Care</h3>
+        <p>After launch we can keep it running: online, secure and accurate, with small changes usually done within a few business days. Month to month.</p>
+        <span class="go">Terms</span>
+      </a></li>
+      <li class="reveal"><a class="row" href="mailto:m@statecraft.systems?subject=Working%20sessions">
+        <span class="n">C</span>
+        <h3>Working sessions</h3>
+        <p>For founders and their teams. We build real tools on your own devices and workflows, then teach you to extend them yourselves.</p>
+        <span class="go">Write to us</span>
+      </a></li>
+    </ul>
+  </section>
+
+  <section class="wrap section" aria-labelledby="inst-h">
+    <div class="sec-head reveal">
+      <p class="sec-label"><span class="n">05</span> Instruments</p>
+      <h2 id="inst-h">Tools we built for our own work, and publish.</h2>
+    </div>
+    <ul class="ways">
+      <li class="reveal"><a class="row" href="https://spikes.sh" rel="noopener">
+        <span class="n">01</span>
+        <h3 class="mono-name">spikes</h3>
+        <p>A reviewer clicks the thing they mean on the real page. The note reaches the build with the element, the page and the viewport attached. Open source.</p>
+        <span class="go out">spikes.sh</span>
+      </a></li>
+      <li class="reveal"><a class="row" href="/werk">
+        <span class="n">02</span>
+        <h3 class="mono-name">werk</h3>
+        <p>A terminal instrument for structural dynamics practice, after Robert Fritz. It holds what you want against what is true.</p>
+        <span class="go">Read</span>
+      </a></li>
+    </ul>
+  </section>
+
+  <ContactBlock>
+    <QuickAnswer>
+      <p>Statecraft Systems is the practice of Moritz Bierling, run as Statecraft Systems LLC, a US company. It builds the working parts of small institutions, such as intake for a clinic, booking for a house and enquiries for a supplier, designed with the people who run the place and reviewed on the real thing.</p>
+    </QuickAnswer>
+  </ContactBlock>
 </BaseLayout>

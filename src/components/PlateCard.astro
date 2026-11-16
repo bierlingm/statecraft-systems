@@ -4,27 +4,27 @@ import type { Plate } from '../data/work';
 
 interface Props {
   plate: Plate;
-  feature?: boolean;
+  flip?: boolean;
 }
-const { plate, feature = false } = Astro.props;
-const factKeys = ['Replaced', 'Built', 'Rounds', 'Status'];
+const { plate, flip = false } = Astro.props;
+const factKeys = ['Replaced', 'For', 'Built', 'Rounds', 'Parts'];
 ---
 
-<figure class:list={['plate', { feature }]}>
+<article class:list={['plate', 'reveal', { flip }]}>
   <a href={`/work/${plate.slug}`}>
     <div class="plate-ground">
       <Drawing kind={plate.slug as any} label={`Drawing: ${plate.title.toLowerCase()}`} />
     </div>
-    <figcaption class="caption">
-      <span class:list={['eyebrow', { accent: feature }]}>Plate {plate.numeral} · {plate.title}{!feature && ` · ${plate.status}`}</span>
-      <h3>{plate.summary}</h3>
-      {feature && (
-        <dl class="facts">
-          {plate.facts.filter(([k]) => factKeys.includes(k)).map(([k, v]) => (
-            <div><dt>{k}</dt><dd>{v}</dd></div>
-          ))}
-        </dl>
-      )}
-    </figcaption>
+    <div class="caption">
+      <span class="eyebrow accent">Plate {plate.numeral} · {plate.status}</span>
+      <h2>{plate.title}</h2>
+      <p class="sum">{plate.summary}</p>
+      <dl class="facts">
+        {plate.facts.filter(([k]) => factKeys.includes(k)).map(([k, v]) => (
+          <div><dt>{k}</dt><dd>{v}</dd></div>
+        ))}
+      </dl>
+      <span class="more">Read the plate</span>
+    </div>
   </a>
-</figure>
+</article>

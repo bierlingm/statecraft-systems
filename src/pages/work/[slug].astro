@@ -20,8 +20,8 @@ const { plate, prev, next } = Astro.props;
 ---
 
 <BaseLayout title={plate.title} description={plate.summary}>
-  <section class="wrap page-head">
-    <span class="eyebrow accent">Plate {plate.numeral} · {plate.status}</span>
+  <section class="wrap page-head plain">
+    <span class="eyebrow accent"><span>Plate {plate.numeral}</span><span>{plate.status}</span></span>
     <h1>{plate.title}</h1>
     <p class="lede">{plate.client}.</p>
   </section>
@@ -47,9 +47,13 @@ const { plate, prev, next } = Astro.props;
       </dl>
     </aside>
 
-    <nav class="pager" aria-label="More plates" style="grid-column: 1 / -1;">
-      {prev ? <a href={`/work/${prev.slug}`}>← Plate {prev.numeral} · {prev.title}</a> : <a href="/work">← All plates</a>}
-      {next ? <a href={`/work/${next.slug}`}>Plate {next.numeral} · {next.title} →</a> : <a href="/work">All plates →</a>}
+    <nav class="pager" aria-label="More plates">
+      {prev
+        ? <a href={`/work/${prev.slug}`}><span class="eyebrow">← Plate {prev.numeral}</span><span class="t">{prev.title}</span></a>
+        : <a href="/work"><span class="eyebrow">← Index</span><span class="t">All plates</span></a>}
+      {next
+        ? <a href={`/work/${next.slug}`}><span class="eyebrow">Plate {next.numeral} →</span><span class="t">{next.title}</span></a>
+        : <a href="/work"><span class="eyebrow">Index →</span><span class="t">All plates</span></a>}
     </nav>
   </article>
 

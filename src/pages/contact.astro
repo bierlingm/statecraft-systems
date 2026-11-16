@@ -1,26 +1,55 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import QuickAnswer from '../components/QuickAnswer.astro';
+import { SITE_URL } from '../data/site';
+
+// Each answer restates something said elsewhere on the site (method, terms, support).
+// The FAQPage data below is these questions and answers, word for word.
+const faq = [
+  { q: 'What should the first message say?', a: 'What happens now, what should happen, and who does the work today. A few sentences is enough.' },
+  { q: 'Who replies?', a: 'Moritz Bierling, the principal. The reply comes from the person who would build it.' },
+  { q: 'How long does a build take?', a: 'A small site takes one to three weeks, end to end. It runs in rounds, and you review a working version at a private address from the start.' },
+  { q: 'Who owns what is built?', a: 'You do: your domains, content, data and every account and listing set up for you, whether or not you stay on a plan.' },
+  { q: 'What happens after launch?', a: 'Everything is written down so that someone else could carry it. Take it over, or leave it with us on a monthly care plan that either side can end with 30 days’ written notice.' },
+];
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  url: `${SITE_URL}/contact/`,
+  mainEntity: faq.map(({ q, a }) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a } })),
+};
 ---
 
-<BaseLayout title="Contact" description="Write to Statecraft Systems. The reply comes from the person who would build it.">
+<BaseLayout jsonLd={jsonLd} title="Contact" description="Write to Statecraft Systems. The reply comes from the person who would build it.">
   <section class="wrap page-head">
-    <span class="eyebrow">Contact</span>
+    <span class="eyebrow"><span>Contact</span><span>m@statecraft.systems</span></span>
     <h1>Describe what you need.</h1>
     <p class="lede">What happens now, what should happen, and who does the work today. A few sentences is enough. The reply comes from the person who would build it.</p>
-    <a class="link-rule" style="font-size: 1.125rem; border-bottom-width: 2px;" href="mailto:m@statecraft.systems">m@statecraft.systems</a>
+    <a class="btn" href="mailto:m@statecraft.systems">m@statecraft.systems</a>
     <QuickAnswer>
       <p>Email <a href="mailto:m@statecraft.systems">m@statecraft.systems</a> with what happens now, what should happen, and who does the work today; a few sentences is enough. The reply comes from Moritz Bierling, the principal. Existing clients can find help on the <a href="/support/">support page</a>.</p>
     </QuickAnswer>
   </section>
 
-  <section class="wrap split" style="padding-top: 0;">
+  <section class="wrap split" aria-labelledby="before-h">
+    <div class="left">
+      <span class="eyebrow">Before you write</span>
+      <h2 id="before-h">Five things people ask first.</h2>
+    </div>
+    <dl class="right qa">
+      {faq.map(({ q, a }) => <div><dt><h3>{q}</h3></dt><dd>{a}</dd></div>)}
+    </dl>
+  </section>
+
+  <section class="wrap split" aria-labelledby="who-h">
     <div class="left">
       <span class="eyebrow">Who you will be writing to</span>
+      <h2 id="who-h">One person, who also does the work.</h2>
     </div>
     <div class="right ledger">
       <div><span class="name">Moritz Bierling</span><span class="meta">Principal</span><span class="desc"><a href="https://moritzbierling.com" rel="noopener" style="border-bottom: 1px solid var(--accent);">moritzbierling.com</a></span></div>
       <div><span class="name muted">Entity</span><span class="meta"></span><span class="desc">Statecraft Systems LLC · A US company.</span></div>
+      <div><span class="name muted">Clients</span><span class="meta"></span><span class="desc">Help with an existing site is on the <a href="/support/" style="border-bottom: 1px solid var(--accent);">support page</a>.</span></div>
     </div>
   </section>
 </BaseLayout>
