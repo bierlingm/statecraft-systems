@@ -1,6 +1,6 @@
 # Fruitful Beginnings — first preview
 
-A static preview for Laura Sabin’s licensed in-home day care. The words are draft copy, pending her approval. Pages are `noindex`. Nothing here states hours, rates, a street address, a phone number, or a license number, because those have not been provided.
+A static preview for Laura Sabin’s licensed in-home day care. The words are draft copy, pending her approval. Pages are `noindex`. Nothing here states hours, rates, a street address, a phone number, or a license number, because those have not been provided. Drawings of the orchard, the house, and a blueberry branch hold the places where photographs will go.
 
 ## Still needed from Laura
 
