@@ -35,7 +35,7 @@ test('status stays unready until LAURA_EMAIL and the email binding exist', async
   const body = await res.json();
   assert.equal(res.status, 200);
   assert.equal(body.ready, false);
-  assert.match(body.message, /being set up/i);
+  assert.match(body.message, /could not be sent just yet/i);
   assert.equal(JSON.stringify(body).includes('example.com'), false);
 });
 
@@ -47,7 +47,7 @@ test('a real submission is not sent when LAURA_EMAIL is unset', async () => {
   assert.equal(res.status, 200);
   assert.equal(body.ok, false);
   assert.equal(body.setup, true);
-  assert.match(body.message, /being set up/i);
+  assert.match(body.message, /could not be sent just yet/i);
   assert.equal(sent.length, 0);
 });
 
@@ -140,7 +140,7 @@ test('other origins are refused and a failed send is not reported as delivered',
   const body = await failed.json();
   assert.equal(failed.status, 502);
   assert.equal(body.ok, false);
-  assert.match(body.message, /Nothing was delivered/);
+  assert.match(body.message, /did not send/i);
 });
 
 test('a browser form post without JavaScript gets an HTML page', async () => {
@@ -152,6 +152,6 @@ test('a browser form post without JavaScript gets an HTML page', async () => {
   const html = await res.text();
   assert.match(res.headers.get('content-type'), /text\/html/);
   assert.match(html, /noindex/);
-  assert.match(html, /Forms are being set up/);
-  assert.match(html, /Back to the forms/);
+  assert.match(html, /could not be sent just yet/);
+  assert.match(html, />Back</);
 });

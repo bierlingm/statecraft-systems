@@ -15,7 +15,7 @@ Spam: a honeypot field named `website`. If it is filled, the response is `{ ok: 
 
 ## Recipient
 
-`LAURA_EMAIL` is a Worker secret, not a value in `wrangler.toml` and not in the pages. Until it is a real address, and until the `EMAIL` binding is present, both routes answer that **forms are being set up** and no message is sent.
+`LAURA_EMAIL` is a Worker secret, not a value in `wrangler.toml` and not in the pages. Until it is a real address, and until the `EMAIL` binding is present, a submission is not sent. The reply a parent sees is quiet: “Thank you. This could not be sent just yet. Please try again soon.”
 
 The sender is `Fruitful Beginnings <rooms@statecraft.systems>`, the same Email Sending sender already used by `prosserhorsehotel-mail` and `prosserhorsehotel-intake`. `replyTo` is the parent’s email as a plain string, so Laura can reply directly. The binding allowlist is `allowed_sender_addresses = ["rooms@statecraft.systems"]`.
 

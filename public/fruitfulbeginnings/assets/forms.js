@@ -9,11 +9,9 @@ async function refreshNotice() {
     const response = await fetch(STATUS, { headers: { Accept: "application/json" } });
     if (!response.ok) return;
     const data = await response.json();
-    if (data.ready) {
-      notice.innerHTML = "<p><strong>The forms are connected.</strong> A submission is emailed to Laura. Sending one does not hold or confirm a place.</p>";
-    }
+    if (data.ready) notice.replaceChildren();
   } catch {
-    /* The worker is not on this preview yet. The notice already says so. */
+    /* Mail is not connected on this preview. The page stays quiet. */
   }
 }
 
@@ -40,17 +38,17 @@ for (const form of document.querySelectorAll("form[data-mail]")) {
       let data = {};
       try { data = await response.json(); } catch { data = {}; }
       if (data.setup) {
-        showStatus(status, data.message || "Forms are being set up. Nothing was sent.");
+        showStatus(status, data.message || "Thank you. This couldn’t be sent just yet. Please try again soon.");
         return;
       }
       if (response.ok && data.ok) {
         form.reset();
-        showStatus(status, data.message || "Thank you. Your form was sent to Laura. It does not hold or confirm a place.");
+        showStatus(status, data.message || "Thank you. Laura will be in touch soon.");
         return;
       }
-      showStatus(status, data.message || "We couldn’t send this. Nothing was delivered. Please try again.");
+      showStatus(status, data.message || "This didn’t send. Please try again.");
     } catch {
-      showStatus(status, "We couldn’t reach the form. Nothing was sent. Your answers are still on this page.");
+      showStatus(status, "This didn’t send. Your answers are still here.");
     } finally {
       button.disabled = false;
     }

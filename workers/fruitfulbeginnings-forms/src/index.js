@@ -16,7 +16,7 @@ const ALLOWED = [
   /^http:\/\/127\.0\.0\.1(?::\d+)?$/,
 ];
 
-const SETUP_MESSAGE = 'Forms are being set up. Nothing was sent.';
+const SETUP_MESSAGE = 'Thank you. This could not be sent just yet. Please try again soon.';
 const FROM_NAME = 'Fruitful Beginnings';
 const DEFAULT_FROM = 'rooms@statecraft.systems';
 const MAX_BODY = 100_000;
@@ -93,7 +93,7 @@ function respond(req, origin, body, status) {
   if (wantsHtml(req)) {
     const title = body.setup ? 'Forms are being set up' : (body.ok ? 'Form received' : 'Form not sent');
     headers['Content-Type'] = 'text/html; charset=utf-8';
-    const page = `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>${esc(title)}</title></head><body style="font-family:Georgia,serif;background:#f4efe4;color:#241c16;margin:0;padding:3rem 1.25rem"><main style="max-width:36rem;margin:auto"><h1>${esc(title)}</h1><p>${esc(body.message || '')}</p><p><a href="/fruitfulbeginnings/enroll/">Back to the forms</a></p></main></body></html>`;
+    const page = `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>${esc(title)}</title></head><body style="font-family:Georgia,serif;background:#f4efe4;color:#241c16;margin:0;padding:3rem 1.25rem"><main style="max-width:36rem;margin:auto"><h1>${esc(title)}</h1><p>${esc(body.message || '')}</p><p><a href="/fruitfulbeginnings/enroll/">Back</a></p></main></body></html>`;
     return new Response(page, { status, headers });
   }
   headers['Content-Type'] = 'application/json; charset=utf-8';
@@ -178,7 +178,7 @@ function validate(fields) {
 
 function display(key, value) {
   if (key === 'potty_trained' || key === 'dcyf_interest') return value === 'yes' ? 'Yes' : 'No';
-  if (key === 'consent') return 'Yes. The sender confirmed the details are accurate to the best of their knowledge, and that sending the form does not hold or confirm a place.';
+  if (key === 'consent') return 'Yes. The sender confirmed what they wrote is true.';
   return value;
 }
 
@@ -193,17 +193,16 @@ function mailFor(form, values, id, at) {
   const who = values.parent_name;
   const subject = `Fruitful Beginnings ${form}: ${who}`.replace(/[\r\n]/g, ' ').slice(0, 150);
   const text = [
-    `New ${form} from the Fruitful Beginnings website.`,
+    `New ${form} for Fruitful Beginnings.`,
     `From: ${who}`,
     `Reference: ${id}`,
     `Received: ${at}`,
     '',
     ...rows.map(([label, value]) => `${label}:\n${value}`),
     '',
-    'Sending this form does not hold or confirm a place.',
-    'Fruitful Beginnings is licensed and DCYF approved. Qualified families may receive child care assistance. This form does not apply for that assistance and does not say whether a family qualifies.',
+    'Fruitful Beginnings is licensed and DCYF approved. Qualified families may receive help paying.',
   ].join('\n');
-  const html = `<p>New <b>${esc(form)}</b> from the Fruitful Beginnings website.</p><p>From: ${esc(who)}<br>Reference: ${esc(id)}<br>Received: ${esc(at)}</p><table style="border-collapse:collapse">${rows.map(([label, value]) => `<tr><td style="padding:6px 12px 6px 0;vertical-align:top;color:#555"><b>${esc(label)}</b></td><td style="padding:6px 0;white-space:pre-wrap">${esc(value)}</td></tr>`).join('')}</table><p>Sending this form does not hold or confirm a place.</p><p>Fruitful Beginnings is licensed and DCYF approved. Qualified families may receive child care assistance. This form does not apply for that assistance and does not say whether a family qualifies.</p>`;
+  const html = `<p>New <b>${esc(form)}</b> for Fruitful Beginnings.</p><p>From: ${esc(who)}<br>Reference: ${esc(id)}<br>Received: ${esc(at)}</p><table style="border-collapse:collapse">${rows.map(([label, value]) => `<tr><td style="padding:6px 12px 6px 0;vertical-align:top;color:#555"><b>${esc(label)}</b></td><td style="padding:6px 0;white-space:pre-wrap">${esc(value)}</td></tr>`).join('')}</table><p>Fruitful Beginnings is licensed and DCYF approved. Qualified families may receive help paying.</p>`;
   return { subject, text, html, replyTo: EMAIL_RE.test(values.email) ? values.email : '' };
 }
 
@@ -247,7 +246,7 @@ async function submit(req, env, origin) {
     return respond(req, origin, {
       ok: true,
       id,
-      message: 'Thank you. Your form was sent to Laura. It does not hold or confirm a place.',
+      message: 'Thank you. Laura will be in touch soon.',
     }, 201);
   } catch (error) {
     console.error(JSON.stringify({
@@ -260,7 +259,7 @@ async function submit(req, env, origin) {
     }));
     return respond(req, origin, {
       ok: false,
-      message: 'We could not send this just now. Nothing was delivered. Please try again later.',
+      message: 'This did not send. Please try again.',
     }, 502);
   }
 }
@@ -281,7 +280,7 @@ export default {
       return respond(req, origin, {
         ok: true,
         ready,
-        message: ready ? 'Forms are ready.' : 'Forms are being set up.',
+        message: ready ? 'Ready.' : SETUP_MESSAGE,
       }, 200);
     }
 
