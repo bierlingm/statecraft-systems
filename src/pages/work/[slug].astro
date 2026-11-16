@@ -48,11 +48,11 @@ const { plate, prev, next } = Astro.props;
 
     <nav class="pager" aria-label="More work">
       {prev
-        ? <a href={`/work/${prev.slug}`}><span class="t">← {prev.title}</span></a>
-        : <a href="/work"><span class="t">← All work</span></a>}
+        ? <a href={`/work/${prev.slug}`}><span class="t"><span class="arr back" aria-hidden="true"></span>{prev.title}</span></a>
+        : <a href="/work"><span class="t"><span class="arr back" aria-hidden="true"></span>All work</span></a>}
       {next
-        ? <a href={`/work/${next.slug}`}><span class="t">{next.title} →</span></a>
-        : <a href="/work"><span class="t">All work →</span></a>}
+        ? <a href={`/work/${next.slug}`}><span class="t">{next.title}<span class="arr" aria-hidden="true"></span></span></a>
+        : <a href="/work"><span class="t">All work<span class="arr" aria-hidden="true"></span></span></a>}
     </nav>
   </article>
 

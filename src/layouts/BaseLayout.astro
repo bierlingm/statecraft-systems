@@ -72,7 +72,7 @@ const isCurrent = (href: string) => (path === href || path.startsWith(href + '/'
         </a>
         <nav class="nav" aria-label="Main">
           {nav.map((item) => <a href={item.href} aria-current={isCurrent(item.href)}>{item.label}</a>)}
-          <a class="write" href="mailto:m@statecraft.systems">Write to us</a>
+          <a class="btn sm ghost" href="mailto:m@statecraft.systems">Write to us</a>
         </nav>
         <details class="menu">
           <summary>Menu</summary>

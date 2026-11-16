@@ -109,26 +109,49 @@ a:hover { color: var(--accent); }
 
 .wrap { width: 100%; max-width: var(--max); margin-inline: auto; padding-inline: var(--gutter); }
 
-.link-rule {
-  font-family: var(--mono); font-weight: 400; font-size: 0.8125rem; letter-spacing: 0.04em; text-transform: uppercase;
-  padding-bottom: 5px; align-self: flex-start;
-  background: linear-gradient(currentColor, currentColor) 0 100% / 100% 2px no-repeat;
-  transition: background-size 320ms var(--ease), color 160ms ease;
+/* ——— Actions ———
+ * Anything that acts speaks in the statement voice and carries the same arrow.
+ * Three forms: a block (.btn), an outline (.btn.ghost), a bare line (.link-rule).
+ * Pointed at, a block turns blue; on blue it turns black. */
+
+:root {
+  --arrow: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 18'%3E%3Cpath d='M0 9h27M18.5 1.4 27 9l-8.5 7.6' fill='none' stroke='%23000' stroke-width='3.4'/%3E%3C/svg%3E");
 }
-.link-rule:hover { background-size: 0 2px; background-position: 100% 100%; }
+.btn, .link-rule, .go, .more, .reason-toggle {
+  font-family: var(--sans); font-stretch: 62%; font-weight: 800; text-transform: uppercase; letter-spacing: 0.005em; line-height: 1;
+}
+.btn::after, .link-rule::after, .go::after, .more::after, .arr {
+  content: ''; flex: none; display: inline-block; width: 1.05em; height: 0.62em;
+  background: currentColor;
+  -webkit-mask: var(--arrow) center / contain no-repeat; mask: var(--arrow) center / contain no-repeat;
+  transition: transform 280ms var(--ease);
+}
+.arr.back { transform: scaleX(-1); }
 
 .btn {
-  display: inline-flex; align-items: center; gap: 14px;
-  min-height: 58px; padding: 0 28px;
-  font-family: var(--mono); font-weight: 400; font-size: 0.8125rem; letter-spacing: 0.04em; text-transform: uppercase;
+  display: inline-flex; align-items: center; gap: 0.7em;
+  min-height: 64px; padding: 10px 26px 10px 24px;
+  font-size: 1.625rem;
   background: var(--black); color: #fff; border: 2px solid var(--black);
   transition: background-color 180ms ease, color 180ms ease, border-color 180ms ease;
 }
-.btn::after { content: '→'; font-size: 1rem; transition: transform 260ms var(--ease); }
 .btn:hover { background: var(--blue); border-color: var(--blue); color: #fff; }
-.btn:hover::after { transform: translateX(5px); }
-.btn.ghost { background: transparent; color: var(--black); }
-.btn.ghost:hover { background: var(--black); border-color: var(--black); color: #fff; }
+.btn:hover::after, .link-rule:hover::after, a:hover .go::after, a:hover .more::after { transform: translateX(6px); }
+.btn.ghost { background: transparent; color: inherit; border-color: currentColor; }
+.btn.ghost:hover { background: var(--blue); border-color: var(--blue); color: #fff; }
+.btn.sm { min-height: 44px; padding: 4px 16px 4px 15px; font-size: 1.1875rem; }
+
+.link-rule, .go, .more {
+  display: inline-flex; align-items: center; gap: 0.6em; align-self: flex-start;
+  font-size: 1.375rem;
+}
+.link-rule {
+  height: 64px;
+  box-shadow: inset 0 -2px 0 currentColor;
+  transition: box-shadow 220ms var(--ease), color 160ms ease;
+}
+.link-rule:hover { box-shadow: inset 0 -6px 0 currentColor; }
+.page-head > .link-rule, .left > .link-rule { height: 44px; }
 
 /* On a colour field. */
 .field { background: var(--blue); color: #fff; --muted: rgb(255 255 255 / 0.74); --rule: rgb(255 255 255 / 0.3); --rule-2: rgb(255 255 255 / 0.3); --ink-2: #fff; --accent: #fff; }
@@ -136,7 +159,11 @@ a:hover { color: var(--accent); }
 .field ::selection, .ground ::selection { background: #fff; color: var(--black); }
 .field a:hover, .ground a:hover { color: inherit; }
 .field .btn, .ground .btn { background: #fff; color: var(--black); border-color: #fff; }
-.field .btn:hover, .ground .btn:hover { background: var(--signal); border-color: var(--signal); color: var(--black); }
+.field .btn:hover { background: var(--black); border-color: var(--black); color: #fff; }
+.ground .btn:hover { background: var(--blue); border-color: var(--blue); color: #fff; }
+.field .btn.ghost, .ground .btn.ghost { background: transparent; color: #fff; border-color: #fff; }
+.field .btn.ghost:hover { background: #fff; border-color: #fff; color: var(--blue); }
+.tone-field .site-header .btn.ghost:hover { background: #fff; border-color: #fff; color: var(--blue); }
 .field :focus-visible { outline-color: #fff; }
 
 /* ——— Header ——— */
@@ -150,18 +177,15 @@ a:hover { color: var(--accent); }
 .mark:hover .sq { transform: scale(1.7); }
 
 .nav { display: flex; align-items: center; gap: clamp(22px, 2.6vw, 40px); font-family: var(--mono); font-weight: 400; font-size: 0.75rem; letter-spacing: 0.06em; text-transform: uppercase; }
-.nav a:not(.write) {
+.nav a:not(.btn) {
   padding-block: 6px;
   background: linear-gradient(currentColor, currentColor) 0 100% / 0 2px no-repeat;
   transition: background-size 280ms var(--ease);
 }
 .nav a:hover { color: inherit; }
-.nav a:not(.write):hover, .nav a[aria-current='page'] { background-size: 100% 2px; }
-.nav .write { padding: 13px 20px; border: 2px solid currentColor; transition: background-color 180ms ease, color 180ms ease, border-color 180ms ease; }
-.nav .write:hover { background: var(--black); border-color: var(--black); color: #fff; }
+.nav a:not(.btn):hover, .nav a[aria-current='page'] { background-size: 100% 2px; }
 
 .tone-field .site-header { color: #fff; }
-.tone-field .nav .write:hover { background: #fff; border-color: #fff; color: var(--blue); }
 
 .menu { display: none; }
 @media (max-width: 860px) {
@@ -170,8 +194,8 @@ a:hover { color: var(--accent); }
   .menu { display: block; position: relative; }
   .menu summary {
     list-style: none; cursor: pointer;
-    font-family: var(--mono); font-weight: 400; font-size: 0.75rem; letter-spacing: 0.06em; text-transform: uppercase;
-    min-height: 44px; display: flex; align-items: center; padding: 0 16px; border: 2px solid currentColor;
+    font-stretch: 62%; font-weight: 800; font-size: 1.1875rem; text-transform: uppercase; line-height: 1;
+    height: 44px; display: flex; align-items: center; padding: 0 15px; border: 2px solid currentColor;
   }
   .menu summary::-webkit-details-marker { display: none; }
   .menu[open] summary { background: var(--black); border-color: var(--black); color: #fff; }
@@ -287,12 +311,10 @@ a:hover { color: var(--accent); }
 .scales .glyph .b { fill: var(--blue); transition: fill 220ms ease; }
 .scales h3 { font-stretch: 62%; font-weight: 800; text-transform: uppercase; font-size: var(--fs-m); line-height: 0.86; letter-spacing: -0.012em; }
 .scales p { font-size: 1.125rem; line-height: 1.45; color: var(--ink-2); transition: color 220ms ease; }
-.scales .go { margin-top: auto; padding-top: 12px; font-family: var(--mono); font-weight: 400; font-size: 0.75rem; letter-spacing: 0.06em; text-transform: uppercase; }
-.scales .go::after { content: ' →'; white-space: pre; display: inline-block; font-size: 0.9375rem; transition: transform 300ms var(--ease); }
+.scales .go { margin-top: auto; padding-top: 16px; }
 .scales a:hover { background: var(--blue); border-color: var(--blue); color: #fff; }
 .scales a:hover p { color: #fff; }
 .scales a:hover .glyph .b { fill: #fff; }
-.scales a:hover .go::after { transform: translateX(6px); }
 @media (max-width: 960px) {
   .scales { grid-template-columns: 1fr; }
   .scales a { min-height: 0; }
@@ -365,9 +387,7 @@ a:hover { color: var(--accent); }
 .plate p.sum { font-size: 1.125rem; line-height: 1.45; color: var(--ink-2); }
 .plate a:hover { color: inherit; }
 .plate a:hover .plate-ground { background: var(--black); }
-.plate .more { font-family: var(--mono); font-weight: 400; font-size: 0.75rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--blue); }
-.plate .more::after { content: ' →'; display: inline-block; white-space: pre; font-size: 0.9375rem; transition: transform 320ms var(--ease); }
-.plate a:hover .more::after { transform: translateX(6px); }
+.plate .more { color: var(--blue); }
 @media (max-width: 960px) {
   .plate .plate-ground, .plate .caption, .plate.flip .plate-ground, .plate.flip .caption { grid-column: 1 / -1; grid-row: auto; }
 }
@@ -381,13 +401,13 @@ a:hover { color: var(--accent); }
 .detail-head h2 { font-stretch: 62%; font-weight: 800; text-transform: uppercase; font-size: clamp(2.5rem, 5.6vw, 5.5rem); line-height: 0.88; letter-spacing: -0.012em; max-width: 16ch; text-wrap: balance; }
 
 .reason-toggle {
-  font-family: var(--mono); font-weight: 400; font-size: 0.75rem; letter-spacing: 0.06em; text-transform: uppercase;
-  min-height: 44px; padding: 0 16px;
+  font-size: 1.1875rem;
+  height: 44px; padding: 0 16px 0 14px;
   border: 2px solid var(--reason); background: transparent; color: var(--reason);
   display: inline-flex; align-items: center; gap: 10px; cursor: pointer;
-  transition: background-color 200ms ease, color 200ms ease;
+  transition: background-color 180ms ease, color 180ms ease;
 }
-.reason-toggle::before { content: ''; width: 8px; height: 8px; border-radius: 50%; border: 2px solid currentColor; }
+.reason-toggle::before { content: ''; width: 10px; height: 10px; border: 2px solid currentColor; }
 .reason-toggle[aria-pressed='true'] { background: var(--reason); color: #fff; }
 .reason-toggle[aria-pressed='true']::before { background: currentColor; }
 
@@ -550,7 +570,7 @@ a:hover { color: var(--accent); }
 .pager { grid-column: 1 / -1; display: grid; grid-template-columns: 1fr 1fr; column-gap: var(--col-gap); border-top: 2px solid var(--black); }
 .pager a { display: flex; flex-direction: column; padding-block: clamp(20px, 2.4vw, 36px) 8px; }
 .pager a:last-child { text-align: right; align-items: flex-end; }
-.pager .t { font-stretch: 62%; font-weight: 800; text-transform: uppercase; font-size: clamp(2rem, 4.4vw, 4.5rem); line-height: 0.88; }
+.pager .t { display: inline-flex; align-items: center; gap: 0.35em; font-stretch: 62%; font-weight: 800; text-transform: uppercase; font-size: clamp(2rem, 4.4vw, 4.5rem); line-height: 0.88; }
 @media (max-width: 560px) { .pager { grid-template-columns: 1fr; } .pager a:last-child { text-align: left; align-items: flex-start; border-top: 1px solid var(--rule); } }
 
 /* Thesis: ten propositions. */
@@ -600,7 +620,6 @@ a:hover { color: var(--accent); }
 .records-actions { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: 24px 40px; }
 .records-faq > h3:first-child { margin-top: 0; }
 .records-faq h3 { margin-top: 1.8em; }
-.records-faq .link-rule { font: inherit; text-transform: none; letter-spacing: 0; }
 @media (max-width: 860px) { .records-heading, .records-list { grid-column: 1 / -1; } }
 
 .qa { border-top: 2px solid var(--black); }

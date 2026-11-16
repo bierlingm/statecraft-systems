@@ -102,7 +102,8 @@ Structure is what remains. A page that argues this should itself be made of very
 ## The rules
 
 - **Three grounds.** Blue is where a claim is made. Bone is where it is reasoned and shown. Black is where the tension is.
-- **Two voices.** Statement (condensed, heavy capitals) and text. Berkeley Mono appears only on a control (navigation, a button) or a recorded fact (status, a facts ledger, a diagram label).
+- **Two voices.** Statement (condensed, heavy capitals) and text. Berkeley Mono appears only in the navigation and on a recorded fact (status, a facts ledger, a diagram label).
+- **Actions.** Anything that acts speaks in the statement voice and carries the same drawn arrow. Three forms: a block, an outline, a bare underlined line. Two heights, 64 and 44. Pointed at, a block turns blue; on blue it turns black.
 - **Three sizes of statement.** XL for the first and last screen, L for every section and page heading, M for the things inside a section.
 - **One signal.** Vermilion appears only on blue or black, and only where something is at stake: the full stop of the claim, the thing that advances, the full stop and the address of the invitation, the path that matters in a drawing. On bone the accent is blue. The mark in the header is the one exception.
 - **Three shapes.** Circle, square, triangle. Rules are two pixels.
