@@ -1,0 +1,7 @@
+# Room-level robots file for the Fruitful Beginnings preview.
+# Search engines read /robots.txt at the host root, not this path.
+# Every page in this folder also has <meta name="robots" content="noindex, nofollow">.
+# Later, public/robots.txt should disallow /fruitfulbeginnings the same way it disallows other rooms.
+
+User-agent: *
+Disallow: /fruitfulbeginnings/
