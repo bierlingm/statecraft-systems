@@ -25,7 +25,6 @@ const path = Astro.url.pathname.replace(/\/$/, '') || '/';
 const nav = [
   { href: '/work', label: 'Work' },
   { href: '/method', label: 'Method' },
-  { href: '/instruments', label: 'Instruments' },
   { href: '/thesis', label: 'Thesis' },
 ];
 const isCurrent = (href: string) => (path === href || path.startsWith(href + '/') ? 'page' : undefined);
@@ -71,13 +70,13 @@ const isCurrent = (href: string) => (path === href || path.startsWith(href + '/'
         </a>
         <nav class="nav" aria-label="Main">
           {nav.map((item) => <a href={item.href} aria-current={isCurrent(item.href)}>{item.label}</a>)}
-          <a class="write" href="/contact" aria-current={isCurrent('/contact')}>Write to us</a>
+          <a class="write" href="mailto:m@statecraft.systems">Write to us</a>
         </nav>
         <details class="menu">
           <summary>Menu</summary>
           <ul>
             {nav.map((item) => <li><a href={item.href} aria-current={isCurrent(item.href)}>{item.label}</a></li>)}
-            <li><a href="/contact">Write to us</a></li>
+            <li><a href="mailto:m@statecraft.systems">Write to us</a></li>
           </ul>
         </details>
       </div>
@@ -90,15 +89,14 @@ const isCurrent = (href: string) => (path === href || path.startsWith(href + '/'
     <footer class="site-footer">
       <div class="wrap">
         <span>Statecraft Systems LLC · A US company.</span>
+        <a href="/instruments">Instruments</a>
         <a href="/operating-records">Operating records</a>
         <a href="/privacy">Privacy</a>
         <a href={`mailto:${footerEmail}`}>{footerEmail}</a>
         <a href="https://moritzbierling.com" rel="noopener">moritzbierling.com</a>
-        <span>Rev. 2026-09</span>
+        <span>Rev. 2026-11</span>
       </div>
     </footer>
 
-    <!-- Spikes feedback widget · one project per site for unified inbox -->
-    <script is:inline src="https://spikes.sh/widget.js" data-project="statecraft-systems" data-endpoint="https://spikes.sh/spikes" data-position="bottom-right" data-color="#7a2418"></script>
   </body>
 </html>

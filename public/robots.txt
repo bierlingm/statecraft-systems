@@ -16,6 +16,7 @@ Disallow: /pnw
 Disallow: /runcible
 Disallow: /prosser
 Disallow: /prosserhorsehotel
+Disallow: /skyaccess
 Disallow: /api/
 
 User-agent: GPTBot
@@ -32,6 +33,7 @@ Disallow: /pnw
 Disallow: /runcible
 Disallow: /prosser
 Disallow: /prosserhorsehotel
+Disallow: /skyaccess
 Disallow: /api/
 
 Sitemap: https://statecraft.systems/sitemap.xml

@@ -38,3 +38,6 @@ public/yvs/
 
 # Local secrets for wrangler pages dev (never commit)
 .dev.vars
+
+# SkyAccess room: source is the private repo bierlingm/skyaccess; served by its own Worker, never committed here
+public/skyaccess/
