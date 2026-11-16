@@ -53,7 +53,7 @@ export const plates: Plate[] = [
   },
   {
     slug: 'clinical-intake',
-    figure: 'A patient, then an instrument that gathers, then the physician who decides.',
+    figure: 'A patient, then a fixed protocol that gathers, then the physician who decides.',
     numeral: 'II',
     title: 'Clinical intake',
     principle: 'The machine gathers. The physician decides.',

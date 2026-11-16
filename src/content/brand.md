@@ -6,11 +6,13 @@ How the site speaks and looks. Not published. If the site and this file disagree
 
 The site keeps what is sold apart from what is believed.
 
-**The offering.** Home, Work, each build, Method, Contact, Operating records, Support, Terms, Privacy. These say what Statecraft Systems builds, for whom, how a build runs and how to start. A competent reader should know within one screen whether to write. No philosophy is needed to follow them.
+A visitor arrives with one of two questions: "what can you do for me?" or "who are you, and why does this exist?". Each is answered in its own place, and the first never depends on the second.
 
-**The ideas.** Thesis and Disciplines. These say why the practice exists and where its reasoning comes from. They are for the reader who wants to go further, and they sell nothing.
+**The offering.** Home, Work, each build, Method, Contact, Operating records, Support, Terms, Privacy. These say what can be asked for, in plain nouns (a build, care, working sessions, a records review), with the proof and how a build runs. A competent reader should know within one screen whether to write. No philosophy is needed to follow them. The home headline is "The working parts."
 
-The rule: a page belongs to one kind. The home page carries one doorway to the ideas. Each ideas page ends on the same invitation as every other page. The headline "The craft of good rule" is the meaning of the name and is the only line of the thesis on the home page.
+**The practice.** Practice, Thesis, Disciplines. These are the company: what the name means, why it exists, the three scales it works at (person, institution, network), where its reasoning comes from, and who does the work. They sell nothing. "The craft of good rule" is the headline of the Practice page and appears nowhere on the offering pages.
+
+The rule: a page belongs to one kind. The navigation shows the two halves with a rule between them. The home page carries one doorway to the practice. The Practice page carries one doorway back to the offering. Every page ends on the same invitation.
 
 ## Voice
 
@@ -48,7 +50,7 @@ The full reasoning is in `DESIGN-AMBITIOUS.md`. The rules:
 - **One signal.** Vermilion `#ff4b1f`, only on blue or black, only where something is at stake. On bone the accent is blue. The header mark is the one exception.
 - **Two voices.** Archivo in heavy condensed capitals for statements, Archivo regular for reading. Berkeley Mono only in the navigation and on recorded facts (status, a facts ledger, a source, a diagram label).
 - **Three sizes of statement.** One for the first and last screen, one for section and page headings, one for things inside a section.
-- **Three shapes.** A circle is a person, a square is an institution or the thing that holds, a triangle is an instrument. Rules are two pixels.
+- **Three shapes.** A circle is a person, a square is an institution or the thing that holds, a triangle is a network. Rules are two pixels. Each thing on offer carries the shape of the scale it works at.
 - **Actions** speak in the statement voice and carry the same drawn arrow: a block, an outline, or an underlined line. What you point at turns blue; on blue it turns black.
 - **Nothing that only describes the page.** No eyebrows, section numbers, revision stamps or notes about what follows.
 - **Motion** is CSS only, slight, and off under reduced motion. The site works without JavaScript.

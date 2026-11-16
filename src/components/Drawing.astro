@@ -1,7 +1,7 @@
 ---
 // Figures for the plates. One grammar, the same as the rest of the site:
 // a circle is a person, a square is an institution or the thing that holds,
-// a triangle is an instrument. White on the field; vermilion for what the
+// a triangle is a network. White on the field; vermilion for what the
 // build is for. No labels: the caption beside it does the naming.
 interface Props {
   kind: 'direct-booking' | 'clinical-intake' | 'trade-enquiries' | 'one-page-one-ask';
@@ -29,8 +29,9 @@ const { kind, label } = Astro.props;
     <>
       <circle cx="92" cy="200" r="46" />
       <path d="M138 200H232" />
-      <path d="M232 118L374 200L232 282Z" />
-      <path class="a" d="M374 200H472" />
+      <rect x="232" y="130" width="140" height="140" />
+      <path d="M260 172H344M260 200H344M260 228H344" />
+      <path class="a" d="M372 200H472" />
       <circle class="fa" cx="536" cy="200" r="64" />
     </>
   )}

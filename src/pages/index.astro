@@ -4,8 +4,19 @@ import ContactBlock from '../components/ContactBlock.astro';
 import { plates } from '../data/work';
 import { SITE_URL, SITE_DESCRIPTION } from '../data/site';
 
-// The home page is the offering: what is built, for whom, the proof, how a build runs.
-// The ideas behind it live on /thesis and /disciplines and get one doorway here.
+// The home page is the offering: what can be asked for, the proof, how a build runs.
+// The company (name, scales, thesis, disciplines, who) lives under /practice and gets
+// one doorway here. Every fact in `offers` restates the method, terms or records page.
+const offers: { glyph: 'square' | 'circle'; name: string; text: string; fact: string; go: string; href: string }[] = [
+  { glyph: 'square', name: 'A build', href: '/work', go: 'See the work', fact: 'One to three weeks for a small site',
+    text: 'A working part of your institution: intake, booking, enquiries, a single page with one ask. You review a working version on the real page, in rounds. At launch the domains, content, data and accounts are yours.' },
+  { glyph: 'square', name: 'Care', href: '/terms', go: 'Read the terms', fact: 'Month to month',
+    text: 'After launch we keep it online, secure and working, make the small changes, and reply within two business days. You hear from us only when something needs you. Either side can end it with 30 days’ notice.' },
+  { glyph: 'circle', name: 'Working sessions', href: 'mailto:m@statecraft.systems?subject=Working%20sessions', go: 'Write to us', fact: 'By arrangement',
+    text: 'For a founder, an executive or a team. We build real tools on your own devices and workflows, then teach you to extend them. The capability stays with you.' },
+  { glyph: 'square', name: 'Records review', href: '/operating-records', go: 'Operating records', fact: 'Starts with 20 minutes',
+    text: 'For companies with mature internal documentation. We help you decide whether to license your operating records for AI training: what qualifies, what must stay private, and whether the terms make sense.' },
+];
 
 // Structured data: only what this page states (header, hero, footer, meta description).
 const jsonLd = {
@@ -43,9 +54,9 @@ const jsonLd = {
 <BaseLayout title="Statecraft Systems" jsonLd={jsonLd} tone="field">
   <section class="hero field">
     <div class="wrap">
-      <h1 aria-label="The craft of good rule.">
-        <span class="rise" style="--i:0" aria-hidden="true"><span>The craft</span></span>
-        <span class="rise" style="--i:1" aria-hidden="true"><span>of good rule<span class="stop">.</span></span></span>
+      <h1 aria-label="The working parts.">
+        <span class="rise" style="--i:0" aria-hidden="true"><span>The working</span></span>
+        <span class="rise" style="--i:1" aria-hidden="true"><span>parts<span class="stop">.</span></span></span>
       </h1>
       <div class="hero-foot">
         <p class="lede">We build the working parts of small institutions: intake for a clinic, booking for a house, enquiries for a supplier. Designed with the people who run the place, owned by them, and made to keep working after we step back.</p>
@@ -57,21 +68,20 @@ const jsonLd = {
     </div>
   </section>
 
-  <section class="wrap section" aria-labelledby="ways-h">
-    <h2 class="statement reveal" id="ways-h">Two ways to work.</h2>
-    <ul class="scales">
-      <li class="reveal"><a href="/work">
-        <span class="glyph" aria-hidden="true"><svg viewBox="0 0 100 100"><rect class="b" width="100" height="100" /></svg></span>
-        <h3>For an institution</h3>
-        <p>A clinic, a house, a supplier, a cause. We build its working parts: how a request arrives, how a date is held, who hears about it and when. Yours, written down, made to be handed on.</p>
-        <span class="go">See the work</span>
-      </a></li>
-      <li class="reveal"><a href="mailto:m@statecraft.systems?subject=Working%20sessions">
-        <span class="glyph" aria-hidden="true"><svg viewBox="0 0 100 100"><circle class="b" cx="50" cy="50" r="50" /></svg></span>
-        <h3>For a person</h3>
-        <p>A founder, an executive, a team. We build real tools on your own devices and workflows, then teach you to extend them. The capability stays with you.</p>
-        <span class="go">Write to us</span>
-      </a></li>
+  <section class="wrap section" id="offering" aria-labelledby="offer-h">
+    <h2 class="statement reveal" id="offer-h">What you can ask for.</h2>
+    <ul class="offers">
+      {offers.map((o) => (
+        <li><a href={o.href}>
+          <span class="glyph" aria-hidden="true">
+            <svg viewBox="0 0 100 100">{o.glyph === 'circle' ? <circle class="b" cx="50" cy="50" r="50" /> : <rect class="b" width="100" height="100" />}</svg>
+          </span>
+          <h3>{o.name}</h3>
+          <p>{o.text}</p>
+          <span class="fact">{o.fact}</span>
+          <span class="go">{o.go}</span>
+        </a></li>
+      ))}
     </ul>
   </section>
 
@@ -108,15 +118,11 @@ const jsonLd = {
   </section>
 
   <section class="wrap section" aria-labelledby="why-h">
-    <h2 class="statement reveal" id="why-h">The thinking behind it.</h2>
+    <h2 class="statement reveal" id="why-h">Who is behind it.</h2>
     <ul class="index">
-      <li><a href="/thesis">
-        <span class="title">Thesis</span>
-        <span class="who wide">Ten propositions on good rule, and what the name means.</span>
-      </a></li>
-      <li><a href="/disciplines">
-        <span class="title">Disciplines</span>
-        <span class="who wide">Structural dynamics, natural law, currency design, operative traditions.</span>
+      <li><a href="/practice">
+        <span class="title">The practice</span>
+        <span class="who wide">What the name means, the scales it works at, the thinking, and who does the work.</span>
       </a></li>
     </ul>
   </section>

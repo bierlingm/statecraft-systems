@@ -24,12 +24,16 @@ const canonicalUrl = new URL(Astro.url.pathname, SITE_URL).href;
 const ogImage = new URL(image || '/og-default.png', SITE_URL).href;
 
 const path = Astro.url.pathname.replace(/\/$/, '') || '/';
-const nav = [
+// Two halves. The offering: what can be asked for, the proof, how it runs.
+// The practice: the company, its thesis and its disciplines.
+const offering = [
   { href: '/work', label: 'Work' },
   { href: '/method', label: 'Method' },
-  { href: '/thesis', label: 'Thesis' },
 ];
-const isCurrent = (href: string) => (path === href || path.startsWith(href + '/') ? 'page' : undefined);
+const practice = { href: '/practice', label: 'Practice' };
+const under = (href: string) => path === href || path.startsWith(href + '/');
+const isCurrent = (href: string) => (under(href) ? 'page' : undefined);
+const inPractice = ['/practice', '/thesis', '/disciplines'].some(under) ? 'page' : undefined;
 ---
 
 <!DOCTYPE html>
@@ -71,13 +75,16 @@ const isCurrent = (href: string) => (path === href || path.startsWith(href + '/'
           <span>Statecraft Systems</span>
         </a>
         <nav class="nav" aria-label="Main">
-          {nav.map((item) => <a href={item.href} aria-current={isCurrent(item.href)}>{item.label}</a>)}
+          {offering.map((item) => <a href={item.href} aria-current={isCurrent(item.href)}>{item.label}</a>)}
+          <span class="sep" aria-hidden="true"></span>
+          <a href={practice.href} aria-current={inPractice}>{practice.label}</a>
           <a class="btn sm ghost" href="mailto:m@statecraft.systems">Write to us</a>
         </nav>
         <details class="menu">
           <summary>Menu</summary>
           <ul>
-            {nav.map((item) => <li><a href={item.href} aria-current={isCurrent(item.href)}>{item.label}</a></li>)}
+            {offering.map((item) => <li><a href={item.href} aria-current={isCurrent(item.href)}>{item.label}</a></li>)}
+            <li><a href={practice.href} aria-current={inPractice}>{practice.label}</a></li>
             <li><a href="/contact">Contact</a></li>
             <li><a href="mailto:m@statecraft.systems">Write to us</a></li>
           </ul>
@@ -96,10 +103,15 @@ const isCurrent = (href: string) => (path === href || path.startsWith(href + '/'
           <ul>
             <li><a href="/work">Work</a></li>
             <li><a href="/method">Method</a></li>
-            <li><a href="/thesis">Thesis</a></li>
-            <li><a href="/disciplines">Disciplines</a></li>
             <li><a href="/operating-records">Operating records</a></li>
             <li><a href="/contact">Contact</a></li>
+          </ul>
+          <ul>
+            <li><a href="/practice">Practice</a></li>
+            <li><a href="/thesis">Thesis</a></li>
+            <li><a href="/disciplines">Disciplines</a></li>
+          </ul>
+          <ul>
             <li><a href="/support">Support</a></li>
             <li><a href="/terms">Terms</a></li>
             <li><a href="/privacy">Privacy</a></li>

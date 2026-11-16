@@ -137,3 +137,15 @@ The home page had been carrying both what is sold and what is believed, and a vi
 - The headline "The craft of good rule" stays on the home page as the meaning of the name. The sentence under it is now the offering.
 - Black is now the one band per page that shows a process or a tension.
 - `src/content/brand.md` was rewritten to state this split and the Field system.
+
+## The offering and the practice
+
+Separating "ideas" from "offering" was not enough: the home page still opened on the company's reason for existing and organised the offering by a concept (scales). The perspective now:
+
+A visitor arrives with one of two questions, "what can you do for me?" or "who are you, and why does this exist?". Each gets its own place and its own register, and the first never depends on the second.
+
+- **The offering** is the home page. Headline: "The working parts." Then "What you can ask for." as four rows in plain nouns (a build, care, working sessions, a records review), each with what you get, one recorded fact and one action. Then the proof, how a build runs, one doorway to the practice, the invitation.
+- **The practice** is a new page at `/practice`. It opens on the blue field with "The craft of good rule." Then the name (State, Craft, Systems), "One craft, three scales." (person, institution, network), the thinking (thesis, disciplines), and who does the work.
+- **Navigation** shows the halves: Work, Method, a rule, Practice. The footer has three groups: offering, practice, details.
+- **Shapes.** The triangle now means a network. The clinical-intake figure was redrawn with a square for the protocol.
+- The method page headline is now "How a build runs."
