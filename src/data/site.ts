@@ -19,7 +19,7 @@ export interface PublicPage {
   title: string;
   summary: string;
   updated: string;
-  section: 'Main' | 'Work' | 'Instruments' | 'Details';
+  section: 'Main' | 'Work' | 'Details';
 }
 
 export const publicPages: PublicPage[] = [
@@ -34,14 +34,8 @@ export const publicPages: PublicPage[] = [
     summary: 'How a Statecraft Systems build runs: a working version first, review on the real page, and a launch someone else could carry.' },
   { path: '/operating-records/', title: 'Operating records', section: 'Main', updated: QUICK_ANSWER_DATE,
     summary: 'Decide whether to license your operating records for AI training, with an inventory, clear boundaries and redaction before delivery.' },
-  { path: '/instruments/', title: 'Instruments', section: 'Instruments', updated: QUICK_ANSWER_DATE,
-    summary: 'Tools Statecraft Systems built for its own work and publishes: spikes and werk.' },
-  { path: '/werk/', title: 'werk', section: 'Instruments', updated: '2026-09-24',
-    summary: 'The Operative Instrument — a structural dynamics engine for the gap between desire and reality.' },
   { path: '/thesis/', title: 'Thesis', section: 'Main', updated: REVISED,
-    summary: 'Ten propositions on good rule: it is scarce, it does not maintain itself, and it endures only through structures built to carry it.' },
-  { path: '/thesis/full/', title: 'Thesis, the long form', section: 'Main', updated: '2026-09-24',
-    summary: 'The Statecraft thesis in full: good rule is the foundation of all human flourishing, and it endures only through structures worthy of it.' },
+    summary: 'Ten propositions on good rule, and the four disciplines they rest on: structural dynamics (Robert Fritz), natural law (Curt Doolittle), currency design (Arthur Brock) and operative traditions (Miguel Angel Fernandez).' },
   { path: '/contact/', title: 'Contact', section: 'Main', updated: REVISED,
     summary: 'Write to Statecraft Systems. The reply comes from the person who would build it. Includes the five questions people ask first.' },
   { path: '/support/', title: 'Support', section: 'Details', updated: '2026-10-14',

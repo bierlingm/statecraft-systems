@@ -115,7 +115,7 @@ Structure is what remains. A page that argues this should itself be made of very
 2. **Name** (bone). State, Craft, Systems, each defined.
 3. **Reasons** (bone). Five propositions.
 4. **Tension** (black). Advance, or oscillate: the one moving figure on the site.
-5. **Practice** (bone). One craft at three scales, then the proof, small and real.
+5. **Practice** (bone). One craft at two scales (person, institution), then the proof, small and real.
 6. **Invitation** (blue). Begin with the state of affairs. One address.
 
 Blue opens and closes. Black sits at the hinge. The first and last screens are set the same way, so the page ends where it started, with a full stop in vermilion.
@@ -123,3 +123,7 @@ Blue opens and closes. Black sits at the hinge. The first and last screens are s
 ## What was removed
 
 Section numbers and labels, every eyebrow, the hero's base strip, "Rev." and the copyright line, footer column headings, plate numbering in headings, "Scale 1/2/3", the notes under section headings, the four-verbs section on the home page (the method page carries it), and the labelled, dated "Quick answer" boxes. The facts those boxes held now sit in the page ledes and in one plain statement in the footer.
+
+## Later the same day: a thesis that does not date
+
+The thesis page names no project or programme. The long form and its source text were removed (`/thesis/full` leads to `/thesis`). The four disciplines each get the same treatment: name, the person it comes from, one claim, what it says, and what it does in a build. The instruments page and the third scale on the home page were removed (`/instruments` leads to `/`).

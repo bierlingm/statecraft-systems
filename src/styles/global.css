@@ -299,7 +299,7 @@ a:hover { color: var(--accent); }
 
 /* ——— Scales ——— */
 
-.scales { list-style: none; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--col-gap); }
+.scales { list-style: none; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--col-gap); }
 .scales li { display: flex; }
 .scales a {
   flex: 1; display: flex; flex-direction: column; gap: 22px;
@@ -575,25 +575,22 @@ a:hover { color: var(--accent); }
 @media (max-width: 960px) {
   .theses .n, .theses h2, .theses p { grid-column: 1 / -1; }
 }
-.sources { padding-bottom: var(--section); }
-
-/* The long form. */
-.thesis { padding-bottom: var(--section); }
-.thesis .prose { font-size: clamp(1.125rem, 1.45vw, 1.3125rem); max-width: none; display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--col-gap); }
-.thesis .prose > * { grid-column: 4 / span 6; }
-.thesis .prose h2 {
-  grid-column: 1 / -1;
-  font-family: var(--sans); font-stretch: 62%; font-weight: 800; font-size: clamp(2rem, 3.4vw, 3.25rem); letter-spacing: 0; color: var(--blue);
-  line-height: 2.75rem; border-top: 2px solid var(--black); padding-top: 14px; margin-top: 3em; margin-bottom: -2.75rem;
+/* The disciplines: each one named, stated, explained, and shown in the work. */
+.disciplines { padding-bottom: var(--section); }
+.disc {
+  display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--col-gap); row-gap: 24px; align-items: start;
+  padding-block: clamp(32px, 4vw, 64px) clamp(48px, 6vw, 96px); border-top: 2px solid var(--black);
 }
-.thesis .prose h2 + * { margin-top: 0; padding-top: 22px; }
-.thesis .prose > h1 { display: none; }
-.thesis .prose > h1 + p { grid-column: 1 / -1; margin-top: 0; }
-.thesis .prose > h1 + p strong { display: block; font-weight: 700; font-stretch: 88%; font-size: clamp(1.75rem, 3.8vw, 3.5rem); line-height: 1.02; letter-spacing: -0.03em; max-width: 22ch; text-wrap: balance; padding-bottom: clamp(24px, 4vw, 56px); }
+.disc header { grid-column: 1 / span 6; display: flex; flex-direction: column; gap: 18px; }
+.disc h3 { font-stretch: 62%; font-weight: 800; text-transform: uppercase; font-size: clamp(2.75rem, 6vw, 6.5rem); line-height: 0.84; letter-spacing: -0.012em; max-width: 9ch; }
+.disc .by { font-family: var(--mono); font-weight: 400; font-size: 0.75rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); }
+.disc .text { grid-column: 7 / span 6; display: flex; flex-direction: column; gap: 20px; max-width: 36rem; }
+.disc .claim { font-size: clamp(1.5rem, 2.4vw, 2.25rem); line-height: 1.04; font-weight: 700; font-stretch: 88%; letter-spacing: -0.03em; text-wrap: balance; }
+.disc .text p:not(.claim) { font-size: clamp(1.125rem, 1.5vw, 1.375rem); line-height: 1.45; }
+.disc .text p.use { border-left: 6px solid var(--blue); padding-left: 20px; font-weight: 600; margin-top: 8px; }
 @media (max-width: 960px) {
-  .thesis .prose > * { grid-column: 1 / -1; }
-  .thesis .prose h2 { margin-bottom: 0; }
-  .thesis .prose h2 + * { padding-top: 0; margin-top: 0.6em; }
+  .disc header, .disc .text { grid-column: 1 / -1; }
+  .disc h3 { max-width: none; }
 }
 
 /* Operating records */

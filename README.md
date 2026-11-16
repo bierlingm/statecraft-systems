@@ -41,13 +41,13 @@ Serves the production build locally for review.
 
 | Path | File | Description |
 |------|------|-------------|
-| `/` | `src/pages/index.astro` | Home: hero, the name, five propositions, advance-or-oscillate figure, three scales, proof, method, contact |
+| `/` | `src/pages/index.astro` | Home: hero, the name, five propositions, advance-or-oscillate figure, two scales, proof, contact |
 | `/work`, `/work/:slug` | `src/pages/work/` | Plates (anonymized client work) from `src/data/work.ts` |
 | `/method` | `src/pages/method.astro` | How a build runs |
-| `/instruments` | `src/pages/instruments.astro` | spikes, werk |
-| `/werk` | `src/pages/werk.astro` | werk (linked from the werk repo; keep the URL) |
-| `/thesis` | `src/pages/thesis/index.astro` | Ten propositions, compressed from the thesis |
-| `/thesis/full` | `src/pages/thesis/full.astro` | Renders `src/content/thesis.md` (the long form) |
+| `/instruments` | redirect in `astro.config.mjs` | Removed; leads to `/` |
+| `/werk` | `src/pages/werk.astro` | werk. Not linked from the site or listed in llms.txt, feed or sitemap; kept only because the werk repo links to it |
+| `/thesis` | `src/pages/thesis/index.astro` | Ten propositions and four disciplines. Names no project or programme |
+| `/thesis/full` | redirect in `astro.config.mjs` | Removed; leads to `/thesis` |
 | `/contact` | `src/pages/contact.astro` | Contact |
 
 Old routes `/approach`, `/services`, `/about` redirect via `public/_redirects`.
@@ -57,7 +57,6 @@ Client rooms and demos under `public/` (`prosser/`, `cashclinic/`, `pnw/`, …) 
 
 - `src/data/work.ts` — the plates. Clients are described, not named; every claim must be defensible (see `brand.md`).
 - `src/components/Drawing.astro` — the line drawing for each plate.
-- `src/content/thesis.md` — thesis document
 - `src/content/brand.md` — brand voice and visual principles
 - `DESIGN-AMBITIOUS.md` — the three directions explored for the 2026-11 pass and the system that was built
 
