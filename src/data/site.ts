@@ -31,7 +31,7 @@ export const publicPages: PublicPage[] = [
     path: `/work/${p.slug}/`, title: p.title, section: 'Work', updated: '2026-09-24', summary: p.summary,
   })),
   { path: '/method/', title: 'Method', section: 'Main', updated: REVISED,
-    summary: 'How a Statecraft Systems build runs: one conversation, working versions reviewed in rounds, a written handover at launch, then the client or Statecraft Systems runs it.' },
+    summary: 'How a Statecraft Systems build runs, in four stages: one conversation; working versions reviewed in a private project room; launch on sign-off, with a written account of how it runs; then the client runs it or keeps a monthly care plan.' },
   { path: '/operating-records/', title: 'Operating records', section: 'Main', updated: QUICK_ANSWER_DATE,
     summary: 'Help for companies deciding whether to license their operating records for AI training: which records qualify, which must stay private, and what the terms mean.' },
   { path: '/practice/', title: 'Practice', section: 'Main', updated: REVISED,

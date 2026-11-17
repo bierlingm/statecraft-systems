@@ -1,32 +1,224 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import DetailA from '../components/DetailA.astro';
 import ContactBlock from '../components/ContactBlock.astro';
+
+// How a build runs, told as four stages. Each stage says what happens, what the
+// client has to do, and shows the document they see at that point.
+// The documents are shortened from the direct booking build's project room, with
+// names removed. Every other fact restates the terms page.
+
+const stages = [
+  { id: 'talk', n: '01', name: 'Talk' },
+  { id: 'build', n: '02', name: 'Build' },
+  { id: 'launch', n: '03', name: 'Launch' },
+  { id: 'run', n: '04', name: 'Run' },
+];
+
+// Direct booking, 7 to 28 September 2026: nine reviewed versions, then the launch.
+const versions: [string, number, string][] = [
+  ['v0.1', 7, 'Concept only, with stand-in photographs and provisional facts.'],
+  ['v0.2', 11, 'The real house, from the photographs on its listing.'],
+  ['v0.3', 11, 'Text made more specific. The project room opens.'],
+  ['v0.4', 14, 'Booking added: both listing calendars, then request, quote and payment.'],
+  ['v0.5', 14, 'Renamed. The owners’ comments are applied, and requests go to both of them.'],
+  ['v0.6', 15, 'Guests can pick dates on the home page.'],
+  ['v0.7', 18, 'An owner’s own photograph and payment link.'],
+  ['v0.8', 21, 'The owners’ answers of 20 September, applied.'],
+  ['v0.9', 22, 'Ready to launch, with live calendars from the listing sites.'],
+  ['v1.0', 28, 'Launched.'],
+];
+const first = 7;
+const last = 28;
+const shipped = new Set(versions.map(([, day]) => day));
+const days = Array.from({ length: last - first + 1 }, (_, i) => first + i);
+
+const decisions: [string, string, string][] = [
+  ['20 Sep', 'Texts to the owners', 'Yes, from launch.'],
+  ['26 Sep', 'How long a hold lasts', 'Two days. Unpaid dates then go back on sale by themselves.'],
+  ['26 Sep', 'Card payments', 'Not for now. We ask again after a few bookings.'],
+];
+
+const runs: ['auto' | 'you', string, string][] = [
+  ['auto', 'A guest asks', 'Both owners get an email and a text with the dates and the party size. The page behind it checks every calendar for a clash and works out the price.'],
+  ['you', 'An owner accepts', 'The dates are held for two days and come off every calendar. The guest is sent the price.'],
+  ['you', 'An owner confirms the payment', 'The booking is final. If no payment arrives, the guest is reminded, and then the dates go back on sale.'],
+  ['auto', 'The stay', 'The guest hears four times: a week before, on the morning of arrival, on the morning of checkout and the day after.'],
+  ['auto', 'Nobody answers', 'Both owners are texted again after 12 hours. After a day the request comes to us as well.'],
+];
+
+const care: [string, string][] = [
+  ['Term', 'Month to month.'],
+  ['Covers', 'Keeping the site online and secure, updates and fixes, and small changes.'],
+  ['Reply', 'Within two business days.'],
+  ['Site down', 'The same or the next business day.'],
+  ['Cancel', '30 days’ written notice, from either side.'],
+  ['You own', 'The domain, content, data and every account, on the plan or off it.'],
+];
+
+const paying: [string, string, string][] = [
+  ['The build', 'Once', 'The build has a one-time fee. It is in the proposal, so you know it before you accept.'],
+  ['Care', 'Monthly', 'The care plan is optional. Its fee is in the proposal too, and it does not change without 30 days’ written notice.'],
+  ['Domains and tools', 'At cost', 'These are passed through at cost, with the receipt. Any new cost over $25 needs your OK first.'],
+  ['Larger work', 'Quoted first', 'New features, redesigns and other larger work get a short written quote. Nothing is charged until you approve it.'],
+  ['Payment', 'By card', 'You pay through a Stripe checkout and get a receipt for every charge.'],
+];
 ---
 
-<BaseLayout title="Method" description="How a Statecraft Systems build runs: one conversation, working versions reviewed in rounds, a written handover at launch, then you or we run it.">
-  <section class="wrap page-head">
-    <h1>How a build runs.</h1>
-    <p class="lede">A build starts with a conversation with the person who does the work now. After that it goes in rounds. Each round you get a working version at a private address, open it on your phone and leave comments on the page. At launch we write down how everything works, and you either run it yourself or have Statecraft Systems run it on a monthly plan. A small site takes one to three weeks.</p>
+<BaseLayout title="Method" description="How a Statecraft Systems build runs: one conversation, then a project room where you review each working version, a written account of how it runs at launch, and an optional monthly care plan." tone="ground">
+  <section class="hero ground">
+    <div class="wrap">
+      <h1 aria-label="How a build runs.">
+        <span class="rise" style="--i:0" aria-hidden="true"><span>How a build</span></span>
+        <span class="rise" style="--i:1" aria-hidden="true"><span>runs<span class="stop">.</span></span></span>
+      </h1>
+      <div class="hero-foot">
+        <p class="lede">A build starts with one conversation. The rest happens in a project room, a private page that opens on your phone, where you review each working version, answer our questions and find a record of every decision.</p>
+        <nav class="hero-actions stage-nav" aria-label="Stages">
+          {stages.map((s) => <a href={`#${s.id}`}><span>{s.n}</span>{s.name}</a>)}
+        </nav>
+      </div>
+    </div>
   </section>
 
-  <DetailA heading="Four steps. The second one repeats." />
+  <div class="wrap stages">
+    <section class="stage" id="talk" aria-labelledby="talk-h">
+      <h2 id="talk-h"><span class="n">01</span>Talk</h2>
+      <div class="say">
+        <p class="lead">We start with one conversation with the person who does the work now.</p>
+        <p>We ask what happens now, what should happen instead and who does the work today. The difference between the first two answers is what we build. We ask for the person who does the work because they know where it goes wrong.</p>
+        <div class="part">
+          <b>Your part</b>
+          <p>You talk to us once. If someone else does the work day to day, bring them.</p>
+        </div>
+      </div>
+      <div class="show">
+        <figure class="sheet ask reveal">
+          <figcaption><span>First conversation</span><span>Three questions</span></figcaption>
+          <ol>
+            <li><span class="k">1</span><span class="v">What happens now?</span></li>
+            <li><span class="k">2</span><span class="v">What should happen instead?</span></li>
+            <li><span class="k">3</span><span class="v">Who does the work today?</span></li>
+          </ol>
+        </figure>
+      </div>
+    </section>
 
-  <section class="wrap split">
+    <section class="stage" id="build" aria-labelledby="build-h">
+      <h2 id="build-h"><span class="n">02</span>Build</h2>
+      <div class="say">
+        <p class="lead">You review working versions in a project room until one is ready to launch. A small site takes one to three weeks.</p>
+        <p>The project room is a private page that holds the current draft, the proposal and our questions. The proposal names the work and a one-time fee. You accept it and pay by card on the same page.</p>
+        <p>The first draft is rough. In the build shown here, version 0.1 used stand-in photographs and provisional facts. To change something, you open the draft, tap the comment button and tap the part you mean.</p>
+        <p>Most of our questions have answers to tap. You can leave any of them for later, and what you enter is saved as you go.</p>
+        <p>Every version is dated and says what changed. Each answer you give is listed with what we did about it.</p>
+        <div class="part">
+          <b>Your part</b>
+          <p>You comment on each version and answer the questions you can. All of it works on a phone.</p>
+        </div>
+      </div>
+      <div class="show">
+        <figure class="sheet versions reveal">
+          <figcaption><span>Project room · Versions</span><span>Direct booking, 2026</span></figcaption>
+          <div class="days" aria-hidden="true">
+            <div class="cells">
+              {days.map((d) => <i class:list={{ on: shipped.has(d), live: d === last }}></i>)}
+            </div>
+            <p><span>7 Sep</span><span>28 Sep</span></p>
+          </div>
+          <ol>
+            {versions.map(([v, day, what]) => (
+              <li class:list={{ done: v === 'v1.0' }}>
+                <span class="k">{v}</span>
+                <span class="k">{day} Sep</span>
+                <span class="v">{what}</span>
+              </li>
+            ))}
+          </ol>
+          <p class="foot"><span>Nine reviewed versions and the launch, in 22 days.</span><a href="/work/direct-booking">See the build</a></p>
+        </figure>
+        <figure class="sheet decisions reveal">
+          <figcaption><span>Project room · Your answers</span><span>How we applied them</span></figcaption>
+          <ul>
+            {decisions.map(([date, asked, done]) => (
+              <li>
+                <span class="k">{date}</span>
+                <span class="v"><b>{asked}</b>{done}</span>
+              </li>
+            ))}
+          </ul>
+        </figure>
+      </div>
+    </section>
+
+    <section class="stage" id="launch" aria-labelledby="launch-h">
+      <h2 id="launch-h"><span class="n">03</span>Launch</h2>
+      <div class="say">
+        <p class="lead">The site goes live when you sign off on a version.</p>
+        <p>Accounts and listings are set up under an email address you control, with us added as a manager. Where we need access to an account you already have, you invite us and keep the password to yourself. You get a record of each account with its login email, renewal date and cost.</p>
+        <p>If we register a domain for you, we hold it for you and help you move it to an account in your own name when you ask.</p>
+        <p>At launch the project room becomes a written account of how everything runs. It says what happens by itself, which steps are yours and whom to tell when something should change.</p>
+        <div class="part">
+          <b>Your part</b>
+          <p>You sign off on the version you want live.</p>
+        </div>
+      </div>
+      <div class="show">
+        <figure class="sheet runs reveal">
+          <figcaption><span>Project room · How it runs</span><span>Direct booking, shortened</span></figcaption>
+          <ol>
+            {runs.map(([who, step, what]) => (
+              <li>
+                <span class:list={['k', who]}>{who === 'you' ? 'Owner, one tap' : 'By itself'}</span>
+                <span class="v"><b>{step}</b>{what}</span>
+              </li>
+            ))}
+          </ol>
+          <p class="foot"><span>Two steps in a booking need an owner. Each is one tap on a phone.</span></p>
+        </figure>
+      </div>
+    </section>
+
+    <section class="stage" id="run" aria-labelledby="run-h">
+      <h2 id="run-h"><span class="n">04</span>Run</h2>
+      <div class="say">
+        <p class="lead">After launch you run it yourself, or we run it on a monthly care plan.</p>
+        <p>To run it yourself you need the written account from launch and the record of your accounts, and you have both.</p>
+        <p>On the care plan we keep the site working and make the small changes that come up, such as a new rate, new photos or different hours.</p>
+        <div class="part">
+          <b>Your part</b>
+          <p>On the plan, you tell us when something should change. An email or a text is enough.</p>
+        </div>
+      </div>
+      <div class="show">
+        <figure class="sheet terms reveal">
+          <figcaption><span>Care plan</span><span>From the terms</span></figcaption>
+          <dl>
+            {care.map(([k, v]) => (
+              <div><dt class="k">{k}</dt><dd class="v">{v}</dd></div>
+            ))}
+          </dl>
+        </figure>
+      </div>
+    </section>
+  </div>
+
+  <section class="band" aria-labelledby="pay-h">
+  <div class="wrap split">
     <div class="left">
-      <h2>In more detail.</h2>
+      <h2 id="pay-h">What you pay for.</h2>
     </div>
-    <div class="right prose">
-      <h2>A working version first</h2>
-      <p>We do not send a proposal or a mock-up. The first thing you get is a working version, usually a rough one, because it is easier to say what is wrong with something you can use.</p>
-      <h2>Review on the page</h2>
-      <p>Each version has a private address that opens on your phone. You tap the thing you want changed and write a note, and the note reaches us attached to that part of the page.</p>
-      <p>When we need a decision from you, we send a question with answers to tap. The next version includes your answers and a list of what changed.</p>
-      <h2>Few parts</h2>
-      <p>A site is made of pages, a few small functions, an inbox for requests, and alerts with fixed wording. One person can maintain it.</p>
-      <h2>After launch</h2>
-      <p>We write down how everything works and where each account lives. From there you can run it yourself, or keep us on a monthly care plan.</p>
+    <div class="right">
+      <div class="ledger">
+        {paying.map(([name, meta, desc]) => (
+          <div><span class="name">{name}</span><span class="meta">{meta}</span><span class="desc">{desc}</span></div>
+        ))}
+      </div>
+      <div class="after">
+        <a class="btn ghost" href="/terms">Read the terms</a>
+        <a class="link-rule" href="/work">Recent work</a>
+      </div>
     </div>
+  </div>
   </section>
 
   <ContactBlock />

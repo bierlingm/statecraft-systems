@@ -149,3 +149,15 @@ A visitor arrives with one of two questions, "what can you do for me?" or "who a
 - **Navigation** shows the halves: Work, Method, a rule, Practice. The footer has three groups: offering, practice, details.
 - **Shapes.** The triangle now means a network. The clinical-intake figure was redrawn with a square for the protocol.
 - The method page headline is now "How a build runs."
+
+## The method page, rebuilt
+
+The old page said the same thing three times (a paragraph, a diagram, a longer paragraph) and the home page said it a fourth time. It also said "we do not send a proposal", which the terms contradict.
+
+The perspective: someone reading this page already knows what we build and is asking what they are getting into. They want the order of events, what they have to do, how they will see progress, when they pay and what they hold at the end. The one thing that is particular to how builds run here is the project room, so the page is told through it.
+
+- **Opens on black**, continuing the black "How a build runs." strip on the home page. The four stage names in the hero are jump links.
+- **Four stages** (Talk, Build, Launch, Run), the same four as the home page. Each has one sentence that says what happens, a few plain paragraphs, and a marked line for the client's part.
+- **Each stage shows the document the client sees at that point**, set as a "sheet": the three questions of the first conversation; the dated version list of the direct booking build with a 22-day strip above it; three decisions and how they were applied; the "how it runs" account, with a blue circle for the two steps an owner takes and a black square for what runs by itself; the care plan as stated in the terms.
+- **"What you pay for."** on the darker bone: five rows that restate the terms. No prices.
+- The Detail A drawing, its "show the reasoning" toggle and the site's only script are removed.

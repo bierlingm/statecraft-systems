@@ -4,7 +4,7 @@ Website for [statecraft.systems](https://statecraft.systems). A static site buil
 
 ## Tech Stack
 
-- [Astro](https://astro.build/) v5 — static output; one small script (the Detail A reasoning toggle). All motion is CSS and is off under `prefers-reduced-motion`.
+- [Astro](https://astro.build/) v5 — static output; no client script. All motion is CSS and is off under `prefers-reduced-motion`.
 - Archivo (variable width and weight, OFL) + [Berkeley Mono](https://usgraphics.com/products/berkeley-mono)
 
 ## Setup

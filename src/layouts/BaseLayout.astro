@@ -8,8 +8,8 @@ interface Props {
   footerEmail?: string;
   /** Structured data for this page. Must match what the page says. */
   jsonLd?: object;
-  /** 'field' when the page opens on the blue field: the header sits on it. */
-  tone?: 'bone' | 'field';
+  /** 'field' when the page opens on the blue field, 'ground' on the black: the header sits on it. */
+  tone?: 'bone' | 'field' | 'ground';
 }
 
 const { title, description, image, footerEmail = 'm@statecraft.systems', jsonLd, tone = 'bone' } = Astro.props;
@@ -43,7 +43,7 @@ const inPractice = ['/practice', '/thesis', '/disciplines'].some(under) ? 'page'
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{pageTitle}</title>
     <meta name="description" content={metaDescription} />
-    <meta name="theme-color" content={tone === 'field' ? '#1029c4' : '#f1f0ea'} />
+    <meta name="theme-color" content={tone === 'field' ? '#1029c4' : tone === 'ground' ? '#09090d' : '#f1f0ea'} />
     <link rel="canonical" href={canonicalUrl} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="preload" href="/fonts/archivo-latin-wdth-wght.woff2" as="font" type="font/woff2" crossorigin />
