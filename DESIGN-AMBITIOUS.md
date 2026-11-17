@@ -161,3 +161,16 @@ The perspective: someone reading this page already knows what we build and is as
 - **Each stage shows the document the client sees at that point**, set as a "sheet": the three questions of the first conversation; the dated version list of the direct booking build with a 22-day strip above it; three decisions and how they were applied; the "how it runs" account, with a blue circle for the two steps an owner takes and a black square for what runs by itself; the care plan as stated in the terms.
 - **"What you pay for."** on the darker bone: five rows that restate the terms. No prices.
 - The Detail A drawing, its "show the reasoning" toggle and the site's only script are removed.
+
+## The disciplines, built out
+
+The old page gave each discipline two paragraphs and one line about our use. That was enough to credit a source and too little to learn anything from, and it described two of the four inaccurately.
+
+The perspective: a reader of these pages wants to know where the reasoning comes from and whether the people citing it have read it. So each discipline gets a page that can be checked. It says who worked the idea out, states the ideas in the source's own terms with exact quotations linked to the page they come from, shows one place in our work where the idea is visible, and says where our use stops.
+
+- **Index** (`/disciplines`): four plates on the black ground, the counterpart of the blue plates on the Work page. Each carries a figure, the name, the person, the question the discipline puts to a piece of work, and a summary. Below, on the darker bone, one row per discipline with where it shows in a build and which propositions of the thesis rest on it.
+- **One page each** (`/disciplines/:slug`), all with the same five parts: a head with a facts ledger; one figure on the black band with a legend; "What it says." as terms, each with a quotation; "How we use it." beside a sheet taken from the work; "Where our use stops." and "Sources."; then a pager to the next discipline.
+- **Figures**, in the shape grammar: two lines for oscillation and advance; a claim passing six gates; a flow between two people and the cell where it is entered; a person, a thing, and the arrow that returns from the thing to the person. The same drawings appear small on the index.
+- **Sheets** tie each discipline to something real: the direct booking build set out as Fritz's structural tension chart; six lines of our terms written as actions; the booking calendar read through Brock's design decisions; the client's part at each stage of a build.
+- **The thesis** now shows, under each proposition, the discipline it draws on, and each discipline page links back to its propositions.
+- Content lives in `src/data/disciplines.ts`. The rules for it are at the top of that file and in `src/content/brand.md`.

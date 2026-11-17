@@ -48,7 +48,8 @@ Serves the production build locally for review.
 | `/werk` | `src/pages/werk.astro` | werk. Not linked from the site or listed in llms.txt, feed or sitemap; kept only because the werk repo links to it |
 | `/practice` | `src/pages/practice.astro` | The company: the craft of good rule, the name, three scales (person, institution, network), who |
 | `/thesis` | `src/pages/thesis/index.astro` | Ten propositions. Names no project or programme |
-| `/disciplines` | `src/pages/disciplines.astro` | Four disciplines, each credited and linked to its source, with the advance-or-oscillate figure |
+| `/disciplines` | `src/pages/disciplines/index.astro` | The four disciplines as plates, and what each is used for |
+| `/disciplines/:slug` | `src/pages/disciplines/[slug].astro`, `src/data/disciplines.ts` | One discipline: who worked it out, a figure, what it says with checked quotations, how we use it, where our use stops, sources |
 | `/thesis/full` | redirect in `astro.config.mjs` | Removed; leads to `/thesis` |
 | `/contact` | `src/pages/contact.astro` | Contact |
 

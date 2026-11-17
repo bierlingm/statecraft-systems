@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import ContactBlock from '../../components/ContactBlock.astro';
+import { disciplines } from '../../data/disciplines';
 
 // The thesis: ten propositions.
 // It names no project or programme, so it does not date when those change.
@@ -45,6 +46,8 @@ const theses: { n: string; title: string; body: string[] }[] = [
     'Ours is young.',
   ] },
 ];
+// Each discipline names the propositions that rest on it; the link is shown here from the other side.
+const drawsOn = (n: string) => disciplines.filter((d) => d.thesis.some((t) => t.n === n));
 ---
 
 <BaseLayout title="Thesis" description="Ten propositions on good rule. It is scarce, it does not maintain itself, and it lasts only where a structure carries it.">
@@ -55,10 +58,13 @@ const theses: { n: string; title: string; body: string[] }[] = [
 
   <ol class="wrap theses">
     {theses.map((t) => (
-      <li class="reveal">
+      <li class="reveal" id={t.n.toLowerCase()}>
         <span class="n">{t.n}</span>
         <h2>{t.title}</h2>
         {t.body.map((p) => <p>{p}</p>)}
+        {drawsOn(t.n).length > 0 && (
+          <p class="src">Draws on {drawsOn(t.n).map((d) => <a href={`/disciplines/${d.slug}`}>{d.name}</a>)}</p>
+        )}
       </li>
     ))}
   </ol>

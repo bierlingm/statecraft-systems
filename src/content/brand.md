@@ -49,7 +49,15 @@ Projects, programmes and tools come and go. The site names none of them: no prog
 
 **Builds** have plain names (Direct booking, Clinical intake) and one line saying what each demonstrates.
 
-**Disciplines** are called by their established names and credited to the person who worked each out: structural dynamics (Robert Fritz), natural law (Curt Doolittle), currency design (Arthur Brock), operative traditions (Miguel Angel Fernandez). Each is linked to its source. On the Disciplines page, what the source says is kept apart from what we do with it.
+**Disciplines** are called by their established names and credited to the person who worked each out: structural dynamics (Robert Fritz), natural law (Curt Doolittle), currency design (Arthur Brock), operative traditions (Miguel A. Fernandez). Each has a page of its own under `/disciplines/`, built from `src/data/disciplines.ts`. Every page has the same five parts, in this order:
+
+1. Who worked it out, with the facts a reader needs to place it.
+2. One drawn figure on the black ground, in the shape grammar, with a legend.
+3. What it says: the source's ideas in plain words, each with one exact quotation and a link to the page it comes from. A quotation is checked against that page before it is published.
+4. How we use it: only things the site shows elsewhere (the method, the terms, a build), with one document from the work set as a sheet, and the propositions of the thesis that rest on it.
+5. Where our use stops, and the sources.
+
+The fifth part matters as much as the third. Each of these bodies of work is wider than our use of it, and some of what lies outside our use is contested. The page says what we take and says that we take nothing else.
 
 **Concepts** from the thesis (structural tension, advance and oscillate, reciprocity) are working vocabulary in lower case, explained where first used.
 

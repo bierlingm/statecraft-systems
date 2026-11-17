@@ -1,0 +1,67 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import DisciplineFigure from '../../components/DisciplineFigure.astro';
+import ContactBlock from '../../components/ContactBlock.astro';
+import { disciplines } from '../../data/disciplines';
+
+// The four bodies of work the practice draws on. Each has a page of its own.
+// This page is about the ideas. What is sold is on the home, work and method pages.
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  name: 'Disciplines',
+  url: 'https://statecraft.systems/disciplines/',
+  hasPart: disciplines.map((d) => ({
+    '@type': 'Article',
+    headline: `${d.name}, after ${d.by}`,
+    url: `https://statecraft.systems/disciplines/${d.slug}/`,
+  })),
+};
+---
+
+<BaseLayout title="Disciplines" description="The four bodies of work Statecraft Systems draws on, each with a page of its own: structural dynamics (Robert Fritz), natural law (Curt Doolittle), currency design (Arthur Brock) and operative traditions (Miguel Angel Fernandez)." jsonLd={jsonLd}>
+  <section class="wrap page-head">
+    <h1>Four disciplines.</h1>
+    <p class="lede">The practice draws on four bodies of work, each worked out by someone else. Every one has a page here that says what it holds, how we use it, where our use stops and where to read the source.</p>
+  </section>
+
+  <section class="wrap plates" aria-label="The four disciplines">
+    {disciplines.map((d) => (
+      <article class="plate dplate reveal" id={d.slug}>
+        <a href={`/disciplines/${d.slug}`}>
+          <div class="plate-ground dark">
+            <DisciplineFigure kind={d.slug} label={d.figure.label} />
+          </div>
+          <div class="caption">
+            <div class="top">
+              <h2>{d.name}</h2>
+              <span class="status">{d.by}</span>
+            </div>
+            <p class="asks">{d.asks}</p>
+            <p class="sum">{d.summary}</p>
+            <span class="more">Read</span>
+          </div>
+        </a>
+      </article>
+    ))}
+  </section>
+
+  <section class="band" aria-labelledby="for-h">
+    <div class="wrap section">
+      <h2 class="statement" id="for-h">What each is for.</h2>
+      <div class="matrix-head" aria-hidden="true"><span>Discipline</span><span>Where it shows in a build</span><span>In the thesis</span></div>
+      <div class="matrix">
+        {disciplines.map((d) => (
+          <a href={`/disciplines/${d.slug}`}>
+            <span class="name">{d.name}</span>
+            <span class="q">{d.use.lead}</span>
+            <span class="w">{d.thesis.map((t) => <span><b>{t.n}</b>{t.title}</span>)}</span>
+          </a>
+        ))}
+      </div>
+      <div class="after"><a class="btn ghost" href="/thesis">Read the thesis</a></div>
+    </div>
+  </section>
+
+  <ContactBlock />
+</BaseLayout>

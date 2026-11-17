@@ -1,0 +1,54 @@
+---
+// Figures for the disciplines, in the same grammar as the plates: a circle is a
+// person, a square is a thing that holds, two-pixel rules, vermilion for what is
+// at stake. They sit on the black ground. No labels inside the drawing: the
+// legend beside or under it does the naming.
+interface Props {
+  kind: 'structural-dynamics' | 'natural-law' | 'currency-design' | 'operative-traditions';
+  label: string;
+}
+const { kind, label } = Astro.props;
+const gates = [160, 230, 300, 370, 440, 510];
+const cells = [0, 1, 2, 3, 4, 5, 6, 7];
+---
+
+<svg class="drawing" role="img" aria-label={label} viewBox="0 0 640 400" fill="none">
+  {kind === 'structural-dynamics' && (
+    <>
+      <path d="M40 130H600M230 100V160M410 100V160" />
+      <circle class="s" cx="320" cy="130" r="26" />
+      <path class="a" d="M40 270H556" />
+      <path d="M40 240V300" />
+      <rect class="fa" x="552" y="246" width="48" height="48" />
+    </>
+  )}
+  {kind === 'natural-law' && (
+    <>
+      <circle cx="66" cy="200" r="26" />
+      <path d="M92 200H552" />
+      {gates.map((x) => <path d={`M${x} 110V290`} />)}
+      <rect class="fa" x="552" y="176" width="48" height="48" />
+    </>
+  )}
+  {kind === 'currency-design' && (
+    <>
+      <circle cx="66" cy="110" r="26" />
+      <circle cx="574" cy="110" r="26" />
+      <path d="M92 110H548" />
+      <circle class="fa" cx="410" cy="110" r="13" />
+      <path class="a" d="M410 123V250" />
+      {cells.map((i) => <rect class={i < 5 ? 'f' : undefined} x={80 + i * 60} y="250" width="60" height="60" style={i >= 5 ? 'stroke:none' : undefined} />)}
+      <rect class="fa" x="380" y="250" width="60" height="60" />
+      <path d="M140 250V310M200 250V310M260 250V310M320 250V310M380 250V310M440 250V310M500 250V310" />
+      <rect x="80" y="250" width="480" height="60" />
+    </>
+  )}
+  {kind === 'operative-traditions' && (
+    <>
+      <circle cx="150" cy="236" r="70" />
+      <rect x="400" y="166" width="140" height="140" />
+      <path d="M220 236H396M374 218L398 236L374 254" />
+      <path class="a" d="M470 166C470 20 150 20 150 160M132 138L150 162L168 138" />
+    </>
+  )}
+</svg>

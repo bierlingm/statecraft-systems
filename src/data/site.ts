@@ -3,6 +3,7 @@
 // folders under public/) are deliberately absent and must stay absent.
 // `updated` is the date the page's content last changed (YYYY-MM-DD).
 import { plates } from './work';
+import { disciplines } from './disciplines';
 
 export const SITE_URL = 'https://statecraft.systems';
 export const SITE_NAME = 'Statecraft Systems';
@@ -13,13 +14,15 @@ export const SITE_DESCRIPTION =
 export const QUICK_ANSWER_DATE = '2026-10-27';
 /** Date of the last pass that changed what the main pages say (not only how they look). */
 export const REVISED = '2026-11-16';
+/** Date the disciplines pages were last changed. */
+export const DISCIPLINES_REVISED = '2026-11-17';
 
 export interface PublicPage {
   path: string;
   title: string;
   summary: string;
   updated: string;
-  section: 'Main' | 'Work' | 'Details';
+  section: 'Main' | 'Work' | 'Disciplines' | 'Details';
 }
 
 export const publicPages: PublicPage[] = [
@@ -38,8 +41,11 @@ export const publicPages: PublicPage[] = [
     summary: 'About Statecraft Systems: what the name means, the three scales it works at (person, institution, network), the thesis behind the work, and who does it.' },
   { path: '/thesis/', title: 'Thesis', section: 'Main', updated: REVISED,
     summary: 'Ten propositions on good rule. It is scarce, it does not maintain itself, and it lasts only where a structure carries it.' },
-  { path: '/disciplines/', title: 'Disciplines', section: 'Main', updated: REVISED,
-    summary: 'The four bodies of work the practice draws on: structural dynamics (Robert Fritz), natural law (Curt Doolittle), currency design (Arthur Brock) and operative traditions (Miguel Angel Fernandez).' },
+  { path: '/disciplines/', title: 'Disciplines', section: 'Main', updated: DISCIPLINES_REVISED,
+    summary: 'The four bodies of work the practice draws on, each with a page of its own: structural dynamics (Robert Fritz), natural law (Curt Doolittle), currency design (Arthur Brock) and operative traditions (Miguel A. Fernandez). Each page says what the source holds, how Statecraft Systems uses it, where that use stops and where to read the source.' },
+  ...disciplines.map((d): PublicPage => ({
+    path: `/disciplines/${d.slug}/`, title: `${d.name} (${d.by})`, section: 'Disciplines', updated: DISCIPLINES_REVISED, summary: d.summary,
+  })),
   { path: '/contact/', title: 'Contact', section: 'Main', updated: REVISED,
     summary: 'Write to Statecraft Systems. Moritz Bierling replies. Includes answers to common questions.' },
   { path: '/support/', title: 'Support', section: 'Details', updated: '2026-10-14',

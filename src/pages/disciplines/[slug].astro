@@ -1,0 +1,147 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Tracks from '../../components/Tracks.astro';
+import DisciplineFigure from '../../components/DisciplineFigure.astro';
+import ContactBlock from '../../components/ContactBlock.astro';
+import { disciplines, type Discipline } from '../../data/disciplines';
+
+// One discipline: who worked it out, what it says, how we use it, where our use
+// stops, and where to read the source. This page is about the ideas and sells nothing.
+
+export function getStaticPaths() {
+  return disciplines.map((d, i) => ({
+    params: { slug: d.slug },
+    props: { d, prev: disciplines[i - 1], next: disciplines[i + 1] },
+  }));
+}
+
+interface Props {
+  d: Discipline;
+  prev?: Discipline;
+  next?: Discipline;
+}
+const { d, prev, next } = Astro.props;
+const url = `https://statecraft.systems/disciplines/${d.slug}/`;
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: `${d.name}, after ${d.by}`,
+  description: d.summary,
+  url,
+  about: { '@type': 'Person', name: d.by },
+  author: { '@type': 'Organization', name: 'Statecraft Systems', url: 'https://statecraft.systems/' },
+  citation: d.sources.filter((s) => s.href).map((s) => ({ '@type': 'CreativeWork', name: s.title, url: s.href })),
+};
+---
+
+<BaseLayout title={d.name} description={d.summary} jsonLd={jsonLd}>
+  <section class="wrap page-head dhead">
+    <h1>{d.name}</h1>
+    <p class="lede">{d.lede}</p>
+    <dl class="facts">
+      {d.facts.map((f) => (
+        <div><dt>{f.k}</dt><dd>{f.href ? <a href={f.href} rel="noopener">{f.v}</a> : f.v}</dd></div>
+      ))}
+    </dl>
+  </section>
+
+  <section class="section ground" aria-labelledby="fig-h">
+    <div class="wrap">
+      <div class="figure-head">
+        <h2 class="statement" id="fig-h">{d.figure.title} <em>{d.figure.em}</em></h2>
+        <p>{d.figure.caption}</p>
+      </div>
+      {d.slug === 'structural-dynamics'
+        ? <Tracks />
+        : (
+          <div class="dfig">
+            <DisciplineFigure kind={d.slug} label={d.figure.label} />
+            <ul class="legend">{d.figure.legend.map((l) => <li><span class:list={["g", /^\d+$/.test(l.g) ? "num" : l.g]} aria-hidden="true">{/^\d+$/.test(l.g) ? l.g : ""}</span>{l.t}</li>)}</ul>
+          </div>
+        )}
+    </div>
+  </section>
+
+  <section class="wrap section ideas" aria-labelledby="ideas-h">
+    <h2 class="statement" id="ideas-h">What it says.</h2>
+    <dl class="terms">
+      {d.ideas.map((idea) => (
+        <div class="reveal">
+          <dt>{idea.term}</dt>
+          <dd>
+            {idea.text.map((p) => <p>{p}</p>)}
+            {idea.quote && (
+              <blockquote>
+                <p>“{idea.quote.text}”</p>
+                <cite>{idea.quote.href ? <a href={idea.quote.href} rel="noopener">{idea.quote.cite}</a> : idea.quote.cite}</cite>
+              </blockquote>
+            )}
+          </dd>
+        </div>
+      ))}
+    </dl>
+  </section>
+
+  <section class="band" aria-labelledby="use-h">
+    <div class="wrap duo">
+      <div class="say">
+        <h2 id="use-h">How we use it.</h2>
+        <p class="lead">{d.use.lead}</p>
+        {d.use.text.map((p) => <p set:html={p} />)}
+        {d.thesis.length > 0 && (
+          <p class="rests">
+            <b>In the thesis</b>
+            {d.thesis.map((t) => <a href={`/thesis/#${t.n.toLowerCase()}`}><span>{t.n}</span>{t.title}</a>)}
+          </p>
+        )}
+      </div>
+      <div class="show">
+        <figure class="sheet chart reveal">
+          <figcaption><span>{d.sheet.title}</span><span>{d.sheet.note}</span></figcaption>
+          <ol>
+            {d.sheet.rows.map((r) => (
+              <li class:list={{ mark: r.mark }}>
+                <span class="k">{r.k}</span>
+                <span class="v">{r.b && <b>{r.b}</b>}{r.v}</span>
+              </li>
+            ))}
+          </ol>
+          <p class="foot"><span>{d.sheet.foot}</span>{d.sheet.link && <a href={d.sheet.link.href}>{d.sheet.link.label}</a>}</p>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap split" aria-labelledby="leave-h">
+    <div class="left"><h2 id="leave-h">Where our use stops.</h2></div>
+    <div class="right prose">
+      {d.leave.map((p) => <p>{p}</p>)}
+    </div>
+  </section>
+
+  <section class="wrap split" aria-labelledby="src-h">
+    <div class="left"><h2 id="src-h">Sources.</h2></div>
+    <div class="right ledger sources">
+      {d.sources.map((s) => (
+        <div>
+          <span class="name">{s.href ? <a href={s.href} rel="noopener">{s.title}</a> : s.title}</span>
+          <span class="meta">{s.meta}</span>
+          <span class="desc">{s.note}</span>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <div class="wrap dpager">
+    <nav class="pager" aria-label="More disciplines">
+      {prev
+        ? <a href={`/disciplines/${prev.slug}`}><span class="t"><span class="arr back" aria-hidden="true"></span>{prev.name}</span></a>
+        : <a href="/disciplines"><span class="t"><span class="arr back" aria-hidden="true"></span>All four</span></a>}
+      {next
+        ? <a href={`/disciplines/${next.slug}`}><span class="t">{next.name}<span class="arr" aria-hidden="true"></span></span></a>
+        : <a href="/disciplines"><span class="t">All four<span class="arr" aria-hidden="true"></span></span></a>}
+    </nav>
+  </div>
+
+  <ContactBlock />
+</BaseLayout>
