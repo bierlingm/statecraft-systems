@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build",
+    "build": "astro build && node scripts/check-meta.mjs",
+    "check:meta": "node scripts/check-meta.mjs",
     "preview": "astro preview"
   },
   "dependencies": {

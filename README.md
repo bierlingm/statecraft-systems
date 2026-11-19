@@ -27,7 +27,27 @@ Dev server runs at `http://localhost:4321`.
 npm run build
 ```
 
-Static files output to `dist/`.
+Static files output to `dist/`. Build also runs the meta/social audit (see below).
+
+## Meta & social previews
+
+Every **public** HTML page must ship with:
+
+- `<title>` and `meta description`
+- Open Graph: `og:type`, `og:title`, `og:description`, `og:url`, `og:image`
+- Twitter: `twitter:card`, `twitter:title`, `twitter:description`, `twitter:image`
+- Image files that exist in the build (`public/og-default.png` is the site-wide fallback, 1200×630)
+
+**Astro pages** inherit this from `src/layouts/BaseLayout.astro` — pass `title` (required) and optionally `description`, `image`, `imageAlt`, or `noindex`.
+
+**Static HTML under `public/`** must include the tags by hand. Copy a complete block from e.g. `public/cashclinic/index.html`.
+
+**Gated / admin pages** (`meta name="robots" content="noindex"`) only need a title.
+
+```bash
+npm run check:meta   # audit dist/ only (after a build)
+npm run build        # astro build + check:meta (fails if anything is missing)
+```
 
 ## Preview
 

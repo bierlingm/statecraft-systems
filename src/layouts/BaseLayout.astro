@@ -4,7 +4,12 @@ import '../styles/global.css';
 interface Props {
   title: string;
   description?: string;
+  /** Path or absolute URL for the social preview image (1200×630). Defaults to /og-default.png */
   image?: string;
+  /** Accessible alt text for the social preview image */
+  imageAlt?: string;
+  /** Set true for gated/admin pages that should not be shared or indexed */
+  noindex?: boolean;
   footerEmail?: string;
   /** Structured data for this page. Must match what the page says. */
   jsonLd?: object;
@@ -12,16 +17,28 @@ interface Props {
   tone?: 'bone' | 'field' | 'ground';
 }
 
-const { title, description, image, footerEmail = 'm@statecraft.systems', jsonLd, tone = 'bone' } = Astro.props;
+const {
+  title,
+  description,
+  image,
+  imageAlt,
+  noindex = false,
+  footerEmail = 'm@statecraft.systems',
+  jsonLd,
+  tone = 'bone',
+} = Astro.props;
 
 const SITE = 'Statecraft Systems';
 const DEFAULT_DESCRIPTION = 'Statecraft Systems builds the working parts of small institutions: intake, booking, enquiries and the systems behind them.';
+const DEFAULT_IMAGE = '/og-default.png';
+const DEFAULT_IMAGE_ALT = 'Statecraft Systems';
 const SITE_URL = 'https://statecraft.systems';
 
 const pageTitle = title === SITE ? SITE : `${title} — ${SITE}`;
 const metaDescription = description || DEFAULT_DESCRIPTION;
 const canonicalUrl = new URL(Astro.url.pathname, SITE_URL).href;
-const ogImage = new URL(image || '/og-default.png', SITE_URL).href;
+const ogImage = new URL(image || DEFAULT_IMAGE, SITE_URL).href;
+const ogImageAlt = imageAlt || DEFAULT_IMAGE_ALT;
 
 const path = Astro.url.pathname.replace(/\/$/, '') || '/';
 // Two halves. The offering: what can be asked for, the proof, how it runs.
@@ -43,6 +60,7 @@ const inPractice = ['/practice', '/thesis', '/disciplines'].some(under) ? 'page'
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{pageTitle}</title>
     <meta name="description" content={metaDescription} />
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
     <meta name="theme-color" content={tone === 'field' ? '#1029c4' : tone === 'ground' ? '#09090d' : '#f1f0ea'} />
     <link rel="canonical" href={canonicalUrl} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -56,11 +74,14 @@ const inPractice = ['/practice', '/thesis', '/disciplines'].some(under) ? 'page'
     <meta property="og:image" content={ogImage} />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={ogImageAlt} />
+    <meta property="og:locale" content="en_US" />
 
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={pageTitle} />
     <meta name="twitter:description" content={metaDescription} />
     <meta name="twitter:image" content={ogImage} />
+    <meta name="twitter:image:alt" content={ogImageAlt} />
 
     <link rel="alternate" type="application/feed+json" title="Statecraft Systems: public pages" href="/feed.json" />
     <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
