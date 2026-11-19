@@ -1,0 +1,31 @@
+# fruitfulbeginnings-forms
+# Receives the Fruitful Beginnings application and enrollment forms and
+# emails them with Cloudflare Email Sending. Not deployed by this preview.
+# LAURA_EMAIL is a secret (wrangler secret put LAURA_EMAIL). Do not put
+# Laura's address in this file. Until that secret is set, nothing is sent.
+name = "fruitfulbeginnings-forms"
+main = "src/index.js"
+compatibility_date = "2026-11-16"
+
+[[send_email]]
+name = "EMAIL"
+allowed_sender_addresses = ["rooms@statecraft.systems"]
+
+[vars]
+NOTIFY_FROM = "rooms@statecraft.systems"
+
+# Intended route, to add when this worker is actually deployed:
+# [[routes]]
+# pattern = "statecraft.systems/api/fruitfulbeginnings/*"
+# zone_name = "statecraft.systems"
+
+[observability]
+enabled = true
+
+[observability.logs]
+enabled = true
+head_sampling_rate = 1
+
+[observability.traces]
+enabled = true
+head_sampling_rate = 1
